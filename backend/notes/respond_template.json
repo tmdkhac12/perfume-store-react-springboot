@@ -1,0 +1,123 @@
+{
+  "type": "GET",
+
+  "timestamp": "2025-12-03T12:00:00Z",
+  "status": 200,
+  "path": "/api/v1/appointments",
+  "data": [
+    {
+      "id": 1,
+      "customerId": 12,
+      "appointmentDate": "2025-12-20T10:00:00",
+      "status": "pending"
+    },
+    {
+      "id": 2,
+      "customerId": 14,
+      "appointmentDate": "2025-12-21T09:00:00",
+      "status": "confirmed"
+    }
+  ],
+  "message": "Fetched appointments successfully",
+  "error": null
+}
+
+{
+  "type": "GET by Id",
+
+  "timestamp": "2025-12-03T12:00:00Z",
+  "status": 200,
+  "path": "/api/v1/appointments/1",
+  "data": {
+    "id": 1,
+    "customerId": 12,
+    "appointmentDate": "2025-12-20T10:00:00",
+    "status": "pending"
+  },
+  "message": "Appointment retrieved",
+  "error": null
+}
+
+{
+  "type": "POST",
+
+  "timestamp": "2025-12-03T12:00:00Z",
+  "status": 201,
+  "path": "/api/v1/appointments",
+  "data": {
+    "id": 101,
+    "customerId": 12,
+    "serviceId": 5,
+    "appointmentDate": "2025-12-20T10:00:00",
+    "status": "pending"
+  },
+  "message": "Appointment created successfully",
+  "error": null
+}
+
+{
+  "type": "PUT",
+
+  "timestamp": "2025-12-03T12:00:00Z",
+  "status": 200,
+  "path": "/api/v1/appointments/101",
+  "data": {
+    "id": 101,
+    "customerId": 12,
+    "serviceId": 5,
+    "appointmentDate": "2025-12-22T11:00:00",
+    "status": "confirmed"
+  },
+  "message": "Appointment updated successfully",
+  "error": null
+}
+
+{
+  "req": {
+    "status": "canceled"
+  },
+  "type": "PATCH",
+
+  "timestamp": "2025-12-03T12:00:00Z",
+  "status": 200,
+  "path": "/api/v1/appointments/101",
+  "data": {
+    "id": 101,
+    "status": "canceled"
+  },
+  "message": "Appointment status updated",
+  "error": null
+}
+
+{
+  "type": "DELETE",
+
+  "timestamp": "2025-12-03T12:00:00Z",
+  "status": 200,
+  "path": "/api/v1/appointments/101",
+  "data": null,
+  "message": "Appointment deleted",
+  "error": null
+}
+
+{
+  "type": "404 Not Found",
+
+  "timestamp": "2025-12-03T12:00:00Z",
+  "status": 404,
+  "path": "/api/v1/appointments/999",
+  "data": null,
+  "message": "Appointment not found",
+  "error": "NOT_FOUND"
+}
+
+{
+  "type": "400 Bad Request",
+
+  "timestamp": "2025-12-03T12:00:00Z",
+  "status": 400,
+  "path": "/api/v1/appointments",
+  "data": null,
+  "message": "Appointment date cannot be in the past",
+  "error": "INVALID_DATE"
+}

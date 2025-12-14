@@ -1,4 +1,0 @@
-- Request convention:
-    + Use camelCase for payloads key
-    + Filter, sort, paginate using query params: 'GET /appointments?status=confirmed&sort=date&limit=10&page=2'
-    + Get requests always send data using query params

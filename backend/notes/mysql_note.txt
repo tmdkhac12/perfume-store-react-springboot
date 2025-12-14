@@ -6,3 +6,7 @@ volume to store your data temporarily and the volume will vanish when you run 'd
 you turn the container on/off
 - A volume can store data regardless you deleted the container and the image, it will only vanish when you
 delete it manually or when you run 'docker compose down -v'
+
+- Tables name convention:
+    + Table name should be singular (user, brand)
+    + Using snake_case lowercase for table name & fields name  (invoice_details, created_at)

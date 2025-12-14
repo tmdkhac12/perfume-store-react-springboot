@@ -1,0 +1,7 @@
+- Mapper needs an annotation @NonArgsConstructor, getters and setters for all related entities and DTOs
+to work
+- A mapper's methods do not have naming conventions and returned data types, you can name the methods and
+the data types returned to anything you want
+
+- A mapper can have only one target object and multiple source objects
+- Mapstruct bases on fields which have matching names & data types to deduce

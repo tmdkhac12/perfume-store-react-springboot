@@ -1,0 +1,3 @@
+- Validation should be performed in Controller
+- Validation annotations are placed in Request DTOs not in entities and Response DTOs
+- If validation fails → Spring throws 'MethodArgumentNotValidException'

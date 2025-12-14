@@ -1,15 +1,27 @@
 version: '3.8'
 
 services:
-  db:
+  mysql:
     image: mysql:8.1
     environment:
       LANG: C.UTF-8 # Set the interpreter to uft8 instead of latin1
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"   # Allow the root password to be empty
-      MYSQL_USER: "${MYSQL_USER}"           # Create a user that can only operate in the MYSQL_DATABASE
-      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
-      MYSQL_DATABASE: "${MYSQL_DATABASE}"    # Name of the default database to create
+      MYSQL_ALLOW_EMPTY_PASSWORD: yes     # Allow the root password to be empty
+      MYSQL_USER: ${MYSQL_USERNAME}       # Create a user that can only operate in the MYSQL_DATABASE
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}   # Name of the default database to create
     ports:
       - "3307:3306"
     volumes:
       - ./database:/docker-entrypoint-initdb.d  # Base on all the files in ./database to create db
+
+#  backend:
+#    build: .
+#    ports:
+#      - "8081:8080"
+#    depends_on:
+#      - mysql
+#    environment:
+#      # envs for application.yml
+#      MYSQL_URL: ${MYSQL_URL}
+#      MYSQL_USERNAME: ${MYSQL_USERNAME}
+#      MYSQL_PASSWORD: ${MYSQL_PASSWORD}

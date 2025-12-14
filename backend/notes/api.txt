@@ -1,0 +1,11 @@
+- Request convention:
+    + Use camelCase for payloads key
+    + Filter, sort, paginate using query params: 'GET /appointments?status=confirmed&sort=date&limit=10&page=2'
+    + Get requests always send data using query params
+    + If 'get all' does not find any records, return an empty list
+
+- PUT for a whole object, PATCH for partial object
+
+- ResponseEntity is a class that gives you the role to customize a response instead of returning an object
+with 200 status, you can customize both headers and body via its built-in methods
+    + Declare syntax: ResponseEntity<Body_Object>

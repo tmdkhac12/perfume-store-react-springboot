@@ -1,0 +1,15 @@
+- JPA is a set of rules, it defines all the annotations (@Entity, @Table, @Column, ...)
+- Hibernate is an implementation of JPA, it is the engine that executes all the queries and supplies ORM
+
+- Hibernate doesn't need getters and setters for reading database, it bases on the entity's fields to reflect
+directly to the table's fields, Jackson is the thing relies on public getters and setters from entity to return
+a response to the user
+- Hibernate and JPA entity require a no-args constructor to work
+
+- @GeneratedValue strategy defines how the id attribute is created, if you don't specify, it will be set AUTO
+by default, that means Hibernate will choose it base on your DB_URL
+- @Transactional ensures that the whole method must success before returning value or everything is rolled
+back
+
+- Optional (Java 8+) is a wrapper class represents a value that may or may not exist instead of returning null
+- .orElse means ifPresent return .get() if not return ...

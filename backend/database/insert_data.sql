@@ -1,4 +1,4 @@
-INSERT INTO User (id, name, email, username, hashed_password, is_superuser, is_active) VALUES
+INSERT INTO user (id, name, email, username, hashed_password, is_superuser, is_active) VALUES
 (1, 'Quản Trị Viên', 'quantrivien@gmail.com', 'admin_qtv', 'hashed_pw_1', TRUE, TRUE),
 (2, 'Nguyễn Thị Hạnh', 'hanhnguyen@gmail.com', 'hanh_nt', 'hashed_pw_2', FALSE, TRUE),
 (3, 'Trần Văn Mạnh', 'manhtran@gmail.com', 'manh_tv', 'hashed_pw_3', FALSE, TRUE),
@@ -10,7 +10,7 @@ INSERT INTO User (id, name, email, username, hashed_password, is_superuser, is_a
 (9, 'Bùi Tấn Phát', 'phatbui@gmail.com', 'phat_bt', 'hashed_pw_9', FALSE, TRUE),
 (10, 'Chung Gia Khiêm', 'khiemchung@gmail.com', 'khiem_cg', 'hashed_pw_10', FALSE, TRUE);
 
-INSERT INTO Brand (id, name, hide) VALUES
+INSERT INTO brand (id, name, hide) VALUES
 (1, 'Chanel', FALSE),
 (2, 'Dior', FALSE),
 (3, 'Gucci', FALSE),
@@ -22,7 +22,7 @@ INSERT INTO Brand (id, name, hide) VALUES
 (9, 'Jo Malone', FALSE),
 (10, 'Montblanc', FALSE);
 
-INSERT INTO Volume (id, volume, hide) VALUES
+INSERT INTO volume (id, volume, hide) VALUES
 (1, 30.0, FALSE),
 (2, 50.0, FALSE),
 (3, 100.0, FALSE),
@@ -34,14 +34,14 @@ INSERT INTO Volume (id, volume, hide) VALUES
 (9, 125.0, FALSE),
 (10, 5.0, FALSE);
 
-INSERT INTO Note (id, name, hide) VALUES
+INSERT INTO note (id, name, hide) VALUES
 (1, 'Bergamot', FALSE), (2, 'Rose', FALSE), (3, 'Sandalwood', FALSE),
 (4, 'Vanilla', FALSE), (5, 'Patchouli', FALSE), (6, 'Lavender', FALSE),
 (7, 'Jasmine', FALSE), (8, 'Oakmoss', FALSE), (9, 'Ambroxan', FALSE),
 (10, 'Mandarin Orange', FALSE), (11, 'Lemon', FALSE), (12, 'Vetiver', FALSE),
 (13, 'Musk', FALSE), (14, 'Cedar', FALSE), (15, 'Tuberose', FALSE);
 
-INSERT INTO Perfume (id, name, gender, description, concentration, brand_id, hide) VALUES
+INSERT INTO perfume (id, name, gender, description, concentration, brand_id, hide) VALUES
 (1, 'Coco Mademoiselle', 'Female', 'Vibrant and sophisticated floral-amber.', 'EDP', 1, FALSE),
 (2, 'Sauvage', 'Male', 'A radical composition for a strong, honest man.', 'EDT', 2, FALSE),
 (3, 'Guilty Pour Homme', 'Male', 'A woody, aromatic scent for the contemporary explorer.', 'EDP', 3, FALSE),
@@ -55,7 +55,7 @@ INSERT INTO Perfume (id, name, gender, description, concentration, brand_id, hid
 (11, 'No. 5', 'Female', 'The ultimate symbol of luxury and timeless elegance.', 'Parfum', 1, FALSE),
 (12, 'Hypnotic Poison', 'Female', 'An intoxicating and extravagant oriental.', 'EDT', 2, FALSE);
 
-INSERT INTO Address (id, user_id, receiver, phone_number, city_name, ward_name, delivery_address, hide) VALUES
+INSERT INTO address (id, user_id, receiver, phone_number, city_name, ward_name, delivery_address, hide) VALUES
 (1, 2, 'Nguyễn Thị Hạnh', '0912345678', 'Hồ Chí Minh', 'Phường Bến Nghé', '125 Hai Bà Trưng', FALSE),
 (2, 3, 'Trần Văn Mạnh', '0987654321', 'Hà Nội', 'Phường Hàng Buồm', '60 Hàng Ngang', FALSE),
 (3, 4, 'Lê Anh Thư', '0955511223', 'Đà Nẵng', 'Phường Hòa Cường Bắc', '45 Phan Đăng Lưu', FALSE),
@@ -67,7 +67,7 @@ INSERT INTO Address (id, user_id, receiver, phone_number, city_name, ward_name, 
 (9, 10, 'Chung Gia Khiêm', '0922244556', 'Vũng Tàu', 'Phường Thắng Nhất', '606 Lê Hồng Phong', FALSE),
 (10, 1, 'Quản Trị Viên', '0900000000', 'Hà Nội', 'Phường Tràng Tiền', '707 Đinh Tiên Hoàng', FALSE);
 
-INSERT INTO Volume_Perfume (id, perfume_id, volume_id, price) VALUES
+INSERT INTO volume_perfume (id, perfume_id, volume_id, price) VALUES
 (1, 1, 2, 120.00), (2, 1, 3, 180.00),
 (3, 2, 3, 150.00), (4, 2, 4, 35.00),
 (5, 5, 5, 420.00),
@@ -80,7 +80,7 @@ INSERT INTO Volume_Perfume (id, perfume_id, volume_id, price) VALUES
 (14, 4, 2, 160.00),
 (15, 8, 3, 95.00);
 
-INSERT INTO Sample_Image (id, perfume_id, path) VALUES
+INSERT INTO sample_image (id, perfume_id, path) VALUES
 (1, 1, '/images/coco_mademoiselle_bottle.jpg'), (2, 2, '/images/sauvage_bottle.jpg'),
 (3, 5, '/images/aventus_main.jpg'), (4, 6, '/images/eros_main.jpg'),
 (5, 7, '/images/libre_bottle.jpg'), (6, 9, '/images/wood_sage_main.jpg'),
@@ -88,7 +88,7 @@ INSERT INTO Sample_Image (id, perfume_id, path) VALUES
 (9, 12, '/images/hypnotic_poison.jpg'), (10, 3, '/images/guilty_homme.jpg'),
 (11, 4, '/images/black_orchid_main.jpg'), (12, 8, '/images/omnia_crystalline.jpg');
 
-INSERT INTO Note_Perfume (id, note_id, perfume_id, type) VALUES
+INSERT INTO note_perfume (id, note_id, perfume_id, type) VALUES
 (1, 1, 1, 'Top'),    (2, 10, 1, 'Top'),  (3, 11, 1, 'Top'),
 (4, 2, 1, 'Heart'),  (5, 7, 1, 'Heart'),  (6, 15, 1, 'Heart'),
 (7, 5, 1, 'Base'),   (8, 3, 1, 'Base'),   (9, 13, 1, 'Base'),
@@ -105,7 +105,7 @@ INSERT INTO Note_Perfume (id, note_id, perfume_id, type) VALUES
 (34, 12, 10, 'Heart'), (35, 3, 10, 'Heart'),
 (36, 13, 10, 'Base');
 
-INSERT INTO Invoice (id, user_id, address_id, created_at, total, delivery_status, payment_method) VALUES
+INSERT INTO invoice (id, user_id, address_id, created_at, total, delivery_status, payment_method) VALUES
 (1, 2, 1, '2025-11-20 10:30:00', 120.00, 'Shipped', 'Transfer'),    -- Jane Doe (VP ID 1: 120.00)
 (2, 3, 2, '2025-11-25 15:00:00', 185.00, 'Pending', 'Cash'),        -- John Smith (VP ID 3 + 4: 150+35)
 (3, 4, 3, '2025-11-28 09:15:00', 420.00, 'Confirmed', 'Transfer'),   -- Alice Brown (VP ID 5: 420.00)
@@ -117,7 +117,7 @@ INSERT INTO Invoice (id, user_id, address_id, created_at, total, delivery_status
 (9, 10, 9, '2025-12-03 10:00:00', 145.00, 'Pending', 'Transfer'),  -- Chris Chen (VP ID 12: 145.00)
 (10, 2, 1, '2025-12-03 11:00:00', 160.00, 'Shipped', 'Cash');       -- Jane Doe (VP ID 14: 160.00)
 
-INSERT INTO Invoice_Details (id, volume_perfume_id, invoice_id, quantity) VALUES
+INSERT INTO invoice_details (id, volume_perfume_id, invoice_id, quantity) VALUES
 (1, 1, 1, 1),   -- Invoice 1: Coco Mademoiselle 50ml (1)
 (2, 3, 2, 1),   -- Invoice 2: Sauvage 100ml (3)
 (3, 4, 2, 1),   -- Invoice 2: Sauvage 10ml (4)

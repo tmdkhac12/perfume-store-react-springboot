@@ -17,13 +17,9 @@ import java.util.List;
 @Slf4j
 public class GlobalExceptionsHandler {
 
-    private ResponseEntity<?> getErrorRespond(HttpStatus status, String message, HttpServletRequest request) {
-        return ApiResponseFactory.error(status, message, request);
-    }
-
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<?> handleNotFound(NotFoundException ex, HttpServletRequest request) {
-        return getErrorRespond(HttpStatus.NOT_FOUND, ex.getMessage(), request);
+        return ApiResponseFactory.error(HttpStatus.NOT_FOUND, ex.getMessage(), request);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -34,7 +30,7 @@ public class GlobalExceptionsHandler {
                 .map(fieldError -> fieldError.getDefaultMessage())
                 .toList();
 
-        return getErrorRespond(HttpStatus.BAD_REQUEST, errors.getFirst(), request);
+        return ApiResponseFactory.error(HttpStatus.BAD_REQUEST, errors.getFirst(), request);
     }
 
     @ExceptionHandler({
@@ -42,12 +38,12 @@ public class GlobalExceptionsHandler {
             HttpMessageNotReadableException.class
     })
     public ResponseEntity<?> handleBadRequest(Exception ex, HttpServletRequest request) {
-        return getErrorRespond(HttpStatus.BAD_REQUEST, "Invalid Request", request);
+        return ApiResponseFactory.error(HttpStatus.BAD_REQUEST, "Invalid Request", request);
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleUnknown(Exception ex, HttpServletRequest request) {
         log.error(ex.getMessage());
-        return getErrorRespond(HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong, please try again later!", request);
+        return ApiResponseFactory.error(HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong, please try again later!", request);
     }
 }

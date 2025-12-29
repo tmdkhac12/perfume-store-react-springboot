@@ -6,6 +6,7 @@ import com.example.perfume_store.modules.note.dto.response.NoteResponseDTO;
 import com.example.perfume_store.modules.note.entity.Note;
 import com.example.perfume_store.modules.note.mapper.NoteMapper;
 import com.example.perfume_store.modules.note.repository.NoteRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -33,12 +34,14 @@ public class NoteService {
         return noteMapper.toResponseDTO(note);
     }
 
+    @Transactional
     public NoteResponseDTO createNote(NoteRequestDTO requestDTO) {
         Note note = noteMapper.toEntity(requestDTO);
         Note createdNote = noteRepository.save(note);
         return  noteMapper.toResponseDTO(createdNote);
     }
 
+    @Transactional
     public NoteResponseDTO updateNote(int id, NoteRequestDTO requestDTO) {
         Note oldNote = getNoteByIdEntity(id);
         noteMapper.updateEntity(oldNote, requestDTO);
@@ -46,6 +49,7 @@ public class NoteService {
         return noteMapper.toResponseDTO(updatedNote);
     }
 
+    @Transactional
     public void deleteNote(int id) {
         Note note = getNoteByIdEntity(id);
         noteRepository.delete(note);

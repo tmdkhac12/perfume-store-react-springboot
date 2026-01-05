@@ -10,6 +10,8 @@ a response to the user
 by default, that means Hibernate will choose it base on your DB_URL
 - @Transactional ensures that the whole method must success before returning value or everything is rolled
 back
+- @JoinColumn(name = "invoice_id") means use the column 'invoice_id' in this table as a foreign key to
+the entity below .id
 
 - Optional (Java 8+) is a wrapper class represents a value that may or may not exist instead of returning null
 - .orElse means ifPresent return .get() if not return ...

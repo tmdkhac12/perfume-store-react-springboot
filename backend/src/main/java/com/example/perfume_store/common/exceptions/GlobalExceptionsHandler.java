@@ -2,13 +2,14 @@ package com.example.perfume_store.common.exceptions;
 
 import com.example.perfume_store.common.utils.ApiResponseFactory;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.HandlerMethodValidationException;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.List;
@@ -22,6 +23,9 @@ public class GlobalExceptionsHandler {
         return ApiResponseFactory.error(HttpStatus.NOT_FOUND, ex.getMessage(), request);
     }
 
+    /**
+     * Request DTO validation fails
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleValidation(MethodArgumentNotValidException ex, HttpServletRequest request) {
         List<String> errors = ex.getBindingResult()
@@ -33,12 +37,26 @@ public class GlobalExceptionsHandler {
         return ApiResponseFactory.error(HttpStatus.BAD_REQUEST, errors.getFirst(), request);
     }
 
+
+    /**
+     * Mismatch datatype
+     */
     @ExceptionHandler({
             MethodArgumentTypeMismatchException.class,
-            HttpMessageNotReadableException.class
+            HandlerMethodValidationException.class,
     })
     public ResponseEntity<?> handleBadRequest(Exception ex, HttpServletRequest request) {
         return ApiResponseFactory.error(HttpStatus.BAD_REQUEST, "Invalid Request", request);
+    }
+
+    /**
+     * Request Params validation fails
+     */
+    @ExceptionHandler({
+            ConstraintViolationException.class
+    })
+    public ResponseEntity<?> handleRequestParamValidation(Exception ex, HttpServletRequest request) {
+        return ApiResponseFactory.error(HttpStatus.BAD_REQUEST, ex.getMessage(), request);
     }
 
     @ExceptionHandler(Exception.class)

@@ -1,7 +1,15 @@
-- Mapper needs an annotation @NonArgsConstructor, getters and setters for all related entities and DTOs
+- Mapper needs an annotation @NoArgsConstructor, getters and setters for all related entities and DTOs
 to work
-- A mapper's methods do not have naming conventions and returned data types, you can name the methods and
+- A mapper's methods don't have naming conventions and returned data types, you can name the methods and
 the data types returned to anything you want
 
-- A mapper can have only one target object and multiple source objects
+- @MappingTarget can only have one target object and multiple source objects
+- @Mapping(source =) need to be passed a property not a method
+
 - Mapstruct bases on fields which have matching names & data types to deduce
+- Mapstruct looks at public methods (starting with get... or is...) to perform mapping
+
+- Some reasons that's why Mapstruct generates a null method:
+    + Wrong syntax
+    + Lack of getters and setters (compliant Java Bean Convention)
+    + Mapstruct runs before Lombok generates getters and setters

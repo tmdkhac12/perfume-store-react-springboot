@@ -48,6 +48,12 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- Spring Security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
         <!-- Mapstruct -->
         <dependency>
             <groupId>org.mapstruct</groupId>
@@ -60,6 +66,13 @@
             <artifactId>mapstruct-processor</artifactId>
             <version>1.5.5.Final</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- Dependency ensuring Lombok runs before MapStruct -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok-mapstruct-binding</artifactId>
+            <version>0.2.0</version>
         </dependency>
 
         <!-- Validation via annotations -->
@@ -82,6 +95,7 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
+
 
     </dependencies>
 

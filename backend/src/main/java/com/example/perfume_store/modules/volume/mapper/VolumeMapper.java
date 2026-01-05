@@ -17,5 +17,5 @@ public interface VolumeMapper {
 
     Volume toEntity(VolumeRequestDTO requestDTO);
 
-    void updateEntity(@MappingTarget Volume oldVolume, VolumeRequestDTO requestDTO);
+    void updateEntity(@MappingTarget Volume oldVolume, VolumeRequestDTO newVolume);
 }

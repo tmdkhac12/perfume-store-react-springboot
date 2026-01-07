@@ -1,0 +1,15 @@
+---------- DOMAIN ------------
+- Entities, Enum, Repositories which are shared between multiple modules we will place them in the
+domain package
+- Domain package divides subfolders by tables
+
+---------- COMMON ------------
+- Anything has no business meaning and support the system's work, we will place it in the common
+package such as Exceptions, Wrapper classes, Util classes
+
+---------- DIVIDE APIs ------------
+- If an API enforces system authority (identity, access, security) → admin/auth
+- If an API expresses business intent on a resource → business module
+- User is a special module because it relates to 2 things:
+    + System account (identity, access, security)
+    + Business profile (person data)

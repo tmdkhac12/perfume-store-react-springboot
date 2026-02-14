@@ -1,33 +1,45 @@
-package com.example.perfume_store.modules.admin.service;
+package com.example.perfume_store.modules.user.service;
 
 import com.example.perfume_store.common.exceptions.NotFoundException;
+import com.example.perfume_store.common.response.PageResponse;
 import com.example.perfume_store.domain.user.User;
 import com.example.perfume_store.domain.user.UserRepository;
-import com.example.perfume_store.modules.admin.dtos.request.UserAdminCreateRequestDTO;
-import com.example.perfume_store.modules.admin.dtos.request.UserAdminUpdateRequestDTO;
-import com.example.perfume_store.modules.admin.dtos.response.UserAdminResponseDTO;
-import com.example.perfume_store.modules.admin.mapper.AdminMapper;
+import com.example.perfume_store.modules.user.dtos.request.UserAdminCreateRequestDTO;
+import com.example.perfume_store.modules.user.dtos.request.UserAdminUpdateRequestDTO;
+import com.example.perfume_store.modules.user.dtos.response.UserAdminResponseDTO;
+import com.example.perfume_store.modules.user.mapper.UserAdminMapper;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class AdminUserService {
+public class UserAdminService {
 
-    // Domain
     private final UserRepository userRepository;
+    private final UserAdminMapper userAdminMapper;
 
-    // This module
-    private final AdminMapper adminMapper;
-
-    // Auth module
+    // Security module
     private final PasswordEncoder passwordEncoder;
 
     private User getUserByIdEntity(int id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("User not found"));
+    }
+
+    public PageResponse<UserAdminResponseDTO> getPaginatedUsers(int page, int limit) {
+        Pageable pageable = PageRequest.of(page - 1, limit);
+        Page<User> users = userRepository.findAll(pageable);
+        return userAdminMapper.toPageResponse(users);
+    }
+
+    public UserAdminResponseDTO getUserById(int id) {
+        User user = getUserByIdEntity(id);
+        return userAdminMapper.toAdminResponseDTO(user);
     }
 
     @Transactional
@@ -36,20 +48,20 @@ public class AdminUserService {
         String hashedPassword = passwordEncoder.encode("123");
 
         // Convert to entity and set the request password to hashed password
-        User requestedUser = adminMapper.toEntity(userAdminCreateRequestDTO);
-        requestedUser.setHashed_password(hashedPassword);
+        User requestedUser = userAdminMapper.toEntity(userAdminCreateRequestDTO);
+        requestedUser.setHashedPassword(hashedPassword);
 
         // Create user and send the info back to the client
         User createdUser = userRepository.save(requestedUser);
-        return adminMapper.toAdminResponseDTO(createdUser);
+        return userAdminMapper.toAdminResponseDTO(createdUser);
     }
 
     @Transactional
     public UserAdminResponseDTO adminUpdateUser(int id, UserAdminUpdateRequestDTO userAdminUpdateRequestDTO) {
         User oldUser = getUserByIdEntity(id);
-        adminMapper.updateUser(oldUser, userAdminUpdateRequestDTO);
+        userAdminMapper.updateUser(oldUser, userAdminUpdateRequestDTO);
         User udpatedUser = userRepository.save(oldUser);
-        return adminMapper.toAdminResponseDTO(udpatedUser);
+        return userAdminMapper.toAdminResponseDTO(udpatedUser);
     }
 
     @Transactional
@@ -57,9 +69,9 @@ public class AdminUserService {
         User oldUser = getUserByIdEntity(id);
 
         String hashedPassword = passwordEncoder.encode("123");
-        oldUser.setHashed_password(hashedPassword);
+        oldUser.setHashedPassword(hashedPassword);
 
         User udpatedUser = userRepository.save(oldUser);
-        return adminMapper.toAdminResponseDTO(udpatedUser);
+        return userAdminMapper.toAdminResponseDTO(udpatedUser);
     }
 }

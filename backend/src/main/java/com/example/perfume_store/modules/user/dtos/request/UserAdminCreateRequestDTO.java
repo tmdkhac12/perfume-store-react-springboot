@@ -1,4 +1,4 @@
-package com.example.perfume_store.modules.admin.dtos.request;
+package com.example.perfume_store.modules.user.dtos.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

@@ -1,4 +1,4 @@
-package com.example.perfume_store.modules.auth.config;
+package com.example.perfume_store.configs.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

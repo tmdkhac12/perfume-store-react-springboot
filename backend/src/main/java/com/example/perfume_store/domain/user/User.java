@@ -13,7 +13,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String name, email, username, hashed_password;
+    private String name, email, username, hashedPassword;
 
     @Column(name = "is_superuser")
     private boolean superuser;

@@ -7,8 +7,12 @@ domain package
 - Anything has no business meaning and support the system's work, we will place it in the common
 package such as Exceptions, Wrapper classes, Util classes
 
+---------- CONFIGS/SECURITY ------------
+- Anything relates to handle security (does someone have permissions to access this API) we place them
+in the security package
+
 ---------- DIVIDE APIs ------------
-- If an API enforces system authority (identity, access, security) → admin/auth
+- If an API enforces system authority (identity) → auth
 - If an API expresses business intent on a resource → business module
 - User is a special module because it relates to 2 things:
     + System account (identity, access, security)

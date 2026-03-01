@@ -1,6 +1,10 @@
 package com.example.perfume_store.common.exceptions;
 
 import com.example.perfume_store.common.utils.ApiResponseFactory;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import lombok.AllArgsConstructor;
@@ -8,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -28,9 +34,10 @@ public class GlobalExceptionsHandler {
 
     // Exception Handlers
     @ExceptionHandler({
-            NotFoundException.class
+            NotFoundException.class,
+            UsernameNotFoundException.class
     })
-    public ResponseEntity<?> handleNotFound(NotFoundException ex, HttpServletRequest request) {
+    public ResponseEntity<?> handleNotFound(Exception ex, HttpServletRequest request) {
         return ApiResponseFactory.error(HttpStatus.NOT_FOUND, ex.getMessage(), request);
     }
 
@@ -101,6 +108,20 @@ public class GlobalExceptionsHandler {
         }
 
         return ApiResponseFactory.error(HttpStatus.CONFLICT, message, request);
+    }
+
+    @ExceptionHandler({
+            BadCredentialsException.class
+    })
+    public ResponseEntity<?> handleAuthenticationException(Exception ex, HttpServletRequest request) {
+        return ApiResponseFactory.error(HttpStatus.UNAUTHORIZED, "Username or password is invalid!", request);
+    }
+
+    @ExceptionHandler({
+            JwtException.class
+    })
+    public ResponseEntity<?> handleJwtTokenExceptions(Exception ex, HttpServletRequest request) {
+        return ApiResponseFactory.error(HttpStatus.FORBIDDEN, ex.getMessage(), request);
     }
 
     @ExceptionHandler({

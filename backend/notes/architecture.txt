@@ -1,3 +1,5 @@
+- This project will use modular monolith
+
 ---------- DOMAIN ------------
 - Entities, Enum, Repositories which are shared between multiple modules we will place them in the
 domain package

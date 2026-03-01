@@ -1,3 +1,6 @@
-- Validation should be performed in Controller
-- Validation annotations are placed in Request DTOs not in entities and Response DTOs
-- If validation fails → Spring throws 'MethodArgumentNotValidException'
+- Jakarta validation is performed in controller via @Valid
+- Jakarta validation annotations are placed in Request DTOs
+- If Request DTO Validation fails → Spring throws 'MethodArgumentNotValidException'
+
+- To handle request params validation, we need @Validated belonged to Spring Framework
+- If Request Param Validation fails → Spring throws 'ConstraintViolationException'

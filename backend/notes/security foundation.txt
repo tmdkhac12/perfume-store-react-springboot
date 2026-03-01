@@ -1,0 +1,22 @@
+- XSS is an action when an attacker injects malicious JS code to a website, and that code will be executed
+in other users' browsers
+- Example in a comment system, an attacker comments JS code and summit to database, when reloading page,
+that string doesn't parse safely, and it becomes JS code run in any browser accessing the website to
+hijack cookies, localStorage, sessionStorage, etc.
+- To prevent XSS: use textContent instead of innerHTML, use HttpOnly for Cookies, use modern framework
+such as React/Vue, use CSP
+
+- CSRF is an action when an attacker sends you a link to the malicious website that he prepared before,
+when you access the website, all the scripts run hidden, send request to the website he wanted with your
+cookie
+- CSRF token is a way server hide the token it generated in the DOM and send to the client, this token
+cannot be read from other domains because it does not have permission to read your DOM
+- CSRF only have permission to send your cookie (not get your cookie), it cannot read your
+localStorage/sessionStorage/DOM because of the different domains. XSS is more dangerous than CSRF, it can send
+your cookie, read localStorage/sessionStorage/DOM because of the same domain, and it can bypass domain
+validation in your backend
+
+- JWT token should be stored in cookie with HttpOnly (avoid read by JS), and SameSite (restrict CSRF)
+- In application, we should use both JWT Token in cookie and CSRF Token, because JWT Token in cookie will
+prevent XSS reading token and CSRF in modern browsers (in old browsers SameSite sometimes doesn't work exactly),
+CSRF Token will prevent a fully CSRF attack. After that solve XSS problems later.

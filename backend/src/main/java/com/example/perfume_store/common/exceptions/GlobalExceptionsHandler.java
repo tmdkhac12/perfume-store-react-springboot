@@ -2,8 +2,8 @@ package com.example.perfume_store.common.exceptions;
 
 import com.example.perfume_store.common.utils.ApiResponseFactory;
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
@@ -12,7 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AccountStatusException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -95,14 +98,11 @@ public class GlobalExceptionsHandler {
 
             if (rootMessage.contains("Duplicate entry")) {
                 message = exceptionHandlerUtil.extractDuplicateMessage(rootMessage);
-            }
-            else if (rootMessage.contains("cannot be null")) {
+            } else if (rootMessage.contains("cannot be null")) {
                 message = "Required field is missing.";
-            }
-            else if (rootMessage.contains("foreign key constraint")) {
+            } else if (rootMessage.contains("foreign key constraint")) {
                 message = "Operation failed due to related existing records.";
-            }
-            else if (rootMessage.contains("Data too long")) {
+            } else if (rootMessage.contains("Data too long")) {
                 message = "Input value exceeds allowed length.";
             }
         }
@@ -110,20 +110,59 @@ public class GlobalExceptionsHandler {
         return ApiResponseFactory.error(HttpStatus.CONFLICT, message, request);
     }
 
+    /**
+     * Handle authentication exceptions
+     */
     @ExceptionHandler({
-            BadCredentialsException.class
+            AuthenticationException.class
     })
-    public ResponseEntity<?> handleAuthenticationException(Exception ex, HttpServletRequest request) {
-        return ApiResponseFactory.error(HttpStatus.UNAUTHORIZED, "Username or password is invalid!", request);
+    public ResponseEntity<?> handleAuthenticationException(AuthenticationException ex, HttpServletRequest request) {
+        String message = "Authentication failed";
+
+        if (ex instanceof BadCredentialsException) {
+            message = "Username or password is invalid!";
+        } else if (ex instanceof AccountStatusException) {
+            message = "Account is disabled, locked, or expired!";
+            return ApiResponseFactory.error(HttpStatus.FORBIDDEN, message, request);
+        } else if (ex instanceof InsufficientAuthenticationException) {
+            message = "Authentication is required!";
+        }
+
+        return ApiResponseFactory.error(HttpStatus.UNAUTHORIZED, message, request);
     }
 
+    /**
+     * Handle JWT related exceptions (invalid token)
+     */
     @ExceptionHandler({
-            JwtException.class
+            ExpiredJwtException.class,
+            MalformedJwtException.class,
+            SignatureException.class,
+            UnsupportedJwtException.class,
+            IllegalArgumentException.class
     })
-    public ResponseEntity<?> handleJwtTokenExceptions(Exception ex, HttpServletRequest request) {
-        return ApiResponseFactory.error(HttpStatus.FORBIDDEN, ex.getMessage(), request);
+    public ResponseEntity<?> handleJwtExceptions(Exception ex, HttpServletRequest request) {
+
+        String message;
+
+        if (ex instanceof ExpiredJwtException) {
+            message = "JWT token has expired";
+        } else if (ex instanceof MalformedJwtException) {
+            message = "Invalid JWT token structure";
+        } else if (ex instanceof SignatureException) {
+            message = "JWT signature validation failed";
+        } else if (ex instanceof UnsupportedJwtException) {
+            message = "Unsupported JWT token";
+        } else {
+            message = "JWT token is invalid";
+        }
+
+        return ApiResponseFactory.error(HttpStatus.UNAUTHORIZED, message, request);
     }
 
+    /**
+     * Handle remaining exceptions
+     */
     @ExceptionHandler({
             Exception.class
     })

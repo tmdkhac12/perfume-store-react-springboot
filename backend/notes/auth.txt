@@ -23,5 +23,10 @@ for HS256 and >= 64 bytes for HS512
 - In Spring Security, SECRET must be byte[], so you must decode or .getBytes() the SECRET
 - .hmacShaKeyFor() choose the algorithm automatically for you base on the SECRET_KEY (256 for 32 bytes
 and 512 for 64 bytes) and wrap the bytes[] inside SecretKey
-- .parseSignedClaims() is the method to verify a token
-- Client → Filter → Controller
+- A filter shouldn't contain @Component because it will register the filter as a Servlet Filter
+not a Spring Security Filter
+- Spring Security uses Security Context to determine if you had permission to access this endpoint
+or not
+- Security Context will be released when a request lifecycle ends
+- Flow: Request → JWT Filter (validate token and set context) → SecurityFilterChain (checks authorization)
+→ Controller

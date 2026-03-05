@@ -67,4 +67,8 @@ public class JwtService {
         Claims claims = extractAllClaims(token);
         return claims != null;
     }
+
+    public boolean isTokenValid(Claims claims) {
+        return claims != null;
+    }
 }

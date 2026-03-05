@@ -2,7 +2,7 @@ package com.example.perfume_store.configs.security;
 
 import com.example.perfume_store.modules.auth.CustomUserDetailsService;
 import com.example.perfume_store.modules.auth.JwtAuthenticationFilter;
-import com.example.perfume_store.modules.auth.JwtService;
+import com.example.perfume_store.modules.auth.service.JwtService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

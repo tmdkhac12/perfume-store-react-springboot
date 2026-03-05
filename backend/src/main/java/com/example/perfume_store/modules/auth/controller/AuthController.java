@@ -1,8 +1,13 @@
-package com.example.perfume_store.modules.auth;
+package com.example.perfume_store.modules.auth.controller;
 
 
 import com.example.perfume_store.common.utils.ApiResponseFactory;
+import com.example.perfume_store.modules.auth.dto.request.LoginRequestDTO;
+import com.example.perfume_store.modules.auth.dto.request.RegisterRequestDTO;
+import com.example.perfume_store.modules.auth.service.AuthService;
+import com.example.perfume_store.modules.auth.service.JwtService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,12 +21,13 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class AuthController {
 
-    private final AuthenticationManager authenticationManager;
-    private final JwtService jwtService;
+    private AuthenticationManager authenticationManager;
+    private JwtService jwtService;
+    private AuthService authService;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(
-            @RequestBody AuthRequest authRequest,
+            @RequestBody LoginRequestDTO loginRequestDTO,
             HttpServletRequest request
     ) {
         // This line calls loadUserByUsername, PasswordEncoder.matches(),
@@ -29,8 +35,8 @@ public class AuthController {
         // we'll receive a valid user or an exception
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        authRequest.getUsername(),
-                        authRequest.getPassword()
+                        loginRequestDTO.getUsername(),
+                        loginRequestDTO.getPassword()
                 )
         );
 
@@ -40,6 +46,19 @@ public class AuthController {
         String token = jwtService.generateToken(userDetails);
 
         return ApiResponseFactory.success(token, "Login successfully", HttpStatus.OK, request);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> registerUser(
+            @Valid @RequestBody RegisterRequestDTO registerRequestDTO,
+            HttpServletRequest request
+    ) {
+        boolean isCreated = authService.registerUser(registerRequestDTO);
+        if (isCreated) {
+            return ApiResponseFactory.success(true, "Register successfully", HttpStatus.OK, request);
+        } else {
+            return ApiResponseFactory.error(HttpStatus.BAD_REQUEST, "Register Failed", request);
+        }
     }
 
     @PostMapping("/token")

@@ -1,4 +1,4 @@
-package com.example.perfume_store.modules.auth;
+package com.example.perfume_store.modules.auth.service;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
-import java.util.Arrays;
 import java.util.Date;
 
 @Service

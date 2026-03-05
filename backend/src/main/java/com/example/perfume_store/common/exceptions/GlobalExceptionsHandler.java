@@ -132,32 +132,13 @@ public class GlobalExceptionsHandler {
     }
 
     /**
-     * Handle JWT related exceptions (invalid token)
+     * Handle passwords do not match exception
      */
     @ExceptionHandler({
-            ExpiredJwtException.class,
-            MalformedJwtException.class,
-            SignatureException.class,
-            UnsupportedJwtException.class,
             IllegalArgumentException.class
     })
     public ResponseEntity<?> handleJwtExceptions(Exception ex, HttpServletRequest request) {
-
-        String message;
-
-        if (ex instanceof ExpiredJwtException) {
-            message = "JWT token has expired";
-        } else if (ex instanceof MalformedJwtException) {
-            message = "Invalid JWT token structure";
-        } else if (ex instanceof SignatureException) {
-            message = "JWT signature validation failed";
-        } else if (ex instanceof UnsupportedJwtException) {
-            message = "Unsupported JWT token";
-        } else {
-            message = "JWT token is invalid";
-        }
-
-        return ApiResponseFactory.error(HttpStatus.UNAUTHORIZED, message, request);
+        return ApiResponseFactory.error(HttpStatus.BAD_REQUEST, ex.getMessage(), request);
     }
 
     /**

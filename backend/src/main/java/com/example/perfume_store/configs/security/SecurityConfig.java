@@ -21,6 +21,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
+    private final String USER = "USER";
+    private final String ADMIN = "ADMIN";
+
     @Bean
     public SecurityFilterChain securityFilterChain(
             HttpSecurity http,
@@ -34,6 +37,9 @@ public class SecurityConfig {
                 // Authorization rules
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers("/api/v1/users/me").hasAnyRole(USER, ADMIN)
+                        .requestMatchers("/api/v1/users/me/addresses/**").hasRole(USER)
+                        .requestMatchers("/api/v1/admin/**").hasRole(ADMIN)
                         .anyRequest().authenticated()
                 )
 

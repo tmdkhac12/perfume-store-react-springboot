@@ -47,7 +47,8 @@ public class UserAdminController {
     @PostMapping
     public ResponseEntity<?> adminCreateUser(
             @Valid @RequestBody UserAdminCreateRequestDTO userAdminCreateRequestDTO,
-            HttpServletRequest request) {
+            HttpServletRequest request
+    ) {
         var createdUser = userAdminService.adminCreateUser(userAdminCreateRequestDTO);
         return ApiResponseFactory.success(createdUser, "User created with a default password", HttpStatus.CREATED, request);
     }

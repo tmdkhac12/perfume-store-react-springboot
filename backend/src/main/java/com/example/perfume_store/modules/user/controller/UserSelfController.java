@@ -1,6 +1,7 @@
 package com.example.perfume_store.modules.user.controller;
 
 import com.example.perfume_store.common.utils.ApiResponseFactory;
+import com.example.perfume_store.configs.security.SecurityContextGetter;
 import com.example.perfume_store.modules.user.service.UserSelfService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
@@ -14,10 +15,13 @@ import org.springframework.web.bind.annotation.*;
 public class UserSelfController {
 
     private final UserSelfService userSelfService;
+    private final SecurityContextGetter securityContextGetter;
 
     @GetMapping
     public ResponseEntity<?> getSelfProfile(HttpServletRequest request) {
-        var selfProfile = userSelfService.getUserById(1);
-        return ApiResponseFactory.success(selfProfile, "Get User's Profile Successfully", HttpStatus.OK, request);
+        int userId = securityContextGetter.getUserId();
+
+        var selfProfile = userSelfService.getUserById(userId);
+        return ApiResponseFactory.success(selfProfile, "Get user's profile successfully", HttpStatus.OK, request);
     }
 }

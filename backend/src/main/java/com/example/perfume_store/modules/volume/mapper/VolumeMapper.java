@@ -2,7 +2,7 @@ package com.example.perfume_store.modules.volume.mapper;
 
 import com.example.perfume_store.modules.volume.dtos.request.VolumeRequestDTO;
 import com.example.perfume_store.modules.volume.dtos.response.VolumeResponseDTO;
-import com.example.perfume_store.modules.volume.entity.Volume;
+import com.example.perfume_store.domain.volume.Volume;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 

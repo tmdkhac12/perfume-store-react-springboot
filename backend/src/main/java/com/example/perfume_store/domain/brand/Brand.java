@@ -1,4 +1,4 @@
-package com.example.perfume_store.modules.brand.entity;
+package com.example.perfume_store.domain.brand;
 
 import jakarta.persistence.*;
 import lombok.Data;

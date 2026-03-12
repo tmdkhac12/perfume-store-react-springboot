@@ -2,10 +2,10 @@ package com.example.perfume_store.modules.brand.service;
 
 import com.example.perfume_store.modules.brand.dto.request.BrandRequestDTO;
 import com.example.perfume_store.modules.brand.dto.response.BrandResponseDTO;
-import com.example.perfume_store.modules.brand.entity.Brand;
+import com.example.perfume_store.domain.brand.Brand;
 import com.example.perfume_store.common.exceptions.NotFoundException;
 import com.example.perfume_store.modules.brand.mapper.BrandMapper;
-import com.example.perfume_store.modules.brand.repository.BrandRepository;
+import com.example.perfume_store.domain.brand.BrandRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

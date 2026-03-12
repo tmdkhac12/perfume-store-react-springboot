@@ -2,7 +2,7 @@ package com.example.perfume_store.modules.note.mapper;
 
 import com.example.perfume_store.modules.note.dto.request.NoteRequestDTO;
 import com.example.perfume_store.modules.note.dto.response.NoteResponseDTO;
-import com.example.perfume_store.modules.note.entity.Note;
+import com.example.perfume_store.domain.note.Note;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 

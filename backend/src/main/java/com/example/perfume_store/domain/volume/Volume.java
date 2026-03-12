@@ -1,4 +1,4 @@
-package com.example.perfume_store.modules.note.entity;
+package com.example.perfume_store.domain.volume;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,12 +10,13 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-public class Note {
+public class Volume {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String name;
+    private double volume;
     private boolean hide;
+
 }

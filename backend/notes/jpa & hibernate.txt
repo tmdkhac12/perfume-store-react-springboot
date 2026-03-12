@@ -20,7 +20,15 @@ correct approach is address.setUser(user), not address.setUserId(userId)
 - @OneToMany means one row in this class maps with many rows in the attribute
 - @OneToMany(mappedBy = "user") determine the datatype's attribute (for inverse side - the table doesn't
 have a FK)
-- @EntityGraph tells Hibernate eagerly fetch the relationship in a repository method
+- @EntityGraph is used to override the relationship with fetch type LAZY to EAGER fetch type,
+and it helps avoid N query when you load various entity (findAll Perfume is a query, and if the mapper
+accesses perfume.getSampleImages(), Hibernate will query N times to get images per perfume)
+- @ManyToOne is EAGER by default and @OneToMany is LAZY
+- @ManyToOne will join instantly, @OneToMany will attach to a new query
+- @BatchSize(size = 20) determines the size Hibernate uses to query per time. When you find
+all Perfume by limit 30, Hibernate will execute 1 query to get 20 SampleImage and 1 query
+to get 10 SampleImage, using total 3 queries instead of 31 queries, it's a solution for
+N + 1 query and MultipleBagFetchException
 
 - @JoinColumn(name = "user_id") determine the foreign key column name, if you don't define, Spring will generate
 automatically by <attribute name>_<before attribute's @Id>

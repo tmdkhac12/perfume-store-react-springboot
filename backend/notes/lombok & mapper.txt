@@ -5,9 +5,14 @@ the data types returned to anything you want
 
 - @MappingTarget can only have one target object and multiple source objects
 - @Mapping(source =) need to be passed a property not a method
+- @Mapping(source = "brand.name", target = "brand")
+- Perfume.brand.name  ->  PerfumePublicResponseDTO.brand
+- MapStruct automatically uses default methods in a mapper interface to implement custom mapping logic
+when the argument and return types match a required mapping.
 
-- Mapstruct bases on fields which have matching names & data types to deduce
+- Mapstruct bases on fields which have matching names & data types to execute mapping
 - Mapstruct looks at public methods (starting with get... or is...) to perform mapping
+- If Mapstruct knows how to map A → B, it will know how to map List<A> → List<B>.
 
 - Some reasons that's why Mapstruct generates a null method:
     + Wrong syntax

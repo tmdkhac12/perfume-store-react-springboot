@@ -30,7 +30,7 @@ all Perfume by limit 30, Hibernate will execute 1 query to get 20 SampleImage an
 to get 10 SampleImage, using total 3 queries instead of 31 queries, it's a solution for
 N + 1 query and MultipleBagFetchException
 
-- @JoinColumn(name = "user_id") determine the foreign key column name, if you don't define, Spring will generate
-automatically by <attribute name>_<before attribute's @Id>
-- @JoinTable used for @ManyToMany, I'll find out later
-- @MapsId used for dependent entities @ManyToMany, I'll find out later
+- Specification is a interface helping you build a SQL with optional parameters flexibly,
+we need Specification to avoid method naming too long such as 'findAllByGenderAndPriceBetweenAndBrand(...)'
+with Specification, you can treat filter conditions as a puzzle piece and attach them to the
+query or not

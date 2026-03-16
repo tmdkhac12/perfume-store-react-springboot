@@ -10,6 +10,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class PerfumeDetailsResponseDTO {
+    private int id;
+
     private Gender gender;
 
     private Concentration concentration;

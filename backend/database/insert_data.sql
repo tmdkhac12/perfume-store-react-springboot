@@ -1,14 +1,14 @@
 INSERT INTO user (id, name, email, username, hashed_password, is_superuser, is_active)
-VALUES (1, 'Quản Trị Viên', 'quantrivien@gmail.com', 'admin_qtv', 'hashed_pw_1', TRUE, TRUE),
-       (2, 'Nguyễn Thị Hạnh', 'hanhnguyen@gmail.com', 'hanh_nt', 'hashed_pw_2', FALSE, TRUE),
-       (3, 'Trần Văn Mạnh', 'manhtran@gmail.com', 'manh_tv', 'hashed_pw_3', FALSE, TRUE),
-       (4, 'Lê Anh Thư', 'thuleanh@gmail.com', 'thu_la', 'hashed_pw_4', FALSE, TRUE),
-       (5, 'Phạm Duy Khang', 'khangpham@gmail.com', 'khang_pd', 'hashed_pw_5', FALSE, TRUE),
-       (6, 'Võ Minh Tâm', 'tamvominh@gmail.com', 'tam_vm', 'hashed_pw_6', FALSE, TRUE),
-       (7, 'Đặng Quốc Huy', 'huydang@gmail.com', 'huy_dq', 'hashed_pw_7', FALSE, TRUE),
-       (8, 'Hoàng Kiều Trinh', 'trinhhoang@gmail.com', 'trinh_hk', 'hashed_pw_8', FALSE, TRUE),
-       (9, 'Bùi Tấn Phát', 'phatbui@gmail.com', 'phat_bt', 'hashed_pw_9', FALSE, TRUE),
-       (10, 'Chung Gia Khiêm', 'khiemchung@gmail.com', 'khiem_cg', 'hashed_pw_10', FALSE, TRUE);
+VALUES (1, 'Quản Trị Viên', 'quantrivien@gmail.com', 'admin_qtv', '$2a$10$O2jPIoW7zCHRxvIy4TqYIehshl3VvyaCqHyfH2OJNXRRq1tHWqCea', TRUE, TRUE),
+       (2, 'Nguyễn Thị Hạnh', 'hanhnguyen@gmail.com', 'hanh_nt', '$2a$10$O2jPIoW7zCHRxvIy4TqYIehshl3VvyaCqHyfH2OJNXRRq1tHWqCea', FALSE, TRUE),
+       (3, 'Trần Văn Mạnh', 'manhtran@gmail.com', 'manh_tv', '$2a$10$O2jPIoW7zCHRxvIy4TqYIehshl3VvyaCqHyfH2OJNXRRq1tHWqCea', FALSE, TRUE),
+       (4, 'Lê Anh Thư', 'thuleanh@gmail.com', 'thu_la', '$2a$10$O2jPIoW7zCHRxvIy4TqYIehshl3VvyaCqHyfH2OJNXRRq1tHWqCea', FALSE, TRUE),
+       (5, 'Phạm Duy Khang', 'khangpham@gmail.com', 'khang_pd', '$2a$10$O2jPIoW7zCHRxvIy4TqYIehshl3VvyaCqHyfH2OJNXRRq1tHWqCea', FALSE, TRUE),
+       (6, 'Võ Minh Tâm', 'tamvominh@gmail.com', 'tam_vm', '$2a$10$O2jPIoW7zCHRxvIy4TqYIehshl3VvyaCqHyfH2OJNXRRq1tHWqCea', FALSE, TRUE),
+       (7, 'Đặng Quốc Huy', 'huydang@gmail.com', 'huy_dq', '$2a$10$O2jPIoW7zCHRxvIy4TqYIehshl3VvyaCqHyfH2OJNXRRq1tHWqCea', FALSE, TRUE),
+       (8, 'Hoàng Kiều Trinh', 'trinhhoang@gmail.com', 'trinh_hk', '$2a$10$O2jPIoW7zCHRxvIy4TqYIehshl3VvyaCqHyfH2OJNXRRq1tHWqCea', FALSE, TRUE),
+       (9, 'Bùi Tấn Phát', 'phatbui@gmail.com', 'phat_bt', '$2a$10$O2jPIoW7zCHRxvIy4TqYIehshl3VvyaCqHyfH2OJNXRRq1tHWqCea', FALSE, TRUE),
+       (10, 'Chung Gia Khiêm', 'khiemchung@gmail.com', 'khiem_cg', '$2a$10$O2jPIoW7zCHRxvIy4TqYIehshl3VvyaCqHyfH2OJNXRRq1tHWqCea', FALSE, TRUE);
 
 INSERT INTO brand (id, name, hide)
 VALUES (1, 'Chanel', FALSE),

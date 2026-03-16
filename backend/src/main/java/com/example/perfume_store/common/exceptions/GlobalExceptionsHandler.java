@@ -1,10 +1,6 @@
 package com.example.perfume_store.common.exceptions;
 
 import com.example.perfume_store.common.utils.ApiResponseFactory;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.UnsupportedJwtException;
-import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import lombok.AllArgsConstructor;
@@ -18,6 +14,7 @@ import org.springframework.security.authentication.InsufficientAuthenticationExc
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -48,16 +45,23 @@ public class GlobalExceptionsHandler {
      * Request DTO validation fails
      */
     @ExceptionHandler({
-            MethodArgumentNotValidException.class
+            MethodArgumentNotValidException.class,
     })
     public ResponseEntity<?> handleValidation(MethodArgumentNotValidException ex, HttpServletRequest request) {
-        List<String> errors = ex.getBindingResult()
-                .getFieldErrors()
-                .stream()
-                .map(fieldError -> fieldError.getDefaultMessage())
-                .toList();
+        FieldError fieldError = ex.getBindingResult().getFieldError();
+        String message = "Invalid input";
 
-        return ApiResponseFactory.error(HttpStatus.BAD_REQUEST, errors.getFirst(), request);
+        if (fieldError != null) {
+            // Handle binding error
+            if (fieldError.isBindingFailure()) {
+                message = "Invalid value for field: " + fieldError.getField();
+            } else {
+                // Handle DTO validation fails
+                message = fieldError.getDefaultMessage();
+            }
+        }
+
+        return ApiResponseFactory.error(HttpStatus.BAD_REQUEST, message, request);
     }
 
     /**

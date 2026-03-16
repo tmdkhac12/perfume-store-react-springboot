@@ -4,6 +4,8 @@ import com.example.perfume_store.common.response.PageResponse;
 import com.example.perfume_store.domain.note_perfume.NotePerfume;
 import com.example.perfume_store.domain.perfume.Perfume;
 import com.example.perfume_store.domain.volume_perfume.VolumePerfume;
+import com.example.perfume_store.modules.perfume.dto.request.PerfumeCreateRequestDTO;
+import com.example.perfume_store.modules.perfume.dto.request.PerfumeUpdateRequestDTO;
 import com.example.perfume_store.modules.perfume.dto.response.NotePerfumeResponseDTO;
 import com.example.perfume_store.modules.perfume.dto.response.PerfumeDetailsResponseDTO;
 import com.example.perfume_store.modules.perfume.dto.response.PerfumePublicResponseDTO;
@@ -11,6 +13,7 @@ import com.example.perfume_store.modules.perfume.dto.response.VolumePerfumeRespo
 import com.example.perfume_store.modules.perfume.entity.SampleImage;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 import org.springframework.data.domain.Page;
 
@@ -77,4 +80,10 @@ public interface PerfumeMapper {
                 .min(BigDecimal::compareTo)
                 .orElse(null);
     }
+
+    // Perfume Request to Entity
+    @Mapping(target = "sampleImages", ignore = true)
+    Perfume toEntity(PerfumeCreateRequestDTO perfumeCreateRequestDTO);
+
+    void updateEntity(@MappingTarget Perfume perfume, PerfumeUpdateRequestDTO perfumeUpdateRequestDTO);
 }

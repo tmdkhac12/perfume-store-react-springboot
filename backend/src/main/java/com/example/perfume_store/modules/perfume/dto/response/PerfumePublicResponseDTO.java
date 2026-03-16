@@ -8,6 +8,8 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 public class PerfumePublicResponseDTO {
+    private int id;
+
     private String name;
 
     private String brand;

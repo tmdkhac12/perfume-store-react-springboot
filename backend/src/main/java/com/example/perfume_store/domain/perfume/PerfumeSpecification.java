@@ -33,7 +33,7 @@ public class PerfumeSpecification {
                     predicates.add(cb.lessThanOrEqualTo(volumeJoin.get("price"), toPrice));
                 }
 
-                query.distinct(true); // Tránh trùng lặp khi Join
+                query.distinct(true); // Avoid duplicate rows when join tables
             }
 
             return cb.and(predicates.toArray(new Predicate[0]));

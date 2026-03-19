@@ -1,30 +1,18 @@
-package com.example.perfume_store.modules.invoice.entity;
+package com.example.perfume_store.modules.invoice.dto.response;
 
-import com.example.perfume_store.domain.address.Address;
-import com.example.perfume_store.domain.user.User;
 import com.example.perfume_store.modules.invoice.enums.DeliveryStatus;
 import com.example.perfume_store.modules.invoice.enums.PaymentMethod;
-import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Entity
 @Data
 @NoArgsConstructor
-public class Invoice {
+public class InvoicePublicResponseDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Address address;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
 
     private LocalDateTime createdAt;
 
@@ -32,10 +20,8 @@ public class Invoice {
 
     private String receiverName, phoneNumber, shippingAddress;
 
-    @Enumerated(EnumType.STRING)
     private DeliveryStatus deliveryStatus;
 
-    @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
 
 }

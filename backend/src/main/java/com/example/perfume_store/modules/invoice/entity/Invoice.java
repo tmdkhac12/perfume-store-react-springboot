@@ -7,9 +7,11 @@ import com.example.perfume_store.modules.invoice.enums.PaymentMethod;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -25,6 +27,10 @@ public class Invoice {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
+
+    @BatchSize(size = 20)
+    @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
+    private List<InvoiceDetails> invoiceDetails;
 
     private LocalDateTime createdAt;
 

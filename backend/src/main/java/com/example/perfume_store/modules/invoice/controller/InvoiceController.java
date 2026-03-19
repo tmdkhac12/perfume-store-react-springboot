@@ -1,7 +1,6 @@
 package com.example.perfume_store.modules.invoice.controller;
 
 import com.example.perfume_store.common.utils.ApiResponseFactory;
-import com.example.perfume_store.domain.perfume.Gender;
 import com.example.perfume_store.modules.invoice.enums.DeliveryStatus;
 import com.example.perfume_store.modules.invoice.enums.PaymentMethod;
 import com.example.perfume_store.modules.invoice.service.InvoiceService;
@@ -12,10 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -62,4 +58,12 @@ public class InvoiceController {
         return ApiResponseFactory.success(invoices, "Get paginated invoices successfully", HttpStatus.OK, request);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getInvoiceDetailsById(
+            @PathVariable int id,
+            HttpServletRequest request
+    ) {
+        var invoiceDetails = invoiceService.getInvoiceDetails(id);
+        return ApiResponseFactory.success(invoiceDetails, "Invoice retrieved", HttpStatus.OK, request);
+    }
 }

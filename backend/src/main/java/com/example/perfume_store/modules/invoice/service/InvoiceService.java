@@ -1,15 +1,15 @@
 package com.example.perfume_store.modules.invoice.service;
 
+import com.example.perfume_store.common.exceptions.NotFoundException;
 import com.example.perfume_store.common.response.PageResponse;
-import com.example.perfume_store.domain.perfume.Gender;
-import com.example.perfume_store.domain.perfume.Perfume;
-import com.example.perfume_store.domain.perfume.PerfumeSpecification;
+import com.example.perfume_store.modules.invoice.dto.response.InvoiceDetailsResponseDTO;
 import com.example.perfume_store.modules.invoice.dto.response.InvoicePublicResponseDTO;
 import com.example.perfume_store.modules.invoice.entity.Invoice;
 import com.example.perfume_store.modules.invoice.entity.InvoiceSpecification;
 import com.example.perfume_store.modules.invoice.enums.DeliveryStatus;
 import com.example.perfume_store.modules.invoice.enums.PaymentMethod;
 import com.example.perfume_store.modules.invoice.mapper.InvoiceMapper;
+import com.example.perfume_store.modules.invoice.repository.InvoiceDetailsRepository;
 import com.example.perfume_store.modules.invoice.repository.InvoiceRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -27,7 +27,18 @@ import java.time.LocalDateTime;
 public class InvoiceService {
 
     private final InvoiceRepository invoiceRepository;
+    private final InvoiceDetailsRepository invoiceDetailsRepository;
     private final InvoiceMapper invoiceMapper;
+
+    private Invoice getInvoiceByIdEntity(int id) {
+        return invoiceRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Invoice not found"));
+    }
+
+    public InvoiceDetailsResponseDTO getInvoiceDetails(int invoiceId) {
+        Invoice invoice = getInvoiceByIdEntity(invoiceId);
+        return invoiceMapper.toInvoiceDetailsResponse(invoice);
+    }
 
     public PageResponse<InvoicePublicResponseDTO> getPaginatedInvoices(
             int page, int limit,

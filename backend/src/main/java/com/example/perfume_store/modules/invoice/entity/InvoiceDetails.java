@@ -1,11 +1,12 @@
 package com.example.perfume_store.modules.invoice.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.perfume_store.domain.volume_perfume.VolumePerfume;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+import java.math.BigDecimal;
 
 @Entity
 @Data
@@ -16,5 +17,18 @@ public class InvoiceDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private VolumePerfume volumePerfume;
 
+    @ManyToOne
+    @ToString.Exclude
+    private Invoice invoice;
+
+    private int quantity;
+
+    private BigDecimal buyPrice;
+
+    private String perfumeName;
+
+    private double volumeName;
 }

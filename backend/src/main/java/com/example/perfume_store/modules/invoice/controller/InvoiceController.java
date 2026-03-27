@@ -1,6 +1,8 @@
 package com.example.perfume_store.modules.invoice.controller;
 
 import com.example.perfume_store.common.utils.ApiResponseFactory;
+import com.example.perfume_store.configs.security.SecurityContextGetter;
+import com.example.perfume_store.modules.invoice.dto.request.InvoiceCreateRequestDTO;
 import com.example.perfume_store.modules.invoice.enums.DeliveryStatus;
 import com.example.perfume_store.modules.invoice.enums.PaymentMethod;
 import com.example.perfume_store.modules.invoice.service.InvoiceService;
@@ -23,6 +25,8 @@ import java.time.LocalDateTime;
 public class InvoiceController {
 
     private final InvoiceService invoiceService;
+
+    private final SecurityContextGetter securityContextGetter;
 
     @GetMapping
     public ResponseEntity<?> getPaginatedInvoices(
@@ -64,6 +68,17 @@ public class InvoiceController {
             HttpServletRequest request
     ) {
         var invoiceDetails = invoiceService.getInvoiceDetails(id);
+        return ApiResponseFactory.success(invoiceDetails, "Invoice retrieved", HttpStatus.OK, request);
+    }
+
+    @PostMapping
+    public ResponseEntity<?> createInvoice(
+            @RequestBody InvoiceCreateRequestDTO invoiceCreateRequestDTO,
+            HttpServletRequest request
+    ) {
+        int userId = securityContextGetter.getUserId();
+
+        var invoiceDetails = invoiceService.createInvoice(invoiceCreateRequestDTO, userId);
         return ApiResponseFactory.success(invoiceDetails, "Invoice retrieved", HttpStatus.OK, request);
     }
 }

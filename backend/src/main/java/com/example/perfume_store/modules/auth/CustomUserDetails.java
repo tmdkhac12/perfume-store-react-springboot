@@ -21,11 +21,7 @@ public class CustomUserDetails implements UserDetails {
     }
 
     private String getRole(boolean isSuperuser) {
-        if (isSuperuser) {
-            return "ROLE_ADMIN";
-        } else {
-            return "ROLE_USER";
-        }
+        return isSuperuser ? "ROLE_ADMIN" : "ROLE_USER";
     }
 
     /**

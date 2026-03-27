@@ -51,6 +51,11 @@ public class InvoiceService {
                 .orElseThrow(() -> new NotFoundException("Invoice not found"));
     }
 
+    private Invoice getInvoiceByIdEntity(int id, int userId) {
+        return invoiceRepository.findByIdAndUserId(id, userId)
+                .orElseThrow(() -> new NotFoundException("Invoice not found"));
+    }
+
     private Address getAddressByIdEntity(int id) {
         return addressRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Address not found"));
@@ -143,5 +148,39 @@ public class InvoiceService {
 
         savedInvoice.setInvoiceDetails(detailsList);
         return invoiceMapper.toInvoiceDetailsResponse(savedInvoice);
+    }
+
+    @Transactional
+    public InvoicePublicResponseDTO updateInvoiceStatus(Integer invoiceId, DeliveryStatus newStatus) {
+        // Find the existed invoice
+        Invoice invoice = getInvoiceByIdEntity(invoiceId);
+
+        // Constraint for cancelled invoice
+        if (invoice.getDeliveryStatus() == DeliveryStatus.Cancelled) {
+            throw new IllegalStateException("Cannot update a cancelled invoice");
+        }
+
+        // Updating
+        invoice.setDeliveryStatus(newStatus);
+        Invoice updatedInvoice = invoiceRepository.save(invoice);
+
+        return invoiceMapper.toPublicResponse(updatedInvoice);
+    }
+
+    @Transactional
+    public InvoicePublicResponseDTO updateInvoiceStatusUser(Integer invoiceId, Integer userId) {
+        // Find the existed invoice
+        Invoice invoice = getInvoiceByIdEntity(invoiceId, userId);
+
+        // Constraint for cancelled invoice
+        if (invoice.getDeliveryStatus() != DeliveryStatus.Pending) {
+            throw new IllegalStateException("Cannot cancel invoice in " + invoice.getDeliveryStatus() + " status");
+        }
+
+        // Updating
+        invoice.setDeliveryStatus(DeliveryStatus.Cancelled);
+
+        Invoice savedInvoice = invoiceRepository.save(invoice);
+        return invoiceMapper.toPublicResponse(savedInvoice);
     }
 }

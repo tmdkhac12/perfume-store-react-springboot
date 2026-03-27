@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AccountStatusException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
@@ -142,6 +143,23 @@ public class GlobalExceptionsHandler {
             IllegalArgumentException.class
     })
     public ResponseEntity<?> handleJwtExceptions(Exception ex, HttpServletRequest request) {
+        return ApiResponseFactory.error(HttpStatus.BAD_REQUEST, ex.getMessage(), request);
+    }
+
+    /**
+     * Handle Access Denied for @PreAuthorize
+     */
+    @ExceptionHandler(AuthorizationDeniedException.class)
+    public ResponseEntity<?> handleAuthorizationDenied(AuthorizationDeniedException ex, HttpServletRequest request) {
+        String message = "Access denied";
+        return ApiResponseFactory.error(HttpStatus.FORBIDDEN, message, request);
+    }
+
+    /**
+     * Handle Business Logic Violations (e.g., cancelling a Shipped invoice)
+     */
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<?> handleIllegalState(IllegalStateException ex, HttpServletRequest request) {
         return ApiResponseFactory.error(HttpStatus.BAD_REQUEST, ex.getMessage(), request);
     }
 

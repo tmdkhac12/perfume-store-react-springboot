@@ -19,6 +19,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     /**
      * This function does only one thing which is load the user from the database
      * by username and convert it to UserDetails for Spring Security
+     * <p>
+     * This is the unique port to get a user's information, if you add any methods
+     * to loadUserByUsername you have to override various Spring filters
      */
     @Override
     @NonNull

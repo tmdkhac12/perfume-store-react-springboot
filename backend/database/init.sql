@@ -58,7 +58,8 @@ CREATE TABLE `user`
     `id`              int PRIMARY KEY AUTO_INCREMENT,
     `name`            varchar(255),
     `email`           varchar(255) UNIQUE NOT NULL,
-    `username`        varchar(50) UNIQUE  NOT NULL,
+    `username`        varchar(255) UNIQUE  NOT NULL,
+    `google_id`       varchar(255) UNIQUE DEFAULT NULL,
     `hashed_password` varchar(255),
     `is_superuser`    bool DEFAULT false,
     `is_active`       bool DEFAULT true

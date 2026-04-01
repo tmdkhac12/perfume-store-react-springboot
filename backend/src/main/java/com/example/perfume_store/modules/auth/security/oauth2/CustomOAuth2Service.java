@@ -10,8 +10,6 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @AllArgsConstructor
 public class CustomOAuth2Service extends DefaultOAuth2UserService {
@@ -28,32 +26,32 @@ public class CustomOAuth2Service extends DefaultOAuth2UserService {
     }
 
     private OAuth2User processOAuth2User(OAuth2User oAuth2User) {
+        String googleId = oAuth2User.getAttribute("sub");
         String email = oAuth2User.getAttribute("email");
         String name = oAuth2User.getAttribute("name");
 
-        if (email == null || email.isEmpty()) {
-            throw new OAuth2AuthenticationException("Email not found from OAuth2 provider");
-        }
+        // 1. Google ID existed (Logged in by Google before)
+        userRepository.findByGoogleId(googleId)
+                .map(existingUser -> {
+                    // If a user update their Google email, sync with database
+                    if (!existingUser.getEmail().equals(email)) {
+                        existingUser.setEmail(email);
+                        return userRepository.save(existingUser);
+                    }
+                    return existingUser;
+                })
 
-        // Find the email in database
-        Optional<User> userOptional = userRepository.findByEmail(email);
-
-        if (userOptional.isEmpty()) {
-            // Create a new user if email doesn't exist
-            User user = new User();
-            user.setEmail(email);
-            user.setName(name);
-
-            // Or logic create custom username
-            user.setUsername(email);
-
-            user.setActive(true);
-            user.setSuperuser(false);
-
-            // With OAuth2, normally password is null or a random value
-            user.setHashedPassword(null);
-            userRepository.save(user);
-        }
+                // 2. If absolutely new, create a new account
+                .orElseGet(() -> {
+                    // Traditional username won't contain '@'
+                    User newUser = new User();
+                    newUser.setGoogleId(googleId);
+                    newUser.setEmail(email);
+                    newUser.setUsername(email);
+                    newUser.setName(name);
+                    newUser.setActive(true);
+                    return userRepository.save(newUser);
+                });
 
         return oAuth2User;
     }

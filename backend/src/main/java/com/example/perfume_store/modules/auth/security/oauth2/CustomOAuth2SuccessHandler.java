@@ -26,6 +26,7 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
 
     @Override
     @NullMarked // Make sure that all the parameters are not null
+    // After OAuth2 log in successfully, this method is run
     public void onAuthenticationSuccess(
             HttpServletRequest request,
             HttpServletResponse response,

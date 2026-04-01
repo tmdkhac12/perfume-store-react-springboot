@@ -16,6 +16,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
+
 @RestController
 @RequestMapping("/api/v1/auth")
 @AllArgsConstructor
@@ -46,9 +48,9 @@ public class AuthController {
                 )
         );
 
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        UserDetails userDetails = (UserDetails) Objects.requireNonNull(authentication.getPrincipal());
 
-        assert userDetails != null : "User details is null";
+        // Generate JWT token
         String token = jwtService.generateToken(userDetails);
 
         return ApiResponseFactory.success(token, "Login successfully", HttpStatus.OK, request);

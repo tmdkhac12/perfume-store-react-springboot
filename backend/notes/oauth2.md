@@ -91,7 +91,7 @@ Essential for platforms that want third-party developers to build applications b
 6. **`CustomOAuth2Service`** is triggered to fetch User info (Email, Name) and performs **DB Sync** (Saves User to DB with `username = email` to satisfy unique/not-null constraints).
 7. **`CustomOAuth2SuccessHandler`** is triggered after successful authentication:
     - Extracts `email` from `OAuth2User`.
-    - Loads `UserDetails` via `CustomUserDetailsService` (using `findByUsername` or `findByEmail`).
+    - Loads `UserDetails` via `CustomUserDetailsService` (using `findByUsername`).
     - Generates a **JWT Token** via `JwtService`.
     - Attaches the JWT to an **HTTP-Only Cookie** and adds it to the `HttpServletResponse`.
 8. **Browser** is redirected to the **Success URL** (`/api/v1/auth/home`) via `getRedirectStrategy().sendRedirect()`.

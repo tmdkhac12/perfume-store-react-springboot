@@ -1,15 +1,14 @@
 package com.example.perfume_store.configs.security;
 
-import com.example.perfume_store.modules.auth.CustomOAuth2SuccessHandler;
-import com.example.perfume_store.modules.auth.CustomUserDetailsService;
-import com.example.perfume_store.modules.auth.JwtAuthenticationFilter;
-import com.example.perfume_store.modules.auth.service.CustomOAuth2Service;
-import com.example.perfume_store.modules.auth.service.JwtService;
+import com.example.perfume_store.modules.auth.security.oauth2.CustomOAuth2SuccessHandler;
+import com.example.perfume_store.modules.auth.security.user.CustomUserDetailsService;
+import com.example.perfume_store.modules.auth.security.jwt.JwtAuthenticationFilter;
+import com.example.perfume_store.modules.auth.security.oauth2.CustomOAuth2Service;
+import com.example.perfume_store.modules.auth.security.jwt.JwtService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

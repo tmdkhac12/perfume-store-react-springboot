@@ -1,4 +1,4 @@
-package com.example.perfume_store.modules.auth.service;
+package com.example.perfume_store.modules.auth.security.jwt;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;

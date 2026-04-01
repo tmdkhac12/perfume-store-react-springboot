@@ -5,7 +5,7 @@ import com.example.perfume_store.common.utils.ApiResponseFactory;
 import com.example.perfume_store.modules.auth.dto.request.LoginRequestDTO;
 import com.example.perfume_store.modules.auth.dto.request.RegisterRequestDTO;
 import com.example.perfume_store.modules.auth.service.AuthService;
-import com.example.perfume_store.modules.auth.service.JwtService;
+import com.example.perfume_store.modules.auth.security.jwt.JwtService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

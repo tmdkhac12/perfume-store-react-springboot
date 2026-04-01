@@ -1,6 +1,6 @@
 package com.example.perfume_store.configs.security;
 
-import com.example.perfume_store.modules.auth.CustomUserDetails;
+import com.example.perfume_store.modules.auth.security.user.CustomUserDetails;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

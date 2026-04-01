@@ -1,4 +1,4 @@
-package com.example.perfume_store.modules.auth;
+package com.example.perfume_store.modules.auth.security.user;
 
 import com.example.perfume_store.domain.user.User;
 import lombok.AllArgsConstructor;

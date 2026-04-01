@@ -1,7 +1,7 @@
-package com.example.perfume_store.modules.auth;
+package com.example.perfume_store.modules.auth.security.jwt;
 
 import com.example.perfume_store.common.utils.ApiResponseFactory;
-import com.example.perfume_store.modules.auth.service.JwtService;
+import com.example.perfume_store.modules.auth.security.user.CustomUserDetailsService;
 import io.jsonwebtoken.*;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

@@ -1,4 +1,4 @@
-package com.example.perfume_store.modules.auth.service;
+package com.example.perfume_store.modules.auth.security.oauth2;
 
 import com.example.perfume_store.domain.user.User;
 import com.example.perfume_store.domain.user.UserRepository;

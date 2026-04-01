@@ -25,6 +25,12 @@ public class AuthController {
     private JwtService jwtService;
     private AuthService authService;
 
+    // This is a mock endpoint, waiting for frontend
+    @GetMapping("/home")
+    public String mockHomePage() {
+        return "Login Successfully";
+    }
+
     @PostMapping("/login")
     public ResponseEntity<?> login(
             @RequestBody LoginRequestDTO loginRequestDTO,

@@ -25,6 +25,18 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect # Tells Hibernate what SQL syntax db uses
 
+  # SSO
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${SSO_CLIENT_ID}
+            client-secret: ${SSO_CLIENT_SECRET}
+            scope:
+              - email
+              - profile
+
 jwt:
   secret: ${JWT_SECRET}
   expiration: ${JWT_EXPIRATION}
@@ -33,3 +45,4 @@ cloudinary:
   name: ${CLOUDINARY_NAME}
   key: ${CLOUDINARY_KEY}
   secret: ${CLOUDINARY_SECRET}
+

@@ -1,8 +1,11 @@
 package com.example.perfume_store.configs.security;
 
+import com.example.perfume_store.modules.auth.CustomOAuth2SuccessHandler;
 import com.example.perfume_store.modules.auth.CustomUserDetailsService;
 import com.example.perfume_store.modules.auth.JwtAuthenticationFilter;
+import com.example.perfume_store.modules.auth.service.CustomOAuth2Service;
 import com.example.perfume_store.modules.auth.service.JwtService;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,12 +22,16 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
+@AllArgsConstructor
 @EnableWebSecurity
-@EnableMethodSecurity
+@EnableMethodSecurity   // For @PreAuthorize
 public class SecurityConfig {
 
     private final String USER = "USER";
     private final String ADMIN = "ADMIN";
+
+    private final CustomOAuth2Service customOAuth2Service;
+    private final CustomOAuth2SuccessHandler customOAuth2SuccessHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(
@@ -39,21 +46,30 @@ public class SecurityConfig {
                 // Authorization rules
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers("/login/**", "/oauth2/**").permitAll()
                         .requestMatchers("/api/v1/users/me").hasAnyRole(USER, ADMIN)
                         .requestMatchers("/api/v1/users/me/addresses/**").hasRole(USER)
                         .requestMatchers("/api/v1/admin/**").hasRole(ADMIN)
                         .anyRequest().authenticated()
                 )
 
-                .sessionManagement(session ->
-                        session.sessionCreationPolicy(
-                                SessionCreationPolicy.STATELESS)
+                // OAuth2 config
+                .oauth2Login(oauth2 -> oauth2
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(customOAuth2Service) // Register OAuth2 Service
+                        )
+                        .successHandler(customOAuth2SuccessHandler)
+                )
+
+                // Session config
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
 
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
 
                 // Disable default login form
-                .httpBasic(Customizer.withDefaults());
+                .httpBasic(AbstractHttpConfigurer::disable);
 
         return http.build();
     }

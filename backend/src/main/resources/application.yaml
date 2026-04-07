@@ -1,4 +1,6 @@
 server:
+  tomcat:
+    max-part-count: 50  # Change the default parts limitation when sending form-data (10 parts)
   port: 8080
 
 spring:
@@ -36,6 +38,11 @@ spring:
             scope:
               - email
               - profile
+  servlet:
+    multipart:
+      resolve-lazily: true
+      max-file-size: 10MB
+      max-request-size: 50MB
 
 jwt:
   secret: ${JWT_SECRET}
@@ -46,3 +53,15 @@ cloudinary:
   key: ${CLOUDINARY_KEY}
   secret: ${CLOUDINARY_SECRET}
 
+# ------ Turn on when debugging -------------
+#logging:
+#  level:
+#    org:
+#      apache:
+#        tomcat:
+#          util:
+#            http:
+#              fileupload: DEBUG
+#
+#      springframework:
+#        web: DEBUG

@@ -1,5 +1,6 @@
 package com.example.perfume_store.modules.brand.service;
 
+import com.example.perfume_store.domain.perfume.PerfumeRepository;
 import com.example.perfume_store.modules.brand.dto.request.BrandRequestDTO;
 import com.example.perfume_store.modules.brand.dto.response.BrandResponseDTO;
 import com.example.perfume_store.domain.brand.Brand;
@@ -17,6 +18,8 @@ import java.util.List;
 public class BrandService {
 
     private final BrandRepository brandRepository;
+    private final PerfumeRepository perfumeRepository;
+
     private final BrandMapper brandMapper;
 
     public List<BrandResponseDTO> getAllBrands() {
@@ -49,6 +52,11 @@ public class BrandService {
     @Transactional
     public void deleteBrand(int id) {
         Brand oldBrand = getBrandEntity(id);
+
+        if (perfumeRepository.existsByBrand(oldBrand)) {
+            throw new IllegalStateException("Cannot delete brand: There are perfumes associated with this brand.");
+        }
+        
         brandRepository.delete(oldBrand);
     }
 }

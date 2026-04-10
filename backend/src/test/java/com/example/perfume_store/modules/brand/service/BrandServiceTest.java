@@ -3,6 +3,7 @@ package com.example.perfume_store.modules.brand.service;
 import com.example.perfume_store.common.exceptions.NotFoundException;
 import com.example.perfume_store.domain.brand.Brand;
 import com.example.perfume_store.domain.brand.BrandRepository;
+import com.example.perfume_store.domain.perfume.PerfumeRepository;
 import com.example.perfume_store.modules.brand.dto.request.BrandRequestDTO;
 import com.example.perfume_store.modules.brand.dto.response.BrandResponseDTO;
 import com.example.perfume_store.modules.brand.mapper.BrandMapper;
@@ -28,6 +29,9 @@ class BrandServiceTest {
 
     @Mock
     private BrandRepository brandRepository;
+
+    @Mock
+    private PerfumeRepository perfumeRepository;
 
     @Mock
     private BrandMapper brandMapper;
@@ -153,23 +157,61 @@ class BrandServiceTest {
     // --- deleteBrand ---
 
     @Test
-    @DisplayName("deleteBrand: Should call delete when ID exists")
-    void deleteBrand_Success() {
-        when(brandRepository.findById(1)).thenReturn(Optional.of(brand));
+    @DisplayName("deleteBrand: Should throw NotFoundException when brand not found")
+    void deleteBrand_NotFound() {
+        // Arrange
+        int brandId = 1;
+        when(brandRepository.findById(brandId)).thenReturn(Optional.empty());
 
-        brandService.deleteBrand(1);
+        // Act & Assert
+        assertThatThrownBy(() -> brandService.deleteBrand(brandId))
+                .isInstanceOf(NotFoundException.class);
 
-        verify(brandRepository).delete(brand);
+        // Verify: never call functions after
+        verify(perfumeRepository, never()).existsByBrand(any());
+        verify(brandRepository, never()).delete(any());
     }
 
     @Test
-    @DisplayName("deleteBrand: Should throw NotFoundException when deleting non-existent ID")
-    void deleteBrand_NotFound() {
-        when(brandRepository.findById(1)).thenReturn(Optional.empty());
+    @DisplayName("deleteBrand: Should throw IllegalStateException when perfumes exist")
+    void deleteBrand_HasPerfumes() {
+        // Arrange
+        int brandId = 1;
+        Brand brand = new Brand();
+        brand.setId(brandId);
 
-        assertThatThrownBy(() -> brandService.deleteBrand(1))
-                .isInstanceOf(NotFoundException.class);
+        when(brandRepository.findById(brandId)).thenReturn(Optional.of(brand));
+        when(perfumeRepository.existsByBrand(brand)).thenReturn(true);
 
+        // Act & Assert
+        assertThatThrownBy(() -> brandService.deleteBrand(brandId))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("Cannot delete brand: There are perfumes associated with this brand.");
+
+        // Verify
+        verify(brandRepository).findById(brandId);
+        verify(perfumeRepository).existsByBrand(brand);
         verify(brandRepository, never()).delete(any());
+    }
+
+    @Test
+    @DisplayName("deleteBrand: Should delete successfully when no perfumes exist")
+    void deleteBrand_Success() {
+        // Arrange
+        int brandId = 1;
+        Brand brand = new Brand();
+        brand.setId(brandId);
+
+        when(brandRepository.findById(brandId)).thenReturn(Optional.of(brand));
+        // Assume: doesn't exist a perfume with exactly brand id
+        when(perfumeRepository.existsByBrand(brand)).thenReturn(false);
+
+        // Act
+        brandService.deleteBrand(brandId);
+
+        // Assert & Verify
+        verify(brandRepository).findById(brandId);
+        verify(perfumeRepository).existsByBrand(brand);
+        verify(brandRepository).delete(brand);
     }
 }

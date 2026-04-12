@@ -7,6 +7,7 @@ import static org.mockito.Mockito.*;
 import com.example.perfume_store.common.exceptions.NotFoundException;
 import com.example.perfume_store.domain.volume.Volume;
 import com.example.perfume_store.domain.volume.VolumeRepository;
+import com.example.perfume_store.domain.volume_perfume.VolumePerfumeRepository;
 import com.example.perfume_store.modules.volume.dtos.request.VolumeRequestDTO;
 import com.example.perfume_store.modules.volume.dtos.response.VolumeResponseDTO;
 import com.example.perfume_store.modules.volume.mapper.VolumeMapper;
@@ -28,6 +29,9 @@ class VolumeServiceTest {
 
     @Mock
     private VolumeMapper volumeMapper;
+
+    @Mock
+    private VolumePerfumeRepository volumePerfumeRepository;
 
     @InjectMocks
     private VolumeService volumeService;
@@ -173,17 +177,59 @@ class VolumeServiceTest {
     }
 
     @Test
-    @DisplayName("deleteVolume: Should call delete on repository when found")
+    @DisplayName("deleteVolume: Should throw NotFoundException when volume ID does not exist")
+    void deleteVolume_NotFound_ThrowsException() {
+        // Arrange
+        int id = 1;
+        when(volumeRepository.findById(id)).thenReturn(Optional.empty());
+
+        // Act & Assert
+        assertThatThrownBy(() -> volumeService.deleteVolume(id))
+                .isInstanceOf(NotFoundException.class)
+                .hasMessage("Volume not found");
+
+        // Verify
+        verify(volumePerfumeRepository, never()).existsByVolume(any());
+        verify(volumeRepository, never()).delete(any());
+    }
+
+    @Test
+    @DisplayName("deleteVolume: Should throw IllegalStateException when volume is linked to perfumes")
+    void deleteVolume_LinkedToPerfumes_ThrowsException() {
+        // Arrange
+        int id = 1;
+        Volume volume = createVolume(id, 100.0, false);
+
+        when(volumeRepository.findById(id)).thenReturn(Optional.of(volume));
+        when(volumePerfumeRepository.existsByVolume(volume)).thenReturn(true);
+
+        // Act & Assert
+        assertThatThrownBy(() -> volumeService.deleteVolume(id))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessage("Cannot delete volume: There are perfumes associated with this volume.");
+
+        // Verify
+        verify(volumeRepository).findById(id);
+        verify(volumePerfumeRepository).existsByVolume(volume);
+        verify(volumeRepository, never()).delete(volume);
+    }
+
+    @Test
+    @DisplayName("deleteVolume: Should delete successfully when no associations exist")
     void deleteVolume_Success() {
         // Arrange
         int id = 1;
-        Volume existingVolume = createVolume(id, 75.0, false);
-        when(volumeRepository.findById(id)).thenReturn(Optional.of(existingVolume));
+        Volume volume = createVolume(id, 100.0, false);
+
+        when(volumeRepository.findById(id)).thenReturn(Optional.of(volume));
+        when(volumePerfumeRepository.existsByVolume(volume)).thenReturn(false);
 
         // Act
         volumeService.deleteVolume(id);
 
-        // Assert
-        verify(volumeRepository).delete(existingVolume);
+        // Assert & Verify
+        verify(volumeRepository).findById(id);
+        verify(volumePerfumeRepository).existsByVolume(volume);
+        verify(volumeRepository).delete(volume);
     }
 }

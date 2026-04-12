@@ -1,6 +1,7 @@
 package com.example.perfume_store.modules.volume.service;
 
 import com.example.perfume_store.common.exceptions.NotFoundException;
+import com.example.perfume_store.domain.volume_perfume.VolumePerfumeRepository;
 import com.example.perfume_store.modules.volume.dtos.request.VolumeRequestDTO;
 import com.example.perfume_store.modules.volume.dtos.response.VolumeResponseDTO;
 import com.example.perfume_store.domain.volume.Volume;
@@ -17,6 +18,8 @@ import java.util.List;
 public class VolumeService {
 
     private final VolumeRepository volumeRepository;
+    private final VolumePerfumeRepository volumePerfumeRepository;
+
     private final VolumeMapper volumeMapper;
 
     public List<VolumeResponseDTO> getAllVolumes() {
@@ -50,6 +53,11 @@ public class VolumeService {
     @Transactional
     public void deleteVolume(int id) {
         Volume oldVolume = getVolumeByIdEntity(id);
+
+        if (volumePerfumeRepository.existsByVolume(oldVolume)) {
+            throw new IllegalStateException("Cannot delete volume: There are perfumes associated with this volume.");
+        }
+
         volumeRepository.delete(oldVolume);
     }
 }

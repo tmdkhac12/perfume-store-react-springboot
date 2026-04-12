@@ -1,6 +1,7 @@
 package com.example.perfume_store.modules.note.service;
 
 import com.example.perfume_store.common.exceptions.NotFoundException;
+import com.example.perfume_store.domain.note_perfume.NotePerfumeRepository;
 import com.example.perfume_store.modules.note.dto.request.NoteRequestDTO;
 import com.example.perfume_store.modules.note.dto.response.NoteResponseDTO;
 import com.example.perfume_store.domain.note.Note;
@@ -17,6 +18,8 @@ import java.util.List;
 public class NoteService {
 
     private final NoteRepository noteRepository;
+    private final NotePerfumeRepository notePerfumeRepository;
+
     private final NoteMapper noteMapper;
 
     public List<NoteResponseDTO> getAllNotes() {
@@ -52,6 +55,11 @@ public class NoteService {
     @Transactional
     public void deleteNote(int id) {
         Note note = getNoteByIdEntity(id);
+
+        if (notePerfumeRepository.existsByNote(note)) {
+            throw new IllegalStateException("Cannot delete note: There are perfumes using this note.");
+        }
+
         noteRepository.delete(note);
     }
 }

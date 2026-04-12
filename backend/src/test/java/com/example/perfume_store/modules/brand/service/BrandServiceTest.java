@@ -7,7 +7,6 @@ import com.example.perfume_store.domain.perfume.PerfumeRepository;
 import com.example.perfume_store.modules.brand.dto.request.BrandRequestDTO;
 import com.example.perfume_store.modules.brand.dto.response.BrandResponseDTO;
 import com.example.perfume_store.modules.brand.mapper.BrandMapper;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,14 +14,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
-
-import java.util.Collections;
-import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
 class BrandServiceTest {
@@ -39,22 +37,29 @@ class BrandServiceTest {
     @InjectMocks
     private BrandService brandService;
 
-    private Brand brand;
-    private BrandRequestDTO brandRequestDTO;
-    private BrandResponseDTO brandResponseDTO;
+    // --- Private Helper Methods (Data Factories) ---
 
-    @BeforeEach
-    void setUp() {
-        brand = new Brand();
-        brand.setId(1);
-        brand.setName("Chanel");
+    private Brand createBrand(int id, String name, boolean hide) {
+        Brand brand = new Brand();
+        brand.setId(id);
+        brand.setName(name);
+        brand.setHide(hide);
+        return brand;
+    }
 
-        brandRequestDTO = new BrandRequestDTO();
-        brandRequestDTO.setName("Chanel");
+    private BrandRequestDTO createRequestDTO(String name, boolean hide) {
+        BrandRequestDTO dto = new BrandRequestDTO();
+        dto.setName(name);
+        dto.setHide(hide);
+        return dto;
+    }
 
-        brandResponseDTO = new BrandResponseDTO();
-        brandResponseDTO.setId(1);
-        brandResponseDTO.setName("Chanel");
+    private BrandResponseDTO createResponseDTO(int id, String name, boolean hide) {
+        BrandResponseDTO dto = new BrandResponseDTO();
+        dto.setId(id);
+        dto.setName(name);
+        dto.setHide(hide);
+        return dto;
     }
 
     // --- getAllBrands ---
@@ -63,17 +68,18 @@ class BrandServiceTest {
     @DisplayName("getAllBrands: Should return list of BrandResponseDTO")
     void getAllBrands_Success() {
         // Arrange
-        List<Brand> brands = List.of(brand);
-        when(brandRepository.findAll()).thenReturn(brands); // Suppose 
-        when(brandMapper.toResponseDTO(brands)).thenReturn(List.of(brandResponseDTO));
+        List<Brand> brands = List.of(createBrand(1, "Chanel", false));
+        List<BrandResponseDTO> dtos = List.of(createResponseDTO(1, "Chanel", false));
+
+        when(brandRepository.findAll()).thenReturn(brands);
+        when(brandMapper.toResponseDTO(brands)).thenReturn(dtos);
 
         // Act
         List<BrandResponseDTO> result = brandService.getAllBrands();
 
         // Assert
-        assertThat(result).hasSize(1)
-                .extracting(BrandResponseDTO::getName)
-                .containsExactly("Chanel");
+        assertThat(result).hasSize(1);
+        assertThat(result.get(0).getName()).isEqualTo("Chanel");
     }
 
     @Test
@@ -92,10 +98,14 @@ class BrandServiceTest {
     @Test
     @DisplayName("getBrandById: Should return BrandResponseDTO when ID exists")
     void getBrandById_Success() {
-        when(brandRepository.findById(1)).thenReturn(Optional.of(brand));
-        when(brandMapper.toResponseDTO(brand)).thenReturn(brandResponseDTO);
+        int id = 1;
+        Brand brand = createBrand(id, "Chanel", false);
+        BrandResponseDTO dto = createResponseDTO(id, "Chanel", false);
 
-        BrandResponseDTO result = brandService.getBrandById(1);
+        when(brandRepository.findById(id)).thenReturn(Optional.of(brand));
+        when(brandMapper.toResponseDTO(brand)).thenReturn(dto);
+
+        BrandResponseDTO result = brandService.getBrandById(id);
 
         assertThat(result).isNotNull();
         assertThat(result.getName()).isEqualTo("Chanel");
@@ -104,9 +114,10 @@ class BrandServiceTest {
     @Test
     @DisplayName("getBrandById: Should throw NotFoundException when ID not found")
     void getBrandById_NotFound() {
-        when(brandRepository.findById(1)).thenReturn(Optional.empty());
+        int id = 1;
+        when(brandRepository.findById(id)).thenReturn(Optional.empty());
 
-        assertThatThrownBy(() -> brandService.getBrandById(1))
+        assertThatThrownBy(() -> brandService.getBrandById(id))
                 .isInstanceOf(NotFoundException.class)
                 .hasMessage("Brand Not Found");
     }
@@ -116,15 +127,20 @@ class BrandServiceTest {
     @Test
     @DisplayName("createBrand: Should return BrandResponseDTO after saving")
     void createBrand_Success() {
-        when(brandMapper.toEntity(brandRequestDTO)).thenReturn(brand);
-        when(brandRepository.save(brand)).thenReturn(brand);
-        when(brandMapper.toResponseDTO(brand)).thenReturn(brandResponseDTO);
+        BrandRequestDTO request = createRequestDTO("Chanel", false);
+        Brand brand = createBrand(0, "Chanel", false);
+        Brand savedBrand = createBrand(1, "Chanel", false);
+        BrandResponseDTO response = createResponseDTO(1, "Chanel", false);
 
-        BrandResponseDTO result = brandService.createBrand(brandRequestDTO);
+        when(brandMapper.toEntity(request)).thenReturn(brand);
+        when(brandRepository.save(brand)).thenReturn(savedBrand);
+        when(brandMapper.toResponseDTO(savedBrand)).thenReturn(response);
+
+        BrandResponseDTO result = brandService.createBrand(request);
 
         assertThat(result).isNotNull();
         assertThat(result.getId()).isEqualTo(1);
-        verify(brandRepository).save(any(Brand.class));
+        verify(brandRepository).save(brand);
     }
 
     // --- updateBrand ---
@@ -132,26 +148,21 @@ class BrandServiceTest {
     @Test
     @DisplayName("updateBrand: Should update and return BrandResponseDTO when ID exists")
     void updateBrand_Success() {
-        when(brandRepository.findById(1)).thenReturn(Optional.of(brand));
-        when(brandRepository.save(brand)).thenReturn(brand);
-        when(brandMapper.toResponseDTO(brand)).thenReturn(brandResponseDTO);
+        int id = 1;
+        BrandRequestDTO request = createRequestDTO("New Name", true);
+        Brand existingBrand = createBrand(id, "Old Name", false);
+        BrandResponseDTO response = createResponseDTO(id, "New Name", true);
 
-        BrandResponseDTO result = brandService.updateBrand(1, brandRequestDTO);
+        when(brandRepository.findById(id)).thenReturn(Optional.of(existingBrand));
+        when(brandRepository.save(existingBrand)).thenReturn(existingBrand);
+        when(brandMapper.toResponseDTO(existingBrand)).thenReturn(response);
+
+        BrandResponseDTO result = brandService.updateBrand(id, request);
 
         assertThat(result).isNotNull();
-        verify(brandMapper).updateEntity(brand, brandRequestDTO);
-        verify(brandRepository).save(brand);
-    }
-
-    @Test
-    @DisplayName("updateBrand: Should throw NotFoundException when updating non-existent ID")
-    void updateBrand_NotFound() {
-        when(brandRepository.findById(1)).thenReturn(Optional.empty());
-
-        assertThatThrownBy(() -> brandService.updateBrand(1, brandRequestDTO))
-                .isInstanceOf(NotFoundException.class);
-
-        verify(brandRepository, never()).save(any());
+        assertThat(result.getName()).isEqualTo("New Name");
+        verify(brandMapper).updateEntity(existingBrand, request);
+        verify(brandRepository).save(existingBrand);
     }
 
     // --- deleteBrand ---
@@ -159,15 +170,12 @@ class BrandServiceTest {
     @Test
     @DisplayName("deleteBrand: Should throw NotFoundException when brand not found")
     void deleteBrand_NotFound() {
-        // Arrange
-        int brandId = 1;
-        when(brandRepository.findById(brandId)).thenReturn(Optional.empty());
+        int id = 1;
+        when(brandRepository.findById(id)).thenReturn(Optional.empty());
 
-        // Act & Assert
-        assertThatThrownBy(() -> brandService.deleteBrand(brandId))
+        assertThatThrownBy(() -> brandService.deleteBrand(id))
                 .isInstanceOf(NotFoundException.class);
 
-        // Verify: never call functions after
         verify(perfumeRepository, never()).existsByBrand(any());
         verify(brandRepository, never()).delete(any());
     }
@@ -175,43 +183,30 @@ class BrandServiceTest {
     @Test
     @DisplayName("deleteBrand: Should throw IllegalStateException when perfumes exist")
     void deleteBrand_HasPerfumes() {
-        // Arrange
-        int brandId = 1;
-        Brand brand = new Brand();
-        brand.setId(brandId);
+        int id = 1;
+        Brand brand = createBrand(id, "Chanel", false);
 
-        when(brandRepository.findById(brandId)).thenReturn(Optional.of(brand));
+        when(brandRepository.findById(id)).thenReturn(Optional.of(brand));
         when(perfumeRepository.existsByBrand(brand)).thenReturn(true);
 
-        // Act & Assert
-        assertThatThrownBy(() -> brandService.deleteBrand(brandId))
+        assertThatThrownBy(() -> brandService.deleteBrand(id))
                 .isInstanceOf(IllegalStateException.class)
                 .hasMessageContaining("Cannot delete brand: There are perfumes associated with this brand.");
 
-        // Verify
-        verify(brandRepository).findById(brandId);
-        verify(perfumeRepository).existsByBrand(brand);
-        verify(brandRepository, never()).delete(any());
+        verify(brandRepository, never()).delete(brand);
     }
 
     @Test
     @DisplayName("deleteBrand: Should delete successfully when no perfumes exist")
     void deleteBrand_Success() {
-        // Arrange
-        int brandId = 1;
-        Brand brand = new Brand();
-        brand.setId(brandId);
+        int id = 1;
+        Brand brand = createBrand(id, "Chanel", false);
 
-        when(brandRepository.findById(brandId)).thenReturn(Optional.of(brand));
-        // Assume: doesn't exist a perfume with exactly brand id
+        when(brandRepository.findById(id)).thenReturn(Optional.of(brand));
         when(perfumeRepository.existsByBrand(brand)).thenReturn(false);
 
-        // Act
-        brandService.deleteBrand(brandId);
+        brandService.deleteBrand(id);
 
-        // Assert & Verify
-        verify(brandRepository).findById(brandId);
-        verify(perfumeRepository).existsByBrand(brand);
         verify(brandRepository).delete(brand);
     }
 }

@@ -1,3 +1,6 @@
+---
+applyTo: ".github/**"
+---
 # Developer Workflow
 - Baseline local commands (Maven project, `pom.xml`):
   - `mvn clean test` (unit tests)

@@ -1,4 +1,7 @@
-# Testing Conventions (Project-specific)
+---
+applyTo: "src/test/java/**/*.java"
+---
+# Testing Rules
 - Location & scope: Unit tests live under `src/test/java/...` and primarily target `service` and `mapper` layers (see `src/test/java/com/example/perfume_store/modules/*/service/*Test.java` and `.../mapper/*Test.java`).
 - Frameworks: JUnit 5 + Mockito + AssertJ. Example files: `BrandServiceTest.java`, `VolumeServiceTest.java`, `BrandMapperTest.java`.
 - Mockito setup: use `@ExtendWith(MockitoExtension.class)` at class level, `@Mock` for external dependencies and `@InjectMocks` for the service under test. Use `when(...).thenReturn(...)` and `verify(...)` to assert interactions.
@@ -8,10 +11,7 @@
 - Test structure & helpers: prefer small private factory methods to create test entities/DTOs (see `BrandServiceTest#createBrand(...)`). Name test methods with `subject_scenario_expected` or use `@DisplayName`.
 - Exception testing: assert thrown exceptions and their messages (e.g., `NotFoundException`, `IllegalStateException`). Prefer `assertThatThrownBy(...).isInstanceOf(...).hasMessage(...)`.
 - Avoid Spring context unless necessary: use `@SpringBootTest` only for the minimal `contextLoads()` check (example `PerfumeStoreApplicationTests`). Integration tests (controllers/repositories/specifications) are separate and should use dedicated setup.
-- Running tests: use Maven command:
-```powershell
+- Running: use Maven command:
+```
 mvn clean test
 ```
-
-These rules are distilled from the existing tests and `notes/test.md` in the repo — follow them to keep new tests consistent with the project's style.
-

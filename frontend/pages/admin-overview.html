@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>AURA Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Noto+Serif:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-secondary": "#ffffff",
+            "surface-container-low": "#f3f4f5",
+            "on-tertiary": "#ffffff",
+            "on-primary-fixed-variant": "#474746",
+            "secondary-fixed": "#e4e2e2",
+            "outline": "#747878",
+            "surface-tint": "#5f5e5e",
+            "background": "#f8f9fa",
+            "on-secondary-fixed-variant": "#464747",
+            "tertiary": "#0a0c0c",
+            "primary-fixed": "#e5e2e1",
+            "on-tertiary-fixed-variant": "#464747",
+            "inverse-primary": "#c8c6c5",
+            "inverse-on-surface": "#f0f1f2",
+            "on-secondary-container": "#646464",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-highest": "#e1e3e4",
+            "surface": "#f8f9fa",
+            "outline-variant": "#c4c7c7",
+            "on-tertiary-container": "#898989",
+            "on-primary-fixed": "#1b1c1c",
+            "tertiary-fixed-dim": "#c7c6c6",
+            "surface-dim": "#d9dadb",
+            "on-secondary-fixed": "#1b1c1c",
+            "primary-container": "#222222",
+            "on-error": "#ffffff",
+            "on-tertiary-fixed": "#1b1c1c",
+            "secondary-fixed-dim": "#c8c6c6",
+            "error-container": "#ffdad6",
+            "tertiary-fixed": "#e3e2e2",
+            "surface-container-high": "#e7e8e9",
+            "secondary-container": "#e4e2e2",
+            "inverse-surface": "#2e3132",
+            "surface-container": "#edeeef",
+            "primary": "#0b0c0c",
+            "surface-bright": "#f8f9fa",
+            "on-surface": "#191c1d",
+            "tertiary-container": "#212222",
+            "on-primary": "#ffffff",
+            "error": "#ba1a1a",
+            "secondary": "#5e5e5e",
+            "surface-variant": "#e1e3e4",
+            "primary-fixed-dim": "#c8c6c5",
+            "on-surface-variant": "#444748",
+            "on-background": "#191c1d",
+            "on-primary-container": "#8a8989",
+            "on-error-container": "#93000a"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {},
+          "fontFamily": {
+            "headline": [
+              "Noto Serif"
+            ],
+            "body": [
+              "Manrope"
+            ],
+            "label": [
+              "Manrope"
+            ]
+          }
+        },
+      },
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Manrope', sans-serif;
+      background-color: #f8f9fa;
+      color: #191c1d;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    .font-headline {
+      font-family: 'Noto Serif', serif;
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL'0, 'wght'400, 'GRAD'0, 'opsz'24;
+    }
+  </style>
+</head>
+
+<body class="bg-background text-on-background flex h-screen overflow-hidden">
+  <!-- SideNavBar -->
+  <aside class="hidden md:flex flex-col h-screen w-64 rounded-r-lg bg-stone-50 dark:bg-zinc-950 p-6 space-y-8 bg-surface-container-low border-r border-surface-container-high relative z-10 shrink-0">
+    <!-- Header -->
+    <div class="flex items-center space-x-3 mb-4">
+      <div class="w-10 h-10 rounded-full bg-surface-variant overflow-hidden">
+        <img alt="Aura Admin" class="w-full h-full object-cover" data-alt="close-up portrait of a professional woman with soft lighting and a neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAa_f7bahXqWZsSyX8Yqv7288yVQDOal-EOJRL1FOpVvyA8OVPEkowO9KKTx9idepozaZ3O45JCs82fXlg2A6nGSSDS5SQj3ObUuFJwKUEJfvLXEOSz74AJLkAvuK-0wTY0KP4_qc5SIZhkBQ_lVSQ3Ep_tWjoTixG1Co0RyZh4Ze_dDYrJpTECugbpC9frjBASvsagy4Kv0kfa4g6YjcOwkuRNZGcw3mOfPb2yL9aUBeZAg5UgQlibf2erCgXp3hiNZTs6OuDH6rY" />
+      </div>
+      <div>
+        <h2 class="font-serif text-lg tracking-widest text-zinc-900 dark:text-zinc-50 font-bold">Aura Gallery</h2>
+        <p class="text-xs text-on-surface-variant">Management Suite</p>
+      </div>
+    </div>
+    <!-- Navigation Tabs -->
+    <nav class="flex-1 space-y-2">
+      <!-- Active Tab -->
+      <a class="flex items-center px-4 py-3 bg-stone-200/50 dark:bg-zinc-800/50 text-zinc-900 dark:text-zinc-50 rounded-lg hover:bg-stone-100 dark:hover:bg-zinc-900 transition-all duration-200 group" href="#">
+        <span class="material-symbols-outlined mr-3 text-on-surface group-hover:text-primary transition-colors">dashboard</span>
+        <span class="font-sans uppercase tracking-[0.1em] text-[11px] font-semibold text-primary">Overview</span>
+      </a>
+      <a class="flex items-center px-4 py-3 text-zinc-500 dark:text-zinc-400 hover:bg-stone-100 dark:hover:bg-zinc-900 transition-all duration-200 rounded-lg group" href="#">
+        <span class="material-symbols-outlined mr-3 group-hover:text-on-surface transition-colors">inventory_2</span>
+        <span class="font-sans uppercase tracking-[0.1em] text-[11px] font-medium">Products</span>
+      </a>
+      <a class="flex items-center px-4 py-3 text-zinc-500 dark:text-zinc-400 hover:bg-stone-100 dark:hover:bg-zinc-900 transition-all duration-200 rounded-lg group" href="#">
+        <span class="material-symbols-outlined mr-3 group-hover:text-on-surface transition-colors">fluid_med</span>
+        <span class="font-sans uppercase tracking-[0.1em] text-[11px] font-medium">Notes</span>
+      </a>
+      <a class="flex items-center px-4 py-3 text-zinc-500 dark:text-zinc-400 hover:bg-stone-100 dark:hover:bg-zinc-900 transition-all duration-200 rounded-lg group" href="#">
+        <span class="material-symbols-outlined mr-3 group-hover:text-on-surface transition-colors">verified</span>
+        <span class="font-sans uppercase tracking-[0.1em] text-[11px] font-medium">Brands</span>
+      </a>
+      <a class="flex items-center px-4 py-3 text-zinc-500 dark:text-zinc-400 hover:bg-stone-100 dark:hover:bg-zinc-900 transition-all duration-200 rounded-lg group" href="#">
+        <span class="material-symbols-outlined mr-3 group-hover:text-on-surface transition-colors">straighten</span>
+        <span class="font-sans uppercase tracking-[0.1em] text-[11px] font-medium">Volumes</span>
+      </a>
+      <a class="flex items-center px-4 py-3 text-zinc-500 dark:text-zinc-400 hover:bg-stone-100 dark:hover:bg-zinc-900 transition-all duration-200 rounded-lg group" href="#">
+        <span class="material-symbols-outlined mr-3 group-hover:text-on-surface transition-colors">group</span>
+        <span class="font-sans uppercase tracking-[0.1em] text-[11px] font-medium">Users</span>
+      </a>
+      <a class="flex items-center px-4 py-3 text-zinc-500 dark:text-zinc-400 hover:bg-stone-100 dark:hover:bg-zinc-900 transition-all duration-200 rounded-lg group" href="#">
+        <span class="material-symbols-outlined mr-3 group-hover:text-on-surface transition-colors">receipt_long</span>
+        <span class="font-sans uppercase tracking-[0.1em] text-[11px] font-medium">Invoices</span>
+      </a>
+    </nav>
+    <!-- CTA Button -->
+    <button class="w-full bg-primary text-on-primary py-3 rounded-lg hover:bg-secondary transition-colors font-sans uppercase tracking-[0.1em] text-[11px] font-semibold flex items-center justify-center">
+      <span class="material-symbols-outlined mr-2 text-[18px]">add</span> Create Entry
+    </button>
+    <!-- Footer -->
+    <div class="mt-auto space-y-2 pt-6 border-t border-surface-container-high">
+      <a class="flex items-center px-4 py-2 text-zinc-500 dark:text-zinc-400 hover:bg-stone-100 dark:hover:bg-zinc-900 transition-all duration-200 rounded-lg group" href="#">
+        <span class="material-symbols-outlined mr-3 text-[20px] group-hover:text-on-surface transition-colors">help_outline</span>
+        <span class="font-sans uppercase tracking-[0.1em] text-[11px] font-medium">Help</span>
+      </a>
+      <a class="flex items-center px-4 py-2 text-zinc-500 dark:text-zinc-400 hover:bg-stone-100 dark:hover:bg-zinc-900 transition-all duration-200 rounded-lg group" href="#">
+        <span class="material-symbols-outlined mr-3 text-[20px] group-hover:text-on-surface transition-colors">logout</span>
+        <span class="font-sans uppercase tracking-[0.1em] text-[11px] font-medium">Sign Out</span>
+      </a>
+    </div>
+  </aside>
+  <!-- Main Content Area -->
+  <main class="flex-1 flex flex-col h-screen overflow-y-auto relative">
+    <!-- Dashboard Content -->
+    <div class="p-8 space-y-8 flex-1 w-full max-w-7xl mx-auto">
+      <!-- Welcome Header -->
+      <div class="mb-10">
+        <h3 class="font-headline text-3xl font-semibold mb-2">Welcome back, Admin</h3>
+        <p class="text-on-surface-variant text-sm max-w-2xl">Here is the high-level overview of AURA's performance today. The gallery is performing steadily.</p>
+      </div>
+      <!-- Stats Grid (Bento Style) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Stat Card 1: Sales -->
+        <div class="bg-surface-container-lowest rounded-xl p-6 relative overflow-hidden flex flex-col justify-between h-40 shadow-[0_8px_30px_rgba(0,0,0,0.03)] border-l-4 border-l-primary">
+          <div class="flex justify-between items-start mb-4">
+            <p class="text-xs font-sans uppercase tracking-[0.1em] text-on-surface-variant font-medium">Total Sales</p>
+            <span class="material-symbols-outlined text-on-surface-variant">trending_up</span>
+          </div>
+          <div>
+            <h4 class="font-headline text-4xl font-semibold text-on-surface">$124,500</h4>
+            <p class="text-xs text-on-surface-variant mt-1 flex items-center"><span class="text-primary font-medium mr-1">+12.5%</span> from last month</p>
+          </div>
+        </div>
+        <!-- Stat Card 2: Users -->
+        <div class="bg-surface-container-lowest rounded-xl p-6 relative overflow-hidden flex flex-col justify-between h-40 shadow-[0_8px_30px_rgba(0,0,0,0.03)] border-l-4 border-l-secondary">
+          <div class="flex justify-between items-start mb-4">
+            <p class="text-xs font-sans uppercase tracking-[0.1em] text-on-surface-variant font-medium">Active Users</p>
+            <span class="material-symbols-outlined text-on-surface-variant">group</span>
+          </div>
+          <div>
+            <h4 class="font-headline text-4xl font-semibold text-on-surface">8,240</h4>
+            <p class="text-xs text-on-surface-variant mt-1 flex items-center"><span class="text-primary font-medium mr-1">+4.2%</span> from last month</p>
+          </div>
+        </div>
+        <!-- Stat Card 3: Orders -->
+        <div class="bg-surface-container-lowest rounded-xl p-6 relative overflow-hidden flex flex-col justify-between h-40 shadow-[0_8px_30px_rgba(0,0,0,0.03)] border-l-4 border-l-surface-tint">
+          <div class="flex justify-between items-start mb-4">
+            <p class="text-xs font-sans uppercase tracking-[0.1em] text-on-surface-variant font-medium">New Orders</p>
+            <span class="material-symbols-outlined text-on-surface-variant">shopping_bag</span>
+          </div>
+          <div>
+            <h4 class="font-headline text-4xl font-semibold text-on-surface">1,432</h4>
+            <p class="text-xs text-on-surface-variant mt-1 flex items-center"><span class="text-secondary font-medium mr-1">-1.5%</span> from last month</p>
+          </div>
+        </div>
+        <!-- Stat Card 4: Inventory -->
+        <div class="bg-surface-container-lowest rounded-xl p-6 relative overflow-hidden flex flex-col justify-between h-40 shadow-[0_8px_30px_rgba(0,0,0,0.03)] border-l-4 border-l-outline-variant">
+          <div class="flex justify-between items-start mb-4">
+            <p class="text-xs font-sans uppercase tracking-[0.1em] text-on-surface-variant font-medium">Low Stock Alerts</p>
+            <span class="material-symbols-outlined text-on-surface-variant">inventory_2</span>
+          </div>
+          <div>
+            <h4 class="font-headline text-4xl font-semibold text-on-surface">14</h4>
+            <p class="text-xs text-on-surface-variant mt-1 flex items-center text-on-surface-variant">Requires attention</p>
+          </div>
+        </div>
+      </div>
+      <!-- Complex Layout Section -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
+        <!-- Main Chart Area (Spans 2 columns) -->
+        <div class="lg:col-span-2 bg-surface-container-lowest rounded-xl p-8 shadow-[0_8px_30px_rgba(0,0,0,0.02)]">
+          <div class="flex justify-between items-center mb-6">
+            <h4 class="font-headline text-xl font-medium">Revenue Overview</h4>
+            <div class="flex space-x-2">
+              <span class="px-3 py-1 bg-surface-container text-xs rounded-full cursor-pointer hover:bg-surface-container-high transition-colors">1W</span>
+              <span class="px-3 py-1 bg-primary text-on-primary text-xs rounded-full cursor-pointer">1M</span>
+              <span class="px-3 py-1 bg-surface-container text-xs rounded-full cursor-pointer hover:bg-surface-container-high transition-colors">1Y</span>
+            </div>
+          </div>
+          <!-- Decorative Chart Representation -->
+          <div class="h-64 w-full flex items-end space-x-2 pb-4">
+            <div class="flex-1 bg-surface-container-high rounded-t-sm h-[30%] hover:bg-surface-variant transition-colors relative group">
+              <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-surface text-on-surface text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-sm">$12k</div>
+            </div>
+            <div class="flex-1 bg-surface-container-high rounded-t-sm h-[45%] hover:bg-surface-variant transition-colors relative group">
+              <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-surface text-on-surface text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-sm">$18k</div>
+            </div>
+            <div class="flex-1 bg-surface-container-high rounded-t-sm h-[35%] hover:bg-surface-variant transition-colors relative group">
+              <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-surface text-on-surface text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-sm">$14k</div>
+            </div>
+            <div class="flex-1 bg-surface-container-high rounded-t-sm h-[60%] hover:bg-surface-variant transition-colors relative group">
+              <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-surface text-on-surface text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-sm">$24k</div>
+            </div>
+            <div class="flex-1 bg-surface-container-high rounded-t-sm h-[50%] hover:bg-surface-variant transition-colors relative group">
+              <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-surface text-on-surface text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-sm">$20k</div>
+            </div>
+            <div class="flex-1 bg-surface-container-high rounded-t-sm h-[75%] hover:bg-surface-variant transition-colors relative group">
+              <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-surface text-on-surface text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-sm">$30k</div>
+            </div>
+            <div class="flex-1 bg-primary rounded-t-sm h-[90%] relative group">
+              <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-surface text-on-surface text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-sm font-semibold">$36k</div>
+            </div>
+          </div>
+          <div class="flex justify-between text-xs text-on-surface-variant border-t border-surface-container-high pt-2">
+            <span>Mon</span>
+            <span>Tue</span>
+            <span>Wed</span>
+            <span>Thu</span>
+            <span>Fri</span>
+            <span>Sat</span>
+            <span>Sun</span>
+          </div>
+        </div>
+        <!-- Top Products List -->
+        <div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_8px_30px_rgba(0,0,0,0.02)] flex flex-col h-full">
+          <div class="flex justify-between items-center mb-6">
+            <h4 class="font-headline text-xl font-medium">Top Exhibitions</h4>
+            <span class="material-symbols-outlined text-on-surface-variant text-sm cursor-pointer hover:text-primary">more_horiz</span>
+          </div>
+          <div class="space-y-6 flex-1">
+            <!-- Product Item 1 -->
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden shrink-0">
+                <img alt="Oud Wood" class="w-full h-full object-cover grayscale opacity-80" data-alt="minimalist sleek perfume bottle on a dark reflective surface with moody lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQXVK-tMClCRWDNzSQjfIx-y1BdRQTm0WE7mQiTIDB7y57VLyhu7miPU5l1q89-nAASTQXhl8kM3gj9VpfagPVXQ6F2KTG6Jxajg3iqoLXs2iJ61A896PlxSK55KppvKodMkEXFVqS6fqEFKfHQYHEkrukbF7_8Ty-bd26_qm4_xUWsDr93sBpOZoaKT8JXWoBiTFT6lZelVVW2HwUiU0aPOKBIxoYuOy7V0UAYQ1F7oji9I-lpASXf26YtwdYlAoPWJkL9Ds4T6I" />
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-on-surface truncate">Midnight Oud</p>
+                <div class="flex space-x-2 mt-1">
+                  <span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[10px] uppercase tracking-wider rounded-sm">Woody</span>
+                </div>
+              </div>
+              <div class="text-right shrink-0">
+                <p class="text-sm font-semibold">$345</p>
+                <p class="text-[10px] text-on-surface-variant">120 sold</p>
+              </div>
+            </div>
+            <!-- Product Item 2 -->
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden shrink-0">
+                <img alt="Bergamot" class="w-full h-full object-cover grayscale opacity-80" data-alt="clear glass perfume bottle with minimalist label on a light grey background soft shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoXNabhVzTYHpIvpNn6zj4yxBaFkR1SxkRzo4Uwas6vzzWBUnAI5f-5ZKaaiAt1FnXwUOhFio_9FfPvcBXwWTwp8HE6e8xq8Z67gtfJ_Zis0Y_YIxee3t-ranwII10pBZwonoSX2boV2zxj69J21QJNzg0h2pxkgiPH0ZZEOgvF308stAKtUUEAAvtSxW7ULnFrBQ4Kx4GHFlU6VZWI7F4ob8dzO7CTRzdARwq1nf9y6lL7Q5XOu0QG6oLOC8EgwseOkgom928WdQ" />
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-on-surface truncate">Bergamot Blanc</p>
+                <div class="flex space-x-2 mt-1">
+                  <span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[10px] uppercase tracking-wider rounded-sm">Citrus</span>
+                </div>
+              </div>
+              <div class="text-right shrink-0">
+                <p class="text-sm font-semibold">$280</p>
+                <p class="text-[10px] text-on-surface-variant">95 sold</p>
+              </div>
+            </div>
+            <!-- Product Item 3 -->
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden shrink-0">
+                <img alt="Rose" class="w-full h-full object-cover grayscale opacity-80" data-alt="elegant tall perfume bottle with a dark cap against a textured stone wall" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMzqT3VOboPE_6GyFU3VZyQ2GWJFuae0vLGG7UC2LT-6NRVDblC93ZNF0u79-0dUgNT0B3AClzASyyS1LPwGdZY2gRbg_FF90xtxhvs7dqfd3DR7usmr6Z14kPy--AQmLpz6dCV81Bcvkt118XkPpfh3t8aopTVnaUiE8wiA5qWjrB8gJt5SAxcX88EMoE1T-q65ygBY5Fhg1KFgRhbwMjDVgXS6UrHMteyp9mbPWEYPyEwIWqX-v4Fzg6DIwtnoSrJ8QTMTXS1mM" />
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-on-surface truncate">Velvet Rose</p>
+                <div class="flex space-x-2 mt-1">
+                  <span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[10px] uppercase tracking-wider rounded-sm">Floral</span>
+                </div>
+              </div>
+              <div class="text-right shrink-0">
+                <p class="text-sm font-semibold">$310</p>
+                <p class="text-[10px] text-on-surface-variant">84 sold</p>
+              </div>
+            </div>
+          </div>
+          <button class="w-full mt-6 py-2 border-b border-outline-variant/30 text-xs font-sans uppercase tracking-[0.1em] text-on-surface-variant hover:text-primary transition-colors hover:border-primary">View Full Catalog</button>
+        </div>
+      </div>
+      <!-- Recent Activity Table Area -->
+      <div class="bg-surface-container-lowest rounded-xl shadow-[0_8px_30px_rgba(0,0,0,0.02)] overflow-hidden mt-8">
+        <div class="p-6 border-b border-surface-container-high flex justify-between items-center">
+          <h4 class="font-headline text-lg font-medium">Recent Transactions</h4>
+          <button class="text-xs font-sans uppercase tracking-[0.1em] text-on-surface-variant hover:text-primary transition-colors flex items-center">Filter <span class="material-symbols-outlined ml-1 text-sm">filter_list</span></button>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-surface-container-low text-xs uppercase tracking-[0.1em] text-on-surface-variant font-medium">
+              <tr>
+                <th class="px-6 py-4 font-normal">Order ID</th>
+                <th class="px-6 py-4 font-normal">Date</th>
+                <th class="px-6 py-4 font-normal">Customer</th>
+                <th class="px-6 py-4 font-normal">Amount</th>
+                <th class="px-6 py-4 font-normal">Status</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-surface-container-high">
+              <tr class="hover:bg-surface-container-low/50 transition-colors">
+                <td class="px-6 py-4 font-mono text-xs text-on-surface-variant">#AUR-8921</td>
+                <td class="px-6 py-4 text-on-surface-variant">Oct 24, 2023</td>
+                <td class="px-6 py-4 font-medium text-on-surface">Eleanor Vance</td>
+                <td class="px-6 py-4">$690.00</td>
+                <td class="px-6 py-4"><span class="px-2 py-1 bg-surface-container text-on-surface text-[10px] uppercase tracking-wider rounded-sm">Completed</span></td>
+              </tr>
+              <tr class="hover:bg-surface-container-low/50 transition-colors">
+                <td class="px-6 py-4 font-mono text-xs text-on-surface-variant">#AUR-8920</td>
+                <td class="px-6 py-4 text-on-surface-variant">Oct 24, 2023</td>
+                <td class="px-6 py-4 font-medium text-on-surface">Marcus Thorne</td>
+                <td class="px-6 py-4">$345.00</td>
+                <td class="px-6 py-4"><span class="px-2 py-1 bg-primary text-on-primary text-[10px] uppercase tracking-wider rounded-sm">Processing</span></td>
+              </tr>
+              <tr class="hover:bg-surface-container-low/50 transition-colors">
+                <td class="px-6 py-4 font-mono text-xs text-on-surface-variant">#AUR-8919</td>
+                <td class="px-6 py-4 text-on-surface-variant">Oct 23, 2023</td>
+                <td class="px-6 py-4 font-medium text-on-surface">Sophia Laurent</td>
+                <td class="px-6 py-4">$1,250.00</td>
+                <td class="px-6 py-4"><span class="px-2 py-1 bg-surface-container text-on-surface text-[10px] uppercase tracking-wider rounded-sm">Completed</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="h-12"></div> <!-- Bottom Spacing -->
+    </div>
+  </main>
+</body>
+
+</html>

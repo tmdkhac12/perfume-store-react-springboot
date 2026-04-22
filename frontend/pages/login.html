@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>L'Essence - Login</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400..700;1,400..700&amp;family=Manrope:wght@400..700&amp;display=swap" rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-container-lowest": "#ffffff",
+            "primary": "#212529",
+            "background": "#f8f9fa",
+            "surface-container-low": "#f3f4f5",
+            "secondary-fixed-dim": "#c8c6c6",
+            "primary-container": "#222222",
+            "surface-container": "#edeeef",
+            "on-secondary-fixed": "#1b1c1c",
+            "tertiary": "#0a0c0c",
+            "outline-variant": "#c4c7c7",
+            "on-primary-fixed": "#1b1c1c",
+            "tertiary-container": "#212222",
+            "surface-dim": "#d9dadb",
+            "secondary": "#5e5e5e",
+            "primary-fixed-dim": "#c8c6c5",
+            "primary-fixed": "#e5e2e1",
+            "surface-variant": "#e1e3e4",
+            "on-tertiary-fixed": "#1b1c1c",
+            "inverse-surface": "#2e3132",
+            "outline": "#747878",
+            "on-tertiary": "#ffffff",
+            "surface": "#f8f9fa",
+            "on-surface": "#212529",
+            "tertiary-fixed-dim": "#c7c6c6",
+            "on-primary-fixed-variant": "#474746",
+            "on-tertiary-fixed-variant": "#464747",
+            "on-surface-variant": "#444748",
+            "on-primary-container": "#8a8989",
+            "surface-container-high": "#e7e8e9",
+            "surface-container-highest": "#e1e3e4",
+            "on-secondary": "#ffffff",
+            "secondary-fixed": "#e4e2e2",
+            "error": "#ba1a1a",
+            "on-tertiary-container": "#898989",
+            "on-error-container": "#93000a",
+            "inverse-on-surface": "#f0f1f2",
+            "tertiary-fixed": "#e3e2e2",
+            "surface-bright": "#f8f9fa",
+            "secondary-container": "#e4e2e2",
+            "on-secondary-fixed-variant": "#464747",
+            "error-container": "#ffdad6",
+            "surface-tint": "#5f5e5e",
+            "on-secondary-container": "#646464",
+            "on-primary": "#ffffff",
+            "on-error": "#ffffff",
+            "inverse-primary": "#c8c6c5",
+            "on-background": "#212529"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {},
+          "fontFamily": {
+            "headline": [
+              "Noto Serif"
+            ],
+            "body": [
+              "Manrope"
+            ],
+            "label": [
+              "Manrope"
+            ]
+          }
+        },
+      },
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Manrope', sans-serif;
+      background-color: #f8f9fa;
+      color: #212529;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    .font-headline {
+      font-family: 'Noto Serif', serif;
+    }
+
+    .font-label {
+      font-family: 'Manrope', sans-serif;
+    }
+  </style>
+</head>
+
+<body class="bg-background text-on-background min-h-screen flex flex-col antialiased pt-32">
+  <!-- Header -->
+  <nav class="fixed top-0 w-full z-50 rounded-none bg-[#f8f9fa]/80 backdrop-blur-2xl no-border transition-colors duration-500 flex justify-between items-center px-12 py-8 max-w-full">
+    <div class="flex items-center gap-8">
+      <a class="font-serif text-2xl font-light tracking-tighter text-[#212529]" href="#">L'Essence</a>
+      <div class="hidden md:flex gap-6">
+        <a class="font-sans uppercase tracking-[0.2em] text-[10px] text-zinc-400 hover:text-[#212529] transition-all" href="#">HOME</a>
+        <a class="font-sans uppercase tracking-[0.2em] text-[10px] text-zinc-400 hover:text-[#212529] transition-all" href="#">SHOP</a>
+        <a class="font-sans uppercase tracking-[0.2em] text-[10px] text-zinc-400 hover:text-[#212529] transition-all" href="#">BEST SELLERS</a>
+        <a class="font-sans uppercase tracking-[0.2em] text-[10px] text-zinc-400 hover:text-[#212529] transition-all" href="#">ABOUT</a>
+      </div>
+    </div>
+    <div class="flex items-center gap-6 text-[#212529]">
+      <button class="hover:bg-zinc-200/50 p-2 opacity-70 transition-opacity duration-300">
+        <span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+      </button>
+      <button class="hover:bg-zinc-200/50 p-2 opacity-70 transition-opacity duration-300">
+        <span class="material-symbols-outlined" data-icon="person">person</span>
+      </button>
+    </div>
+  </nav>
+  <main class="flex-grow flex items-center justify-center p-6 md:p-12 mb-16">
+    <!-- Main Layout Container: Image + Form -->
+    <div class="w-full max-w-5xl flex flex-col md:flex-row bg-surface-container-lowest rounded-3xl overflow-hidden shadow-[0_10px_60px_-15px_rgba(0,0,0,0.05)] border border-surface-variant/50">
+      <!-- Image Section -->
+      <div class="hidden md:block w-1/2 relative bg-surface-container">
+        <img alt="Minimalist perfume bottle" class="absolute inset-0 w-full h-full object-cover opacity-90 mix-blend-multiply" data-alt="Close-up of a sleek, minimalist perfume bottle resting on a textured light grey stone surface, soft diffused lighting casting gentle shadows, evoking luxury and calm." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNYV0ZIBcFXHL7LvkM5JoO_OmmPTXDcs-9WpS7HxHFXK9t5ivUpLopRcLbYYUyRryZfWi1rHgIsvh0TchInZiLk9hzsIK1b9FBRzOhhxBDDeLb4SEjsa0T1Ey2iKDP-ID0-AIar401X6H6h6S4XzUipeKJyrSWg55simZJ3XAKXbiXT89VajvXTGM4wKO42fJBBZ8mlZks6YHHYJByJJIGsSBVTKI-DKBIys9L9HYXqSZL8fxFhLM5-P9zCKmSvgFy8QLmfOu0_zI" />
+      </div>
+      <!-- Form Section -->
+      <div class="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center">
+        <div class="mb-10 text-center md:text-left">
+          <h1 class="font-headline text-4xl md:text-5xl text-primary mb-4 leading-tight">Welcome Back</h1>
+          <p class="font-body text-on-surface-variant text-base md:text-lg">Sign in to your account to continue your olfactory journey.</p>
+        </div>
+        <form class="space-y-6">
+          <!-- Email Input -->
+          <div class="relative">
+            <label class="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-2 ml-1" for="email">Email Address</label>
+            <input class="w-full bg-transparent border border-outline-variant rounded-full focus:border-primary focus:ring-0 px-5 py-3 text-on-surface font-body transition-colors duration-300 placeholder:text-outline" id="email" name="email" placeholder="Enter your email" type="email" />
+          </div>
+          <!-- Password Input -->
+          <div class="relative pt-2">
+            <div class="flex justify-between items-baseline mb-2 mx-1">
+              <label class="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant" for="password">Password</label>
+              <a class="text-sm font-body text-secondary hover:text-primary transition-colors underline decoration-1 underline-offset-4" href="#">Forgot Password?</a>
+            </div>
+            <input class="w-full bg-transparent border border-outline-variant rounded-full focus:border-primary focus:ring-0 px-5 py-3 text-on-surface font-body transition-colors duration-300 placeholder:text-outline" id="password" name="password" placeholder="Enter your password" type="password" />
+          </div>
+          <!-- Actions -->
+          <div class="pt-6 space-y-4">
+            <button class="w-full bg-primary text-on-primary py-4 px-6 rounded-full font-label uppercase tracking-widest text-sm hover:bg-black transition-colors duration-300" type="submit">
+              Sign In
+            </button>
+            <div class="relative flex items-center py-2">
+              <div class="flex-grow border-t border-outline-variant/30"></div>
+              <span class="flex-shrink-0 mx-4 text-on-surface-variant text-sm font-label">or</span>
+              <div class="flex-grow border-t border-outline-variant/30"></div>
+            </div>
+            <button class="w-full bg-white border border-outline-variant text-primary py-4 px-6 rounded-full font-label text-sm hover:bg-surface-container-low transition-colors duration-300 flex items-center justify-center gap-3" type="button">
+              <img alt="Google" class="w-5 h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0BvSXgREoGEE63wyuB3crXewz7SDO5wqcdsqwH1hXvdX5n_xlebn1VwqW0pV3Cvcaf-5Ywopk4kYEx3bctJtmmpO_6IzrhJi2j2lZSiF1xXSJlxLIrxtZgKvxWheUPk5f6U8DMZDo99lDbuxPUw3HVMkhjte0tEULfuac7xwOZUpSzS00yUmk3bNkJjsRHb77asoykxTP4JR_O8bdCChjoPIJoImmd1va5VgmnUiDhgxObxbLRfo8IMKiJCgKJvH0G7PMFhY4iOw" />
+              Sign in with Google
+            </button>
+            <button class="w-full bg-transparent border border-outline-variant/30 text-on-surface py-4 px-6 rounded-full font-label uppercase tracking-widest text-sm hover:border-primary hover:bg-surface-container-low transition-colors duration-300 mt-4" type="button">
+              Create an Account
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+  <!-- Footer -->
+  <footer class="bg-[#f8f9fa] w-full mt-auto flex flex-col md:flex-row justify-between items-center px-12 py-20 border-t border-zinc-200/20">
+    <div class="font-serif italic text-lg text-[#212529] mb-8 md:mb-0">
+      L'Essence
+    </div>
+    <div class="flex flex-wrap justify-center gap-8 mb-8 md:mb-0">
+      <a class="font-sans uppercase text-[9px] tracking-[0.3em] font-medium text-zinc-500 hover:text-[#212529] transition-colors duration-300" href="#">PRIVACY</a>
+      <a class="font-sans uppercase text-[9px] tracking-[0.3em] font-medium text-zinc-500 hover:text-[#212529] transition-colors duration-300" href="#">SHIPPING</a>
+      <a class="font-sans uppercase text-[9px] tracking-[0.3em] font-medium text-zinc-500 hover:text-[#212529] transition-colors duration-300" href="#">STORES</a>
+      <a class="font-sans uppercase text-[9px] tracking-[0.3em] font-medium text-zinc-500 hover:text-[#212529] transition-colors duration-300" href="#">INSTAGRAM</a>
+    </div>
+    <div class="font-sans uppercase text-[9px] tracking-[0.3em] font-medium text-[#212529]">
+      © 2024 L'ESSENCE. ALL RIGHTS RESERVED.
+    </div>
+  </footer>
+</body>
+
+</html>

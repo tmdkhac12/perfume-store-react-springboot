@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Silent Gallery - Checkout</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "secondary-container": "#e4e2e2",
+            "on-secondary-fixed-variant": "#464747",
+            "on-secondary-container": "#646464",
+            "secondary": "#5e5e5e",
+            "on-background": "#191c1d",
+            "surface": "#f8f9fa",
+            "primary-fixed-dim": "#c8c6c5",
+            "primary-fixed": "#e5e2e1",
+            "error-container": "#ffdad6",
+            "primary-container": "#222222",
+            "surface-container-highest": "#e1e3e4",
+            "on-tertiary-fixed": "#1b1c1c",
+            "on-surface-variant": "#444748",
+            "inverse-surface": "#2e3132",
+            "surface-dim": "#d9dadb",
+            "surface-container-low": "#f3f4f5",
+            "surface-container-high": "#e7e8e9",
+            "on-primary": "#ffffff",
+            "primary": "#0b0c0c",
+            "tertiary": "#0a0c0c",
+            "secondary-fixed-dim": "#c8c6c6",
+            "surface-variant": "#e1e3e4",
+            "on-tertiary-fixed-variant": "#464747",
+            "outline": "#747878",
+            "on-secondary-fixed": "#1b1c1c",
+            "inverse-primary": "#c8c6c5",
+            "secondary-fixed": "#e4e2e2",
+            "on-tertiary-container": "#898989",
+            "on-secondary": "#ffffff",
+            "on-primary-container": "#8a8989",
+            "on-primary-fixed-variant": "#474746",
+            "outline-variant": "#c4c7c7",
+            "on-error-container": "#93000a",
+            "tertiary-fixed-dim": "#c7c6c6",
+            "tertiary-container": "#212222",
+            "surface-container-lowest": "#ffffff",
+            "surface-container": "#edeeef",
+            "on-primary-fixed": "#1b1c1c",
+            "background": "#f8f9fa",
+            "surface-bright": "#f8f9fa",
+            "on-tertiary": "#ffffff",
+            "surface-tint": "#5f5e5e",
+            "on-error": "#ffffff",
+            "error": "#ba1a1a",
+            "tertiary-fixed": "#e3e2e2",
+            "on-surface": "#191c1d",
+            "inverse-on-surface": "#f0f1f2",
+            "accent": "#212529"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {},
+          "fontFamily": {
+            "headline": [
+              "Noto Serif"
+            ],
+            "body": [
+              "Manrope"
+            ],
+            "label": [
+              "Manrope"
+            ]
+          }
+        },
+      },
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+            .glass-effect {
+                @apply bg-surface/80 backdrop-blur-[40px];
+            }
+            .ghost-border {
+                @apply border border-outline-variant/15;
+            }
+            .input-field {
+                @apply w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 px-0 text-on-surface font-body focus:ring-0 focus:border-primary transition-colors duration-300;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-[#f8f9fa] text-on-background font-body min-h-screen flex flex-col">
+  <!-- Header -->
+  <nav class="fixed top-0 w-full z-50 rounded-none bg-[#f8f9fa]/80 backdrop-blur-2xl no-border transition-colors duration-500 flex justify-between items-center px-12 py-8 max-w-full">
+    <div class="flex items-center gap-8">
+      <a class="font-serif text-2xl font-light tracking-tighter text-zinc-900" href="#">SILENT GALLERY</a>
+      <div class="hidden md:flex gap-6">
+        <a class="font-sans uppercase tracking-[0.2em] text-[10px] text-zinc-400 hover:text-zinc-900 transition-all" href="#">HOME</a>
+        <a class="font-sans uppercase tracking-[0.2em] text-[10px] text-zinc-900 border-b border-zinc-900 pb-1" href="#">SHOP</a>
+        <a class="font-sans uppercase tracking-[0.2em] text-[10px] text-zinc-400 hover:text-zinc-900 transition-all" href="#">BEST SELLERS</a>
+        <a class="font-sans uppercase tracking-[0.2em] text-[10px] text-zinc-400 hover:text-zinc-900 transition-all" href="#">ABOUT</a>
+      </div>
+    </div>
+    <div class="flex items-center gap-6 text-zinc-900">
+      <button class="hover:bg-zinc-200/50 p-2 opacity-70 transition-opacity duration-300">
+        <span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+      </button>
+      <button class="hover:bg-zinc-200/50 p-2 opacity-70 transition-opacity duration-300">
+        <span class="material-symbols-outlined" data-icon="person">person</span>
+      </button>
+    </div>
+  </nav>
+  <!-- Main Content -->
+  <main class="flex-grow pt-40 pb-24 px-4 sm:px-8 max-w-7xl mx-auto w-full">
+    <div class="mb-12">
+      <h1 class="font-headline text-4xl text-on-background">Checkout</h1>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
+      <!-- Left Column: Forms -->
+      <div class="lg:col-span-7 space-y-16">
+        <!-- Shipping Information -->
+        <section>
+          <h2 class="font-headline text-2xl text-on-background mb-8 pb-4 border-b border-outline-variant/30">Shipping Information</h2>
+          <div class="space-y-6">
+            <div>
+              <label class="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3">Select Saved Address</label>
+              <div class="relative group cursor-pointer">
+                <div class="w-full bg-surface-container-lowest border-2 border-outline-variant/50 py-4 px-6 rounded-[40px] text-on-surface font-body hover:border-accent transition-all duration-300 flex justify-between items-center min-h-[80px]">
+                  <div class="flex flex-col gap-1">
+                    <span class="font-headline font-semibold text-base text-on-background">Home</span>
+                    <span class="font-body text-sm text-on-surface-variant">John Doe • +1 (555) 000-0000</span>
+                    <span class="font-body text-sm text-on-surface-variant">123 Perfume Lane, Apt 4B, Manhattan, New York</span>
+                  </div>
+                  <div class="text-on-surface-variant flex items-center">
+                    <span class="material-symbols-outlined transition-transform group-hover:rotate-180" style="font-variation-settings: 'FILL' 0;">expand_more</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 py-4">
+              <div class="flex-grow border-t border-outline-variant/30"></div>
+              <span class="font-label text-xs uppercase tracking-[0.1em] text-on-surface-variant">OR</span>
+              <div class="flex-grow border-t border-outline-variant/30"></div>
+            </div>
+            <button class="w-full bg-accent text-on-primary font-label text-sm uppercase tracking-[0.1em] py-4 rounded-[40px] hover:bg-black transition-colors duration-300 flex items-center justify-center gap-2" onclick="document.getElementById('address-modal').classList.remove('hidden')" type="button">
+              <span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 0;">add</span>
+              Add New Address
+            </button>
+          </div>
+        </section>
+        <!-- Payment Method -->
+        <section>
+          <h2 class="font-headline text-2xl text-on-background mb-8 pb-4 border-b border-outline-variant/30">Payment Method</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <!-- Option 1 -->
+            <label class="relative cursor-pointer">
+              <input checked="" class="peer sr-only" name="payment_method" type="radio" />
+              <div class="bg-surface-container-lowest rounded-[40px] p-6 ghost-border border-2 peer-checked:border-accent transition-colors duration-300 flex flex-col items-center justify-center text-center gap-4 h-full">
+                <span class="material-symbols-outlined text-4xl text-on-surface" style="font-variation-settings: 'FILL' 0;">payments</span>
+                <span class="font-label text-sm uppercase tracking-[0.1em] text-on-background">Cash on Delivery</span>
+              </div>
+              <div class="absolute top-4 right-4 text-accent opacity-0 peer-checked:opacity-100 transition-opacity">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+              </div>
+            </label>
+            <!-- Option 2 -->
+            <label class="relative cursor-pointer">
+              <input class="peer sr-only" name="payment_method" type="radio" />
+              <div class="bg-surface-container-lowest rounded-[40px] p-6 ghost-border border-2 peer-checked:border-accent transition-colors duration-300 flex flex-col items-center justify-center text-center gap-4 h-full">
+                <span class="material-symbols-outlined text-4xl text-on-surface" style="font-variation-settings: 'FILL' 0;">account_balance</span>
+                <span class="font-label text-sm uppercase tracking-[0.1em] text-on-background">Bank Transfer</span>
+              </div>
+              <div class="absolute top-4 right-4 text-accent opacity-0 peer-checked:opacity-100 transition-opacity">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+              </div>
+            </label>
+          </div>
+        </section>
+      </div>
+      <!-- Right Column: Order Summary -->
+      <div class="lg:col-span-5">
+        <div class="bg-surface-container-low rounded-[40px] p-8 sticky top-32">
+          <h2 class="font-headline text-2xl text-on-background mb-8">Order Summary</h2>
+          <!-- Items -->
+          <div class="space-y-6 mb-8">
+            <div class="flex gap-4">
+              <div class="w-20 h-24 bg-surface-container-lowest rounded-xl overflow-hidden flex-shrink-0">
+                <img alt="Bergamot &amp; Oud" class="w-full h-full object-cover" data-alt="minimalist glass perfume bottle with dark amber liquid on white marble surface with sharp dramatic shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRiHUQIC_yq4XSmH36X0WLFNzTfMX4fCFHDBOzgyHMZ0pls2jM1xD_vtY3fyhAbwJ87ySkuWdpR6mV109BSb0EKNF4nhLeNO4a3kFtIN1GfALHX8iNftTOb-Ru8P5io9r1flSSZ529Nq0HjPBUiA0CsfAlxwOYZQ18_Nx7YWZEzeohdKeAOHxCe5E1m6ZrIixU9BppKXCSRzkPzux26ZdNH-xwmonlrsJ4tP8PH27rGvWeEC26j5y6kU3_ZvJnuJ3B04l3QTgmsPs" />
+              </div>
+              <div class="flex-grow flex flex-col justify-center">
+                <h3 class="font-headline text-lg text-on-background">Bergamot &amp; Oud</h3>
+                <p class="font-body text-sm text-on-surface-variant mt-1">Extrait de Parfum • 50ml</p>
+                <p class="font-body font-medium text-on-background mt-2">$245.00</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="w-20 h-24 bg-surface-container-lowest rounded-xl overflow-hidden flex-shrink-0">
+                <img alt="White Vetiver" class="w-full h-full object-cover" data-alt="elegant frosted white glass perfume bottle against soft grey background with delicate botanical shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4S99AkVVT606oZGllieYdUli8nxn-0NbFVwsm8-lQSVv6cuWC1Q7wgICdr9-rvOhl9_NLrAL8zLXEkUmJCAXMccFh7KuJbjPj4RFPW4ggKGmZAIcVYbWR7IHAPRcmuOHH6Uozj5AIorv2qn16fyCWFJ2gv3JLQPoMqGXzeyHkYQOk0w-9rguZHmlUNW5nrJfzq_kKLzQeXOGRX80_HQSKiDHfrCANiIMSrhgfG_hGBGGYIhPCqbgJRs2E7urijj-NSFzZQtq3QIc" />
+              </div>
+              <div class="flex-grow flex flex-col justify-center">
+                <h3 class="font-headline text-lg text-on-background">White Vetiver</h3>
+                <p class="font-body text-sm text-on-surface-variant mt-1">Eau de Parfum • 100ml</p>
+                <p class="font-body font-medium text-on-background mt-2">$185.00</p>
+              </div>
+            </div>
+          </div>
+          <!-- Totals -->
+          <div class="space-y-4 font-body text-sm border-t border-outline-variant/30 pt-6 mb-8">
+            <div class="flex justify-between text-on-surface-variant">
+              <span>Subtotal</span>
+              <span>$430.00</span>
+            </div>
+            <div class="flex justify-between text-on-surface-variant">
+              <span>Shipping</span>
+              <span>$15.00</span>
+            </div>
+            <div class="flex justify-between text-on-surface-variant">
+              <span>Estimated Tax</span>
+              <span>$36.55</span>
+            </div>
+          </div>
+          <div class="flex justify-between items-center font-headline text-xl text-on-background mb-8 pt-6 border-t border-outline-variant/30">
+            <span>Total</span>
+            <span>$481.55</span>
+          </div>
+          <!-- CTA -->
+          <button class="w-full bg-accent text-on-primary font-label text-sm uppercase tracking-[0.1em] py-5 rounded-[40px] hover:bg-black transition-colors duration-300">
+            Confirm Order
+          </button>
+          <p class="text-center font-body text-xs text-on-surface-variant mt-4">
+            By confirming, you agree to our Terms of Service.
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!-- Footer -->
+  <footer class="w-full border-t-0 bg-stone-100 dark:bg-neutral-900 mt-auto">
+    <div class="flex flex-col md:flex-row justify-between items-center px-12 py-16 w-full gap-8 max-w-7xl mx-auto">
+      <div class="font-serif text-xl text-neutral-900 dark:text-neutral-100">SILENT GALLERY</div>
+      <nav class="flex flex-wrap justify-center gap-6">
+        <a class="font-sans text-xs uppercase tracking-[0.1em] text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-all duration-300 ease-in-out" href="#">Privacy Policy</a>
+        <a class="font-sans text-xs uppercase tracking-[0.1em] text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-all duration-300 ease-in-out" href="#">Terms of Service</a>
+        <a class="font-sans text-xs uppercase tracking-[0.1em] text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-all duration-300 ease-in-out" href="#">Shipping &amp; Returns</a>
+        <a class="font-sans text-xs uppercase tracking-[0.1em] text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-all duration-300 ease-in-out" href="#">Contact</a>
+      </nav>
+      <div class="font-sans text-xs uppercase tracking-[0.1em] text-neutral-500 dark:text-neutral-400">
+        © 2024 SILENT GALLERY. All rights reserved.
+      </div>
+    </div>
+  </footer>
+  <!-- Address Modal -->
+  <div class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-background/80 backdrop-blur-sm p-4" id="address-modal">
+    <div class="bg-surface-container-lowest rounded-[40px] w-full max-w-lg shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+      <div class="px-8 py-6 border-b border-outline-variant/30 flex justify-between items-center sticky top-0 bg-surface-container-lowest z-10">
+        <h3 class="font-headline text-2xl text-on-background">Add New Address</h3>
+        <button class="text-on-surface-variant hover:text-on-background transition-colors" onclick="document.getElementById('address-modal').classList.add('hidden')">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="p-8 overflow-y-auto">
+        <form class="space-y-6">
+          <div>
+            <label class="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3" for="new_receiver">Receiver Name</label>
+            <input class="w-full bg-surface-container border border-outline-variant/30 py-4 px-6 rounded-[40px] text-on-surface font-body focus:ring-0 focus:border-accent transition-colors duration-300" id="new_receiver" placeholder="John Doe" type="text" />
+          </div>
+          <div>
+            <label class="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3" for="new_phone">Phone Number</label>
+            <input class="w-full bg-surface-container border border-outline-variant/30 py-4 px-6 rounded-[40px] text-on-surface font-body focus:ring-0 focus:border-accent transition-colors duration-300" id="new_phone" placeholder="+1 (555) 000-0000" type="tel" />
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3" for="new_city">City</label>
+              <input class="w-full bg-surface-container border border-outline-variant/30 py-4 px-6 rounded-[40px] text-on-surface font-body focus:ring-0 focus:border-accent transition-colors duration-300" id="new_city" placeholder="New York" type="text" />
+            </div>
+            <div>
+              <label class="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3" for="new_ward">Ward/District</label>
+              <input class="w-full bg-surface-container border border-outline-variant/30 py-4 px-6 rounded-[40px] text-on-surface font-body focus:ring-0 focus:border-accent transition-colors duration-300" id="new_ward" placeholder="Manhattan" type="text" />
+            </div>
+          </div>
+          <div>
+            <label class="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3" for="new_address">Delivery Address</label>
+            <input class="w-full bg-surface-container border border-outline-variant/30 py-4 px-6 rounded-[40px] text-on-surface font-body focus:ring-0 focus:border-accent transition-colors duration-300" id="new_address" placeholder="123 Perfume Lane, Apt 4B" type="text" />
+          </div>
+        </form>
+      </div>
+      <div class="px-8 py-6 border-t border-outline-variant/30 bg-surface-container-lowest sticky bottom-0 z-10 flex justify-end gap-4">
+        <button class="px-8 py-4 rounded-[40px] font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant hover:bg-surface-container transition-colors" onclick="document.getElementById('address-modal').classList.add('hidden')" type="button">Cancel</button>
+        <button class="bg-accent text-on-primary px-8 py-4 rounded-[40px] font-label text-sm uppercase tracking-[0.1em] hover:bg-black transition-colors" onclick="document.getElementById('address-modal').classList.add('hidden')" type="button">Save Address</button>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

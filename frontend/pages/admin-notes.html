@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Aura Admin - Notes Management</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Noto+Serif:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface": "#f8f9fa",
+            "tertiary": "#0a0c0c",
+            "inverse-primary": "#c8c6c5",
+            "surface-container": "#edeeef",
+            "tertiary-fixed": "#e3e2e2",
+            "on-tertiary-fixed": "#1b1c1c",
+            "inverse-surface": "#2e3132",
+            "on-surface": "#191c1d",
+            "surface-variant": "#e1e3e4",
+            "on-tertiary-fixed-variant": "#464747",
+            "on-error-container": "#93000a",
+            "tertiary-container": "#212222",
+            "on-secondary-container": "#646464",
+            "surface-container-highest": "#e1e3e4",
+            "secondary-container": "#e4e2e2",
+            "secondary": "#5e5e5e",
+            "on-primary": "#ffffff",
+            "inverse-on-surface": "#f0f1f2",
+            "on-primary-fixed-variant": "#474746",
+            "secondary-fixed-dim": "#c8c6c6",
+            "surface-tint": "#5f5e5e",
+            "primary": "#0b0c0c",
+            "surface-bright": "#f8f9fa",
+            "on-background": "#191c1d",
+            "on-secondary-fixed-variant": "#464747",
+            "on-primary-container": "#8a8989",
+            "outline-variant": "#c4c7c7",
+            "primary-container": "#222222",
+            "on-tertiary-container": "#898989",
+            "error-container": "#ffdad6",
+            "surface-container-low": "#f3f4f5",
+            "error": "#ba1a1a",
+            "surface-dim": "#d9dadb",
+            "surface-container-lowest": "#ffffff",
+            "on-tertiary": "#ffffff",
+            "on-surface-variant": "#444748",
+            "on-secondary": "#ffffff",
+            "on-secondary-fixed": "#1b1c1c",
+            "on-primary-fixed": "#1b1c1c",
+            "secondary-fixed": "#e4e2e2",
+            "primary-fixed": "#e5e2e1",
+            "on-error": "#ffffff",
+            "surface-container-high": "#e7e8e9",
+            "background": "#f8f9fa",
+            "primary-fixed-dim": "#c8c6c5",
+            "outline": "#747878",
+            "tertiary-fixed-dim": "#c7c6c6"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {},
+          "fontFamily": {
+            "headline": ["Noto Serif"],
+            "body": ["Manrope"],
+            "label": ["Manrope"]
+          }
+        },
+      },
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Manrope', sans-serif;
+      background-color: #f8f9fa;
+      color: #191c1d;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    .font-headline {
+      font-family: 'Noto Serif', serif;
+    }
+  </style>
+</head>
+
+<body class="bg-background text-on-background antialiased flex">
+  <!-- SideNavBar -->
+  <aside class="hidden md:flex flex-col h-screen w-64 rounded-r-lg bg-stone-50 dark:bg-zinc-950 p-6 space-y-8 bg-surface-container-low border-r border-surface-container-high fixed left-0 top-0 z-50 shrink-0">
+    <!-- Header -->
+    <div class="flex items-center space-x-3 mb-4">
+      <div class="w-10 h-10 rounded-full bg-surface-variant overflow-hidden">
+        <img alt="Aura Admin" class="w-full h-full object-cover" data-alt="close-up portrait of a professional woman with soft lighting and a neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAa_f7bahXqWZsSyX8Yqv7288yVQDOal-EOJRL1FOpVvyA8OVPEkowO9KKTx9idepozaZ3O45JCs82fXlg2A6nGSSDS5SQj3ObUuFJwKUEJfvLXEOSz74AJLkAvuK-0wTY0KP4_qc5SIZhkBQ_lVSQ3Ep_tWjoTixG1Co0RyZh4Ze_dDYrJpTECugbpC9frjBASvsagy4Kv0kfa4g6YjcOwkuRNZGcw3mOfPb2yL9aUBeZAg5UgQlibf2erCgXp3hiNZTs6OuDH6rY" />
+      </div>
+      <div>
+        <h2 class="font-serif text-lg tracking-widest text-zinc-900 dark:text-zinc-50 font-bold">Aura Gallery</h2>
+        <p class="text-xs text-on-surface-variant">Management Suite</p>
+      </div>
+    </div>
+    <!-- Navigation Tabs -->
+    <nav class="flex-1 space-y-2">
+      <!-- Active Tab -->
+      <a class="flex items-center px-4 py-3 text-zinc-500 dark:text-zinc-400 hover:bg-stone-100 dark:hover:bg-zinc-900 transition-all duration-200 rounded-lg group" href="#">
+        <span class="material-symbols-outlined mr-3 group-hover:text-on-surface transition-colors">dashboard</span>
+        <span class="font-sans uppercase tracking-[0.1em] text-[11px] font-medium">Overview</span>
+      </a>
+      <a class="flex items-center px-4 py-3 text-zinc-500 dark:text-zinc-400 hover:bg-stone-100 dark:hover:bg-zinc-900 transition-all duration-200 rounded-lg group" href="#">
+        <span class="material-symbols-outlined mr-3 group-hover:text-on-surface transition-colors">inventory_2</span>
+        <span class="font-sans uppercase tracking-[0.1em] text-[11px] font-medium">Products</span>
+      </a>
+      <a class="flex items-center px-4 py-3 bg-stone-200/50 dark:bg-zinc-800/50 text-zinc-900 dark:text-zinc-50 rounded-lg hover:bg-stone-100 dark:hover:bg-zinc-900 transition-all duration-200 group" href="#">
+        <span class="material-symbols-outlined mr-3 text-on-surface group-hover:text-primary transition-colors" style="font-variation-settings: 'FILL' 1;">fluid_med</span>
+        <span class="font-sans uppercase tracking-[0.1em] text-[11px] font-semibold text-primary">Notes</span>
+      </a>
+      <a class="flex items-center px-4 py-3 text-zinc-500 dark:text-zinc-400 hover:bg-stone-100 dark:hover:bg-zinc-900 transition-all duration-200 rounded-lg group" href="#">
+        <span class="material-symbols-outlined mr-3 group-hover:text-on-surface transition-colors">verified</span>
+        <span class="font-sans uppercase tracking-[0.1em] text-[11px] font-medium">Brands</span>
+      </a>
+      <a class="flex items-center px-4 py-3 text-zinc-500 dark:text-zinc-400 hover:bg-stone-100 dark:hover:bg-zinc-900 transition-all duration-200 rounded-lg group" href="#">
+        <span class="material-symbols-outlined mr-3 group-hover:text-on-surface transition-colors">straighten</span>
+        <span class="font-sans uppercase tracking-[0.1em] text-[11px] font-medium">Volumes</span>
+      </a>
+      <a class="flex items-center px-4 py-3 text-zinc-500 dark:text-zinc-400 hover:bg-stone-100 dark:hover:bg-zinc-900 transition-all duration-200 rounded-lg group" href="#">
+        <span class="material-symbols-outlined mr-3 group-hover:text-on-surface transition-colors">group</span>
+        <span class="font-sans uppercase tracking-[0.1em] text-[11px] font-medium">Users</span>
+      </a>
+      <a class="flex items-center px-4 py-3 text-zinc-500 dark:text-zinc-400 hover:bg-stone-100 dark:hover:bg-zinc-900 transition-all duration-200 rounded-lg group" href="#">
+        <span class="material-symbols-outlined mr-3 group-hover:text-on-surface transition-colors">receipt_long</span>
+        <span class="font-sans uppercase tracking-[0.1em] text-[11px] font-medium">Invoices</span>
+      </a>
+    </nav>
+    <!-- CTA Button -->
+    <button class="w-full bg-primary text-on-primary py-3 rounded-lg hover:bg-secondary transition-colors font-sans uppercase tracking-[0.1em] text-[11px] font-semibold flex items-center justify-center">
+      <span class="material-symbols-outlined mr-2 text-[18px]">add</span> Create Entry
+    </button>
+    <!-- Footer -->
+    <div class="mt-auto space-y-2 pt-6 border-t border-surface-container-high">
+      <a class="flex items-center px-4 py-2 text-zinc-500 dark:text-zinc-400 hover:bg-stone-100 dark:hover:bg-zinc-900 transition-all duration-200 rounded-lg group" href="#">
+        <span class="material-symbols-outlined mr-3 text-[20px] group-hover:text-on-surface transition-colors">help_outline</span>
+        <span class="font-sans uppercase tracking-[0.1em] text-[11px] font-medium">Help</span>
+      </a>
+      <a class="flex items-center px-4 py-2 text-zinc-500 dark:text-zinc-400 hover:bg-stone-100 dark:hover:bg-zinc-900 transition-all duration-200 rounded-lg group" href="#">
+        <span class="material-symbols-outlined mr-3 text-[20px] group-hover:text-on-surface transition-colors">logout</span>
+        <span class="font-sans uppercase tracking-[0.1em] text-[11px] font-medium">Sign Out</span>
+      </a>
+    </div>
+  </aside>
+  <!-- Main Content Area -->
+  <main class="flex-1 ml-0 md:ml-64 min-h-screen relative">
+    <!-- Content Canvas -->
+    <div class="pt-12 px-8 md:px-12 pb-12">
+      <div class="flex justify-between items-end mb-8">
+        <div>
+          <h2 class="font-headline text-3xl text-on-surface mb-2">Notes Directory</h2>
+          <p class="font-body text-sm text-on-surface-variant max-w-2xl">Manage and categorize the fundamental scent profiles used across the fragrance catalog. Visibility controls determine public display on product pages.</p>
+        </div>
+        <div class="flex items-center space-x-6">
+          <div class="relative">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-outline text-sm">search</span>
+            <input class="pl-10 pr-4 py-2 bg-transparent border-0 border-b border-outline-variant/30 text-on-background font-body text-sm focus:ring-0 focus:border-primary transition-colors w-64 placeholder-on-surface-variant/60" placeholder="Search Notes..." type="text" />
+          </div>
+          <button class="bg-primary text-on-primary font-body py-2 px-6 rounded-lg hover:bg-secondary transition-colors duration-300 text-sm tracking-widest uppercase flex items-center shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)]">
+            <span class="material-symbols-outlined mr-2 text-[18px]">add</span>
+            Create Note
+          </button>
+        </div>
+      </div>
+      <!-- Notes List / Table Layout -->
+      <div class="bg-surface-container-lowest rounded-xl">
+        <!-- Header Row -->
+        <div class="grid grid-cols-12 gap-4 py-4 px-6 border-b border-surface-variant/50 text-xs font-label uppercase tracking-widest text-on-surface-variant">
+          <div class="col-span-1">ID</div>
+          <div class="col-span-4">Name &amp; Profile</div>
+          <div class="col-span-2">Category</div>
+          <div class="col-span-3 text-center">Status</div>
+          <div class="col-span-2 text-right">Actions</div>
+        </div>
+        <!-- List Items -->
+        <div class="flex flex-col">
+          <!-- Item 1 -->
+          <div class="grid grid-cols-12 gap-4 py-5 px-6 items-center group hover:bg-surface-container-low transition-colors duration-200">
+            <div class="col-span-1 font-body text-sm text-on-surface-variant">#NT-001</div>
+            <div class="col-span-4 flex items-center gap-4">
+              <div class="w-10 h-10 rounded bg-surface-container-high flex items-center justify-center">
+                <span class="material-symbols-outlined text-secondary text-[20px]">spa</span>
+              </div>
+              <span class="font-headline text-lg text-on-surface">Oud</span>
+            </div>
+            <div class="col-span-2">
+              <span class="bg-secondary-container text-on-secondary-container text-xs px-3 py-1 rounded-full font-label">Woody</span>
+            </div>
+            <div class="col-span-3 flex justify-center items-center gap-4">
+              <span class="text-sm text-on-surface font-body hidden md:inline">Visible</span>
+              <button aria-checked="true" class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none bg-primary" role="switch">
+                <span aria-hidden="true" class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out translate-x-5"></span>
+              </button>
+            </div>
+            <div class="col-span-2 flex justify-end space-x-2">
+              <button class="p-2 text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+              <button class="p-2 text-on-surface-variant hover:text-error transition-colors"><span class="material-symbols-outlined text-[20px]">delete</span></button>
+            </div>
+          </div>
+          <!-- Item 2 -->
+          <div class="grid grid-cols-12 gap-4 py-5 px-6 items-center group hover:bg-surface-container-low transition-colors duration-200">
+            <div class="col-span-1 font-body text-sm text-on-surface-variant">#NT-002</div>
+            <div class="col-span-4 flex items-center gap-4">
+              <div class="w-10 h-10 rounded bg-surface-container-high flex items-center justify-center">
+                <span class="material-symbols-outlined text-secondary text-[20px]">local_florist</span>
+              </div>
+              <span class="font-headline text-lg text-on-surface">Bergamot</span>
+            </div>
+            <div class="col-span-2">
+              <span class="bg-secondary-container text-on-secondary-container text-xs px-3 py-1 rounded-full font-label">Citrus</span>
+            </div>
+            <div class="col-span-3 flex justify-center items-center gap-4">
+              <span class="text-sm text-on-surface font-body hidden md:inline">Visible</span>
+              <button aria-checked="true" class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none bg-primary" role="switch">
+                <span aria-hidden="true" class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out translate-x-5"></span>
+              </button>
+            </div>
+            <div class="col-span-2 flex justify-end space-x-2">
+              <button class="p-2 text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+              <button class="p-2 text-on-surface-variant hover:text-error transition-colors"><span class="material-symbols-outlined text-[20px]">delete</span></button>
+            </div>
+          </div>
+          <!-- Item 3 -->
+          <div class="grid grid-cols-12 gap-4 py-5 px-6 items-center group hover:bg-surface-container-low transition-colors duration-200">
+            <div class="col-span-1 font-body text-sm text-on-surface-variant">#NT-003</div>
+            <div class="col-span-4 flex items-center gap-4">
+              <div class="w-10 h-10 rounded bg-surface-container-high flex items-center justify-center">
+                <span class="material-symbols-outlined text-secondary text-[20px]">filter_vintage</span>
+              </div>
+              <span class="font-headline text-lg text-on-surface">Damask Rose</span>
+            </div>
+            <div class="col-span-2">
+              <span class="bg-secondary-container text-on-secondary-container text-xs px-3 py-1 rounded-full font-label">Floral</span>
+            </div>
+            <div class="col-span-3 flex justify-center items-center gap-4">
+              <span class="text-sm text-on-surface-variant font-body hidden md:inline">Hidden</span>
+              <button aria-checked="false" class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none bg-surface-container-high" role="switch">
+                <span aria-hidden="true" class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out translate-x-0"></span>
+              </button>
+            </div>
+            <div class="col-span-2 flex justify-end space-x-2">
+              <button class="p-2 text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+              <button class="p-2 text-on-surface-variant hover:text-error transition-colors"><span class="material-symbols-outlined text-[20px]">delete</span></button>
+            </div>
+          </div>
+          <!-- Item 4 -->
+          <div class="grid grid-cols-12 gap-4 py-5 px-6 items-center group hover:bg-surface-container-low transition-colors duration-200">
+            <div class="col-span-1 font-body text-sm text-on-surface-variant">#NT-004</div>
+            <div class="col-span-4 flex items-center gap-4">
+              <div class="w-10 h-10 rounded bg-surface-container-high flex items-center justify-center">
+                <span class="material-symbols-outlined text-secondary text-[20px]">grass</span>
+              </div>
+              <span class="font-headline text-lg text-on-surface">Vetiver</span>
+            </div>
+            <div class="col-span-2">
+              <span class="bg-secondary-container text-on-secondary-container text-xs px-3 py-1 rounded-full font-label">Earthy</span>
+            </div>
+            <div class="col-span-3 flex justify-center items-center gap-4">
+              <span class="text-sm text-on-surface font-body hidden md:inline">Visible</span>
+              <button aria-checked="true" class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none bg-primary" role="switch">
+                <span aria-hidden="true" class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out translate-x-5"></span>
+              </button>
+            </div>
+            <div class="col-span-2 flex justify-end space-x-2">
+              <button class="p-2 text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+              <button class="p-2 text-on-surface-variant hover:text-error transition-colors"><span class="material-symbols-outlined text-[20px]">delete</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Pagination -->
+      <div class="mt-8 flex justify-between items-center text-sm font-body text-on-surface-variant">
+        <span>Showing 1-4 of 124 Notes</span>
+        <div class="flex gap-2">
+          <button class="w-8 h-8 rounded-full flex items-center justify-center border border-outline-variant/30 hover:bg-surface-container-low transition-colors disabled:opacity-50" disabled="">
+            <span class="material-symbols-outlined text-[18px]">chevron_left</span>
+          </button>
+          <button class="w-8 h-8 rounded-full flex items-center justify-center bg-primary text-on-primary">1</button>
+          <button class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-surface-container-low transition-colors">2</button>
+          <button class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-surface-container-low transition-colors">3</button>
+          <span class="w-8 h-8 flex items-center justify-center">...</span>
+          <button class="w-8 h-8 rounded-full flex items-center justify-center border border-outline-variant/30 hover:bg-surface-container-low transition-colors">
+            <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>

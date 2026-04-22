@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Addresses - L'Essence</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;family=Noto+Serif:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-fixed": "#e3e2e2",
+            "outline-variant": "#c4c7c7",
+            "on-surface": "#191c1d",
+            "on-primary-fixed": "#1b1c1c",
+            "tertiary-container": "#212222",
+            "on-primary": "#ffffff",
+            "on-surface-variant": "#444748",
+            "primary-container": "#222222",
+            "tertiary-fixed-dim": "#c7c6c6",
+            "on-primary-fixed-variant": "#474746",
+            "error": "#ba1a1a",
+            "secondary-container": "#e4e2e2",
+            "surface-variant": "#e1e3e4",
+            "on-background": "#191c1d",
+            "surface-container-low": "#f3f4f5",
+            "inverse-surface": "#2e3132",
+            "surface-bright": "#f8f9fa",
+            "on-secondary-container": "#646464",
+            "inverse-on-surface": "#f0f1f2",
+            "surface-container-highest": "#e1e3e4",
+            "surface": "#f8f9fa",
+            "on-secondary-fixed-variant": "#464747",
+            "on-error": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "primary": "#0b0c0c",
+            "on-secondary-fixed": "#1b1c1c",
+            "on-tertiary-container": "#898989",
+            "tertiary": "#0a0c0c",
+            "secondary-fixed": "#e4e2e2",
+            "outline": "#747878",
+            "surface-tint": "#5f5e5e",
+            "primary-fixed": "#e5e2e1",
+            "inverse-primary": "#c8c6c5",
+            "surface-container-high": "#e7e8e9",
+            "secondary-fixed-dim": "#c8c6c6",
+            "surface-dim": "#d9dadb",
+            "background": "#f8f9fa",
+            "on-secondary": "#ffffff",
+            "on-primary-container": "#8a8989",
+            "primary-fixed-dim": "#c8c6c5",
+            "error-container": "#ffdad6",
+            "on-tertiary-fixed-variant": "#464747",
+            "on-tertiary-fixed": "#1b1c1c",
+            "secondary": "#5e5e5e",
+            "on-error-container": "#93000a",
+            "surface-container": "#edeeef",
+            "on-tertiary": "#ffffff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {},
+          "fontFamily": {
+            "headline": [
+              "Noto Serif"
+            ],
+            "body": [
+              "Manrope"
+            ],
+            "label": [
+              "Manrope"
+            ]
+          }
+        },
+      },
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
+    }
+  </style>
+  <script>
+    function openModal(id) {
+      document.getElementById(id).classList.remove('hidden');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+    }
+  </script>
+</head>
+
+<body class="bg-background text-on-background font-body min-h-screen flex flex-col">
+  <!-- TopAppBar -->
+  <header class="docked full-width top-0 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl bg-zinc-100 dark:bg-zinc-800 shadow-sm shadow-zinc-900/5 z-50">
+    <div class="flex justify-between items-center w-full px-8 py-6 max-w-screen-2xl mx-auto">
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex items-center gap-8">
+        <a class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors font-body text-sm font-medium hover:opacity-70 transition-opacity duration-300" href="#">Shop</a>
+        <a class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors font-body text-sm font-medium hover:opacity-70 transition-opacity duration-300" href="#">Editorial</a>
+        <a class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors font-body text-sm font-medium hover:opacity-70 transition-opacity duration-300" href="#">About</a>
+      </nav>
+      <!-- Brand Logo -->
+      <a class="font-serif text-2xl tracking-[0.2em] uppercase text-zinc-900 dark:text-zinc-100 absolute left-1/2 -translate-x-1/2" href="#">
+        AURA
+      </a>
+      <!-- Trailing Icons -->
+      <div class="flex items-center gap-6">
+        <button aria-label="shopping_bag" class="text-zinc-900 dark:text-zinc-100 hover:opacity-70 transition-opacity duration-300">
+          <span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+        </button>
+        <button aria-label="person" class="text-zinc-900 dark:text-white border-b border-zinc-900 dark:border-white pb-1 hover:opacity-70 transition-opacity duration-300 Active: scale-95 transition-transform duration-200">
+          <span class="material-symbols-outlined" data-icon="person">person</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <div class="flex flex-1 max-w-screen-2xl mx-auto w-full pt-24 pb-12 px-4 md:px-8">
+    <!-- SideNavBar -->
+    <aside class="hidden md:flex h-[calc(100vh-8rem)] w-72 rounded-r-2xl bg-zinc-50 dark:bg-zinc-950 bg-zinc-100 dark:bg-zinc-900 flat no shadows sticky top-28 mr-12 flex flex-col p-6 gap-2">
+      <!-- Header/Profile Snippet -->
+      <div class="flex items-center gap-4 mb-8 pb-8 border-b border-outline-variant/15">
+        <div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container-high shrink-0">
+          <img alt="User profile photo" class="w-full h-full object-cover grayscale" data-alt="close up black and white portrait of a woman with elegant minimal makeup" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCt1y3yPWAv_dKx6-eE0w3Z_HwgbzH04HDFCeV59Gu_lPjanu2Qjjwpzs17sjqlbAPlKFcujq4sIP_0ycCMifEgcHjRZaGXOm7Xm710Y9xypHS5vurm-tztCljb8LHniahexMqUjBeD3ZclBR2kCqV5k85-bvZpdtCsRiiSaX_Q8c1HRfvBWoiKj3edye6v-vVAZPmTpyNL5F7NRjnJvzCXcBxrKSn1yPjloTX1AFlUn_XYF6MyjNZaS4WXMUipTDHXDBU52OgRcco" />
+        </div>
+        <div>
+          <h2 class="font-serif text-lg tracking-widest text-zinc-900 font-medium">Julianne V.</h2>
+          <p class="font-sans text-sm uppercase tracking-widest text-zinc-600 dark:text-zinc-400 mt-1 text-xs">Gold Member</p>
+        </div>
+      </div>
+      <!-- Navigation Links -->
+      <nav class="flex flex-col gap-2">
+        <a class="flex items-center gap-4 text-zinc-500 dark:text-zinc-400 px-4 py-3 hover:bg-zinc-100 dark:hover:bg-zinc-900 rounded-lg font-sans text-sm uppercase tracking-widest text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all" href="#">
+          <span class="material-symbols-outlined" data-icon="person_outline">person_outline</span>
+          Profile Settings
+        </a>
+        <a class="flex items-center gap-4 text-zinc-500 dark:text-zinc-400 px-4 py-3 hover:bg-zinc-100 dark:hover:bg-zinc-900 rounded-lg font-sans text-sm uppercase tracking-widest text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all" href="#">
+          <span class="material-symbols-outlined" data-icon="shield">shield</span>
+          Security
+        </a>
+        <a class="flex items-center gap-4 bg-zinc-200 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 rounded-lg px-4 py-3 font-semibold font-sans text-sm uppercase tracking-widest text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all Active: translate-x-1 transition-transform" href="#">
+          <span class="material-symbols-outlined" data-icon="location_on">location_on</span>
+          Addresses
+        </a>
+        <a class="flex items-center gap-4 text-zinc-500 dark:text-zinc-400 px-4 py-3 hover:bg-zinc-100 dark:hover:bg-zinc-900 rounded-lg font-sans text-sm uppercase tracking-widest text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all" href="#">
+          <span class="material-symbols-outlined" data-icon="history">history</span>
+          Order History
+        </a>
+      </nav>
+    </aside>
+    <!-- Main Content Area -->
+    <main class="flex-1 max-w-4xl pt-8 pb-24 md:pt-24">
+      <div class="flex justify-between items-end mb-12">
+        <div>
+          <h1 class="font-headline text-4xl lg:text-5xl text-on-background mb-4">Saved Addresses</h1>
+          <p class="font-body text-on-surface-variant max-w-lg">Manage your delivery destinations for an effortless checkout experience.</p>
+        </div>
+        <button class="hidden md:flex items-center gap-2 bg-primary text-on-primary px-6 py-3 rounded-full font-label text-sm tracking-widest uppercase hover:bg-secondary transition-colors group" onclick="openModal('address-modal')">
+          <span class="material-symbols-outlined text-lg transition-transform group-hover:rotate-90 duration-300">add</span>
+          Add New Address
+        </button>
+      </div>
+      <!-- Address Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Address Card: Home -->
+        <div class="bg-surface-container-lowest rounded-3xl p-8 relative overflow-hidden group">
+          <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary"></div>
+          <div class="flex justify-between items-start mb-6">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-on-surface-variant" data-icon="home">home</span>
+              <h3 class="font-label text-xs tracking-widest uppercase text-on-surface-variant">Home Address</h3>
+            </div>
+            <span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label text-[10px] tracking-widest uppercase">Default</span>
+          </div>
+          <div class="space-y-2 mb-8">
+            <p class="font-headline text-xl text-on-background">Julianne Moore</p>
+            <p class="font-body text-on-surface-variant">+1 (212) 555-0198</p>
+            <p class="font-body text-on-surface leading-relaxed pt-2">
+              120 East 87th Street<br />
+              Apt 4B<br />
+              New York, NY 10128<br />
+              United States
+            </p>
+          </div>
+          <div class="flex gap-4 pt-4 border-t border-outline-variant/15">
+            <button class="font-label text-xs tracking-widest uppercase text-on-background hover:text-primary transition-colors flex items-center gap-1" onclick="openModal('address-modal')">
+              <span class="material-symbols-outlined text-sm" data-icon="edit">edit</span> Edit
+            </button>
+            <button class="font-label text-xs tracking-widest uppercase text-error hover:text-error/80 transition-colors flex items-center gap-1" onclick="openModal('delete-modal')">
+              <span class="material-symbols-outlined text-sm" data-icon="delete">delete</span> Remove
+            </button>
+          </div>
+        </div>
+        <!-- Address Card: Office -->
+        <div class="bg-surface-container-low rounded-3xl p-8 group transition-colors hover:bg-surface-container-lowest">
+          <div class="flex justify-between items-start mb-6">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-on-surface-variant" data-icon="apartment">apartment</span>
+              <h3 class="font-label text-xs tracking-widest uppercase text-on-surface-variant">Office</h3>
+            </div>
+          </div>
+          <div class="space-y-2 mb-8">
+            <p class="font-headline text-xl text-on-background">Julianne Moore</p>
+            <p class="font-body text-on-surface-variant">+1 (212) 555-0199</p>
+            <p class="font-body text-on-surface leading-relaxed pt-2">
+              Condé Nast Building<br />
+              1 World Trade Center, Floor 25<br />
+              New York, NY 10007<br />
+              United States
+            </p>
+          </div>
+          <div class="flex gap-4 pt-4 border-t border-outline-variant/15">
+            <button class="font-label text-xs tracking-widest uppercase text-on-background hover:text-primary transition-colors flex items-center gap-1" onclick="openModal('address-modal')">
+              <span class="material-symbols-outlined text-sm" data-icon="edit">edit</span> Edit
+            </button>
+            <button class="font-label text-xs tracking-widest uppercase text-on-background hover:text-primary transition-colors flex items-center gap-1">
+              Set as Default
+            </button>
+          </div>
+        </div>
+        <!-- Add New Mobile Button -->
+        <button class="md:hidden flex flex-col items-center justify-center p-8 bg-surface-container-low rounded-3xl border border-dashed border-outline-variant/50 hover:bg-surface-container transition-colors min-h-[250px]" onclick="openModal('address-modal')">
+          <span class="material-symbols-outlined text-3xl text-on-surface-variant mb-2">add_circle</span>
+          <span class="font-label text-sm tracking-widest uppercase text-on-surface-variant">Add New Address</span>
+        </button>
+      </div>
+    </main>
+  </div>
+  <!-- Address Modal -->
+  <div class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-background/80 backdrop-blur-sm p-4" id="address-modal">
+    <div class="bg-surface-container-lowest rounded-[40px] w-full max-w-lg shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+      <div class="px-8 py-6 border-b border-outline-variant/30 flex justify-between items-center sticky top-0 bg-surface-container-lowest z-10">
+        <h3 class="font-headline text-2xl text-on-background" id="modal-title">Add/Edit Address</h3>
+        <button class="text-on-surface-variant hover:text-on-background transition-colors" onclick="closeModal('address-modal')">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="p-8 overflow-y-auto">
+        <form class="space-y-6">
+          <div>
+            <label class="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3" for="new_receiver">Receiver Name</label>
+            <input class="w-full bg-surface-container border border-outline-variant/30 py-4 px-6 rounded-[40px] text-on-surface font-body focus:ring-0 focus:border-primary transition-colors duration-300" id="new_receiver" placeholder="John Doe" type="text" />
+          </div>
+          <div>
+            <label class="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3" for="new_phone">Phone Number</label>
+            <input class="w-full bg-surface-container border border-outline-variant/30 py-4 px-6 rounded-[40px] text-on-surface font-body focus:ring-0 focus:border-primary transition-colors duration-300" id="new_phone" placeholder="+1 (555) 000-0000" type="tel" />
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3" for="new_city">City</label>
+              <input class="w-full bg-surface-container border border-outline-variant/30 py-4 px-6 rounded-[40px] text-on-surface font-body focus:ring-0 focus:border-primary transition-colors duration-300" id="new_city" placeholder="New York" type="text" />
+            </div>
+            <div>
+              <label class="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3" for="new_ward">Ward/District</label>
+              <input class="w-full bg-surface-container border border-outline-variant/30 py-4 px-6 rounded-[40px] text-on-surface font-body focus:ring-0 focus:border-primary transition-colors duration-300" id="new_ward" placeholder="Manhattan" type="text" />
+            </div>
+          </div>
+          <div>
+            <label class="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3" for="new_address">Delivery Address</label>
+            <input class="w-full bg-surface-container border border-outline-variant/30 py-4 px-6 rounded-[40px] text-on-surface font-body focus:ring-0 focus:border-primary transition-colors duration-300" id="new_address" placeholder="123 Perfume Lane, Apt 4B" type="text" />
+          </div>
+        </form>
+      </div>
+      <div class="px-8 py-6 border-t border-outline-variant/30 bg-surface-container-lowest sticky bottom-0 z-10 flex justify-end gap-4">
+        <button class="px-8 py-4 rounded-[40px] font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant hover:bg-surface-container transition-colors" onclick="closeModal('address-modal')" type="button">Cancel</button>
+        <button class="bg-primary text-on-primary px-8 py-4 rounded-[40px] font-label text-sm uppercase tracking-[0.1em] hover:bg-secondary transition-colors" onclick="closeModal('address-modal')" type="button">Save Address</button>
+      </div>
+    </div>
+  </div>
+  <!-- Delete Confirmation Modal -->
+  <div class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-background/80 backdrop-blur-sm p-4" id="delete-modal">
+    <div class="bg-surface-container-lowest rounded-[40px] w-full max-w-md shadow-2xl overflow-hidden flex flex-col p-8 text-center">
+      <span class="material-symbols-outlined text-4xl text-error mb-4">warning</span>
+      <h3 class="font-headline text-2xl text-on-background mb-4">Delete Address</h3>
+      <p class="font-body text-on-surface-variant mb-8">Are you sure you want to delete this address? This action cannot be undone.</p>
+      <div class="flex justify-center gap-4">
+        <button class="px-8 py-4 rounded-[40px] font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant hover:bg-surface-container transition-colors" onclick="closeModal('delete-modal')" type="button">Cancel</button>
+        <button class="bg-error text-on-error px-8 py-4 rounded-[40px] font-label text-sm uppercase tracking-[0.1em] hover:bg-error/80 transition-colors" onclick="closeModal('delete-modal')" type="button">Delete</button>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

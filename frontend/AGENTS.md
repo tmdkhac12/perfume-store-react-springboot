@@ -19,6 +19,27 @@
 - Local preview command:
   - `python -m http.server 8000 -d d:\Documents\Projects\web\Perfume_Store\frontend`
 
+- Suggested React app structure:
+  /src
+  ├── /assets         # Global static assets (images, fonts, global styles)
+  ├── /components     # Shared, generic UI components (Buttons, Inputs, Modals)
+  ├── /config         # Global configuration (environment variables, constants)
+  ├── /context        # Global React Contexts for cross-cutting state
+  ├── /features       # Domain-driven feature modules
+  │   └── /auth       # Example: Authentication feature
+  │       ├── /api    # Feature-specific API calls/hooks
+  │       ├── /components # Components unique to this feature
+  │       ├── /hooks  # Custom hooks for feature logic
+  │       ├── /types  # TypeScript definitions for feature data
+  │       └── index.ts # Public API for the feature (exports only what's needed)
+  ├── /hooks          # Global reusable hooks
+  ├── /layouts        # Page layouts (MainLayout, AuthLayout, Sidebar)
+  ├── /lib            # Facades for 3rd-party libraries (axios, react-query)
+  ├── /pages          # Route components that compose features into full pages
+  ├── /services       # Shared API clients or business logic services
+  ├── /types          # Global TypeScript interfaces and types
+  └── /utils          # Pure utility functions (formatters, validators)
+
 3. **Quy tắc thiết kế:** Màu sắc chủ đạo, font chữ, style tổng thể.
 - Keep the existing luxury-minimal direction: clean whitespace, restrained contrast, subtle motion, and rounded elements.
 - Primary token direction (as implemented across pages): dark neutral primary (`#0b0c0c`/`#212529`), light neutral backgrounds (`#f8f9fa`, `#ffffff`), soft outline grays (`#c4c7c7`, `#ced4da`).

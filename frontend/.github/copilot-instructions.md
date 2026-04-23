@@ -6,3 +6,8 @@
 
 - Instruction Files: Path-specific guidance lives under `.github/instructions/*.instructions.md` (each file should contain a YAML `applyTo` header). Always check `.github/copilot-instructions.md`, `.github/instructions/*`, and `AGENTS.md` before producing code or changing anything.
 - Update policy: When changing AI/agent rules, update `.github/copilot-instructions.md` and the relevant file(s) under `.github/instructions/`
+
+- React JS instruction set for this workspace:
+	- `.github/instructions/react-core.instructions.md`
+	- `.github/instructions/react-routing-layout.instructions.md`
+	- `.github/instructions/react-testing-quality.instructions.md`

@@ -10,7 +10,7 @@
 ### 🔄 Quy tắc Session Handoff Management
 
 1. **Mỗi khi bạn định tắt máy, hãy gửi một prompt cuối:**
-> Trước khi kết thúc hãy cập nhật AGENTS.md với những gì đã hoàn thành ở session này trạng thái cập nhật của từng phần, bước tiếp theo cần làm gì trong session sau. Những quyết định quan trọng đã đưa ra và lý do tại sao.
+> Trước khi kết thúc hãy cập nhật AGENTS.md với những gì đã hoàn thành ở session này trạng thái cập nhật của từng phần, bước tiếp theo cần làm gì trong session sau. Những quyết định quan trọng gì đã đưa ra và lý do tại sao.
 
 2. **Khi bạn mở máy lên và thấy khung chat trống trơn, đừng hoảng loạn. Hãy gõ:**
 > Hãy đọc @AGENTS.md và @tasks.md để nắm tình hình. Cho tôi biết chúng ta đã xong đến đâu, các bước tiếp theo là gì và có gì cần chú ý hay không.
@@ -19,7 +19,7 @@
 > Dựa trên AGENTS.md và trạng thái hiện tại của dự án, hãy lên kế hoạch cho ..., ưu tiên những gì và làm theo thứ tự nào.
 
 4. **Prompt phải gửi kèm mỗi khi yêu cầu Agent làm gì đó**
-> Làm xong phải kiểm tra lại lần nữa, so sánh với các file đã có và kết quả xem đã đúng với yêu cầu chưa, tiếp tục sửa lại cho đến khi mọi thứ đều đúng và bám sát yêu cầu.
+> Chỉ làm đúng những gì có trong yêu cầu, không được thay đổi những thứ không liên quan. Làm xong phải kiểm tra lại lần nữa, so sánh với các file liên quan và kết quả xem đã đúng với yêu cầu chưa, tiếp tục sửa lại cho đến khi mọi thứ đều đúng và bám sát yêu cầu.
 ---
 
 ### 🗺️ CLAUDE.md cấu trúc chuẩn

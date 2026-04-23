@@ -112,21 +112,21 @@
   <!-- Header -->
   <nav class="fixed top-0 w-full z-50 rounded-none bg-[#f8f9fa]/80 backdrop-blur-2xl no-border transition-colors duration-500 flex justify-between items-center px-12 py-8 max-w-full">
     <div class="flex items-center gap-8">
-      <a class="font-serif text-2xl font-light tracking-tighter text-[#212529]" href="#">L'Essence</a>
+      <a class="font-serif text-2xl font-light tracking-tighter text-[#212529]" href="../index.html">L'Essence</a>
       <div class="hidden md:flex gap-6">
-        <a class="font-sans uppercase tracking-[0.2em] text-[10px] text-zinc-400 hover:text-[#212529] transition-all" href="#">HOME</a>
-        <a class="font-sans uppercase tracking-[0.2em] text-[10px] text-zinc-400 hover:text-[#212529] transition-all" href="#">SHOP</a>
-        <a class="font-sans uppercase tracking-[0.2em] text-[10px] text-zinc-400 hover:text-[#212529] transition-all" href="#">BEST SELLERS</a>
-        <a class="font-sans uppercase tracking-[0.2em] text-[10px] text-zinc-400 hover:text-[#212529] transition-all" href="#">ABOUT</a>
+        <a class="font-sans uppercase tracking-[0.2em] text-[10px] text-zinc-400 hover:text-[#212529] transition-all" href="../index.html">HOME</a>
+        <a class="font-sans uppercase tracking-[0.2em] text-[10px] text-zinc-400 hover:text-[#212529] transition-all" href="shop.html">SHOP</a>
+        <a class="font-sans uppercase tracking-[0.2em] text-[10px] text-zinc-400 hover:text-[#212529] transition-all" href="shop.html">BEST SELLERS</a>
+        <a class="font-sans uppercase tracking-[0.2em] text-[10px] text-zinc-400 hover:text-[#212529] transition-all" href="../index.html">ABOUT</a>
       </div>
     </div>
     <div class="flex items-center gap-6 text-[#212529]">
-      <button class="hover:bg-zinc-200/50 p-2 opacity-70 transition-opacity duration-300">
+      <a class="hover:bg-zinc-200/50 p-2 opacity-70 transition-opacity duration-300 rounded-full" href="cart.html">
         <span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
-      </button>
-      <button class="hover:bg-zinc-200/50 p-2 opacity-70 transition-opacity duration-300">
+      </a>
+      <a class="hover:bg-zinc-200/50 p-2 opacity-70 transition-opacity duration-300 rounded-full" href="login.html">
         <span class="material-symbols-outlined" data-icon="person">person</span>
-      </button>
+      </a>
     </div>
   </nav>
   <main class="flex-grow flex items-center justify-center p-6 md:p-12 mb-16">
@@ -152,15 +152,15 @@
           <div class="relative pt-2">
             <div class="flex justify-between items-baseline mb-2 mx-1">
               <label class="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant" for="password">Password</label>
-              <a class="text-sm font-body text-secondary hover:text-primary transition-colors underline decoration-1 underline-offset-4" href="#">Forgot Password?</a>
+              <a class="text-sm font-body text-secondary hover:text-primary transition-colors underline decoration-1 underline-offset-4" href="register.html">Forgot Password?</a>
             </div>
             <input class="w-full bg-transparent border border-outline-variant rounded-full focus:border-primary focus:ring-0 px-5 py-3 text-on-surface font-body transition-colors duration-300 placeholder:text-outline" id="password" name="password" placeholder="Enter your password" type="password" />
           </div>
           <!-- Actions -->
           <div class="pt-6 space-y-4">
-            <button class="w-full bg-primary text-on-primary py-4 px-6 rounded-full font-label uppercase tracking-widest text-sm hover:bg-black transition-colors duration-300" type="submit">
+            <a href="user-profile.html" class="block w-full bg-primary text-on-primary py-4 px-6 rounded-full font-label uppercase tracking-widest text-sm text-center hover:bg-black transition-colors duration-300">
               Sign In
-            </button>
+            </a>
             <div class="relative flex items-center py-2">
               <div class="flex-grow border-t border-outline-variant/30"></div>
               <span class="flex-shrink-0 mx-4 text-on-surface-variant text-sm font-label">or</span>
@@ -170,9 +170,9 @@
               <img alt="Google" class="w-5 h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0BvSXgREoGEE63wyuB3crXewz7SDO5wqcdsqwH1hXvdX5n_xlebn1VwqW0pV3Cvcaf-5Ywopk4kYEx3bctJtmmpO_6IzrhJi2j2lZSiF1xXSJlxLIrxtZgKvxWheUPk5f6U8DMZDo99lDbuxPUw3HVMkhjte0tEULfuac7xwOZUpSzS00yUmk3bNkJjsRHb77asoykxTP4JR_O8bdCChjoPIJoImmd1va5VgmnUiDhgxObxbLRfo8IMKiJCgKJvH0G7PMFhY4iOw" />
               Sign in with Google
             </button>
-            <button class="w-full bg-transparent border border-outline-variant/30 text-on-surface py-4 px-6 rounded-full font-label uppercase tracking-widest text-sm hover:border-primary hover:bg-surface-container-low transition-colors duration-300 mt-4" type="button">
+            <a href="register.html" class="block w-full bg-transparent border border-outline-variant/30 text-on-surface py-4 px-6 rounded-full font-label uppercase tracking-widest text-sm text-center hover:border-primary hover:bg-surface-container-low transition-colors duration-300 mt-4">
               Create an Account
-            </button>
+            </a>
           </div>
         </form>
       </div>
@@ -184,10 +184,10 @@
       L'Essence
     </div>
     <div class="flex flex-wrap justify-center gap-8 mb-8 md:mb-0">
-      <a class="font-sans uppercase text-[9px] tracking-[0.3em] font-medium text-zinc-500 hover:text-[#212529] transition-colors duration-300" href="#">PRIVACY</a>
-      <a class="font-sans uppercase text-[9px] tracking-[0.3em] font-medium text-zinc-500 hover:text-[#212529] transition-colors duration-300" href="#">SHIPPING</a>
-      <a class="font-sans uppercase text-[9px] tracking-[0.3em] font-medium text-zinc-500 hover:text-[#212529] transition-colors duration-300" href="#">STORES</a>
-      <a class="font-sans uppercase text-[9px] tracking-[0.3em] font-medium text-zinc-500 hover:text-[#212529] transition-colors duration-300" href="#">INSTAGRAM</a>
+      <a class="font-sans uppercase text-[9px] tracking-[0.3em] font-medium text-zinc-500 hover:text-[#212529] transition-colors duration-300" href="../index.html">PRIVACY</a>
+      <a class="font-sans uppercase text-[9px] tracking-[0.3em] font-medium text-zinc-500 hover:text-[#212529] transition-colors duration-300" href="../index.html">SHIPPING</a>
+      <a class="font-sans uppercase text-[9px] tracking-[0.3em] font-medium text-zinc-500 hover:text-[#212529] transition-colors duration-300" href="../index.html">STORES</a>
+      <a class="font-sans uppercase text-[9px] tracking-[0.3em] font-medium text-zinc-500 hover:text-[#212529] transition-colors duration-300" href="../index.html">INSTAGRAM</a>
     </div>
     <div class="font-sans uppercase text-[9px] tracking-[0.3em] font-medium text-[#212529]">
       © 2024 L'ESSENCE. ALL RIGHTS RESERVED.

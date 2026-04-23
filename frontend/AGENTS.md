@@ -52,3 +52,46 @@
    - Verify link and interaction integrity (no broken `href`, no dead triggers).
 6. If any mismatch is found, continue refining until the result fully matches the requirements and project conventions.
 7. For session handoff, record what was completed, what is next, and key decisions in this file or referenced project notes.
+
+## 6. Session Handoff — 2026-04-23 (Navigation Linking)
+
+### Completed in this session
+- Finished end-to-end navigation linking pass across all in-scope surfaces: Public, Auth, User, and Admin.
+- Applied canonical relative-path rules consistently:
+  - `index.html` links to `pages/...`
+  - files under `pages/` link to `../index.html` for Home and `*.html` for peer pages.
+- Verified and aligned key prototype journeys:
+  - Public: `index.html` → `shop.html` → `product-details.html` → `cart.html` → `checkout.html`
+  - Auth: `login.html` ↔ `register.html` → `user-profile.html`
+  - User: `user-profile.html` ↔ `user-security.html` ↔ `user-address.html` ↔ `user-orders.html`
+  - Admin: `admin-overview.html` → `admin-products.html` → `admin-brands.html` → `admin-notes.html` → `admin-volumes.html` → `admin-users.html` → `admin-invoices.html` → `login.html`.
+- Completed semantic navigation cleanup for navigation-only controls:
+  - Converted `View Full Catalog` in `pages/admin-overview.html` from `<button>` to `<a href="shop.html">`.
+- Completed link integrity verification loops:
+  - Placeholder scan confirmed no remaining `href="#"`.
+  - Internal `*.html` href scan and target-existence checks confirmed no broken page targets.
+- Updated tracking in `tasks.md`:
+  - Phase 1 to Phase 7 progress recorded.
+  - Acceptance criteria for route intent, reachability, and dead-end prevention marked complete.
+
+### Current status
+- Navigation routing coverage is complete for the defined prototype scope.
+- No broken page link was detected in the latest verification pass.
+- Remaining manual-only checks in `tasks.md` are visual/regression-focused:
+  - accidental style regressions in shared nav/header/sidebar/footer blocks,
+  - desktop/mobile usability review.
+
+### Important decisions and why
+- Use root page as temporary fallback for non-existing content pages (`Editorial`, `About`, `Privacy`, `Shipping`, `Stores`, `Instagram`, `Help`).
+  - Reason: these pages do not exist yet; fallback prevents dead-end navigation while preserving flow continuity.
+- Keep local interaction controls as `<button>` (modals, toggles, quantity updates, table actions).
+  - Reason: these controls trigger in-page behavior, not page routing; preserving them avoids behavioral regressions.
+- Prefer `<a>` for pure page navigation.
+  - Reason: semantic HTML improves clarity, accessibility expectations, and maintainability for static prototypes.
+- Keep changes minimal and scoped to navigation contract only.
+  - Reason: requirement explicitly asked to avoid unrelated modifications and preserve existing UI direction.
+
+### Next session priorities
+1. Run visual cross-check on desktop and mobile for shared layout blocks (header/sidebar/footer).
+2. Confirm active-state styling consistency on current-page nav items after any future UI edits.
+3. If new real content pages are added (About, Privacy, etc.), replace temporary fallback links with dedicated targets.

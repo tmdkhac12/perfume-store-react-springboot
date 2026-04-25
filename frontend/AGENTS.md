@@ -74,91 +74,41 @@
 6. If any mismatch is found, continue refining until the result fully matches the requirements and project conventions.
 7. For session handoff, record what was completed, what is next, and key decisions in this file or referenced project notes.
 
-## 6. Session Handoff — 2026-04-25 (Static Baseline + Navigation Contract)
+## 6. Session Handoff — 2026-04-25 (Public Route Parity Sweep)
 
-### Completed so far
-- Static HTML navigation coverage remains complete across Public, Auth, User, and Admin prototype pages.
-- Canonical relative-link rules remain consistent with the static folder layout:
-  - `index.html` links to `pages/...`
-  - files under `pages/` link to `../index.html` for Home and `*.html` for peer pages
-- Phase 0 baseline artifacts are present and usable for parity checks:
-  - `docs/phase0/component-inventory.md`
-  - `docs/phase0/interaction-inventory.md`
-  - `docs/phase0/baseline-reference.md`
-  - `docs/phase0/screenshots/desktop` (18 files)
-  - `docs/phase0/screenshots/mobile` (18 files)
+### Completed in this session
+- Extracted shared public shell blocks into reusable base components and wired layout consumption:
+  - `src/components/base/MainHeader.jsx`
+  - `src/components/base/MainFooter.jsx`
+  - `src/components/base/index.js`
+  - `src/layouts/MainLayout.jsx`
+- Consolidated Tailwind tokens from static page `script#tailwind-config` blocks into shared `tailwind.config.js` (added missing semantic tokens and font stacks).
+- Per-page parity updates (tag/classname/content parity-first) were applied for these public React routes:
+  - `src/pages/HomePage.jsx`
+  - `src/pages/ShopPage.jsx`
+  - `src/pages/CartPage.jsx`
+  - `src/pages/CheckoutPage.jsx`
+  - `src/pages/ProductDetailsPage.jsx`
+- Route smoke test expectation updated for shop heading parity in `src/App.test.jsx` (`THE COLLECTION`).
 
 ### Current status by area
-- Public static pages: reachable.
-- Auth static pages: reachable.
-- User static pages: reachable.
-- Admin static pages: reachable.
-- Legacy HTML remains intentionally retained as migration reference.
+- Public / Home (`/`): migrated with high structural parity to `old-index.html` main content.
+- Public / Shop (`/shop`): migrated with high structural parity to `pages/shop.html` main content.
+- Public / Product Details (`/product-details/:productId`): migrated with high structural parity to `pages/product-details.html` main content.
+- Public / Cart (`/cart`): migrated with high structural parity to `pages/cart.html` main content.
+- Public / Checkout (`/checkout`): migrated with high structural parity to `pages/checkout.html` main content, including React modal parity.
+- Auth / Account / Admin route pages: still outside this parity sweep scope.
 
 ### Important decisions and why
-- Keep static HTML pages available while React migration is incomplete.
-  - Reason: baseline parity comparison and rollback-safe visual reference are still required.
-- Keep navigation semantics strict (`<a>` for route/page navigation, `<button>` for in-page actions).
-  - Reason: preserves accessibility and interaction intent during migration.
-- Continue parity-first workflow using Phase 0 screenshots as source of truth.
-  - Reason: prevents visual drift before logic and data layers are introduced.
+- Enforced parity-first implementation order (tag/classname first, behavior second, optimization last).
+  - Reason: reduce visual drift and keep static baseline as source of truth.
+- Allowed only two React migration exceptions during parity work:
+  - Replace route navigation anchors with `Link`/`NavLink`.
+  - Replace inline HTML handlers with React state/events.
+  - Reason: preserve routing semantics and avoid reintroducing inline scripts.
+- Kept changes tightly scoped per requested page and avoided unrelated refactors.
+  - Reason: limit regression surface and keep review diff readable.
 
-### Next session priorities
-1. Use static pages only as visual reference, not as the primary implementation target.
-2. Continue replacing React placeholder routes with route-specific presentational pages.
-3. Run desktop/mobile parity checks against `docs/phase0/screenshots` after each migrated route.
-
-## 7. Session Handoff — 2026-04-25 (React UI-Only Migration Status Refresh)
-
-### Completed so far (verified by codebase scan)
-- Migration plan status in `tasks.md` is aligned with actual implementation for completed phases:
-  - Phase 0: completed.
-  - Phase 1: completed.
-  - Phase 2: completed.
-  - Phase 3: completed.
-  - Phase 4-8: not completed.
-- React route contract exists for all planned paths in `src/config/route-map.js` and `src/config/routes.jsx`.
-- Shared layout shell is implemented:
-  - `src/layouts/MainLayout.jsx`
-  - `src/layouts/AuthLayout.jsx`
-  - `src/layouts/AccountLayout.jsx`
-  - `src/layouts/AdminLayout.jsx`
-  - `src/layouts/RouteSurfaceLayout.jsx`
-- Foundation components are implemented and exported from `src/components/base`.
-- Presentational feature modules exist and are wired:
-  - `src/features/catalog`, `src/features/product`, `src/features/cart`, `src/features/checkout`, `src/features/auth`, `src/features/userAccount`, `src/features/admin`
-- Route smoke tests exist and pass for layout-shell wiring in `src/App.test.jsx`.
-
-### Current status by phase (practical interpretation)
-- Phase 0-3: delivered as scaffold/foundation work.
-- Phase 4-6: route-level page migration is still pending (current routes render shared placeholder composition, not migrated page UIs).
-- Phase 7: partially evidenced (`lint` and `test` pass), but full quality gate is still pending because visual parity verification and full build verification are not complete.
-- Phase 8: not started.
-
-### Verification snapshot (current session)
-- `npm run lint`: pass.
-- `npm run test -- --run`: pass (4/4).
-- React Router v7 future-flag warning still appears in test output (non-blocking, should be tracked).
-- `npm run build` was not executed in this session.
-
-### Important decisions and why
-- Keep this track UI-only and presentational-only.
-  - Reason: matches scope lock in `tasks.md`; avoids leaking into logic/state/API work.
-- Keep JavaScript-only during current migration phases.
-  - Reason: reduces migration overhead and keeps focus on parity and route coverage.
-- Keep grouped layout-shell routing (`Public`, `Auth`, `Account`, `Admin`) while pages are migrated incrementally.
-  - Reason: provides stable navigation structure and prevents duplicated shell markup.
-- Defer context/services/business logic layers.
-  - Reason: explicitly out of scope for this UI-only plan.
-
-### Risks and cautions discovered
-- Build configuration still references `react-app.html` in multiple files (`vite.config.js`, `tailwind.config.js`, `package.json` scripts) while the current entry file is `index.html`.
-  - Risk: production build and content scanning can drift or fail until entry references are unified.
-- `src/pages` currently contains only `RoutePlaceholderPage.jsx`.
-  - Risk: Phase 4-6 progress can be overestimated if placeholder routes are interpreted as full page migration.
-
-### Next session priorities
-1. Fix entry-file consistency (`react-app.html` references) across `vite.config.js`, `tailwind.config.js`, and `package.json`.
-2. Start real Phase 4 migration by implementing React presentational pages for Public routes (`/`, `/shop`, `/product-details/:productId`, `/cart`, `/checkout`) with parity to static baseline.
-3. Add/expand route render smoke tests for newly migrated Public pages (beyond shell-level assertions).
-4. After each route migration batch, run `npm run lint`, `npm run test -- --run`, and `npm run build`, then update `tasks.md` checklist incrementally.
+### Known cautions after this session
+- During this session, terminal lint/test commands were skipped in some later steps by user action; editor diagnostics showed no compile errors on touched files at handoff time.
+- `src/layouts/MainLayout.jsx` currently owns a `main` wrapper. If any page also introduces a top-level `main`, semantic nesting should be reviewed to avoid duplicate `main` landmarks.

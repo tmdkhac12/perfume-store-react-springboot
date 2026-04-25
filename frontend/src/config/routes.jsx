@@ -2,7 +2,12 @@ import AccountLayout from '../layouts/AccountLayout.jsx';
 import AdminLayout from '../layouts/AdminLayout.jsx';
 import AuthLayout from '../layouts/AuthLayout.jsx';
 import MainLayout from '../layouts/MainLayout.jsx';
+import CartPage from '../pages/CartPage.jsx';
+import CheckoutPage from '../pages/CheckoutPage.jsx';
+import HomePage from '../pages/HomePage.jsx';
+import ProductDetailsPage from '../pages/ProductDetailsPage.jsx';
 import RoutePlaceholderPage from '../pages/RoutePlaceholderPage.jsx';
+import ShopPage from '../pages/ShopPage.jsx';
 import { getRoutesByGroup, routeGroups } from './route-map.js';
 
 function toRouteElement(route) {
@@ -37,10 +42,32 @@ function mapRoutesForParent(group, parentPath) {
   });
 }
 
-const publicRouteChildren = mapRoutesForParent(routeGroups.public, '/');
 const authRouteChildren = mapRoutesForParent(routeGroups.auth, '/');
 const accountRouteChildren = mapRoutesForParent(routeGroups.account, '/account');
 const adminRouteChildren = mapRoutesForParent(routeGroups.admin, '/admin');
+
+const publicRouteChildren = [
+  {
+    index: true,
+    element: <HomePage />
+  },
+  {
+    path: 'shop',
+    element: <ShopPage />
+  },
+  {
+    path: 'product-details/:productId',
+    element: <ProductDetailsPage />
+  },
+  {
+    path: 'cart',
+    element: <CartPage />
+  },
+  {
+    path: 'checkout',
+    element: <CheckoutPage />
+  }
+];
 
 export const appRoutes = [
   {

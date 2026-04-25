@@ -1,4 +1,5 @@
 import { Badge, Breadcrumbs, Card, SectionHeader } from '../components/base/index.js';
+import { getFeatureRouteBlock } from '../features/index.js';
 
 function buildBreadcrumbItems(routePath, title) {
   const segments = routePath
@@ -28,6 +29,7 @@ function buildBreadcrumbItems(routePath, title) {
 
 function RoutePlaceholderPage({ title, routePath }) {
   const breadcrumbItems = buildBreadcrumbItems(routePath, title);
+  const FeatureRouteBlock = getFeatureRouteBlock(routePath);
 
   return (
     <div className="space-y-6">
@@ -43,6 +45,8 @@ function RoutePlaceholderPage({ title, routePath }) {
       <Card title="Route Status" description="This route currently renders a shared placeholder in the new layout shell.">
         <p className="text-sm text-luxury-subtle">Mapped path: {routePath}</p>
       </Card>
+
+      {FeatureRouteBlock ? <FeatureRouteBlock routePath={routePath} /> : null}
     </div>
   );
 }

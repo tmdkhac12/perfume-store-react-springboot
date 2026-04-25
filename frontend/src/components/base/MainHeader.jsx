@@ -1,5 +1,16 @@
 import { Link, NavLink } from 'react-router-dom';
 
+const navItems = [
+  { label: 'HOME', to: '/' },
+  { label: 'SHOP', to: '/shop' },
+  { label: 'BEST SELLERS', to: '/best-sellers' },
+  { label: 'ABOUT', to: '/about' },
+];
+
+const baseClasses = 'font-label uppercase tracking-[0.2em] text-[11px]';
+const activeClasses = 'text-primary border-b border-primary pb-1';
+const inactiveClasses = 'text-on-surface-variant hover:text-primary transition-all';
+
 function MainHeader() {
   return (
     <nav className="sticky top-0 w-full z-50 rounded-none bg-[#f8f9fa]/90 backdrop-blur-xl no-border transition-colors duration-500 flex justify-between items-center px-8 lg:px-12 py-6 max-w-full">
@@ -9,18 +20,15 @@ function MainHeader() {
         </NavLink>
       </div>
       <div className="hidden lg:flex gap-8">
-        <NavLink className="font-label uppercase tracking-[0.2em] text-[11px] text-on-surface-variant hover:text-primary transition-all" to="/">
-          HOME
-        </NavLink>
-        <NavLink className="font-label uppercase tracking-[0.2em] text-[11px] text-primary border-b border-primary pb-1" to="/shop">
-          SHOP
-        </NavLink>
-        <NavLink className="font-label uppercase tracking-[0.2em] text-[11px] text-on-surface-variant hover:text-primary transition-all" to="/shop">
-          BEST SELLERS
-        </NavLink>
-        <NavLink className="font-label uppercase tracking-[0.2em] text-[11px] text-on-surface-variant hover:text-primary transition-all" to="/shop">
-          ABOUT
-        </NavLink>
+        {navItems.map(item => (
+          <NavLink
+            key={item.label}
+            to={item.to}
+            className={({ isActive }) =>
+              `${baseClasses} ${isActive ? activeClasses : inactiveClasses}`
+            }
+          >{item.label}</NavLink>
+        ))}
       </div>
       <div className="flex items-center gap-4 text-primary">
         <button className="hover:bg-primary/5 p-2 rounded-full transition-colors duration-300" type="button">

@@ -2,10 +2,16 @@ import AccountLayout from '../layouts/AccountLayout.jsx';
 import AdminLayout from '../layouts/AdminLayout.jsx';
 import AuthLayout from '../layouts/AuthLayout.jsx';
 import MainLayout from '../layouts/MainLayout.jsx';
+import AccountAddressPage from '../pages/AccountAddressPage.jsx';
+import AccountOrdersPage from '../pages/AccountOrdersPage.jsx';
+import AccountProfilePage from '../pages/AccountProfilePage.jsx';
+import AccountSecurityPage from '../pages/AccountSecurityPage.jsx';
 import CartPage from '../pages/CartPage.jsx';
 import CheckoutPage from '../pages/CheckoutPage.jsx';
 import HomePage from '../pages/HomePage.jsx';
+import LoginPage from '../pages/LoginPage.jsx';
 import ProductDetailsPage from '../pages/ProductDetailsPage.jsx';
+import RegisterPage from '../pages/RegisterPage.jsx';
 import RoutePlaceholderPage from '../pages/RoutePlaceholderPage.jsx';
 import ShopPage from '../pages/ShopPage.jsx';
 import { getRoutesByGroup, routeGroups } from './route-map.js';
@@ -42,9 +48,37 @@ function mapRoutesForParent(group, parentPath) {
   });
 }
 
-const authRouteChildren = mapRoutesForParent(routeGroups.auth, '/');
-const accountRouteChildren = mapRoutesForParent(routeGroups.account, '/account');
 const adminRouteChildren = mapRoutesForParent(routeGroups.admin, '/admin');
+
+const authRouteChildren = [
+  {
+    path: 'login',
+    element: <LoginPage />
+  },
+  {
+    path: 'register',
+    element: <RegisterPage />
+  }
+];
+
+const accountRouteChildren = [
+  {
+    path: 'profile',
+    element: <AccountProfilePage />
+  },
+  {
+    path: 'orders',
+    element: <AccountOrdersPage />
+  },
+  {
+    path: 'address',
+    element: <AccountAddressPage />
+  },
+  {
+    path: 'security',
+    element: <AccountSecurityPage />
+  }
+];
 
 const publicRouteChildren = [
   {

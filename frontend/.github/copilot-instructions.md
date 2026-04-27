@@ -1,13 +1,12 @@
-# Global Rules
+# Quy Tắc Toàn Cục
 
-- Communication: The user prompts in Vietnamese. Respond and explain in Vietnamese when providing explanations or guidance.
-- Code: ALL source code, unit tests, variable names, comments, and documentation MUST be in English.
-- Consistency: If the user describes a feature in Vietnamese, translate the concepts to the established English domain terms (e.g., "Hóa đơn" -> "Invoice").
+- Giao tiếp: Người dùng nhập prompt bằng tiếng Việt. Hãy phản hồi và giải thích bằng tiếng Việt khi đưa ra hướng dẫn hoặc diễn giải.
+- Mã nguồn: TOÀN BỘ source code, unit test, tên biến, comment BẮT BUỘC bằng tiếng Anh. Tuy nhiên toàn bộ tài liệu phải bằng tiếng Việt.
+- Tính nhất quán: Nếu người dùng mô tả tính năng bằng tiếng Việt, hãy chuyển đổi khái niệm sang thuật ngữ domain tiếng Anh đã chuẩn hóa (ví dụ: "Hóa đơn" -> "Invoice").
 
-- Instruction Files: Path-specific guidance lives under `.github/instructions/*.instructions.md` (each file should contain a YAML `applyTo` header). Always check `.github/copilot-instructions.md`, `.github/instructions/*`, and `AGENTS.md` before producing code or changing anything.
-- Update policy: When changing AI/agent rules, update `.github/copilot-instructions.md` and the relevant file(s) under `.github/instructions/`
+- File hướng dẫn: Hướng dẫn theo từng đường dẫn nằm trong `.github/instructions/*.instructions.md` (mỗi file phải có YAML header `applyTo`). Luôn kiểm tra `.github/copilot-instructions.md`, `.github/instructions/*`, và `AGENTS.md` trước khi tạo hoặc sửa mã.
+- Chính sách cập nhật: Khi thay đổi rule AI/agent, hãy cập nhật `.github/copilot-instructions.md` và các file liên quan trong `.github/instructions/`.
 
-- React JS instruction set for this workspace:
+- Bộ hướng dẫn React JS cho workspace này:
 	- `.github/instructions/react-core.instructions.md`
 	- `.github/instructions/react-routing-layout.instructions.md`
-	- `.github/instructions/react-testing-quality.instructions.md`

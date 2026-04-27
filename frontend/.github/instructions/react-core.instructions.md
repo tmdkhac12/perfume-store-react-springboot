@@ -1,42 +1,42 @@
 ---
 applyTo: "src/**/*.{js,jsx,css}"
-description: "Use when implementing or refactoring React JS source files in this frontend workspace. Enforces parity-first migration, design consistency, and reusable foundation usage."
+description: "Dùng khi triển khai hoặc refactor file mã nguồn React JS trong frontend workspace này. Áp dụng chiến lược parity-first, nhất quán thiết kế và tái sử dụng nền tảng sẵn có."
 ---
 
-# React Core Rules
+# Quy Tắc React Core
 
-## Scope and Intent
-- Keep migration strategy as parity-first: behavior parity first, design consistency second, optimization third.
-- Implement only the requested scope and avoid unrelated refactors.
-- Keep static-first assumptions until backend integration is explicitly implemented.
+## Phạm Vi Và Mục Tiêu
+- Giữ chiến lược migration theo parity-first: ưu tiên parity hành vi trước, nhất quán thiết kế sau, tối ưu hóa cuối cùng.
+- Chỉ triển khai đúng phạm vi được yêu cầu và tránh refactor không liên quan.
+- Giữ giả định static-first cho đến khi backend integration được triển khai rõ ràng.
 
-## Architecture and Reuse
-- Reuse existing foundations before creating new patterns:
+## Kiến Trúc Và Tái Sử Dụng
+- Tái sử dụng nền tảng hiện có trước khi tạo pattern mới:
   - `src/layouts/*`
   - `src/components/base/*`
   - `src/hooks/*`
   - `src/utils/*`
-- Favor composition over duplication and keep components focused.
-- Keep route and domain naming aligned with the current plan in `tasks.md`.
+- Ưu tiên composition thay vì lặp lại và giữ component tập trung đúng trách nhiệm.
+- Giữ cách đặt tên route và domain đồng bộ với kế hoạch hiện tại trong `tasks.md`.
 
-## UI and Styling
-- Preserve the current luxury-minimal direction (clean spacing, restrained contrast, subtle motion).
-- Keep typography aligned with project standards:
-  - Headline moments: Noto Serif
-  - Body and utility text: Manrope
-- Use Tailwind utility classes first.
-- Avoid large custom CSS blocks unless repetition justifies extraction.
-- Reuse existing CSS variables and utility tokens from `src/assets/styles/global.css`.
+## UI Và Styling
+- Bảo toàn định hướng luxury-minimal hiện tại (khoảng trắng sạch, tương phản tiết chế, chuyển động tinh tế).
+- Giữ typography theo tiêu chuẩn dự án:
+  - Phần tiêu đề và điểm nhấn thương hiệu: Noto Serif
+  - Nội dung thân bài và văn bản tiện ích: Manrope
+- Ưu tiên dùng Tailwind utility classes trước.
+- Tránh khối CSS tùy biến lớn trừ khi mức độ lặp lại đủ để tách ra.
+- Tái sử dụng CSS variables và utility tokens hiện có từ `src/assets/styles/global.css`.
 
-## React Implementation Rules
-- Use functional components and hooks.
-- Keep all code, variable names, comments, tests, and UI strings in English.
-- Convert interaction logic to React state/events/hooks; do not reintroduce inline page scripts.
-- Use semantic elements:
-  - Use links for route navigation.
-  - Use buttons for in-page actions (modal toggle, quantity updates, local state changes).
+## Quy Tắc Triển Khai React
+- Sử dụng functional components và hooks.
+- Giữ toàn bộ code, tên biến, comment, test và UI strings bằng tiếng Anh.
+- Chuyển logic tương tác sang React state/events/hooks; không đưa lại inline page scripts.
+- Sử dụng semantic elements:
+  - Dùng links cho route navigation.
+  - Dùng buttons cho các thao tác trong trang (toggle modal, cập nhật số lượng, thay đổi state cục bộ).
 
-## Quality and Safety
-- Keep changes minimal and local to the requested feature.
-- Prefer deterministic, reusable utilities for formatting and validation logic.
-- Preserve responsive behavior at current breakpoints (`sm`, `md`, `lg`) while migrating.
+## Chất Lượng Và An Toàn
+- Giữ thay đổi tối thiểu và cục bộ trong phạm vi tính năng được yêu cầu.
+- Ưu tiên các utility mang tính xác định và tái sử dụng được cho logic format/validation.
+- Bảo toàn hành vi responsive tại các breakpoint hiện tại (`sm`, `md`, `lg`) trong quá trình migration.

@@ -1,30 +1,30 @@
 ---
 applyTo: "src/{config,layouts,pages}/**/*.{js,jsx}"
-description: "Use when editing React routes, layouts, and route-level pages. Ensures full route reachability, layout-shell consistency, and navigation integrity."
+description: "Dùng khi chỉnh sửa React routes, layouts và các route-level pages. Đảm bảo khả năng truy cập route đầy đủ, tính nhất quán layout-shell và tính toàn vẹn điều hướng."
 ---
 
-# React Routing and Layout Rules
+# Quy Tắc React Routing Và Layout
 
-## Route Contract
-- Keep route paths aligned with the React refactor plan in `tasks.md`.
-- Maintain full route reachability for Public, Auth, Account, and Admin surfaces.
-- Preserve current route intent and labels unless explicitly requested.
+## Quy Ước Route
+- Giữ route paths đồng bộ với kế hoạch React refactor trong `tasks.md`.
+- Duy trì khả năng truy cập đầy đủ cho các bề mặt Public, Auth, Account và Admin.
+- Bảo toàn mục đích và nhãn route hiện tại trừ khi có yêu cầu rõ ràng.
 
-## Layout Shell Rules
-- Use shared layout shells for each surface:
+## Quy Tắc Layout Shell
+- Sử dụng shared layout shells cho từng bề mặt:
   - Public -> `MainLayout`
   - Auth -> `AuthLayout`
   - Account -> `AccountLayout`
   - Admin -> `AdminLayout`
-- Keep shared shell responsibilities in layout components and route-specific content in page components.
-- Avoid duplicating navigation blocks across route pages when layout shells already provide them.
+- Giữ trách nhiệm shell dùng chung trong layout components và nội dung theo route trong page components.
+- Tránh lặp lại các khối navigation giữa các route page khi layout shell đã cung cấp sẵn.
 
-## Navigation Integrity
-- Use `Link`/`NavLink` for route navigation.
-- Do not use placeholder links such as `href="#"` in migrated React routes.
-- Keep route transitions and active-state behavior consistent with existing patterns.
+## Tính Toàn Vẹn Điều Hướng
+- Sử dụng `Link`/`NavLink` cho điều hướng route.
+- Không dùng placeholder links như `href="#"` trong các React routes đã migrate.
+- Giữ route transitions và hành vi active-state nhất quán với pattern hiện có.
 
-## Consistency Checks
-- Ensure no dead-end navigation is introduced for in-scope routes.
-- Preserve responsive behavior and visual rhythm in header/navigation blocks.
-- Keep naming and structure consistent with existing `src/config/route-map.js` and `src/config/routes.jsx` responsibilities.
+## Kiểm Tra Tính Nhất Quán
+- Đảm bảo không tạo dead-end navigation cho các route trong phạm vi.
+- Bảo toàn hành vi responsive và nhịp điệu thị giác của các khối header/navigation.
+- Giữ cách đặt tên và cấu trúc nhất quán với trách nhiệm hiện có của `src/config/route-map.js` và `src/config/routes.jsx`.

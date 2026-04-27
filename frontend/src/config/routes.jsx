@@ -3,6 +3,13 @@ import AdminLayout from '../layouts/AdminLayout.jsx';
 import AuthLayout from '../layouts/AuthLayout.jsx';
 import MainLayout from '../layouts/MainLayout.jsx';
 import AccountAddressPage from '../pages/AccountAddressPage.jsx';
+import AdminBrandsPage from '../pages/AdminBrandsPage.jsx';
+import AdminInvoicesPage from '../pages/AdminInvoicesPage.jsx';
+import AdminNotesPage from '../pages/AdminNotesPage.jsx';
+import AdminOverviewPage from '../pages/AdminOverviewPage.jsx';
+import AdminProductsPage from '../pages/AdminProductsPage.jsx';
+import AdminUsersPage from '../pages/AdminUsersPage.jsx';
+import AdminVolumesPage from '../pages/AdminVolumesPage.jsx';
 import AccountOrdersPage from '../pages/AccountOrdersPage.jsx';
 import AccountProfilePage from '../pages/AccountProfilePage.jsx';
 import AccountSecurityPage from '../pages/AccountSecurityPage.jsx';
@@ -14,41 +21,37 @@ import ProductDetailsPage from '../pages/ProductDetailsPage.jsx';
 import RegisterPage from '../pages/RegisterPage.jsx';
 import RoutePlaceholderPage from '../pages/RoutePlaceholderPage.jsx';
 import ShopPage from '../pages/ShopPage.jsx';
-import { getRoutesByGroup, routeGroups } from './route-map.js';
 
-function toRouteElement(route) {
-  return <RoutePlaceholderPage title={route.label} routePath={route.path} />;
-}
-
-function toChildPath(routePath, parentPath) {
-  if (routePath === parentPath) {
-    return '';
+const adminRouteChildren = [
+  {
+    path: 'overview',
+    element: <AdminOverviewPage />
+  },
+  {
+    path: 'products',
+    element: <AdminProductsPage />
+  },
+  {
+    path: 'brands',
+    element: <AdminBrandsPage />
+  },
+  {
+    path: 'invoices',
+    element: <AdminInvoicesPage />
+  },
+  {
+    path: 'notes',
+    element: <AdminNotesPage />
+  },
+  {
+    path: 'users',
+    element: <AdminUsersPage />
+  },
+  {
+    path: 'volumes',
+    element: <AdminVolumesPage />
   }
-
-  if (parentPath === '/') {
-    return routePath.replace(/^\//, '');
-  }
-
-  return routePath.replace(`${parentPath}/`, '');
-}
-
-function mapRoutesForParent(group, parentPath) {
-  return getRoutesByGroup(group).map((route) => {
-    if (route.path === '/') {
-      return {
-        index: true,
-        element: toRouteElement(route)
-      };
-    }
-
-    return {
-      path: toChildPath(route.path, parentPath),
-      element: toRouteElement(route)
-    };
-  });
-}
-
-const adminRouteChildren = mapRoutesForParent(routeGroups.admin, '/admin');
+];
 
 const authRouteChildren = [
   {

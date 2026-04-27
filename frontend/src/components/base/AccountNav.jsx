@@ -25,7 +25,7 @@ const accountNavigation = [
 
 function AccountNav() {
   return (
-    <aside className="sticky top-28 mr-12 hidden h-[calc(100vh-8rem)] w-72 flex-col gap-2 rounded-r-2xl bg-zinc-100 p-6 md:flex">
+    <aside className="top-28 mr-12 hidden h-[calc(100vh-8rem)] w-72 flex-col gap-2 rounded-r-2xl bg-zinc-100 p-6 md:flex">
       <div className="mb-8 flex items-center gap-4 border-b border-outline-variant/15 pb-8">
         <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-surface-container-high">
           <img

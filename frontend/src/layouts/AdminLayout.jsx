@@ -1,13 +1,17 @@
-import { routeGroups } from '../config/route-map.js';
-import RouteSurfaceLayout from './RouteSurfaceLayout.jsx';
+import { Outlet } from 'react-router-dom';
+import { AdminSidebar } from '../features/admin/components/index.js';
 
 function AdminLayout() {
   return (
-    <RouteSurfaceLayout
-      title="Admin Surface"
-      description="Shared shell for admin overview, catalog operations, and management pages."
-      group={routeGroups.admin}
-    />
+    <div className="flex h-screen overflow-hidden bg-background text-on-background antialiased">
+      <AdminSidebar />
+
+      <main className="flex-1 overflow-y-auto">
+        <div className="mx-auto w-full max-w-7xl px-8 py-10">
+          <Outlet />
+        </div>
+      </main>
+    </div>
   );
 }
 

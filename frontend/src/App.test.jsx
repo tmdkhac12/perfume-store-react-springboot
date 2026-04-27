@@ -77,9 +77,45 @@ describe('App router bootstrap', () => {
     expect(await screen.findByRole('heading', { name: 'Security Settings' })).toBeInTheDocument();
   });
 
-  it('renders admin layout for admin routes', async () => {
+  it('renders admin overview page route', async () => {
     renderRoute('/admin/overview');
 
-    expect(await screen.findByRole('heading', { name: 'Admin Surface' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: 'Welcome back, Admin' })).toBeInTheDocument();
+  });
+
+  it('renders admin products page route', async () => {
+    renderRoute('/admin/products');
+
+    expect(await screen.findByRole('heading', { name: 'Products' })).toBeInTheDocument();
+  });
+
+  it('renders admin brands page route', async () => {
+    renderRoute('/admin/brands');
+
+    expect(await screen.findByRole('heading', { name: 'Brands Management' })).toBeInTheDocument();
+  });
+
+  it('renders admin invoices page route', async () => {
+    renderRoute('/admin/invoices');
+
+    expect(await screen.findByRole('heading', { name: 'Invoices' })).toBeInTheDocument();
+  });
+
+  it('renders admin notes page route', async () => {
+    renderRoute('/admin/notes');
+
+    expect(await screen.findByRole('heading', { name: 'Notes Directory' })).toBeInTheDocument();
+  });
+
+  it('renders admin users page route', async () => {
+    renderRoute('/admin/users');
+
+    expect(await screen.findByRole('heading', { name: 'User Directory' })).toBeInTheDocument();
+  });
+
+  it('renders admin volumes page route', async () => {
+    renderRoute('/admin/volumes');
+
+    expect(await screen.findByRole('heading', { name: 'Volumes Registry' })).toBeInTheDocument();
   });
 });

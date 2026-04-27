@@ -85,7 +85,7 @@ function ShopPage() {
         </p>
       </div>
       <div className="flex flex-col lg:flex-row px-6 md:px-12 pb-32 gap-12 lg:gap-16 items-start">
-        <aside className="w-full lg:w-72 flex-shrink-0 bg-surface-container-low p-8 lg:sticky lg:top-[160px] rounded-[2rem]">
+        <aside className="w-full hidden lg:block lg:w-72 flex-shrink-0 bg-surface-container-low p-8 lg:top-[160px] rounded-[2rem]">
           <div className="mb-12">
             <h3 className="font-label text-xs uppercase tracking-[0.2em] text-primary mb-6 border-b border-outline-variant/30 pb-3">GENDER</h3>
             <div className="flex flex-col gap-4">
@@ -149,27 +149,21 @@ function ShopPage() {
               <span className="material-symbols-outlined text-[16px] text-primary group-hover:translate-y-[2px] transition-transform">keyboard_arrow_down</span>
             </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-16">
+          <div className="grid grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-16">
             {productList.map((product) => (
-              <div key={product.name} className="group flex flex-col bg-surface-container-lowest pb-6 rounded-[2rem] overflow-hidden">
+              <Link to="/product-details/sample-id" key={product.name} className="group flex flex-col bg-surface-container-lowest pb-6 rounded-[2rem] overflow-hidden">
                 <div className="relative w-full aspect-square bg-surface-container-low overflow-hidden rounded-[2rem]">
                   <img alt={product.alt} className="w-full h-full object-cover mix-blend-multiply opacity-90 group-hover:scale-105 transition-transform duration-700 ease-out rounded-[2rem]" data-alt={product.dataAlt} src={product.image} />
-                  <div className="absolute bottom-0 left-0 w-full bg-surface/80 backdrop-blur-[40px] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out">
-                    <button className="w-full py-5 flex justify-center items-center gap-3 text-primary font-label text-xs uppercase tracking-[0.2em] hover:bg-surface-container-high transition-colors" type="button">
-                      <span>ADD TO EXHIBIT</span>
-                      <span className="material-symbols-outlined text-[16px]">add</span>
-                    </button>
-                  </div>
                 </div>
                 <div className="pt-6 px-2 flex flex-col">
                   <span className="inline-block bg-secondary-container text-on-secondary-container font-label text-[10px] uppercase tracking-[0.2em] px-3 py-1.5 mb-4 self-start rounded-full">{product.family}</span>
                   <h2 className="font-headline text-2xl text-primary mb-2">
-                    <Link to="/product-details/sample-id">{product.displayTitle}</Link>
+                    <span>{product.displayTitle}</span>
                   </h2>
                   <p className="font-body text-sm text-on-surface-variant mb-4 flex-grow">{product.notes}</p>
                   <p className="font-body text-base text-primary">{product.price}</p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
           <div className="mt-24 text-center">

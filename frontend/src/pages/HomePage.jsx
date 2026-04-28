@@ -80,16 +80,16 @@ function HomePage() {
         <h2 className="font-headline text-4xl text-on-surface italic mb-12">Categories</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pb-8">
           {categories.map((category) => (
-            <div key={category.title} className="h-[400px] w-full relative group overflow-hidden bg-surface-container-low rounded-[2.5rem]">
+            <Link to="/shop" key={category.title} className="h-[400px] w-full relative group overflow-hidden bg-surface-container-low rounded-[2.5rem]">
               <img alt={category.alt} className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" src={category.image} />
               <div className="absolute inset-0 p-8 flex flex-col justify-end z-10 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="absolute inset-0 p-8 flex flex-col justify-end z-20">
                 <h3 className="font-headline text-2xl text-white mb-2">{category.title}</h3>
-                <Link className="font-label text-xs uppercase tracking-[0.2em] text-white border-b border-white/50 pb-1 self-start hover:border-white transition-colors inline-flex items-center gap-2" to="/shop">
+                <p className="font-label text-xs uppercase tracking-[0.2em] text-white border-b border-white/50 pb-1 self-start hover:border-white transition-colors inline-flex items-center gap-2">
                   Explore <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
-                </Link>
+                </p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
@@ -103,16 +103,11 @@ function HomePage() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {bestSellers.map((product) => (
-            <div key={product.name} className="group cursor-pointer flex flex-col h-full">
+            <Link to="/product-details/sample-id" key={product.name} className="group cursor-pointer flex flex-col h-full">
               <div className="bg-surface-container-lowest aspect-[4/5] mb-6 relative overflow-hidden rounded-[2.5rem] shadow-sm group-hover:shadow-md transition-shadow duration-300">
                 <div className="absolute top-4 right-4 z-20 bg-primary text-on-primary text-[10px] uppercase tracking-widest py-1.5 px-3 rounded-full font-label">Top Rated</div>
                 <img alt={product.alt} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt={product.dataAlt} src={product.image} />
                 <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-300"></div>
-                <div className="absolute bottom-0 left-0 w-full p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out flex justify-center z-20">
-                  <Link className="bg-surface/90 backdrop-blur-md rounded-full px-6 py-3 font-label text-xs uppercase tracking-[0.2em] text-on-surface shadow-sm hover:bg-primary hover:text-on-primary transition-colors inline-flex items-center justify-center" to="/product-details/sample-id">
-                    View Details
-                  </Link>
-                </div>
               </div>
               <div className="flex-grow flex flex-col justify-between text-center px-4">
                 <div>
@@ -120,7 +115,7 @@ function HomePage() {
                 </div>
                 <p className="font-label text-sm text-on-surface tracking-wider mt-2">{product.price}</p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { ProductCard, ShopFilters } from '../features/catalog/components';
 
 const productList = [
   {
@@ -85,62 +86,7 @@ function ShopPage() {
         </p>
       </div>
       <div className="flex flex-col lg:flex-row px-6 md:px-12 pb-32 gap-12 lg:gap-16 items-start">
-        <aside className="w-full hidden lg:block lg:w-72 flex-shrink-0 bg-surface-container-low p-8 lg:top-[160px] rounded-[2rem]">
-          <div className="mb-12">
-            <h3 className="font-label text-xs uppercase tracking-[0.2em] text-primary mb-6 border-b border-outline-variant/30 pb-3">GENDER</h3>
-            <div className="flex flex-col gap-4">
-              <label className="flex items-center gap-4 cursor-pointer group">
-                <div className="w-4 h-4 border border-outline-variant/30 flex items-center justify-center group-hover:border-primary transition-colors rounded-full"></div>
-                <span className="font-body text-sm text-on-surface-variant group-hover:text-primary transition-colors">Men</span>
-              </label>
-              <label className="flex items-center gap-4 cursor-pointer group">
-                <div className="w-4 h-4 border border-outline-variant/30 flex items-center justify-center group-hover:border-primary transition-colors rounded-full"></div>
-                <span className="font-body text-sm text-on-surface-variant group-hover:text-primary transition-colors">Women</span>
-              </label>
-              <label className="flex items-center gap-4 cursor-pointer group">
-                <div className="w-4 h-4 border border-outline-variant/30 flex items-center justify-center group-hover:border-primary transition-colors rounded-full"></div>
-                <span className="font-body text-sm text-on-surface-variant group-hover:text-primary transition-colors">Unisex</span>
-              </label>
-            </div>
-          </div>
-          <div className="mb-12">
-            <h3 className="font-label text-xs uppercase tracking-[0.2em] text-primary mb-6 border-b border-outline-variant/30 pb-3">BRAND</h3>
-            <div className="flex flex-col gap-4">
-              <label className="flex items-center gap-4 cursor-pointer group">
-                <div className="w-4 h-4 border border-outline-variant/30 flex items-center justify-center group-hover:border-primary transition-colors rounded-full"></div>
-                <span className="font-body text-sm text-on-surface-variant group-hover:text-primary transition-colors">Chanel</span>
-              </label>
-              <label className="flex items-center gap-4 cursor-pointer group">
-                <div className="w-4 h-4 border border-outline-variant/30 flex items-center justify-center group-hover:border-primary transition-colors rounded-full"></div>
-                <span className="font-body text-sm text-on-surface-variant group-hover:text-primary transition-colors">Dior</span>
-              </label>
-              <label className="flex items-center gap-4 cursor-pointer group">
-                <div className="w-4 h-4 border border-outline-variant/30 flex items-center justify-center group-hover:border-primary transition-colors rounded-full"></div>
-                <span className="font-body text-sm text-on-surface-variant group-hover:text-primary transition-colors">Tom Ford</span>
-              </label>
-              <label className="flex items-center gap-4 cursor-pointer group">
-                <div className="w-4 h-4 border border-outline-variant/30 flex items-center justify-center group-hover:border-primary transition-colors rounded-full"></div>
-                <span className="font-body text-sm text-on-surface-variant group-hover:text-primary transition-colors">Creed</span>
-              </label>
-            </div>
-          </div>
-          <div className="mb-12">
-            <h3 className="font-label text-xs uppercase tracking-[0.2em] text-primary mb-6 border-b border-outline-variant/30 pb-3">PRICE RANGE</h3>
-            <div className="flex flex-col gap-4">
-              <div className="flex gap-2 items-center">
-                <input className="w-full bg-transparent border border-outline-variant/30 px-3 py-2 text-[10px] font-label uppercase tracking-widest focus:ring-0 focus:border-primary transition-colors rounded-[2rem]" placeholder="FROM" type="text" />
-                <span className="text-outline-variant">-</span>
-                <input className="w-full bg-transparent border border-outline-variant/30 px-3 py-2 text-[10px] font-label uppercase tracking-widest focus:ring-0 focus:border-primary transition-colors rounded-[2rem]" placeholder="TO" type="text" />
-              </div>
-              <button className="w-full py-3 text-center bg-primary text-white font-label text-[10px] uppercase tracking-[0.2em] hover:bg-opacity-80 transition-all rounded-[2rem]" type="button">
-                APPLY
-              </button>
-            </div>
-          </div>
-          <button className="w-full py-4 text-center border border-outline-variant/30 text-on-surface font-label text-xs uppercase tracking-[0.2em] hover:bg-surface-container-high transition-colors mt-4 rounded-[2rem]" type="button">
-            CLEAR FILTERS
-          </button>
-        </aside>
+        <ShopFilters />
         <div className="flex-grow w-full">
           <div className="flex justify-between items-end mb-10 pb-4 border-b border-outline-variant/30">
             <span className="font-label text-xs text-on-surface-variant uppercase tracking-[0.1em]">Showing 12 Artifacts</span>
@@ -151,19 +97,7 @@ function ShopPage() {
           </div>
           <div className="grid grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-16">
             {productList.map((product) => (
-              <Link to="/product-details/sample-id" key={product.name} className="group flex flex-col bg-surface-container-lowest pb-6 rounded-[2rem] overflow-hidden">
-                <div className="relative w-full aspect-square bg-surface-container-low overflow-hidden rounded-[2rem]">
-                  <img alt={product.alt} className="w-full h-full object-cover mix-blend-multiply opacity-90 group-hover:scale-105 transition-transform duration-700 ease-out rounded-[2rem]" data-alt={product.dataAlt} src={product.image} />
-                </div>
-                <div className="pt-6 px-2 flex flex-col">
-                  <span className="inline-block bg-secondary-container text-on-secondary-container font-label text-[10px] uppercase tracking-[0.2em] px-3 py-1.5 mb-4 self-start rounded-full">{product.family}</span>
-                  <h2 className="font-headline text-2xl text-primary mb-2">
-                    <span>{product.displayTitle}</span>
-                  </h2>
-                  <p className="font-body text-sm text-on-surface-variant mb-4 flex-grow">{product.notes}</p>
-                  <p className="font-body text-base text-primary">{product.price}</p>
-                </div>
-              </Link>
+              <ProductCard key={product.name} product={product} />
             ))}
           </div>
           <div className="mt-24 text-center">

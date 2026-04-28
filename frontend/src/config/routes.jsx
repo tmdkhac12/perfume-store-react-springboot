@@ -2,6 +2,7 @@ import AccountLayout from '../layouts/AccountLayout.jsx';
 import AdminLayout from '../layouts/AdminLayout.jsx';
 import AuthLayout from '../layouts/AuthLayout.jsx';
 import MainLayout from '../layouts/MainLayout.jsx';
+import NotFoundLayout from '../layouts/NotFoundLayout.jsx';
 import AccountAddressPage from '../pages/AccountAddressPage.jsx';
 import AdminBrandsPage from '../pages/AdminBrandsPage.jsx';
 import AdminInvoicesPage from '../pages/AdminInvoicesPage.jsx';
@@ -17,9 +18,9 @@ import CartPage from '../pages/CartPage.jsx';
 import CheckoutPage from '../pages/CheckoutPage.jsx';
 import HomePage from '../pages/HomePage.jsx';
 import LoginPage from '../pages/LoginPage.jsx';
+import NotFoundPage from '../pages/NotFoundPage.jsx';
 import ProductDetailsPage from '../pages/ProductDetailsPage.jsx';
 import RegisterPage from '../pages/RegisterPage.jsx';
-import RoutePlaceholderPage from '../pages/RoutePlaceholderPage.jsx';
 import ShopPage from '../pages/ShopPage.jsx';
 
 const adminRouteChildren = [
@@ -110,13 +111,7 @@ export const appRoutes = [
   {
     path: '/',
     element: <MainLayout />,
-    children: [
-      ...publicRouteChildren,
-      {
-        path: '*',
-        element: <RoutePlaceholderPage title="Not Found" routePath="*" />
-      }
-    ]
+    children: publicRouteChildren
   },
   {
     path: '/',
@@ -132,5 +127,15 @@ export const appRoutes = [
     path: '/admin',
     element: <AdminLayout />,
     children: adminRouteChildren
+  },
+  {
+    path: '*',
+    element: <NotFoundLayout />,
+    children: [
+      {
+        path: "*",
+        element: <NotFoundPage />
+      }
+    ]
   }
 ];

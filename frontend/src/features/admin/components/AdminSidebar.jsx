@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const adminNavigation = [
   { to: '/admin/overview', icon: 'dashboard', label: 'Overview' },
@@ -50,7 +50,7 @@ function AdminSidebar() {
       <div className="mt-auto space-y-2 border-t border-surface-container-high pt-6">
         <button className="group flex w-full items-center rounded-lg px-4 py-2 text-zinc-500 transition-all duration-200 hover:bg-stone-100 hover:text-zinc-900" type="button">
           <span className="material-symbols-outlined mr-3 text-[20px] transition-colors group-hover:text-on-surface">logout</span>
-          <a href='/' className="text-[11px] font-medium uppercase tracking-[0.1em]">Sign Out</a>
+          <Link to='/' className="text-[11px] font-medium uppercase tracking-[0.1em]">Sign Out</Link>
         </button>
       </div>
     </aside>

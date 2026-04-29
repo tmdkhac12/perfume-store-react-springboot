@@ -35,13 +35,10 @@ class AuthServiceTest {
     @Test
     @DisplayName("registerUser: success path saves user and returns true")
     void registerUser_success() {
-        RegisterRequestDTO dto = new RegisterRequestDTO();
-        dto.setPassword("password123");
-        dto.setConfirmPassword("password123");
-
+        RegisterRequestDTO dto = createRegisterRequest("password123", "password123");
         User mapped = new User();
         when(authMapper.toEntity(dto)).thenReturn(mapped);
-        when(passwordEncoder.encode("password123")).thenReturn("hashed");
+        when(passwordEncoder.encode(org.mockito.ArgumentMatchers.anyString())).thenReturn("hashed");
 
         boolean result = authService.registerUser(dto);
 
@@ -52,13 +49,34 @@ class AuthServiceTest {
     @Test
     @DisplayName("registerUser: password mismatch throws IllegalArgumentException")
     void registerUser_passwordMismatch() {
-        RegisterRequestDTO dto = new RegisterRequestDTO();
-        dto.setPassword("a");
-        dto.setConfirmPassword("b");
+        RegisterRequestDTO dto = createRegisterRequest("a", "b");
 
         assertThatThrownBy(() -> authService.registerUser(dto))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Password & confirm password");
     }
+
+    @Test
+    @DisplayName("registerUser: duplicate user save propagates exception")
+    void registerUser_duplicateUser_throws() {
+        RegisterRequestDTO dto = createRegisterRequest("password123", "password123");
+        User mapped = new User();
+        when(authMapper.toEntity(dto)).thenReturn(mapped);
+        when(passwordEncoder.encode(org.mockito.ArgumentMatchers.anyString())).thenReturn("hashed");
+        when(userRepository.save(mapped)).thenThrow(new RuntimeException("duplicate key"));
+
+        assertThatThrownBy(() -> authService.registerUser(dto))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessageContaining("duplicate");
+    }
+
+    // Factory helper method
+    private RegisterRequestDTO createRegisterRequest(String password, String confirmPassword) {
+        RegisterRequestDTO dto = new RegisterRequestDTO();
+        dto.setPassword(password);
+        dto.setConfirmPassword(confirmPassword);
+        return dto;
+    }
 }
+
 

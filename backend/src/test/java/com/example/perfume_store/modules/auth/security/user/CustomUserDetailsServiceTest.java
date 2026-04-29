@@ -29,24 +29,33 @@ class CustomUserDetailsServiceTest {
     @Test
     @DisplayName("loadUserByUsername: found returns CustomUserDetails")
     void loadUserByUsername_found() {
-        User user = new User();
-        user.setUsername("johndoe");
+        String username = "johndoe";
+        User user = createUser(username, "john@example.com");
 
-        when(userRepository.findByUsername("johndoe")).thenReturn(Optional.of(user));
+        when(userRepository.findByUsername(username)).thenReturn(Optional.of(user));
 
-        UserDetails result = userDetailsService.loadUserByUsername("johndoe");
+        UserDetails result = userDetailsService.loadUserByUsername(username);
 
         assertThat(result).isNotNull();
-        assertThat(result.getUsername()).isEqualTo("johndoe");
+        assertThat(result.getUsername()).isEqualTo(username);
     }
 
     @Test
     @DisplayName("loadUserByUsername: not found throws UsernameNotFoundException")
     void loadUserByUsername_notFound() {
-        when(userRepository.findByUsername("nope")).thenReturn(Optional.empty());
+        String username = "nope";
+        when(userRepository.findByUsername(username)).thenReturn(Optional.empty());
 
-        assertThatThrownBy(() -> userDetailsService.loadUserByUsername("nope"))
+        assertThatThrownBy(() -> userDetailsService.loadUserByUsername(username))
                 .isInstanceOf(UsernameNotFoundException.class);
+    }
+
+    // Factory helper method
+    private User createUser(String username, String email) {
+        User user = new User();
+        user.setUsername(username);
+        user.setEmail(email);
+        return user;
     }
 }
 

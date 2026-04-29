@@ -1,8 +1,8 @@
 ---
 applyTo: "modules/auth/**"
 ---
-# Security & Identity
-- Security rules live in `configs/security/SecurityConfig.java`; endpoint access is path-based first, then method-level (`@PreAuthorize`) where needed.
-- JWT bearer token is parsed in `modules/auth/security/jwt/JwtAuthenticationFilter.java`; authenticated principal is later read via `configs/security/SecurityContextGetter.java`.
-- OAuth2 login is enabled for Google (`application.yaml` + `CustomOAuth2Service`), then `CustomOAuth2SuccessHandler` issues JWT cookie and redirects to `/api/v1/auth/home`.
-- Auth module owns identity endpoints (`/api/v1/auth/**`), while business modules own resource behavior (`notes/architecture.txt`).
+# Bảo mật & Định danh
+- Quy tắc bảo mật nằm trong `configs/security/SecurityConfig.java`; quyền truy cập endpoint ưu tiên theo path trước, sau đó đến mức method (`@PreAuthorize`) khi cần.
+- JWT bearer token được parse trong `modules/auth/security/jwt/JwtAuthenticationFilter.java`; authenticated principal sau đó được đọc qua `configs/security/SecurityContextGetter.java`.
+- OAuth2 login được bật cho Google (`application.yaml` + `CustomOAuth2Service`), sau đó `CustomOAuth2SuccessHandler` phát hành JWT cookie và redirect tới `/api/v1/auth/home`.
+- Module auth sở hữu các endpoint định danh (`/api/v1/auth/**`), còn các module nghiệp vụ sở hữu hành vi tài nguyên (`notes/architecture.txt`).

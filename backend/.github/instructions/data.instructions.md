@@ -1,7 +1,7 @@
 ---
 applyTo: "src/main/resources/**"
 ---
-# Data & Integrations
-- MySQL is expected via env vars in `src/main/resources/application.yaml` (`MYSQL_URL`, `MYSQL_USERNAME`, `MYSQL_PASSWORD`); JPA uses `ddl-auto: none`.
-- Local DB bootstrap uses `docker-compose.yml` (MySQL exposed on `3307`) and auto-runs SQL from `database/init.sql` and `database/insert_data.sql`.
-- Image storage is Cloudinary-backed (`configs/cloudinary/CloudinaryConfig.java`, `configs/cloudinary/CloudinaryService.java`); perfume create/update flows upload/delete remote files.
+# Dữ liệu & Tích hợp
+- MySQL được kỳ vọng cấu hình qua env var trong `src/main/resources/application.yaml` (`MYSQL_URL`, `MYSQL_USERNAME`, `MYSQL_PASSWORD`); JPA dùng `ddl-auto: none`.
+- Khởi tạo local DB dùng `docker-compose.yml` (MySQL expose tại `3307`) và tự động chạy SQL từ `database/init.sql` và `database/insert_data.sql`.
+- Lưu trữ ảnh dùng Cloudinary (`configs/cloudinary/CloudinaryConfig.java`, `configs/cloudinary/CloudinaryService.java`); flow tạo/cập nhật perfume sẽ upload/delete file từ xa.

@@ -1,17 +1,17 @@
 ---
 applyTo: "src/test/java/**/*.java"
 ---
-# Testing Rules
-- Location & scope: Unit tests live under `src/test/java/...` and primarily target `service` and `mapper` layers (see `src/test/java/com/example/perfume_store/modules/*/service/*Test.java` and `.../mapper/*Test.java`).
-- Frameworks: JUnit 5 + Mockito + AssertJ. Example files: `BrandServiceTest.java`, `VolumeServiceTest.java`, `BrandMapperTest.java`.
-- Mockito setup: use `@ExtendWith(MockitoExtension.class)` at class level, `@Mock` for external dependencies and `@InjectMocks` for the service under test. Use `when(...).thenReturn(...)` and `verify(...)` to assert interactions.
-- Isolation rule: Tests MUST NOT touch the real database, Cloudinary, or filesystem. Mock repositories, mappers, external services (Cloudinary/CloudinaryService, JwtService, etc.).
-- Mapper tests: instantiate the generated MapStruct impl directly (e.g., `brandMapper = new BrandMapperImpl()`), do not start the Spring context for mapper unit tests.
-- Assertion style: use AssertJ `assertThat(...)` for values and `assertThatThrownBy(...)` for exception assertions. Use `@DisplayName` to provide human-friendly test descriptions.
-- Test structure & helpers: prefer small private factory methods to create test entities/DTOs (see `BrandServiceTest#createBrand(...)`). Name test methods with `subject_scenario_expected` or use `@DisplayName`.
-- Exception testing: assert thrown exceptions and their messages (e.g., `NotFoundException`, `IllegalStateException`). Prefer `assertThatThrownBy(...).isInstanceOf(...).hasMessage(...)`.
-- Avoid Spring context unless necessary: use `@SpringBootTest` only for the minimal `contextLoads()` check (example `PerfumeStoreApplicationTests`). Integration tests (controllers/repositories/specifications) are separate and should use dedicated setup.
-- Running: use Maven command:
+# Quy tắc Testing
+- Vị trí & phạm vi: Unit test nằm dưới `src/test/java/...` và chủ yếu nhắm tới layer `service` và `mapper` (xem `src/test/java/com/example/perfume_store/modules/*/service/*Test.java` và `.../mapper/*Test.java`).
+- Framework: JUnit 5 + Mockito + AssertJ. File ví dụ: `BrandServiceTest.java`, `VolumeServiceTest.java`, `BrandMapperTest.java`.
+- Cấu hình Mockito: dùng `@ExtendWith(MockitoExtension.class)` ở cấp class, `@Mock` cho dependency bên ngoài và `@InjectMocks` cho service đang test. Dùng `when(...).thenReturn(...)` và `verify(...)` để assert tương tác.
+- Quy tắc cô lập: Test TUYỆT ĐỐI KHÔNG chạm vào database thật, Cloudinary, hoặc filesystem. Hãy mock repository, mapper, external service (Cloudinary/CloudinaryService, JwtService, v.v.).
+- Mapper test: khởi tạo trực tiếp MapStruct impl được sinh ra (ví dụ, `brandMapper = new BrandMapperImpl()`), không khởi động Spring context cho unit test của mapper.
+- Kiểu assertion: dùng AssertJ `assertThat(...)` cho giá trị và `assertThatThrownBy(...)` cho assertion exception. Dùng `@DisplayName` để cung cấp mô tả test dễ đọc.
+- Cấu trúc test & helper: ưu tiên private factory method nhỏ để tạo test entity/DTO (xem `BrandServiceTest#createBrand(...)`). Đặt tên method test theo `subject_scenario_expected` hoặc dùng `@DisplayName`.
+- Test exception: assert exception được throw và message của nó (ví dụ: `NotFoundException`, `IllegalStateException`). Ưu tiên `assertThatThrownBy(...).isInstanceOf(...).hasMessage(...)`.
+- Tránh Spring context khi không cần: chỉ dùng `@SpringBootTest` cho kiểm tra `contextLoads()` tối thiểu (ví dụ `PerfumeStoreApplicationTests`). Integration test (controller/repository/specification) tách riêng và nên dùng setup chuyên biệt.
+- Chạy test: dùng lệnh Maven:
 ```
 mvn clean test
 ```

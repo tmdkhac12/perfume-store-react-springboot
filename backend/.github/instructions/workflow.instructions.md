@@ -1,16 +1,16 @@
 ---
 applyTo: ".github/**"
 ---
-# Developer Workflow
-- Baseline local commands (Maven project, `pom.xml`):
+# Quy trình làm việc của Developer
+- Các lệnh local cơ bản (Maven project, `pom.xml`):
   - `mvn clean test` (unit tests)
   - `mvn spring-boot:run` (app)
-- Existing tests are mostly unit tests with JUnit 5 + Mockito focused on `service` and `mapper` layers (`src/test/java/.../service/*Test.java`, `.../mapper/*Test.java`).
-- Mapper tests instantiate generated implementations directly (example: `new BrandMapperImpl()` in `BrandMapperTest`).
+- Các test hiện có chủ yếu là unit test dùng JUnit 5 + Mockito, tập trung vào layer `service` và `mapper` (`src/test/java/.../service/*Test.java`, `.../mapper/*Test.java`).
+- Mapper test khởi tạo trực tiếp implementation được sinh ra (ví dụ: `new BrandMapperImpl()` trong `BrandMapperTest`).
 
-# When Adding or Changing Features
-- Preserve response envelope + centralized exception style; do not return ad-hoc JSON shapes.
-- Keep request payload keys camelCase and put filter/sort/pagination in query params (`notes/api.txt`).
-- For write flows touching multiple tables/files (e.g., perfume with volumes/notes/images), keep methods transactional.
-- Before deleting reference data (brand/volume/etc.), follow existing guard pattern checking association existence and throw `IllegalStateException`.
+# Khi thêm mới hoặc thay đổi tính năng
+- Giữ nguyên response envelope + phong cách exception tập trung; không trả về các JSON shape ad-hoc.
+- Giữ key trong request payload theo camelCase và đặt filter/sort/pagination trong query params (`notes/api.txt`).
+- Với write flow chạm vào nhiều bảng/file (ví dụ: perfume với volumes/notes/images), giữ method ở trạng thái transactional.
+- Trước khi xóa dữ liệu tham chiếu (brand/volume/v.v.), tuân theo guard pattern hiện có: kiểm tra sự tồn tại của association và throw `IllegalStateException`.
 

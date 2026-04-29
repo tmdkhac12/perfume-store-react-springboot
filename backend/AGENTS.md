@@ -1,8 +1,195 @@
-# MIGRATED
-Nội dung của file này đã được migrate và tách thành các hướng dẫn GitHub Copilot nhỏ hơn trong `.github/copilot-instructions.md` và `.github/instructions/**.md`.
-Vui lòng tham khảo các file nhỏ hơn trong thư mục đó để xem hướng dẫn cụ thể cho repository.
+# Perfume Store Backend — Hướng dẫn toàn diện
 
-# Các tính năng đã triển khai (quét codebase - 2026-04-17)
+**Cập nhật lần cuối:** 29/04/2026
+
+## 📋 Mục lục
+1. [Tổng quan dự án](#1-tổng-quan-dự-án)
+2. [Tech Stack](#2-tech-stack)
+3. [Quy tắc thiết kế](#3-quy-tắc-thiết-kế)
+4. [Quy tắc bắt buộc](#4-quy-tắc-bắt-buộc-must--must-not)
+5. [Workflow](#5-workflow)
+6. [Các tính năng đã triển khai](#6-các-tính-năng-đã-triển-khai)
+7. [Cập nhật phiên làm việc](#7-cập-nhật-phiên-làm-việc)
+
+---
+
+# 1. TỔNG QUAN DỰ ÁN
+
+## Mô tả chung
+**Perfume Store Backend** là hệ thống phụ trợ RESTful API cho ứng dụng quản lý cửa hàng nước hoa trực tuyến. Dự án này hỗ trợ các chức năng ư tiên:
+- Quản lý catalog nước hoa (thương hiệu, mùi, âm lượng, giá cả)
+- Xác thực và phân quyền người dùng (JWT + OAuth2)
+- Quản lý đơn hàng và thanh toán
+- Quản lý địa chỉ giao hàng
+- Tích hợp lưu trữ ảnh từ xa (Cloudinary)
+
+**Đối tượng:** Cửa hàng nước hoa, khách hàng, người quản lý kho
+
+**Mục tiêu:** Cung cấp API ổn định, có thể mở rộng để hỗ trợ frontend web/mobile, đảm bảo bảo mật dữ liệu người dùng và tuân thủ các quy tắc thiết kế code chất lượng cao.
+
+---
+
+# 2. TECH STACK
+
+## Backend
+- **Framework:** Spring Boot 4.0.0 (Java 21)
+- **Build Tool:** Maven 4.0.0
+
+## Database
+- **Database:** MySQL 8.0+
+- **ORM:** JPA + Hibernate (Spring Data JPA)
+- **Migration:** DDL auto: none (quản lý schema bằng SQL script)
+
+## Security & Auth
+- **Spring Security:** `spring-boot-starter-security`
+- **JWT:** JJWT 0.12.6 (io.jsonwebtoken)
+- **OAuth2:** `spring-boot-starter-oauth2-client` (Google SSO)
+
+## API & Data Transformation
+- **REST:** Spring Web (`spring-boot-starter-web`)
+- **Mapping:** MapStruct 1.5.5 (code generation)
+- **Validation:** `spring-boot-starter-validation` + Jakarta Bean Validation
+
+## Code Quality & Productivity
+- **Annotation Processing:** Lombok 1.18.40 (+ lombok-mapstruct-binding 0.2.0)
+- **Devtools:** Spring Boot DevTools (live reload)
+
+## File Storage
+- **Cloud Storage:** Cloudinary HTTP44 1.36.0 (image upload/delete)
+
+## Testing
+- **Test Framework:** JUnit 5 + Mockito
+- **Assertion Library:** AssertJ
+
+---
+
+# 3. QUY TẮC THIẾT KẾ
+
+> **Lưu ý:** Backend không có UI, nhưng các quy tắc áp dụng cho API response và cấu trúc code.
+
+## Nguyên tắc API Design
+- **Naming Convention:** Tên endpoint dùng kebab-case (`/api/v1/perfumes`, `/api/v1/user-addresses`)
+- **HTTP Method:** Tuân theo REST convention (GET, POST, PUT, PATCH, DELETE)
+- **Response Format:** JSON, luôn bao trong `ApiResponse` envelope với status, error, data
+- **Status Code:** 200 (OK), 201 (Created), 400 (Bad Request), 401 (Unauthorized), 404 (Not Found), 500 (Server Error)
+
+## Cấu trúc Code
+- **Module Pattern:** Modular monolith với các module độc lập (auth, brand, perfume, invoice, user)
+- **Layer:** Controller → Service → Mapper → DTO → Repository → Entity
+- **File Organization:**
+  - `src/main/java/com/example/perfume_store/modules/{module_name}/controller/`
+  - `src/main/java/com/example/perfume_store/modules/{module_name}/service/`
+  - `src/main/java/com/example/perfume_store/modules/{module_name}/mapper/`
+  - `src/main/java/com/example/perfume_store/modules/{module_name}/dto/`
+  - `src/main/java/com/example/perfume_store/domain/{entity_name}/`
+
+## Kiểu dữ liệu & Format
+- **Date/Time:** LocalDateTime (ISO 8601 format)
+- **Currency:** BigDecimal (dùng cho giá cả, không dùng float)
+- **ID:** Long (UUID có thể dùng nếu cần distributed)
+- **Enums:** Lưu dưới dạng STRING trong database
+
+## Coding Convention
+- **Ngôn ngữ:** Source code toàn bộ bằng tiếng Anh (class, method, variable, comment)
+- **Naming:** camelCase cho method/variable, PascalCase cho class
+- **Null Safety:** Dùng Optional<T> thay vì null, @NonNull annotation
+- **Immutability:** DTO nên immutable (dùng final field hoặc record)
+
+---
+
+# 4. QUY TẮC BẮT BUỘC (MUST & MUST NOT)
+
+## PHẢI LÀM
+
+- Bắt buộc đọc và tuân thủ [.github/copilot-instructions.md](.github/copilot-instructions.md) và bộ tài liệu hướng dẫn nguyên tắc bên trong [.github/instructions/**.md](`.github/instructions/**.md`)
+
+✅ **Xác thực & Phân quyền**
+- Mọi endpoint (trừ login/register) phải yêu cầu JWT hoặc OAuth2
+- Dùng `@PreAuthorize` để kiểm tra role nếu cần (admin, user)
+- Đọc user hiện tại qua `SecurityContextGetter`
+
+✅ **Lỗi Exception Handling**
+- Throw domain exception (`NotFoundException`, `IllegalStateException`, `BadCredentialsException`)
+- Global exception handler sẽ map sang ApiResponse tự động
+- Viết message lỗi rõ ràng, có ý nghĩa cho client
+
+✅ **Database Transactions**
+- Method thay đổi nhiều bảng phải có `@Transactional`
+- Lỗi sẽ rollback tự động
+
+✅ **Validation**
+- Dùng `@Validated` + bean validation (`@NotNull`, `@Min`, `@Max`, `@Email`)
+- Kiểm tra input trước khi xử lý logic
+
+✅ **API Response**
+- Luôn trả `ResponseEntity<ApiResponse<T>>` via `ApiResponseFactory`
+- Format: `{ "status": 200, "message": "...", "data": {...}, "error": null }`
+
+✅ **Logging**
+- Dùng SLF4J với Lombok `@Slf4j`
+- Log lỗi quan trọng (exception, invalid request, external service fail)
+
+✅ **Unit Test**
+- Mỗi service/mapper phải có unit test
+- Dùng JUnit 5 + Mockito + AssertJ
+- Mock dependency bên ngoài (repository, external service)
+
+---
+
+## KHÔNG ĐƯỢC LÀM
+
+❌ **Không trả raw DTO hoặc raw Object**
+- Sai: `return user;` ← Phải dùng ApiResponseFactory
+
+❌ **Không chạm DB trực tiếp trong test**
+- Sai: `@DataJpaTest` cho unit test ← Chỉ dùng mock
+
+❌ **Không hỗn hợp tiếng Việt & tiếng Anh trong code**
+- Sai: `Integer soLuong;` ← Phải `Integer quantity;`
+
+❌ **Không bỏ qua `@Transactional` khi update nhiều entity**
+- Sai: Method tạo invoice + items mà không `@Transactional` → lỗi không đồng bộ
+
+❌ **Không return null từ method**
+- Sai: `return null;` ← Phải throw exception hoặc return Optional
+
+❌ **Không để external config (API key, password) trong code**
+- Sai: `private String CLOUDINARY_KEY = "xxx";` ← Phải dùng environment variable
+
+❌ **Không dùng `new Date()` / `System.currentTimeMillis()`**
+- Sai: Dùng `LocalDateTime.now()` ← Consistent với database format
+
+❌ **Không ignore exception**
+- Sai: `try { } catch (Exception e) { }` ← Phải log hoặc re-throw
+
+---
+
+# 5. WORKFLOW
+
+## Quy trình phát triển ngày thường
+
+### Khi nhận task (feature/bug)
+- Đọc requirement kỹ càng, nếu không rõ hỏi lại
+- Xác định module nào cần thay đổi
+
+### Implement 
+- Cập nhật entity/domain nếu cần
+- Viết/update mapper
+- Viết service logic
+- Viết controller endpoint
+- Viết unit test (service + mapper)
+- Format code (IDE auto-format)
+
+### Sau mỗi thay đổi lớn
+- **Update documentation:**
+  - Cập nhật API endpoint trong `notes/api-list.md` nếu có endpoint mới
+  - Cập nhật architecture doc nếu thay đổi structure
+  - Cập nhật hướng dẫn hệ thống trong `.github/instructions/` nếu cần
+- **Update tasks.md:** Tick [x] nếu task hoàn thành
+
+---
+
+# 6. CÁC TÍNH NĂNG ĐÃ TRIỂN KHAI (quét codebase - 2026-04-17)
 
 Dưới đây là danh sách tóm tắt các tính năng đã triển khai được phát hiện khi quét codebase. Mỗi mục liệt kê module, các endpoint chính (controller), và các hành vi service quan trọng đã được triển khai trong repository.
 
@@ -79,82 +266,4 @@ Dưới đây là danh sách tóm tắt các tính năng đã triển khai đư�
     - Global exception handling: `GlobalExceptionsHandler` (map exception sang ApiResponse)
     - Cloudinary config/service cho upload/delete image (`CloudinaryConfig`, `CloudinaryService`)
     - JPA Specification cho filter: `PerfumeSpecification`, `InvoiceSpecification`
-
-Ghi chú / Khoảng trống đã biết (quan sát từ quá trình quét code)
-- Unit test đã có cho service và mapper (xem `src/test/...`) nhưng chưa phải mọi service đều có độ bao phủ đầy đủ.
-- Một số component kỳ vọng env var (JWT secret, Cloudinary, MySQL) được cấu hình trong `application.yaml`.
-- Flow OAuth2 tạo hoặc đồng bộ user theo Google id; hành vi frontend và thiết lập token cookie đầy đủ phụ thuộc vào runtime env.
-
-Danh sách này được tổng hợp từ các triển khai controller và service có trong repository tại thời điểm 2026-04-17.
-
-## Cập nhật phiên làm việc — 2026-04-17
-
-Tóm tắt công việc đã hoàn thành trong phiên tương tác này:
-
-- Đã xác định và xác nhận các lớp mục tiêu cho unit test của `modules/auth`, đồng thời đánh dấu Task 1 hoàn tất trong `tasks.md`.
-- Đã tạo các file skeleton unit test (Task 2) dưới `src/test/java/com/example/perfume_store/modules/auth/` và đánh dấu Task 2 hoàn tất trong `tasks.md`.
-  - File đã thêm (skeleton):
-    - `AuthServiceTest.java`
-    - `JwtServiceTest.java` (placeholder)
-    - `CustomUserDetailsServiceTest.java`
-    - `CustomOAuth2ServiceTest.java` (lightweight skeleton)
-    - `CustomOAuth2SuccessHandlerTest.java` (behavioral skeleton)
-    - `JwtAuthenticationFilterTest.java`
-    - `AuthMapperTest.java` (instantiates MapStruct impl)
-
-Trạng thái repository hiện tại (đã làm xong và còn pending):
-
-- Done
-  - Hướng dẫn về architecture & agent đã được ghi trong `AGENTS.md` (inventory + testing convention).
-  - `tasks.md` đã được cập nhật với checklist chi tiết; Task 1 và Task 2 đã được tick.
-  - Các skeleton unit test cơ bản đã được commit vào workspace.
-
-- Pending
-  - Task 3: triển khai test case chi tiết cho từng skeleton (happy path, validation, exception flow).
-  - Task 4: tuân thủ đầy đủ và xác minh testing pattern của dự án trong quá trình triển khai (dùng AssertJ, khởi tạo MapStruct, không truy cập DB/cloudinary thật).
-  - Task 5: chạy `mvn clean test`, sửa test lỗi và vấn đề compile, rồi cập nhật tiến độ trong `tasks.md`.
-
-Các quyết định kỹ thuật chính trong phiên này và lý do:
-
-- Dùng JUnit 5 + Mockito + AssertJ cho unit test (khớp với test hiện có của dự án).
-  Lý do: các test hiện có trong repository dùng stack này; giúp nhất quán và phản hồi nhanh.
-
-- Khởi tạo trực tiếp implementation MapStruct trong mapper test (ví dụ `new AuthMapperImpl()`).
-  Lý do: các mapper test hiện có trong codebase tuân theo pattern này; tránh phải khởi động Spring context.
-
-- Mock `JwtService` trong hầu hết test phụ thuộc và giữ một test placeholder tối thiểu cho chính `JwtService`.
-  Lý do: logic JWT crypto cần test secret ổn định và liên quan đến expiration theo thời gian; mock giúp test phụ thuộc có tính deterministic và tránh flakiness.
-
-- Không chạm vào hệ thống bên ngoài trong unit test (MySQL, Cloudinary, filesystem). Thay vào đó mock repository và external service.
-  Lý do: giữ unit test được cô lập, nhanh và đáng tin cậy; tuân theo convention hiện có của repository.
-
-- Dùng `@ExtendWith(MockitoExtension.class)`, `@Mock`, `@InjectMocks` trong skeleton.
-  Lý do: phù hợp với pattern đang dùng trong các file `src/test` hiện tại và đảm bảo cô lập dependency rõ ràng.
-
-Các bước tiếp theo ngay trong phiên kế tiếp (khuyến nghị):
-
-1. Triển khai test cụ thể cho từng skeleton trong `src/test/java/com/example/perfume_store/modules/auth/` theo checklist trong `tasks.md`:
-   - `AuthServiceTest`: success, password mismatch, duplicate save error.
-   - `CustomUserDetailsServiceTest`: load found / not found.
-   - `CustomOAuth2ServiceTest`: cập nhật Google id đã tồn tại, tạo account mới (có thể cần Mockito stubbing cho hành vi `super.loadUser` hoặc refactor để `processOAuth2User` dễ test).
-   - `CustomOAuth2SuccessHandlerTest`: assert cookie được thêm và redirect strategy được gọi (dùng mocked `HttpServletResponse` writer hoặc verify `addCookie`).
-   - `JwtAuthenticationFilterTest`: đường đi token hợp lệ thiết lập SecurityContext; đường đi token không hợp lệ ghi response 401 và body ApiResponse.
-
-2. Chạy `mvn clean test` trên máy local, lặp lại để xử lý test lỗi, và cập nhật tick box trong `tasks.md` khi từng mục hoàn thành.
-
-3. Nếu cần test hành vi `JwtService`, hãy thêm test secret chuyên dụng (base64url dài) trong test resources và viết các crypto test tập trung; nếu không thì tiếp tục mock nó.
-
-Các file đã thay đổi trong phiên này (tóm tắt):
-
-- Modified: `tasks.md` (đánh dấu Task 1 và Task 2 hoàn tất)
-- Modified: `AGENTS.md` (đã append cập nhật phiên làm việc này)
-- Added: test skeleton dưới `src/test/java/com/example/perfume_store/modules/auth/` (xem danh sách ở trên)
-
-Cách chạy các test mới trên local (PowerShell):
-
-```powershell
-mvn clean test
-```
-
-Nếu bạn muốn, tôi có thể tiếp tục triển khai Task 3 ngay bây giờ (viết đầy đủ test và chạy `mvn clean test`) — hãy xác nhận và tôi sẽ tiếp tục.
-
+---

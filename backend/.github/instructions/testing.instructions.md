@@ -11,7 +11,3 @@ applyTo: "src/test/java/**/*.java"
 - Cấu trúc test & helper: ưu tiên private factory method nhỏ để tạo test entity/DTO (xem `BrandServiceTest#createBrand(...)`). Đặt tên method test theo `subject_scenario_expected` hoặc dùng `@DisplayName`.
 - Test exception: assert exception được throw và message của nó (ví dụ: `NotFoundException`, `IllegalStateException`). Ưu tiên `assertThatThrownBy(...).isInstanceOf(...).hasMessage(...)`.
 - Tránh Spring context khi không cần: chỉ dùng `@SpringBootTest` cho kiểm tra `contextLoads()` tối thiểu (ví dụ `PerfumeStoreApplicationTests`). Integration test (controller/repository/specification) tách riêng và nên dùng setup chuyên biệt.
-- Chạy test: dùng lệnh Maven:
-```
-mvn clean test
-```

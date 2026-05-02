@@ -1,49 +1,70 @@
-﻿# Kế hoạch triển khai tài liệu API (`api-list.md`)
+# 🧪 Kế hoạch Unit Test - Module Invoice
 
-Tài liệu này đóng vai trò là hợp đồng giữa Backend và Frontend, giúp Frontend dev có thể mock dữ liệu chính xác.
+Tài liệu này chi tiết hóa các bước thực hiện unit test cho module `invoice`, tuân thủ các quy tắc trong `.github/instructions/testing.instructions.md`.
 
 ## 🎯 Mục tiêu
-- Liệt kê đầy đủ 100% endpoints hiện có.
-- Mô tả rõ ràng Request (params, body) và Response (success, error).
-- Đảm bảo đúng chuẩn `ApiResponse` envelope như đã quy định trong `AGENTS.md`.
+- Đạt 100% test coverage cho logic nghiệp vụ tại `InvoiceService`.
+- Đảm bảo tính chính xác của dữ liệu chuyển đổi trong `InvoiceMapper`.
+- Tuân thủ quy tắc cô lập (mocking) và không chạm vào database/Spring context.
 
 ---
 
-## 🛠 Kế hoạch triển khai
+## 🛠 Thứ tự triển khai (Priority)
 
-### Phase 1: Khởi tạo & Định nghĩa chuẩn tài liệu
-- [x] Thiết lập cấu trúc file `notes/api-list.md`.
-- [x] Định nghĩa Format chung cho một Endpoint (Method, Path, Auth, Request, Response).
-- [x] Liệt kê các mã lỗi (Error Codes) chung của hệ thống.
+1.  **InvoiceMapperTest**: Đảm bảo mapping dữ liệu đúng trước khi test service.
+2.  **InvoiceService (Read operations)**: `getInvoiceDetails`, `getPaginatedInvoices`.
+3.  **InvoiceService (Business logic updates)**: `updateInvoiceStatus`, `updateInvoiceStatusUser`.
+4.  **InvoiceService (Complex creation)**: `createInvoice` (tính toán tiền, lưu nhiều bảng).
 
-### Phase 2: Tài liệu hóa các Module cơ bản (Master Data)
-- [x] Tài liệu hóa Module **Auth** (Login, Register, Token validation).
-- [x] Tài liệu hóa Module **Brand** (CRUD brands).
-- [x] Tài liệu hóa Module **Note** (CRUD perfume notes).
-- [x] Tài liệu hóa Module **Volume** (CRUD perfume volumes).
+---
 
-### Phase 3: Tài liệu hóa Module nghiệp vụ chính (Core Logic)
-- [x] Tài liệu hóa Module **Perfume** (Search/Filter, Details, Create/Update with Cloudinary).
-- [x] Tài liệu hóa Module **Invoice** (Checkout, Order history, Status management).
-- [x] Tài liệu hóa Module **User** (Profile, Admin user management, Address management).
+## 📋 Danh sách Task triển khai
 
-### Phase 4: Kiểm tra & Hoàn thiện
-- [x] Kiểm tra tính nhất quán với `AGENTS.md` (kebab-case, ApiResponse).
-- [x] Review lại toàn bộ file để đảm bảo không thiếu Field nào trong DTO.
-- [x] Bàn giao file `api-list.md` cho Frontend.
+### Phase 1: Unit Test cho InvoiceMapper
+- [x] Khởi tạo class `InvoiceMapperTest`.
+- [x] Test `toPublicResponse`: Chuyển đổi Invoice entity sang public DTO.
+- [x] Test `toInvoiceDetailsResponse`: Chuyển đổi Invoice kèm danh sách details.
+- [x] Test `toInvoiceDetailsDTO`: Mapping từng dòng chi tiết hóa đơn.
+- [x] Test `toPageResponse`: Mapping kết quả phân trang.
+
+### Phase 2: Unit Test cho InvoiceService - Nhóm Read & Pagination
+- [x] Khởi tạo `InvoiceServiceTest` với `@ExtendWith(MockitoExtension.class)`.
+- [x] Test `getInvoiceDetails`:
+    - [x] Trường hợp thành công.
+    - [x] Trường hợp throw `NotFoundExcepti
+    - on` khi không tìm thấy ID.
+- [x] Test `getPaginatedInvoices`:
+    - [x] Kiểm tra việc gọi đúng `invoiceRepository.findAll` với `Specification`.
+    - [x] Kiểm tra kết quả trả về qua `PageResponse`.
+
+### Phase 3: Unit Test cho InvoiceService - Nhóm Update & Business Rules
+- [x] Test `updateInvoiceStatus` (Admin):
+    - [x] Trường hợp thành công (Pending -> Confirmed, v.v.).
+    - [x] Trường hợp throw `IllegalStateException` khi cập nhật invoice đã Cancelled.
+- [x] Test `updateInvoiceStatusUser` (User Cancel):
+    - [x] Trường hợp thành công (Pending -> Cancelled).
+    - [x] Trường hợp throw `IllegalStateException` khi cancel invoice không ở trạng thái Pending.
+    - [x] Trường hợp throw `NotFoundException` khi invoice không thuộc về user.
+
+### Phase 4: Unit Test cho InvoiceService - Logic Tạo Hóa Đơn (Create)
+- [x] Test `createInvoice`:
+    - [x] Mock dữ liệu: User, Address, VolumePerfume.
+    - [x] Kiểm tra tính đúng đắn của việc cộng dồn `total` (BigDecimal).
+    - [x] Kiểm tra việc set các thông tin copy từ Address (receiver, phone, address string).
+    - [x] Kiểm tra việc gọi `save` cho Invoice và `saveAll` cho InvoiceDetails.
+    - [x] Trường hợp throw `NotFoundException` cho từng loại dependency (User, Address, v.v.).
+
+### Phase 5: Tổng kết & Hoàn thiện
+- [x] Chạy toàn bộ test suite của module invoice (`mvn test -Dtest=Invoice*`).
+- [x] Đảm bảo code style tuân thủ convention (naming `subject_scenario_expected`) và quy tắc tại `testing.instructions.md`.
+- [x] Refactor `InvoiceServiceTest.java` sử dụng private helper factory methods.
+- [x] Xóa các file test rác hoặc code dư thừa.
 
 ---
 
 ## ✅ Tiêu chí hoàn thành (Definition of Done)
-1. Mọi Controller trong `src/main/java/com/example/perfume_store/modules/` đều có mặt trong tài liệu.
-2. Các Request Body được mô tả rõ kiểu dữ liệu (String, Number, Array, Object).
-3. Response phải thể hiện đúng cấu trúc bọc:
-   ```json
-   {
-     "status": 200,
-     "message": "...",
-     "data": { ... },
-     "error": null
-   }
-   ```
-4. Các endpoint yêu cầu quyền (Admin/User) phải được đánh dấu rõ ràng.
+1. [x] Tất cả các method public trong `InvoiceService` đều có ít nhất một test case success và một test case failure (nếu có logic).
+2. [x] Không có test nào sử dụng `@SpringBootTest` (giữ tốc độ test nhanh).
+3. [x] Sử dụng AssertJ (`assertThat`) cho tất cả các câu lệnh kiểm tra.
+4. [x] Mockito được sử dụng đúng cách để cô lập service khỏi repository và mapper.
+5. [x] Tỷ lệ pass là 100%.

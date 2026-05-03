@@ -21,7 +21,7 @@
 4. **Prompt phải gửi kèm mỗi khi yêu cầu Agent làm gì đó**
 > Chỉ làm đúng những gì có trong yêu cầu, không được thay đổi những thứ không liên quan. Làm xong phải kiểm tra lại lần nữa, so sánh với các file liên quan và kết quả xem đã đúng với yêu cầu chưa, tiếp tục sửa lại cho đến khi mọi thứ đều đúng và bám sát yêu cầu.
 
-> Chỉ làm đúng những gì có trong yêu cầu, không được thay đổi những thứ không liên quan. Đảm bảo sử dụng code-review-graph khi thực hiện truy  
+> Chỉ làm đúng những gì có trong yêu cầu, không được thay đổi những thứ không liên quan. Đảm bảo sử dụng code-review-graph khi cần thực hiện truy vấn các hàm có liên quan
 ---
 
 ### 🗺️ CLAUDE.md cấu trúc chuẩn

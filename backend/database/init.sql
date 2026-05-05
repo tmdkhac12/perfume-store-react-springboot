@@ -13,7 +13,7 @@ CREATE TABLE `sample_image`
 (
     `id`         int PRIMARY KEY AUTO_INCREMENT,
     `perfume_id` int,
-    `path`       varchar(255)
+    `path`       text
 );
 
 CREATE TABLE `brand`

@@ -95,18 +95,18 @@ VALUES (1, 1, 2, 120.00),
        (15, 8, 3, 95.00);
 
 INSERT INTO sample_image (id, perfume_id, path)
-VALUES (1, 1, '/images/coco_mademoiselle_bottle.jpg'),
-       (2, 2, '/images/sauvage_bottle.jpg'),
-       (3, 5, '/images/aventus_main.jpg'),
-       (4, 6, '/images/eros_main.jpg'),
-       (5, 7, '/images/libre_bottle.jpg'),
-       (6, 9, '/images/wood_sage_main.jpg'),
-       (7, 10, '/images/explorer_bottle.jpg'),
-       (8, 11, '/images/no5_main.jpg'),
-       (9, 12, '/images/hypnotic_poison.jpg'),
-       (10, 3, '/images/guilty_homme.jpg'),
-       (11, 4, '/images/black_orchid_main.jpg'),
-       (12, 8, '/images/omnia_crystalline.jpg');
+VALUES (1, 1, 'https://res.cloudinary.com/dewad4di1/image/upload/v1777980564/images_u25t3b.jpg'),
+       (2, 2, 'https://res.cloudinary.com/dewad4di1/image/upload/v1777982920/Charme_Mrcharme_100ml_New_2024_120250330143029820.png_jm2qi3.webp'),
+       (3, 5, 'https://res.cloudinary.com/dewad4di1/image/upload/v1777982902/Charme_Ocean_50ml20250611171804418.png_ai7fg9.webp'),
+       (4, 6, 'https://res.cloudinary.com/dewad4di1/image/upload/v1777982862/Charme_Basic_50ml20250611170843182.png_bb6zje.webp'),
+       (5, 7, 'https://res.cloudinary.com/dewad4di1/image/upload/v1777982851/charme_king_30ml20260418164501461.png_vuezwg.webp'),
+       (6, 9, 'https://res.cloudinary.com/dewad4di1/image/upload/v1777982827/Charme_Honey20260418174251161.png_lh1sba.webp'),
+       (7, 10, 'https://res.cloudinary.com/dewad4di1/image/upload/v1777982824/Charme_Good_Girl_100ml_New_202420241116112950569.png_qh0frs.webp'),
+       (8, 11, 'https://res.cloudinary.com/dewad4di1/image/upload/v1777982800/good_girl20201024200226271.jpg_lem8sf.webp'),
+       (9, 12, 'https://res.cloudinary.com/dewad4di1/image/upload/v1777982777/2-768x768_c13gfe.png'),
+       (10, 3, 'https://res.cloudinary.com/dewad4di1/image/upload/v1777982759/GOOD-GIRL-1_bvwohl.jpg'),
+       (11, 4, 'https://res.cloudinary.com/dewad4di1/image/upload/v1777982742/BLEU-AND-BLEU-4-768x768_qx9cgb.jpg'),
+       (12, 8, 'https://res.cloudinary.com/dewad4di1/image/upload/v1777982738/guility-768x768_azm9hq.jpg');
 
 INSERT INTO note_perfume (id, note_id, perfume_id, type)
 VALUES (1, 1, 1, 'Top'),

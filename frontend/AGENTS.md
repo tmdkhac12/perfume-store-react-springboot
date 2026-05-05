@@ -74,53 +74,40 @@
 6. Nếu phát hiện sai lệch, tiếp tục tinh chỉnh cho đến khi kết quả khớp hoàn toàn với yêu cầu và quy ước dự án.
 7. Khi bàn giao phiên làm việc, ghi rõ đã hoàn thành gì, bước tiếp theo là gì, và các quyết định quan trọng trong file này hoặc trong ghi chú dự án được tham chiếu.
 
-## 6. Bàn Giao Phiên Làm Việc — 2026-04-27 (Tổng Kết Đến Hiện Tại)
+## 6. Bàn Giao Phiên Làm Việc — 2026-05-05 (Tổng Kết Session Hiện Tại)
 
-### Đã Hoàn Thành Trong Dự Án Đến Thời Điểm Này
-- Hoàn thành migration UI-only cho toàn bộ bề mặt Public, Auth, Account và Admin theo route map trong `tasks.md`.
-- Hoàn thành Phase 5 (Auth/User UI Migration):
-  - Login/Register.
-  - User Account pages: Profile, Orders, Address, Security.
-- Hoàn thành Phase 6 (Admin UI Migration):
-  - Admin pages: Overview, Products, Brands, Invoices, Notes, Users, Volumes.
-  - Tách các pattern admin dùng chung vào nhóm component tái sử dụng trong `src/features/admin/components`.
-- Chuẩn hóa layout shell theo từng bề mặt route và giữ nguyên nguyên tắc parity-first khi migrate từ static HTML sang React.
-- Cập nhật bộ tài liệu hướng dẫn sang tiếng Việt theo rule hiện hành:
-  - `.github/copilot-instructions.md`
-  - `.github/instructions/react-core.instructions.md`
-  - `.github/instructions/react-routing-layout.instructions.md`
-  - `AGENTS.md`
+### Đã Hoàn Thành Trong Session Này
+- Cập nhật kế hoạch `tasks.md` theo hướng tích hợp backend thật, loại bỏ định hướng mock.
+- Hoàn thành Phase 0: nền tảng gọi API thật, chuẩn hóa `ApiResponse`/`PageResponse`.
+- Thiết lập `apiClient` với base URL/version, gắn `Authorization` header tự động.
+- Chuyển lưu token từ localStorage sang cookie.
+- Loại bỏ `mockServer.js` vì không còn sử dụng.
+- Cập nhật mapping UI <-> API cho backend thật trong `docs/mock-api-mapping.md`.
 
 ### Trạng Thái Hiện Tại Theo Khu Vực
-- Public routes: đã đạt parity UI mức cao với các trang static tương ứng.
-- Auth routes: đã migrate UI đầy đủ theo phạm vi Phase 5.
-- Account routes: đã migrate UI đầy đủ theo phạm vi Phase 5.
-- Admin routes: đã migrate UI đầy đủ theo phạm vi Phase 6.
-- Router wiring: đầy đủ các nhóm route Public/Auth/Account/Admin, không còn placeholder admin routes.
+- Public routes: UI parity giữ nguyên, chưa gắn API thật.
+- Auth routes: UI parity giữ nguyên, chưa gắn API thật.
+- Account routes: UI parity giữ nguyên, chưa gắn API thật.
+- Admin routes: UI parity giữ nguyên, chưa gắn API thật.
+- Nền tảng API: sẵn sàng gọi backend thật và chuẩn hóa token.
 
 ### Kết Quả Kiểm Tra Gần Nhất
-- `npm run lint`: pass.
-- `npm run test -- --run`: pass toàn bộ route smoke tests (18 tests).
-- Diagnostics trên các file đã chỉnh sửa trong phạm vi phase migration: không còn lỗi compile tại thời điểm chốt.
+- Chưa chạy lại lint/test trong session này sau các thay đổi nền tảng.
 
 ### Quyết Định Quan Trọng Và Lý Do
-- Giữ chiến lược parity-first xuyên suốt (parity hành vi và giao diện trước, tối ưu hóa sau).
-  - Lý do: giảm drift so với baseline static, giúp review trực quan và ổn định.
-- Chỉ dùng ngoại lệ migration React khi cần cho đúng ngữ nghĩa framework:
-  - Anchor route chuyển sang `Link`/`NavLink`.
-  - Inline handlers chuyển sang state/events trong React.
-  - Lý do: tránh quay lại script inline và giữ tính nhất quán của kiến trúc React.
-- Giữ phạm vi thay đổi nhỏ, đúng yêu cầu từng phase.
-  - Lý do: hạn chế regression và giảm nhiễu khi review.
+- Chuyển chiến lược từ mock sang backend thật.
+  - Lý do: backend đã sẵn sàng và yêu cầu hiện tại là tích hợp endpoint thật.
+- Lưu token bằng cookie thay vì localStorage.
+  - Lý do: phù hợp yêu cầu và thuận tiện khi backend yêu cầu Bearer token.
+- Xóa `mockServer.js`.
+  - Lý do: không còn được sử dụng, tránh nhầm lẫn và giảm nhiễu.
 
-### Hạng Mục Còn Lại (Theo Kế Hoạch)
-- Phase 7 (UI Quality Gates):
-  - Xác minh route reachability end-to-end.
-  - Xác minh visual parity desktop/mobile theo baseline.
-  - Chốt lại lint/test/build và lập quality report.
-- Phase 8 (Legacy Cleanup & Cutover):
-  - Thực hiện sau khi sign-off; dọn luồng static legacy khỏi workflow chính, hoàn tất 404 behavior và cập nhật tài liệu liên quan.
+### Bước Tiếp Theo (Session Sau)
+- Phase 1: Gắn `GET /api/v1/brands` và `GET /api/v1/perfumes` vào ShopPage.
+- Phase 2: Gắn `GET /api/v1/perfumes/{id}` vào ProductDetailsPage.
+- Phase 3: Gắn login/register + token check và điều hướng theo role.
+- Xác nhận endpoint danh sách đơn hàng user (nếu có) cho Account Orders.
 
 ### Lưu Ý Khi Tiếp Tục
-- Dự án hiện vẫn bám định hướng UI-only: chưa triển khai business logic/API/state orchestration.
-- Khi mở phase logic backend integration, cần kế hoạch riêng để tránh phá vỡ parity UI đã hoàn thành.
+- Ưu tiên thay đổi tối thiểu, giữ parity UI theo quy tắc trong `AGENTS.md`.
+- Tất cả request/response phải tuân thủ envelope từ `api-list.md`.

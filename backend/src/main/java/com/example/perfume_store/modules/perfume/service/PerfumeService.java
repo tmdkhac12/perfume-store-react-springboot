@@ -91,10 +91,13 @@ public class PerfumeService {
             String orderBy
     ) {
         // Handle Sort
-        Sort sort = Sort.by("volumePerfumes.price").descending();
+        // Use the new @Formula field "minPrice" for sorting
+        Sort sort = Sort.by("minPrice").descending();
+
         if (orderBy != null && !orderBy.isBlank()) {
             sort = switch (orderBy) {
-                case "price_desc" -> Sort.by("volumePerfumes.price").descending();
+                case "price_desc" -> Sort.by("minPrice").descending();
+                case "price_asc" -> Sort.by("minPrice").ascending();
                 case "name_asc" -> Sort.by("name").ascending();
                 case "name_desc" -> Sort.by("name").descending();
                 default -> sort;

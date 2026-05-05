@@ -66,20 +66,10 @@ public interface PerfumeMapper {
     // Perfume Public
     @Mapping(source = "brand.name", target = "brand")
     @Mapping(source = "sampleImages", target = "sampleImage", qualifiedByName = "firstImage")
-    @Mapping(source = "volumePerfumes", target = "minPrice", qualifiedByName = "minPriceMapping")
     PerfumePublicResponseDTO toPublicResponseDTO(Perfume perfume);
 
     @Mapping(target = "page", expression = "java(perfumes.getNumber() + 1)")
     PageResponse<PerfumePublicResponseDTO> toPublicPageResponse(Page<Perfume> perfumes);
-
-    @Named("minPriceMapping")
-    default BigDecimal getMinPrice(List<VolumePerfume> volumePerfumes) {
-        return volumePerfumes
-                .stream()
-                .map(VolumePerfume::getPrice)
-                .min(BigDecimal::compareTo)
-                .orElse(null);
-    }
 
     // Perfume Request to Entity
     @Mapping(target = "sampleImages", ignore = true)

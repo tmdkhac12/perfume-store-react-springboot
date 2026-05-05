@@ -6,8 +6,10 @@ import com.example.perfume_store.modules.auth.security.jwt.JwtAuthenticationFilt
 import com.example.perfume_store.modules.auth.security.oauth2.CustomOAuth2Service;
 import com.example.perfume_store.modules.auth.security.jwt.JwtService;
 import lombok.AllArgsConstructor;
+import org.jspecify.annotations.NonNull;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -19,6 +21,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @AllArgsConstructor
@@ -44,8 +48,18 @@ public class SecurityConfig {
 
                 // Authorization rules
                 .authorizeHttpRequests(auth -> auth
+                        // Auth
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers("/login/**", "/oauth2/**").permitAll()
+
+                        // Brands
+                        .requestMatchers(HttpMethod.GET, "/api/v1/brands/**").permitAll()
+                        .requestMatchers("/api/v1/brands/**").hasRole(ADMIN)
+
+                        // Perfumes
+                        .requestMatchers(HttpMethod.GET, "/api/v1/perfumes/**").permitAll()
+                        .requestMatchers("/api/v1/perfumes/**").hasRole(ADMIN)
+
                         .requestMatchers("/api/v1/users/me").hasAnyRole(USER, ADMIN)
                         .requestMatchers("/api/v1/users/me/addresses/**").hasRole(USER)
                         .requestMatchers("/api/v1/admin/**").hasRole(ADMIN)
@@ -86,5 +100,19 @@ public class SecurityConfig {
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter(JwtService jwtService, CustomUserDetailsService userDetailsService) {
         return new JwtAuthenticationFilter(jwtService, userDetailsService);
+    }
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(@NonNull CorsRegistry registry) {
+                registry.addMapping("/api/**") // Chỉ cho phép các đường dẫn bắt đầu bằng /api/
+                        .allowedOrigins("http://localhost:5173") // URL của Frontend (Vite mặc định là 5173)
+                        .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
+                        .allowedHeaders("*")
+                        .allowCredentials(true);
+            }
+        };
     }
 }

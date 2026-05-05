@@ -8,7 +8,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Formula;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -44,4 +46,8 @@ public class Perfume {
     private List<NotePerfume> notePerfumes;
 
     private boolean hide;
+
+    // Database will automatically calculate and map this field
+    @Formula("(SELECT MIN(vp.price) FROM volume_perfume vp WHERE vp.perfume_id = id)")
+    private BigDecimal minPrice;
 }

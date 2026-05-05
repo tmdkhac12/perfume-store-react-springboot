@@ -14,14 +14,27 @@ services:
     volumes:
       - ./database:/docker-entrypoint-initdb.d  # Base on all the files in ./database to create db
 
-#  backend:
-#    build: .
-#    ports:
-#      - "8081:8080"
-#    depends_on:
-#      - mysql
-#    environment:
-#      # envs for application.yml
-#      MYSQL_URL: ${MYSQL_URL}
-#      MYSQL_USERNAME: ${MYSQL_USERNAME}
-#      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+  backend:
+    build: .
+    ports:
+      - "8081:8080"
+    depends_on:
+      - mysql
+    environment:
+      # --- Database Envs ---
+      MYSQL_URL: ${MYSQL_URL}
+      MYSQL_USERNAME: ${MYSQL_USERNAME}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+      # --- SSO/OAuth2 Envs ---
+      SSO_CLIENT_ID: ${SSO_CLIENT_ID}
+      SSO_CLIENT_SECRET: ${SSO_CLIENT_SECRET}
+
+      # --- Security & JWT Envs ---
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRATION: ${JWT_EXPIRATION}
+
+      # --- Cloudinary Envs ---
+      CLOUDINARY_NAME: ${CLOUDINARY_NAME}
+      CLOUDINARY_KEY: ${CLOUDINARY_KEY}
+      CLOUDINARY_SECRET: ${CLOUDINARY_SECRET}

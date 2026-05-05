@@ -2,6 +2,7 @@ package com.example.perfume_store.modules.auth.security.jwt;
 
 import com.example.perfume_store.common.utils.ApiResponseFactory;
 import com.example.perfume_store.modules.auth.security.user.CustomUserDetailsService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.*;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -18,7 +19,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
-import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 

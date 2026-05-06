@@ -39,6 +39,7 @@ public class PerfumeController {
             int limit,
 
             @RequestParam(required = false) String name,
+            @RequestParam(required = false) String brand,
             @RequestParam(required = false) Gender gender,
             @RequestParam(required = false) BigDecimal fromPrice,
             @RequestParam(required = false) BigDecimal toPrice,
@@ -48,7 +49,7 @@ public class PerfumeController {
     ) {
         var paginatedPerfumes = perfumeService.getPaginatedPerfumes(
                 page, limit,
-                name,
+                name, brand,
                 gender,
                 fromPrice, toPrice,
                 orderBy

@@ -89,7 +89,7 @@ class PerfumeServiceTest {
         when(perfumeMapper.toPublicPageResponse(perfumePage)).thenReturn(response);
 
         // Act
-        PageResponse<PerfumePublicResponseDTO> result = perfumeService.getPaginatedPerfumes(page, limit, null, null, null, null, null);
+        PageResponse<PerfumePublicResponseDTO> result = perfumeService.getPaginatedPerfumes(page, limit, null, null, null, null, null, null);
 
         // Assert
         assertThat(result).isNotNull();

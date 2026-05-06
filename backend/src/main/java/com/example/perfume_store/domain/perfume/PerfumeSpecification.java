@@ -10,12 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PerfumeSpecification {
-    public static Specification<Perfume> filterPerfumes(String name, Gender gender, BigDecimal fromPrice, BigDecimal toPrice) {
+    public static Specification<Perfume> filterPerfumes(String name, String brand, Gender gender, BigDecimal fromPrice, BigDecimal toPrice) {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
             if (name != null && !name.isBlank()) {
                 predicates.add(cb.like(root.get("name"), "%" + name.toLowerCase() + "%"));
+            }
+
+            if (brand != null && !brand.isBlank()) {
+                predicates.add(cb.equal(cb.lower(root.get("brand").get("name")), brand.toLowerCase()));
             }
 
             if (gender != null) {

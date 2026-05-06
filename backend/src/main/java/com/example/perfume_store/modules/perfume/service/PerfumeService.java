@@ -85,7 +85,7 @@ public class PerfumeService {
 
     public PageResponse<PerfumePublicResponseDTO> getPaginatedPerfumes(
             int page, int limit,
-            String name,
+            String name, String brand,
             Gender gender,
             BigDecimal from, BigDecimal to,
             String orderBy
@@ -106,7 +106,7 @@ public class PerfumeService {
 
         Pageable pageable = PageRequest.of(page - 1, limit, sort);
         Specification<Perfume> specification = PerfumeSpecification.filterPerfumes(
-                name,
+                name, brand,
                 gender,
                 from, to
         );

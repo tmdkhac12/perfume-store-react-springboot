@@ -47,19 +47,22 @@ Mọi hàm (function) hoặc hằng số xử lý logic (arrow function) khi đ�
 
 1. **Vị trí**: Comment phải nằm ngay phía trên khai báo hàm.
 2. **Ngôn ngữ**: Sử dụng tiếng Anh cho nội dung comment bên trong code.
-3. **Định dạng**: Sử dụng khối comment `/** ... */` với các tag `@input` và `@output`.
+3. **Định dạng**: Sử dụng khối comment `/** ... */` với các tag `@description`, `@input`, và `@output`.
 4. **Nội dung**:
+    - `@description`: Mô tả ngắn gọn hàm này làm gì và **tại sao** cần nó trong logic hiện tại.
     - `@input`: Liệt kê tên biến, kiểu dữ liệu và kèm theo ít nhất một ví dụ thực tế.
     - `@output`: Mô tả kiểu dữ liệu trả về và kèm theo ví dụ kết quả tương ứng.
 5. **Cú pháp mẫu**:
    /**
+    * @description: [What it does and why it is needed]
     * @input: [variableName] ([type]) - Example: [value]
     * @output: [resultName] ([type]) - Example: [value]
     */
 
 **Ví dụ áp dụng:**
 /**
- * @input: perfumes (array) - Example: [{id: 1, name: "Scent A"}]
- * @output: count (number) - Example: 1
+ * @description: Formats a raw number into a USD currency string to ensure consistent pricing display across the shop.
+ * @input: value (number) - Example: 1250
+ * @output: formattedPrice (string) - Example: "$1,250.00"
  */
-const countPerfumes = (perfumes) => { ... }
+const formatPrice = (value) => { ... }

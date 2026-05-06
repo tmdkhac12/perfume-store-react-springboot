@@ -3,8 +3,16 @@ import { getAuthToken } from './authStorage.js';
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
 const API_VERSION = import.meta.env.VITE_API_VERSION || 'v1';
 
+/**
+ * @input: value (string) - Example: "perfumes"
+ * @output: formattedValue (string) - Example: "/perfumes"
+ */
 const ensureLeadingSlash = (value) => (value.startsWith('/') ? value : `/${value}`);
 
+/**
+ * @input: path (string) - Example: "/perfumes"
+ * @output: fullUrl (string) - Example: "http://localhost:8080/api/v1/perfumes"
+ */
 const buildApiUrl = (path) => {
   if (!path) {
     return `${API_BASE_URL}/api/${API_VERSION}`;
@@ -18,6 +26,10 @@ const buildApiUrl = (path) => {
   return `${API_BASE_URL}/api/${API_VERSION}${normalized}`;
 };
 
+/**
+ * @input: url (string), query (object) - Example: ("http://api.com", { page: 1 })
+ * @output: urlWithQuery (string) - Example: "http://api.com?page=1"
+ */
 const appendQuery = (url, query) => {
   if (!query) {
     return url;
@@ -45,6 +57,10 @@ const appendQuery = (url, query) => {
   return url.includes('?') ? `${url}&${queryString}` : `${url}?${queryString}`;
 };
 
+/**
+ * @input: options (object) - Example: { body: { name: "Aventus" } }
+ * @output: normalizedOptions (object) - Example: { headers: {...}, body: "{\"name\":\"Aventus\"}" }
+ */
 const normalizeOptions = (options = {}) => {
   const normalized = { ...options };
   const headers = { ...(options.headers || {}) };
@@ -80,6 +96,10 @@ const parseJsonResponse = async (response) => {
   }
 };
 
+/**
+ * @input: path (string), options (object) - Example: ("/login", { method: "POST" })
+ * @output: result (promise) - Example: { status: 200, data: {...}, message: "OK" }
+ */
 const request = async (path, options = {}) => {
   const { query, ...rest } = options;
   const url = appendQuery(buildApiUrl(path), query);

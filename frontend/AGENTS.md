@@ -110,4 +110,4 @@
 
 ### Lưu Ý Khi Tiếp Tục
 - Ưu tiên thay đổi tối thiểu, giữ parity UI theo quy tắc trong `AGENTS.md`.
-- Tất cả request/response phải tuân thủ envelope từ `api-list.md`.
+- Tất cả request/response phải tuân thủ envelope từ `docs/api-list.md`.

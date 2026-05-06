@@ -487,6 +487,7 @@ Quản lý danh sách nước hoa, tìm kiếm và chi tiết sản phẩm.
   - `page` (int, default: 1): Số trang.
   - `limit` (int, default: 8): Số lượng item mỗi trang.
   - `name` (string): Tìm kiếm theo tên.
+  - `brand` (string): Tìm kiếm theo tên thương hiệu.
   - `gender` (string): `Male`, `Female`, `Unisex`.
   - `fromPrice` (decimal): Giá thấp nhất.
   - `toPrice` (decimal): Giá cao nhất.

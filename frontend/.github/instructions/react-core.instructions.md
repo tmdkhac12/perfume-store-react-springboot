@@ -40,3 +40,26 @@ description: "Dùng khi triển khai hoặc refactor file mã nguồn React JS t
 - Giữ thay đổi tối thiểu và cục bộ trong phạm vi tính năng được yêu cầu.
 - Ưu tiên các utility mang tính xác định và tái sử dụng được cho logic format/validation.
 - Bảo toàn hành vi responsive tại các breakpoint hiện tại (`sm`, `md`, `lg`) trong quá trình migration.
+
+## RULE: FUNCTION DOCUMENTATION PROTOCOL
+
+Mọi hàm (function) hoặc hằng số xử lý logic (arrow function) khi được tạo mới hoặc cập nhật phải tuân thủ quy định về comment như sau:
+
+1. **Vị trí**: Comment phải nằm ngay phía trên khai báo hàm.
+2. **Ngôn ngữ**: Sử dụng tiếng Anh cho nội dung comment bên trong code.
+3. **Định dạng**: Sử dụng khối comment `/** ... */` với các tag `@input` và `@output`.
+4. **Nội dung**:
+    - `@input`: Liệt kê tên biến, kiểu dữ liệu và kèm theo ít nhất một ví dụ thực tế.
+    - `@output`: Mô tả kiểu dữ liệu trả về và kèm theo ví dụ kết quả tương ứng.
+5. **Cú pháp mẫu**:
+   /**
+    * @input: [variableName] ([type]) - Example: [value]
+    * @output: [resultName] ([type]) - Example: [value]
+    */
+
+**Ví dụ áp dụng:**
+/**
+ * @input: perfumes (array) - Example: [{id: 1, name: "Scent A"}]
+ * @output: count (number) - Example: 1
+ */
+const countPerfumes = (perfumes) => { ... }

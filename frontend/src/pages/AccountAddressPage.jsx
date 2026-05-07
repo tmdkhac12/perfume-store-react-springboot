@@ -4,7 +4,7 @@ import {
   AddressFormModal,
   SavedAddressGrid,
   SavedAddressHeader
-} from '../features/address/components/index.js';
+} from '../features/userAccount/components/index.js';
 
 function AccountAddressPage() {
   const addressModal = useModal();

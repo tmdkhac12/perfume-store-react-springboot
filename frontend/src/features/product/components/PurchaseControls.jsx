@@ -3,13 +3,22 @@ import { Link } from 'react-router-dom';
 
 const MIN_QUANTITY = 1;
 
+/** @description: Renders quantity controls and purchase actions to support cart interactions on the product page. */
 function PurchaseControls() {
   const [quantity, setQuantity] = useState(MIN_QUANTITY);
 
+  /**
+   * @description: Decreases the quantity while keeping the minimum selection safe.
+   * @flow: Click minus -> Clamp to minimum -> Update quantity.
+   */
   const handleDecrease = () => {
     setQuantity((current) => Math.max(MIN_QUANTITY, current - 1));
   };
 
+  /**
+   * @description: Increases the quantity to let shoppers request more items.
+   * @flow: Click plus -> Increment quantity -> Update state.
+   */
   const handleIncrease = () => {
     setQuantity((current) => current + 1);
   };

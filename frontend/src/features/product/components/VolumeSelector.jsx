@@ -2,8 +2,8 @@ import React from 'react';
 
 /**
  * @description: Formats a volume value into a consistent uppercase label for volume buttons.
- * @input: value (number) - Example: 50
- * @output: label (string) - Example: "50 ML"
+ * @param {number} value - Example: 50
+ * @returns {string} label - Example: "50 ML"
  */
 const formatVolumeLabel = (value) => {
   if (value === undefined || value === null || Number.isNaN(Number(value))) {
@@ -16,6 +16,7 @@ const formatVolumeLabel = (value) => {
   return `${display} ML`;
 };
 
+/** @description: Displays selectable volume options based on API data and highlights the chosen volume. */
 function VolumeSelector({ volumes = [], selectedVolume, onSelectVolume }) {
   const safeVolumes = Array.isArray(volumes) ? volumes : [];
 

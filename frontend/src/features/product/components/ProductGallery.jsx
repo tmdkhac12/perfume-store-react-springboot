@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 /**
  * @description: Resolves the initial active thumbnail index so the gallery can highlight the best default image.
- * @input: thumbnails (array) - Example: [{ src: "https://.../img1.jpg", isActive: true }]
- * @output: index (number) - Example: 0
+ * @param {import('../types').ProductThumbnail[]} thumbnails - Example: [{ src: "https://.../img1.jpg", isActive: true }]
+ * @returns {number} index - Example: 0
  */
 const resolveInitialIndex = (thumbnails = []) => {
   if (!Array.isArray(thumbnails) || thumbnails.length === 0) {
@@ -14,6 +14,7 @@ const resolveInitialIndex = (thumbnails = []) => {
   return activeIndex >= 0 ? activeIndex : 0;
 };
 
+/** @description: Product gallery component that swaps the main image based on thumbnail selection. */
 function ProductGallery({ image, thumbnails = [] }) {
   const basePrimary = image || thumbnails[0]?.src || '';
   const fallbackThumbnails = basePrimary ? [{ src: basePrimary, alt: 'Primary view', isActive: true }] : [];
@@ -28,6 +29,7 @@ function ProductGallery({ image, thumbnails = [] }) {
 
   /**
    * @description: Updates the active thumbnail so the primary image matches user selection.
+   * @flow: Click thumbnail -> Update active index -> Render selected image.
    */
   const handleThumbnailClick = (index) => {
     setActiveIndex(index);

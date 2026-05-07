@@ -1,10 +1,6 @@
 import React from 'react';
 
-/**
- * @description: Renders perfume note chips by scent layer to mirror the product detail layout.
- * @input: rows (array) - Example: [{ layer: "Top", values: ["Bergamot"] }]
- * @output: element (JSX.Element) - Example: <div />
- */
+/** @description: Renders perfume note chips by scent layer to mirror the product detail layout. */
 function ScentNotes({ rows = [] }) {
   return (
     <div className="space-y-4">

@@ -61,13 +61,13 @@ function LoginForm() {
     <form className="space-y-6" onSubmit={handleSubmit}>
       <div>
         <label className="mb-2 ml-1 block text-sm uppercase tracking-[0.1em] text-on-surface-variant" htmlFor="username">
-          Username
+          Username or Email
         </label>
         <input
           className="w-full rounded-full border border-outline-variant bg-transparent px-5 py-3 text-on-surface placeholder:text-outline transition-colors duration-300 focus:border-primary focus:ring-0"
           id="username"
           name="username"
-          placeholder="Enter your username"
+          placeholder="Enter your username or email"
           type="text"
           value={formValues.username}
           onChange={(event) => handleFieldChange('username', event.target.value)}

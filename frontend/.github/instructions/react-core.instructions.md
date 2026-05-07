@@ -43,26 +43,40 @@ description: "Dùng khi triển khai hoặc refactor file mã nguồn React JS t
 
 ## RULE: FUNCTION DOCUMENTATION PROTOCOL
 
-Mọi hàm (function) hoặc hằng số xử lý logic (arrow function) khi được tạo mới hoặc cập nhật phải tuân thủ quy định về comment như sau:
+Mọi hàm (function), hằng số xử lý logic (arrow function) hoặc React Component khi tạo mới hoặc cập nhật phải tuân thủ quy định comment JSDoc.
 
 1. **Vị trí**: Comment phải nằm ngay phía trên khai báo hàm.
 2. **Ngôn ngữ**: Sử dụng tiếng Anh cho nội dung comment bên trong code.
-3. **Định dạng**: Sử dụng khối comment `/** ... */` với các tag `@description`, `@input`, và `@output`.
-4. **Nội dung**:
-    - `@description`: Mô tả ngắn gọn hàm này làm gì và **tại sao** cần nó trong logic hiện tại.
-    - `@input`: Liệt kê tên biến, kiểu dữ liệu và kèm theo ít nhất một ví dụ thực tế.
-    - `@output`: Mô tả kiểu dữ liệu trả về và kèm theo ví dụ kết quả tương ứng.
-5. **Cú pháp mẫu**:
-   /**
-    * @description: [What it does and why it is needed]
-    * @input: [variableName] ([type]) - Example: [value]
-    * @output: [resultName] ([type]) - Example: [value]
-    */
+3. **Định dạng**: Khối comment `/** ... */`.
+4. **Cú pháp**:
+   - **Với React Components**: Chỉ cần `@description`.
+     ```javascript
+     /** @description: [Short description of component role] */
+     ```
+   - **Với Logic Functions**: 
+     ```javascript
+     /**
+      * @description: [What it does and why it is needed]
+      * @param {[type]} [name] - Example: [value]
+      * @returns {[type]} [name] - Example: [value]
+      */
+     ```
+     *Lưu ý: Nếu input/output không rõ ràng (ví dụ: event, void), hãy thay thế `@param`/`@returns` bằng `@flow` để làm rõ luồng hoạt động của function*
+     *Lưu ý: Nếu input rõ ràng nhưng output return về `void` (ví dụ: event, void), hãy comment kế bên đoạn `@return` đó rằng sau function này chúng ta sẽ nhận được gì, ví dụ '@returns {void} - formValues with field and value updated'*
 
 **Ví dụ áp dụng:**
+/** @description: Standalone registration form component. */
+const RegisterForm = () => { ... }
+
 /**
- * @description: Formats a raw number into a USD currency string to ensure consistent pricing display across the shop.
- * @input: value (number) - Example: 1250
- * @output: formattedPrice (string) - Example: "$1,250.00"
+ * @description: Extracts JWT payload to read role metadata.
+ * @param {string} token - Example: "header.payload.signature"
+ * @returns {import('./types').JwtPayload | null} payload - Example: { role: [...] }
  */
-const formatPrice = (value) => { ... }
+const decodeTokenPayload = (token) => { ... }
+
+/**
+  * @description: Submits the registration form to the backend. Routes the user to the login page upon success.
+  * @flow: Step 1 -> Step 2.
+  */
+const handleSubmit = async (event) => { ... }

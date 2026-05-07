@@ -51,9 +51,11 @@ class CustomOAuth2ServiceTest {
     void processOAuth2User_newGoogleId_createsUser() throws Exception {
         // Arrange
         String googleId = "g999";
+        String email = "fresh@b.com";
         when(userRepository.findByGoogleId(googleId)).thenReturn(Optional.empty());
+        when(userRepository.findByEmail(email)).thenReturn(Optional.empty());
 
-        DefaultOAuth2User oauth2User = createOAuth2User(googleId, "fresh@b.com", "Fresh User");
+        DefaultOAuth2User oauth2User = createOAuth2User(googleId, email, "Fresh User");
         when(userRepository.save(org.mockito.ArgumentMatchers.any(User.class)))
                 .thenAnswer(inv -> inv.getArgument(0));
 
@@ -62,6 +64,27 @@ class CustomOAuth2ServiceTest {
 
         // Assert
         verify(userRepository).save(org.mockito.ArgumentMatchers.any(User.class));
+    }
+
+    @Test
+    @DisplayName("processOAuth2User: google id not found but email exists links user")
+    void processOAuth2User_existingEmail_linksGoogleId() throws Exception {
+        // Arrange
+        String googleId = "g123";
+        String email = "link@b.com";
+        User existing = createUser(null, email);
+        when(userRepository.findByGoogleId(googleId)).thenReturn(Optional.empty());
+        when(userRepository.findByEmail(email)).thenReturn(Optional.of(existing));
+        when(userRepository.save(existing)).thenReturn(existing);
+
+        DefaultOAuth2User oauth2User = createOAuth2User(googleId, email, "Link User");
+
+        // Act
+        invokeProcessOAuth2User(oauth2User);
+
+        // Assert
+        verify(userRepository).save(existing);
+        assertThat(existing.getGoogleId()).isEqualTo(googleId);
     }
 
     // Factory helper methods

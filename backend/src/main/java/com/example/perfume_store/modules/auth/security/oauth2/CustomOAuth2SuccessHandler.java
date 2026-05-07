@@ -6,8 +6,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NullMarked;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -18,11 +19,14 @@ import java.io.IOException;
 import java.util.Objects;
 
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     private final JwtService jwtService;
     private final CustomUserDetailsService userDetailsService;
+
+    @Value("${app.frontend-url}")
+    private String frontendUrl;
 
     @Override
     @NullMarked // Make sure that all the parameters are not null
@@ -49,7 +53,6 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
         response.addCookie(jwtCookie);
 
         // Redirect user
-        String targetUrl = "/api/v1/auth/home";
-        getRedirectStrategy().sendRedirect(request, response, targetUrl);
+        getRedirectStrategy().sendRedirect(request, response, frontendUrl);
     }
 }

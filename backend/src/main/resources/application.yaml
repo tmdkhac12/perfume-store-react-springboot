@@ -48,6 +48,9 @@ jwt:
   secret: ${JWT_SECRET}
   expiration: ${JWT_EXPIRATION}
 
+app:
+  frontend-url: ${FRONTEND_URL:http://localhost:5173}
+
 cloudinary:
   name: ${CLOUDINARY_NAME}
   key: ${CLOUDINARY_KEY}

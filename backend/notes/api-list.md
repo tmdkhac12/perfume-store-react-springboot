@@ -130,6 +130,14 @@ Các endpoints liên quan đến xác thực và đăng ký.
   }
   ```
 
+### 4. Đăng nhập qua Google (OAuth2)
+- **Endpoint:** `GET /oauth2/authorization/google`
+- **Auth:** None
+- **Mô tả:** Chuyển hướng người dùng đến trang đăng nhập của Google.
+- **Xử lý sau khi thành công:**
+  - Hệ thống tự động tạo JWT Token và lưu vào Cookie `jwt_token` (HttpOnly).
+  - Người dùng được chuyển hướng về trang chủ hoặc endpoint mặc định.
+
 ---
 
 ## 🏷 Brand Module

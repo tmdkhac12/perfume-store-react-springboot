@@ -30,28 +30,38 @@ public class CustomOAuth2Service extends DefaultOAuth2UserService {
         String email = oAuth2User.getAttribute("email");
         String name = oAuth2User.getAttribute("name");
 
-        // 1. Google ID existed (Logged in by Google before)
+        // 1. Find by Google ID
         userRepository.findByGoogleId(googleId)
                 .map(existingUser -> {
-                    // If a user update their Google email, sync with database
+                    // Sync email if changed
                     if (!existingUser.getEmail().equals(email)) {
                         existingUser.setEmail(email);
                         return userRepository.save(existingUser);
                     }
                     return existingUser;
                 })
+                // 2. If Google ID not found, check Email for Account Linking
+                .orElseGet(() -> userRepository.findByEmail(email)
+                        .map(existingUser -> {
+                            existingUser.setGoogleId(googleId);
+                            if (existingUser.getName() == null) {
+                                existingUser.setName(name);
 
-                // 2. If absolutely new, create a new account
-                .orElseGet(() -> {
-                    // Traditional username won't contain '@'
-                    User newUser = new User();
-                    newUser.setGoogleId(googleId);
-                    newUser.setEmail(email);
-                    newUser.setUsername(email);
-                    newUser.setName(name);
-                    newUser.setActive(true);
-                    return userRepository.save(newUser);
-                });
+                            }
+                            return userRepository.save(existingUser);
+                        })
+                        // 3. New user
+                        .orElseGet(() -> {
+                            User newUser = new User();
+                            newUser.setGoogleId(googleId);
+                            newUser.setEmail(email);
+                            newUser.setUsername(email);
+                            newUser.setName(name);
+                            newUser.setHashedPassword(null);
+                            newUser.setActive(true);
+                            return userRepository.save(newUser);
+                        })
+                );
 
         return oAuth2User;
     }

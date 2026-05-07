@@ -160,9 +160,9 @@ function RegisterForm() {
           </span>
         </div>
 
-        <button
+        <a
+          href="/oauth2/authorization/google"
           className="flex w-full items-center justify-center gap-3 rounded-full border border-outline-variant/20 bg-transparent py-4 text-xs uppercase tracking-[0.15em] text-on-surface transition-colors duration-300 hover:bg-surface-container-low"
-          type="button"
         >
           <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
             <path
@@ -183,7 +183,7 @@ function RegisterForm() {
             />
           </svg>
           Sign up with Google
-        </button>
+        </a>
       </div>
     </form>
   );

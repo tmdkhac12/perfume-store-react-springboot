@@ -13,5 +13,13 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: './vitest.setup.js'
-  }
+  },
+  server: {
+    proxy: {
+      '/oauth2': {
+        target: 'http://localhost:8080', // Thay bằng URL backend của bạn
+        changeOrigin: true,
+      },
+    },
+  },
 });

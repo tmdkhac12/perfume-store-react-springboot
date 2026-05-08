@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { apiClient } from '../../services';
 
 const accountNavigation = [
   {
@@ -23,7 +25,48 @@ const accountNavigation = [
   }
 ];
 
+/** @description: Account navigation sidebar with the signed-in user context. */
 function AccountNav() {
+  const [profileStatus, setProfileStatus] = useState('loading');
+  const [profile, setProfile] = useState(null);
+
+  /**
+   * @description: Loads the current user profile for the account sidebar display.
+   * @flow: GET /users/me -> Map response -> Update sidebar name and meta.
+   */
+  const loadProfile = async () => {
+    setProfileStatus('loading');
+
+    try {
+      const response = await apiClient.get('/users/me');
+      const isErrorResponse = !response || response.error || response.status >= 400;
+
+      if (isErrorResponse) {
+        throw new Error(response?.message || 'Unable to load profile.');
+      }
+
+      const profileData = response?.data;
+
+      if (!profileData) {
+        setProfileStatus('empty');
+        return;
+      }
+
+      setProfile(profileData);
+      setProfileStatus('ready');
+    } catch (error) {
+      setProfileStatus('error');
+    }
+  };
+
+  useEffect(() => {
+    void loadProfile();
+  }, []);
+
+  const displayName = profile?.name || (profileStatus === 'loading' ? 'Loading...' : 'Account');
+  const displayMeta =
+    profile?.username || profile?.email || (profileStatus === 'loading' ? 'Fetching profile' : 'Member');
+
   return (
     <aside className="top-28 mr-12 hidden h-[calc(100vh-8rem)] w-72 flex-col gap-2 rounded-r-2xl bg-zinc-100 p-6 md:flex">
       <div className="mb-8 flex items-center gap-4 border-b border-outline-variant/15 pb-8">
@@ -35,8 +78,8 @@ function AccountNav() {
           />
         </div>
         <div>
-          <h2 className="font-headline text-lg font-medium tracking-widest text-zinc-900">Julianne V.</h2>
-          <p className="mt-1 text-xs uppercase tracking-widest text-zinc-600">Gold Member</p>
+          <h2 className="font-headline text-lg font-medium tracking-widest text-zinc-900">{displayName}</h2>
+          <p className="mt-1 text-xs uppercase tracking-widest text-zinc-600">{displayMeta}</p>
         </div>
       </div>
 
@@ -60,7 +103,7 @@ function AccountNav() {
         ))}
       </nav>
     </aside>
-  )
+  );
 }
 
 export default AccountNav;

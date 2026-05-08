@@ -788,7 +788,57 @@ Quản lý thông tin cá nhân, địa chỉ và quản trị người dùng.
   }
   ```
 
-### 2. Danh sách địa chỉ nhận hàng
+### 2. Cập nhật thông tin cá nhân
+- **Endpoint:** `PATCH /api/v1/users/me/profile`
+- **Auth:** Bearer Token
+- **Request Body:**
+  ```json
+  {
+    "name": "John Doe Updated",
+    "email": "john.updated@example.com"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "timestamp": "2024-04-29T10:00:00Z",
+    "status": 200,
+    "path": "/api/v1/users/me/profile",
+    "data": {
+      "id": 1,
+      "name": "John Doe Updated",
+      "username": "johndoe",
+      "email": "john.updated@example.com"
+    },
+    "message": "Update profile successfully",
+    "error": null
+  }
+  ```
+
+### 3. Cập nhật mật khẩu
+- **Endpoint:** `PATCH /api/v1/users/me/password`
+- **Auth:** Bearer Token
+- **Request Body:**
+  ```json
+  {
+    "oldPassword": "password123",
+    "newPassword": "newpassword456",
+    "confirmPassword": "newpassword456"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "timestamp": "2024-04-29T10:00:00Z",
+    "status": 200,
+    "path": "/api/v1/users/me/password",
+    "data": null,
+    "message": "Update password successfully",
+    "error": null
+  }
+  ```
+
+### 4. Danh sách địa chỉ nhận hàng
 - **Endpoint:** `GET /api/v1/users/me/addresses`
 - **Auth:** Bearer Token
 - **Response:**
@@ -813,7 +863,7 @@ Quản lý thông tin cá nhân, địa chỉ và quản trị người dùng.
   }
   ```
 
-### 3. Thêm địa chỉ mới
+### 5. Thêm địa chỉ mới
 - **Endpoint:** `POST /api/v1/users/me/addresses`
 - **Auth:** Bearer Token
 - **Request Body:**
@@ -838,9 +888,9 @@ Quản lý thông tin cá nhân, địa chỉ và quản trị người dùng.
   }
   ```
 
-### 4. Quản lý người dùng (Admin)
+### 6. Quản lý người dùng (Admin)
 
-#### 4.1. Danh sách người dùng
+#### 6.1. Danh sách người dùng
 - **Endpoint:** `GET /api/v1/admin/users`
 - **Auth:** Bearer Token (Admin)
 - **Response:**
@@ -870,7 +920,7 @@ Quản lý thông tin cá nhân, địa chỉ và quản trị người dùng.
   }
   ```
 
-#### 4.2. Chi tiết người dùng
+#### 6.2. Chi tiết người dùng
 - **Endpoint:** `GET /api/v1/admin/users/{id}`
 - **Auth:** Bearer Token (Admin)
 - **Response:**
@@ -885,7 +935,7 @@ Quản lý thông tin cá nhân, địa chỉ và quản trị người dùng.
   }
   ```
 
-#### 4.3. Tạo user mới (Admin)
+#### 6.3. Tạo user mới (Admin)
 - **Endpoint:** `POST /api/v1/admin/users`
 - **Auth:** Bearer Token (Admin)
 - **Request Body:**
@@ -910,7 +960,7 @@ Quản lý thông tin cá nhân, địa chỉ và quản trị người dùng.
   }
   ```
 
-#### 4.4. Cập nhật user (Admin)
+#### 6.4. Cập nhật user (Admin)
 - **Endpoint:** `PUT /api/v1/admin/users/{id}`
 - **Auth:** Bearer Token (Admin)
 - **Request Body:** `UserAdminUpdateRequestDTO`
@@ -926,7 +976,7 @@ Quản lý thông tin cá nhân, địa chỉ và quản trị người dùng.
   }
   ```
 
-#### 4.5. Reset mật khẩu (Admin)
+#### 6.5. Reset mật khẩu (Admin)
 - **Endpoint:** `POST /api/v1/admin/users/{id}/reset-password`
 - **Auth:** Bearer Token (Admin)
 - **Response:**

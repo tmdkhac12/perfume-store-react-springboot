@@ -591,13 +591,17 @@ Quản lý danh sách nước hoa, tìm kiếm và chi tiết sản phẩm.
     "data": {
       "id": 1,
       "name": "Bleu de Chanel",
-      "description": "...",
+      "description": "A woody aromatic fragrance for men...",
       "gender": "Male",
       "concentration": "EDP",
       "brand": "Chanel",
-      "sampleImages": ["..."],
+      "sampleImages": ["http://res.cloudinary.com/perfume-store/image/upload/v1/bleu-de-chanel.jpg"],
       "volumes": [{ "volume": 100.0, "price": 3000000.00 }],
-      "notes": { "top": ["..."], "heart": ["..."], "base": ["..."] }
+      "notes": { 
+        "top": ["Grapefruit", "Lemon", "Mint"], 
+        "heart": ["Ginger", "Jasmine", "Nutmeg"], 
+        "base": ["Sandalwood", "Patchouli", "Cedar"] 
+      }
     },
     "message": "Perfume created",
     "error": null
@@ -618,7 +622,27 @@ Quản lý danh sách nước hoa, tìm kiếm và chi tiết sản phẩm.
     "timestamp": "2024-04-29T10:00:00Z",
     "status": 200,
     "path": "/api/v1/perfumes/1",
-    "data": { "id": 1, "...": "..." },
+    "data": {
+      "id": 1,
+      "name": "Bleu de Chanel",
+      "description": "An intense woody aromatic fragrance...",
+      "gender": "Male",
+      "concentration": "EDP",
+      "brand": "Chanel",
+      "sampleImages": [
+        "http://res.cloudinary.com/perfume-store/image/upload/v1/bleu-de-chanel-1.jpg",
+        "http://res.cloudinary.com/perfume-store/image/upload/v1/bleu-de-chanel-2.jpg"
+      ],
+      "volumes": [
+        { "volume": 100.0, "price": 3000000.00 },
+        { "volume": 50.0, "price": 2000000.00 }
+      ],
+      "notes": {
+        "top": ["Grapefruit", "Lemon", "Mint"],
+        "heart": ["Ginger", "Jasmine", "Nutmeg"],
+        "base": ["Sandalwood", "Patchouli", "Cedar"]
+      }
+    },
     "message": "Perfume updated",
     "error": null
   }
@@ -881,15 +905,71 @@ Quản lý thông tin cá nhân, địa chỉ và quản trị người dùng.
     "timestamp": "2024-04-29T10:00:00Z",
     "status": 201,
     "path": "/api/v1/users/me/addresses",
-    "data": { "id": 1, "...": "..." },
+    "data": {
+      "id": 1,
+      "receiver": "Nguyen Van A",
+      "phoneNumber": "0987654321",
+      "cityName": "Ho Chi Minh",
+      "wardName": "Ben Nghe",
+      "deliveryAddress": "123 Ly Tu Trong",
+      "hide": false
+    },
     "message": "User's address created",
     "error": null
   }
   ```
 
-### 6. Quản lý người dùng (Admin)
+### 6. Cập nhật địa chỉ
+- **Endpoint:** `PUT /api/v1/users/me/addresses/{addressId}`
+- **Auth:** Bearer Token
+- **Request Body:**
+  ```json
+  {
+    "receiver": "Nguyen Van A Updated",
+    "phoneNumber": "0987654321",
+    "cityName": "Ho Chi Minh",
+    "wardName": "Ben Nghe",
+    "deliveryAddress": "456 Le Loi"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "timestamp": "2024-04-29T10:00:00Z",
+    "status": 200,
+    "path": "/api/v1/users/me/addresses/1",
+    "data": {
+      "id": 1,
+      "receiver": "Nguyen Van A",
+      "phoneNumber": "0987654321",
+      "cityName": "Ho Chi Minh",
+      "wardName": "Ben Nghe",
+      "deliveryAddress": "123 Ly Tu Trong",
+      "hide": false
+    },
+    "message": "User's address updated",
+    "error": null
+  }
+  ```
 
-#### 6.1. Danh sách người dùng
+### 7. Xóa địa chỉ (Soft delete)
+- **Endpoint:** `PATCH /api/v1/users/me/addresses/{addressId}`
+- **Auth:** Bearer Token
+- **Response:**
+  ```json
+  {
+    "timestamp": "2024-04-29T10:00:00Z",
+    "status": 200,
+    "path": "/api/v1/users/me/addresses/1",
+    "data": null,
+    "message": "User's address deleted",
+    "error": null
+  }
+  ```
+
+### 8. Quản lý người dùng (Admin)
+
+#### 8.1. Danh sách người dùng
 - **Endpoint:** `GET /api/v1/admin/users`
 - **Auth:** Bearer Token (Admin)
 - **Response:**
@@ -919,7 +999,7 @@ Quản lý thông tin cá nhân, địa chỉ và quản trị người dùng.
   }
   ```
 
-#### 6.2. Chi tiết người dùng
+#### 8.2. Chi tiết người dùng
 - **Endpoint:** `GET /api/v1/admin/users/{id}`
 - **Auth:** Bearer Token (Admin)
 - **Response:**
@@ -928,13 +1008,20 @@ Quản lý thông tin cá nhân, địa chỉ và quản trị người dùng.
     "timestamp": "2024-04-29T10:00:00Z",
     "status": 200,
     "path": "/api/v1/admin/users/1",
-    "data": { "id": 1, "...": "..." },
+    "data": {
+      "id": 1,
+      "name": "John Doe",
+      "username": "johndoe",
+      "email": "john@example.com",
+      "superuser": false,
+      "active": true
+    },
     "message": "User retrieved",
     "error": null
   }
   ```
 
-#### 6.3. Tạo user mới (Admin)
+#### 8.3. Tạo user mới (Admin)
 - **Endpoint:** `POST /api/v1/admin/users`
 - **Auth:** Bearer Token (Admin)
 - **Request Body:**
@@ -953,13 +1040,20 @@ Quản lý thông tin cá nhân, địa chỉ và quản trị người dùng.
     "timestamp": "2024-04-29T10:00:00Z",
     "status": 201,
     "path": "/api/v1/admin/users",
-    "data": { "id": 2, "name": "New User", "...": "..." },
+    "data": {
+      "id": 2,
+      "name": "New User",
+      "username": "newuser",
+      "email": "new@example.com",
+      "superuser": false,
+      "active": true
+    },
     "message": "User created with a default password",
     "error": null
   }
   ```
 
-#### 6.4. Cập nhật user (Admin)
+#### 8.4. Cập nhật user (Admin)
 - **Endpoint:** `PUT /api/v1/admin/users/{id}`
 - **Auth:** Bearer Token (Admin)
 - **Request Body:** `UserAdminUpdateRequestDTO`
@@ -969,13 +1063,20 @@ Quản lý thông tin cá nhân, địa chỉ và quản trị người dùng.
     "timestamp": "2024-04-29T10:00:00Z",
     "status": 200,
     "path": "/api/v1/admin/users/2",
-    "data": { "id": 2, "...": "..." },
+    "data": {
+      "id": 2,
+      "name": "New User Updated",
+      "username": "newuser",
+      "email": "new.updated@example.com",
+      "superuser": false,
+      "active": true
+    },
     "message": "User updated",
     "error": null
   }
   ```
 
-#### 6.5. Reset mật khẩu (Admin)
+#### 8.5. Reset mật khẩu (Admin)
 - **Endpoint:** `POST /api/v1/admin/users/{id}/reset-password`
 - **Auth:** Bearer Token (Admin)
 - **Response:**
@@ -984,7 +1085,14 @@ Quản lý thông tin cá nhân, địa chỉ và quản trị người dùng.
     "timestamp": "2024-04-29T10:00:00Z",
     "status": 200,
     "path": "/api/v1/admin/users/2/reset-password",
-    "data": { "id": 2, "...": "..." },
+    "data": {
+      "id": 2,
+      "name": "New User Updated",
+      "username": "newuser",
+      "email": "new.updated@example.com",
+      "superuser": false,
+      "active": true
+    },
     "message": "User password reset to default",
     "error": null
   }

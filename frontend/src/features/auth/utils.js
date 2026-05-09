@@ -68,3 +68,23 @@ export const resolvePostLoginPath = (roles) => {
 
   return isAdmin ? '/admin/overview' : '/account/profile';
 };
+
+/**
+ * @description: Checks if the authentication token is present and not expired.
+ * @param {string | null} token - The JWT token to validate.
+ * @returns {boolean} isValid - True if token is valid and not expired.
+ */
+export const isTokenValid = (token) => {
+  if (!token) {
+    return false;
+  }
+
+  const payload = decodeTokenPayload(token);
+  if (!payload || !payload.exp) {
+    return true; // If no exp field, assume valid if exists (or handle differently based on API)
+  }
+
+  // JWT exp is in seconds, Date.now() is in milliseconds
+  const currentTime = Math.floor(Date.now() / 1000);
+  return payload.exp > currentTime;
+};

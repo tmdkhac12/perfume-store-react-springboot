@@ -1,4 +1,6 @@
 import { Link, NavLink } from 'react-router-dom';
+import { getAuthToken } from '../../services/authStorage';
+import { isTokenValid } from '../../features/auth/utils';
 
 const navItems = [
   { label: 'HOME', to: '/' },
@@ -11,7 +13,11 @@ const baseClasses = 'font-label uppercase tracking-[0.2em] text-[11px]';
 const activeClasses = 'text-primary border-b border-primary pb-1';
 const inactiveClasses = 'text-on-surface-variant hover:text-primary transition-all';
 
+/** @description: Main navigation header with dynamic user account links and luxury-minimal styling. */
 function MainHeader() {
+  const token = getAuthToken();
+  const userPath = isTokenValid(token) ? '/account/profile' : '/login';
+
   return (
     <nav className="sticky top-0 w-full z-50 rounded-none bg-[#f8f9fa]/90 backdrop-blur-xl no-border transition-colors duration-500 flex justify-between items-center px-8 lg:px-12 py-6 max-w-full">
       <div className="flex items-center gap-8">
@@ -41,7 +47,7 @@ function MainHeader() {
             shopping_bag
           </span>
         </Link>
-        <Link className="hover:bg-primary/5 p-2 rounded-full transition-colors duration-300 hidden sm:block" to="/login">
+        <Link className="hover:bg-primary/5 p-2 rounded-full transition-colors duration-300 hidden sm:block" to={userPath}>
           <span className="material-symbols-outlined text-[20px]" data-icon="person">
             person
           </span>

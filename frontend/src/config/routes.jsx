@@ -3,6 +3,7 @@ import AdminLayout from '../layouts/AdminLayout.jsx';
 import AuthLayout from '../layouts/AuthLayout.jsx';
 import MainLayout from '../layouts/MainLayout.jsx';
 import NotFoundLayout from '../layouts/NotFoundLayout.jsx';
+import AuthGuard from '../components/auth/AuthGuard.jsx';
 import AccountAddressPage from '../pages/AccountAddressPage.jsx';
 import AdminBrandsPage from '../pages/AdminBrandsPage.jsx';
 import AdminInvoicesPage from '../pages/AdminInvoicesPage.jsx';
@@ -103,7 +104,11 @@ const publicRouteChildren = [
   },
   {
     path: 'checkout',
-    element: <CheckoutPage />
+    element: (
+      <AuthGuard>
+        <CheckoutPage />
+      </AuthGuard>
+    )
   }
 ];
 
@@ -120,7 +125,11 @@ export const appRoutes = [
   },
   {
     path: '/account',
-    element: <AccountLayout />,
+    element: (
+      <AuthGuard>
+        <AccountLayout />
+      </AuthGuard>
+    ),
     children: accountRouteChildren
   },
   {

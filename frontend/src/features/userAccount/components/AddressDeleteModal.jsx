@@ -1,13 +1,6 @@
 import React from 'react';
 
-/**
- * AddressDeleteModal component for confirming address deletion.
- * * @param {boolean} isOpen - Controls the visibility of the modal.
- * @param {function} onClose - Function to handle closing the modal (Cancel).
- * @param {function} onConfirm - Function to execute the deletion logic.
- * @param {string} title - Optional title for the delete confirmation.
- * @param {string} description - Optional description/warning message.
- */
+/** @description: Delete confirmation modal for saved addresses. */
 function AddressDeleteModal({
   isOpen,
   onClose,
@@ -44,7 +37,9 @@ function AddressDeleteModal({
           <button
             className="rounded-[40px] bg-error px-8 py-4 text-sm uppercase tracking-[0.1em] text-on-error transition-colors hover:bg-error/80"
             onClick={() => {
-              onConfirm();
+              if (onConfirm) {
+                onConfirm();
+              }
               onClose();
             }}
             type="button"

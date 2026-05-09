@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { apiClient } from '../../services';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { apiClient, clearAuthToken } from '../../services';
 
 const accountNavigation = [
   {
@@ -27,6 +27,7 @@ const accountNavigation = [
 
 /** @description: Account navigation sidebar with the signed-in user context. */
 function AccountNav() {
+  const navigate = useNavigate();
   const [profileStatus, setProfileStatus] = useState('loading');
   const [profile, setProfile] = useState(null);
 
@@ -57,6 +58,15 @@ function AccountNav() {
     } catch (error) {
       setProfileStatus('error');
     }
+  };
+
+  /**
+   * @description: Clears authentication tokens and redirects the user to the login page.
+   * @returns {void}
+   */
+  const handleLogout = () => {
+    clearAuthToken();
+    navigate('/login');
   };
 
   useEffect(() => {
@@ -102,6 +112,15 @@ function AccountNav() {
           </NavLink>
         ))}
       </nav>
+
+      <button
+        className="mt-auto flex items-center gap-4 rounded-lg px-4 py-3 text-sm uppercase tracking-widest text-zinc-500 transition-all hover:bg-zinc-200 hover:text-zinc-900"
+        onClick={handleLogout}
+        type="button"
+      >
+        <span className="material-symbols-outlined">logout</span>
+        Logout
+      </button>
     </aside>
   );
 }

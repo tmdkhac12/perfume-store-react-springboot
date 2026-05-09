@@ -1,13 +1,164 @@
-import React from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { apiClient } from '../../../services';
+
+/** @typedef {import('../types').AddressFormValues} AddressFormValues */
+
+const ADDRESS_PROVINCES_CACHE_KEY = 'addressProvinces';
 
 /**
- * AddressFormModal component for adding or editing delivery addresses.
- * * @param {boolean} isOpen - Controls the visibility of the modal.
- * @param {function} onClose - Function to handle closing the modal.
- * @param {object} initialData - Optional data for editing an existing address.
+ * @description: Reads cached province data from localStorage when available.
+ * @returns {Record<string, string[]> | null} provinces - Example: { "City": ["Ward"] }
  */
-function AddressFormModal({ isOpen, onClose, initialData = null }) {
+const readCachedProvinces = () => {
+  if (typeof localStorage === 'undefined') {
+    return null;
+  }
+
+  try {
+    const raw = localStorage.getItem(ADDRESS_PROVINCES_CACHE_KEY);
+    if (!raw) {
+      return null;
+    }
+
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object') {
+      return null;
+    }
+
+    return parsed;
+  } catch (error) {
+    return null;
+  }
+};
+
+/**
+ * @description: Stores province data in localStorage for reuse.
+ * @param {Record<string, string[]>} provinces - Example: { "City": ["Ward"] }
+ * @returns {void}
+ */
+const writeCachedProvinces = (provinces) => {
+  if (typeof localStorage === 'undefined') {
+    return;
+  }
+
+  try {
+    localStorage.setItem(ADDRESS_PROVINCES_CACHE_KEY, JSON.stringify(provinces));
+  } catch (error) {
+    return;
+  }
+};
+
+/** @description: Modal form for creating or editing a delivery address. */
+function AddressFormModal({ isOpen, onClose, initialData = null, onSubmit, isSaving = false }) {
   if (!isOpen) return null;
+
+  const [provinceMap, setProvinceMap] = useState({});
+  const [selectedCity, setSelectedCity] = useState(initialData?.city || '');
+  const [selectedDistrict, setSelectedDistrict] = useState(initialData?.district || '');
+
+  /**
+   * @description: Loads province data from cache or API and stores it for reuse.
+   * @flow: Check localStorage -> Fetch /address/provinces -> Cache response.
+   */
+  const loadProvinces = async () => {
+    const cached = readCachedProvinces();
+    if (cached) {
+      setProvinceMap(cached);
+      return;
+    }
+
+    try {
+      const response = await apiClient.get('/address/provinces');
+      const isErrorResponse = !response || response.error || response.status >= 400;
+
+      if (isErrorResponse) {
+        throw new Error(response?.message || 'Unable to load provinces.');
+      }
+
+      const provinces = response?.data;
+      if (!provinces || typeof provinces !== 'object') {
+        throw new Error('Invalid provinces response.');
+      }
+
+      setProvinceMap(provinces);
+      writeCachedProvinces(provinces);
+    } catch (error) {
+      setProvinceMap({});
+    }
+  };
+
+  // Use effect to load province
+  useEffect(() => {
+    void loadProvinces();
+  }, []);
+
+  // Use effect to update selected city and district, used for sync modal 
+  useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+
+    setSelectedCity(initialData?.city || '');
+    setSelectedDistrict(initialData?.district || '');
+  }, [initialData, isOpen]);
+
+  const cityOptions = useMemo(() => Object.keys(provinceMap), [provinceMap]);
+  const districtOptions = useMemo(() => {
+    if (!selectedCity) {
+      return [];
+    }
+
+    const wards = provinceMap[selectedCity];
+    return Array.isArray(wards) ? wards : [];
+  }, [provinceMap, selectedCity]);
+
+  useEffect(() => {
+    if (!selectedCity) {
+      setSelectedDistrict('');
+      return;
+    }
+
+    if (!districtOptions.length) {
+      setSelectedDistrict('');
+      return;
+    }
+
+    if (!districtOptions.includes(selectedDistrict)) {
+      setSelectedDistrict(districtOptions[0]);
+    }
+  }, [districtOptions, selectedCity, selectedDistrict]);
+
+  /**
+   * @description: Extracts address values from the submitted form fields.
+   * @param {FormData} formData - Example: new FormData(formElement)
+   * @returns {AddressFormValues} values - Example: { receiver: "Jane", phone: "123" }
+   */
+  const buildFormValues = (formData) => ({
+    receiver: String(formData.get('receiver') || ''),
+    phone: String(formData.get('phone') || ''),
+    city: String(formData.get('city') || ''),
+    district: String(formData.get('district') || ''),
+    street: String(formData.get('address') || '')
+  });
+
+  /**
+   * @description: Handles address form submission and forwards values to the parent handler.
+   * @param {Event} event - Example: submit event
+   * @returns {void} - triggers the onSubmit callback with normalized values
+   */
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (!onSubmit) {
+      return;
+    }
+
+    const formData = new FormData(event.currentTarget);
+    const values = buildFormValues(formData);
+    onSubmit(values);
+  };
+
+  const isFormDisabled = !onSubmit || isSaving;
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-background/80 p-4 backdrop-blur-sm">
@@ -29,7 +180,7 @@ function AddressFormModal({ isOpen, onClose, initialData = null }) {
 
         {/* Form Body */}
         <div className="overflow-y-auto p-8">
-          <form className="space-y-6" id="address-form">
+          <form className="space-y-6" id="address-form" onSubmit={handleSubmit}>
             <div>
               <label className="mb-3 block text-sm uppercase tracking-[0.1em] text-on-surface-variant" htmlFor="receiver">
                 Receiver Name
@@ -37,9 +188,11 @@ function AddressFormModal({ isOpen, onClose, initialData = null }) {
               <input
                 className="w-full rounded-[40px] border border-outline-variant/30 bg-surface-container px-6 py-4 text-on-surface transition-colors duration-300 focus:border-primary focus:ring-0"
                 id="receiver"
+                name="receiver"
                 placeholder="John Doe"
                 defaultValue={initialData?.receiver || ''}
                 type="text"
+                disabled={isFormDisabled}
               />
             </div>
 
@@ -50,9 +203,11 @@ function AddressFormModal({ isOpen, onClose, initialData = null }) {
               <input
                 className="w-full rounded-[40px] border border-outline-variant/30 bg-surface-container px-6 py-4 text-on-surface transition-colors duration-300 focus:border-primary focus:ring-0"
                 id="phone"
+                name="phone"
                 placeholder="+1 (555) 000-0000"
                 defaultValue={initialData?.phone || ''}
                 type="tel"
+                disabled={isFormDisabled}
               />
             </div>
 
@@ -61,26 +216,42 @@ function AddressFormModal({ isOpen, onClose, initialData = null }) {
                 <label className="mb-3 block text-sm uppercase tracking-[0.1em] text-on-surface-variant" htmlFor="city">
                   City
                 </label>
-                <input
+                <select
                   className="w-full rounded-[40px] border border-outline-variant/30 bg-surface-container px-6 py-4 text-on-surface transition-colors duration-300 focus:border-primary focus:ring-0"
                   id="city"
-                  placeholder="New York"
-                  defaultValue={initialData?.city || ''}
-                  type="text"
-                />
+                  name="city"
+                  value={selectedCity}
+                  disabled={isFormDisabled}
+                  onChange={(event) => setSelectedCity(event.target.value)}
+                >
+                  <option value="">Select city</option>
+                  {cityOptions.map((city) => (
+                    <option key={city} value={city}>
+                      {city}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div>
                 <label className="mb-3 block text-sm uppercase tracking-[0.1em] text-on-surface-variant" htmlFor="district">
                   Ward/District
                 </label>
-                <input
+                <select
                   className="w-full rounded-[40px] border border-outline-variant/30 bg-surface-container px-6 py-4 text-on-surface transition-colors duration-300 focus:border-primary focus:ring-0"
                   id="district"
-                  placeholder="Manhattan"
-                  defaultValue={initialData?.district || ''}
-                  type="text"
-                />
+                  name="district"
+                  value={selectedDistrict}
+                  disabled={isFormDisabled || !selectedCity}
+                  onChange={(event) => setSelectedDistrict(event.target.value)}
+                >
+                  <option value="">Select ward</option>
+                  {districtOptions.map((ward) => (
+                    <option key={ward} value={ward}>
+                      {ward}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
 
@@ -91,9 +262,11 @@ function AddressFormModal({ isOpen, onClose, initialData = null }) {
               <input
                 className="w-full rounded-[40px] border border-outline-variant/30 bg-surface-container px-6 py-4 text-on-surface transition-colors duration-300 focus:border-primary focus:ring-0"
                 id="address"
+                name="address"
                 placeholder="123 Perfume Lane, Apt 4B"
-                defaultValue={initialData?.address || ''}
+                defaultValue={initialData?.street || ''}
                 type="text"
+                disabled={isFormDisabled}
               />
             </div>
           </form>
@@ -112,8 +285,9 @@ function AddressFormModal({ isOpen, onClose, initialData = null }) {
             className="rounded-[40px] bg-primary px-8 py-4 text-sm uppercase tracking-[0.1em] text-on-primary transition-colors hover:bg-secondary"
             form="address-form"
             type="submit"
+            disabled={isFormDisabled}
           >
-            Save Address
+            {isSaving ? 'Saving...' : 'Save Address'}
           </button>
         </div>
       </div>

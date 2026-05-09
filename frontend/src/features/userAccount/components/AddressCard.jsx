@@ -1,48 +1,27 @@
 import React from 'react';
 
-/**
- * AddressCard component to display individual address information.
- * * @param {object} address - The address data object.
- * @param {boolean} isDefault - Whether this is the primary/default address.
- * @param {function} onEdit - Callback when the Edit button is clicked.
- * @param {function} onDelete - Callback when the Remove button is clicked.
- * @param {function} onSetDefault - Callback to set this address as default.
- */
+/** @typedef {import('../types').AddressItem} AddressItem */
+
+/** @description: Address card for a single saved location. */
 function AddressCard({
   address,
-  isDefault = false,
   onEdit,
-  onDelete,
-  onSetDefault
+  onDelete
 }) {
-  const { receiver, phone, city, district, street, country = 'United States' } = address;
+  const { receiver, phone, city, district, street } = address;
 
   return (
-    <div className={`group relative overflow-hidden rounded-3xl p-8 transition-colors ${isDefault
-        ? 'bg-surface-container-lowest'
-        : 'bg-surface-container-low hover:bg-surface-container-lowest'
-      }`}>
-      {/* Decorative top bar for default address */}
-      {isDefault && (
-        <div className="absolute left-0 top-0 h-1 w-full bg-gradient-to-r from-primary to-secondary" />
-      )}
-
+    <div className="group relative overflow-hidden rounded-3xl bg-surface-container-low p-8 transition-colors hover:bg-surface-container-lowest">
       {/* Header section with icon and status */}
       <div className="mb-6 flex items-start justify-between">
         <div className="flex items-center gap-2">
           <span className="material-symbols-outlined text-on-surface-variant">
-            {isDefault ? 'home' : 'apartment'}
+            location_on
           </span>
           <h3 className="text-xs uppercase tracking-widest text-on-surface-variant">
-            {isDefault ? 'Home Address' : 'Office / Other'}
+            Saved Address
           </h3>
         </div>
-
-        {isDefault && (
-          <span className="rounded-full bg-secondary-container px-3 py-1 text-[10px] uppercase tracking-widest text-on-secondary-container">
-            Default
-          </span>
-        )}
       </div>
 
       {/* Address Details */}
@@ -50,11 +29,7 @@ function AddressCard({
         <p className="font-headline text-xl text-on-background">{receiver}</p>
         <p className="text-on-surface-variant">{phone}</p>
         <p className="leading-relaxed text-on-surface">
-          {street}
-          <br />
-          {district}, {city}
-          <br />
-          {country}
+          {street}, {district}, {city}
         </p>
       </div>
 
@@ -67,24 +42,13 @@ function AddressCard({
         >
           <span className="material-symbols-outlined text-sm">edit</span> Edit
         </button>
-
-        {isDefault ? (
-          <button
-            className="flex items-center gap-1 text-xs uppercase tracking-widest text-error transition-colors hover:text-error/80"
-            onClick={onDelete}
-            type="button"
-          >
-            <span className="material-symbols-outlined text-sm">delete</span> Remove
-          </button>
-        ) : (
-          <button
-            className="text-xs uppercase tracking-widest text-on-background transition-colors hover:text-primary"
-            onClick={onSetDefault}
-            type="button"
-          >
-            Set as Default
-          </button>
-        )}
+        <button
+          className="flex items-center gap-1 text-xs uppercase tracking-widest text-error transition-colors hover:text-error/80"
+          onClick={onDelete}
+          type="button"
+        >
+          <span className="material-symbols-outlined text-sm">delete</span> Remove
+        </button>
       </div>
     </div>
   );

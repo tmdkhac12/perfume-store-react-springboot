@@ -36,12 +36,12 @@ public class UserAddressService {
     }
 
     private Address getAddressByIdEntity(int userId, int addressId) {
-        return addressRepository.findByIdAndUserId(addressId, userId)
+        return addressRepository.findByIdAndUserIdAndHideFalse(addressId, userId)
                 .orElseThrow(() -> new NotFoundException("Address not found"));
     }
 
     public List<UserAddressResponseDTO> getAllUserAddresses(int userId) {
-        List<Address> addresses = addressRepository.findByUserId(userId);
+        List<Address> addresses = addressRepository.findByUserIdAndHideFalse(userId);
         return userAddressMapper.toResponseDTO(addresses);
     }
 

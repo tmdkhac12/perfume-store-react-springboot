@@ -1,6 +1,7 @@
 package com.example.perfume_store.modules.user.service;
 
 import com.example.perfume_store.common.exceptions.NotFoundException;
+import com.example.perfume_store.common.utils.AddressValidator;
 import com.example.perfume_store.domain.address.Address;
 import com.example.perfume_store.domain.address.AddressRepository;
 import com.example.perfume_store.domain.user.User;
@@ -37,6 +38,9 @@ class UserAddressServiceTest {
 
     @Mock
     private UserAddressMapper userAddressMapper;
+
+    @Mock
+    private AddressValidator addressValidator;
 
     @InjectMocks
     private UserAddressService userAddressService;
@@ -203,6 +207,45 @@ class UserAddressServiceTest {
 
         verify(addressRepository).findByIdAndUserId(addressId, userId);
         verifyNoInteractions(userAddressMapper);
+    }
+
+    @Test
+    @DisplayName("createUserAddress: should throw IllegalArgumentException when address validation fails")
+    void createUserAddress_InvalidAddress_ThrowsIllegalArgumentException() {
+        int userId = 5;
+        UserAddressCreateRequestDTO request = new UserAddressCreateRequestDTO();
+        request.setCityName("Invalid City");
+        request.setWardName("Invalid Ward");
+
+        doThrow(new IllegalArgumentException("Invalid city name: Invalid City"))
+                .when(addressValidator).validate(request.getCityName(), request.getWardName());
+
+        assertThatThrownBy(() -> userAddressService.createUserAddress(userId, request))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Invalid city name: Invalid City");
+
+        verify(addressValidator).validate(request.getCityName(), request.getWardName());
+        verifyNoInteractions(userRepository, addressRepository, userAddressMapper);
+    }
+
+    @Test
+    @DisplayName("updateUserAddress: should throw IllegalArgumentException when address validation fails")
+    void updateUserAddress_InvalidAddress_ThrowsIllegalArgumentException() {
+        int userId = 3;
+        int addressId = 7;
+        UserAddressUpdateRequestDTO request = new UserAddressUpdateRequestDTO();
+        request.setCityName("Invalid City");
+        request.setWardName("Invalid Ward");
+
+        doThrow(new IllegalArgumentException("Invalid city name: Invalid City"))
+                .when(addressValidator).validate(request.getCityName(), request.getWardName());
+
+        assertThatThrownBy(() -> userAddressService.updateUserAddress(userId, addressId, request))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Invalid city name: Invalid City");
+
+        verify(addressValidator).validate(request.getCityName(), request.getWardName());
+        verifyNoInteractions(addressRepository, userAddressMapper);
     }
 
     @Test

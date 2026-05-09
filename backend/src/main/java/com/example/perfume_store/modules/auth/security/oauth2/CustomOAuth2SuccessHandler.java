@@ -28,6 +28,8 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
     @Value("${app.frontend-url}")
     private String frontendUrl;
 
+    private final String TOKEN_KEY = "perfume_store_token";
+
     @Override
     @NullMarked // Make sure that all the parameters are not null
     // After OAuth2 log in successfully, this method is run
@@ -45,7 +47,7 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
         String token = jwtService.generateToken(userDetails);
 
         // Save JWT token in client's cookie
-        Cookie jwtCookie = new Cookie("jwt_token", token);
+        Cookie jwtCookie = new Cookie(TOKEN_KEY, token);
         jwtCookie.setHttpOnly(true);
         jwtCookie.setSecure(false);
         jwtCookie.setPath("/");      // Apply for all domains

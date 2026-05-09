@@ -60,6 +60,9 @@ public class SecurityConfig {
 
                 // Authorization rules
                 .authorizeHttpRequests(auth -> auth
+                        // Address
+                        .requestMatchers(HttpMethod.GET, "/api/v1/address/**").permitAll()
+
                         // Auth
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers("/login/**", "/oauth2/**").permitAll()

@@ -1,6 +1,7 @@
 package com.example.perfume_store.modules.user.service;
 
 import com.example.perfume_store.common.exceptions.NotFoundException;
+import com.example.perfume_store.common.utils.AddressValidator;
 import com.example.perfume_store.domain.address.Address;
 import com.example.perfume_store.domain.address.AddressRepository;
 import com.example.perfume_store.domain.user.User;
@@ -22,6 +23,7 @@ public class UserAddressService {
     private final UserRepository userRepository;
     private final AddressRepository addressRepository;
     private final UserAddressMapper userAddressMapper;
+    private final AddressValidator addressValidator;
 
     private User getUserByIdEntity(int id) {
         return userRepository.findById(id)
@@ -45,6 +47,8 @@ public class UserAddressService {
 
     @Transactional
     public UserAddressResponseDTO createUserAddress(int userId, UserAddressCreateRequestDTO addressCreateRequestDTO) {
+        addressValidator.validate(addressCreateRequestDTO.getCityName(), addressCreateRequestDTO.getWardName());
+
         User user = getUserByIdEntity(userId);
         Address address = userAddressMapper.toEntity(addressCreateRequestDTO);
         address.setUser(user);
@@ -53,6 +57,8 @@ public class UserAddressService {
 
     @Transactional
     public UserAddressResponseDTO updateUserAddress(int currentUserId, int addressId, UserAddressUpdateRequestDTO userAddressUpdateRequestDTO) {
+        addressValidator.validate(userAddressUpdateRequestDTO.getCityName(), userAddressUpdateRequestDTO.getWardName());
+
         // Hibernate will commit automatically
         Address address = getAddressByIdEntity(currentUserId, addressId);
         userAddressMapper.updateAddress(address, userAddressUpdateRequestDTO);

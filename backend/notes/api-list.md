@@ -787,6 +787,41 @@ Quản lý đơn hàng, thanh toán và lịch sử mua hàng.
 
 ---
 
+## 📍 Address Module
+
+Cung cấp dữ liệu hành chính (Tỉnh/Thành, Phường/Xã).
+
+### 1. Danh sách Tỉnh/Thành và Phường/Xã
+- **Endpoint:** `GET /api/v1/address/provinces`
+- **Auth:** None
+- **Response:**
+  ```json
+  {
+    "timestamp": "2024-04-29T10:00:00Z",
+    "status": 200,
+    "path": "/api/v1/address/provinces",
+    "data": {
+      "Thành phố Hà Nội": [
+        "Phường Ba Đình",
+        "Phường Ngọc Hà",
+        "Phường Giảng Võ"
+      ],
+      "Tỉnh Cao Bằng": [
+        "Phường Thục Phán",
+        "Phường Nùng Trí Cao"
+      ],
+      "Tỉnh Tuyên Quang": [
+        "Phường Hà Giang 2",
+        "Phường Hà Giang 1"
+      ]
+    },
+    "message": "Get provinces successfully",
+    "error": null
+  }
+  ```
+
+---
+
 ## 👤 User Module
 
 Quản lý thông tin cá nhân, địa chỉ và quản trị người dùng.

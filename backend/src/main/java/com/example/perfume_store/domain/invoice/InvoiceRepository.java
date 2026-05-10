@@ -11,4 +11,6 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Integer> {
     Page<Invoice> findAll(Specification<Invoice> specification, Pageable pageable);
 
     Optional<Invoice> findByIdAndUserId(Integer id, Integer userId);
+
+    Page<Invoice> findAllByUserId(int userId, Pageable pageable);
 }

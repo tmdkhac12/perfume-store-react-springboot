@@ -15,4 +15,8 @@ public class InvoiceDetailsDTO {
     private String perfumeName;
 
     private double volumeName;
+
+    private String concentration;
+
+    private String image;
 }

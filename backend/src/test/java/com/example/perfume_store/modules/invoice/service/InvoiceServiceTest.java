@@ -20,13 +20,13 @@ import com.example.perfume_store.domain.volume_perfume.VolumePerfumeRepository;
 import com.example.perfume_store.modules.invoice.dto.request.InvoiceCreateRequestDTO;
 import com.example.perfume_store.modules.invoice.dto.response.InvoiceDetailsResponseDTO;
 import com.example.perfume_store.modules.invoice.dto.response.InvoicePublicResponseDTO;
-import com.example.perfume_store.modules.invoice.entity.Invoice;
-import com.example.perfume_store.modules.invoice.entity.InvoiceDetails;
+import com.example.perfume_store.domain.invoice.Invoice;
+import com.example.perfume_store.domain.invoice_details.InvoiceDetails;
 import com.example.perfume_store.modules.invoice.enums.DeliveryStatus;
 import com.example.perfume_store.modules.invoice.enums.PaymentMethod;
 import com.example.perfume_store.modules.invoice.mapper.InvoiceMapper;
-import com.example.perfume_store.modules.invoice.repository.InvoiceDetailsRepository;
-import com.example.perfume_store.modules.invoice.repository.InvoiceRepository;
+import com.example.perfume_store.domain.invoice_details.InvoiceDetailsRepository;
+import com.example.perfume_store.domain.invoice.InvoiceRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,7 +40,6 @@ import org.springframework.data.jpa.domain.Specification;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

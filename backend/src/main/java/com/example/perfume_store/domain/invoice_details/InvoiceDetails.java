@@ -1,5 +1,6 @@
-package com.example.perfume_store.modules.invoice.entity;
+package com.example.perfume_store.domain.invoice_details;
 
+import com.example.perfume_store.domain.invoice.Invoice;
 import com.example.perfume_store.domain.volume_perfume.VolumePerfume;
 import jakarta.persistence.*;
 import lombok.Data;

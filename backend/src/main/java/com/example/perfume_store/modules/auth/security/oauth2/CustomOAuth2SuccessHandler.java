@@ -48,7 +48,7 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
 
         // Save JWT token in client's cookie
         Cookie jwtCookie = new Cookie(TOKEN_KEY, token);
-        jwtCookie.setHttpOnly(true);
+        jwtCookie.setHttpOnly(false);   // Temp because frontend will use JS to manage the token
         jwtCookie.setSecure(false);
         jwtCookie.setPath("/");      // Apply for all domains
         jwtCookie.setMaxAge(24 * 60 * 60);

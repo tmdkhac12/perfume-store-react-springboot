@@ -1,5 +1,6 @@
 package com.example.perfume_store.modules.invoice.entity;
 
+import com.example.perfume_store.domain.invoice.Invoice;
 import com.example.perfume_store.modules.invoice.enums.DeliveryStatus;
 import com.example.perfume_store.modules.invoice.enums.PaymentMethod;
 import jakarta.persistence.criteria.Predicate;

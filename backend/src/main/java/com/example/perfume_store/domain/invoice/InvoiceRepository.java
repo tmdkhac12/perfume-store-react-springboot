@@ -1,6 +1,5 @@
-package com.example.perfume_store.modules.invoice.repository;
+package com.example.perfume_store.domain.invoice;
 
-import com.example.perfume_store.modules.invoice.entity.Invoice;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;

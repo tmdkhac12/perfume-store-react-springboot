@@ -1,44 +1,100 @@
-# Kế hoạch triển khai - Auth Guard cho các Route Tài khoản và Thanh toán (ĐÃ HOÀN THÀNH)
+# Kế hoạch Thực hiện Phase 4.3 - Account Orders
 
-Kế hoạch này phác thảo các bước để triển khai một lớp bảo vệ xác thực (authentication guard) cho các route `/account/**` và `/checkout`. Ngoài ra, chúng ta sẽ cập nhật logic điều hướng ở Header để tối ưu trải nghiệm người dùng.
+## 📌 Mục tiêu
+Tích hợp API lịch sử đơn hàng và chi tiết đơn hàng cho người dùng, đảm bảo hiển thị đầy đủ thông tin sản phẩm và trạng thái thanh toán.
 
-## Mục tiêu
-- Bảo vệ các route `/account/**` và `/checkout` khỏi truy cập trái phép. (X)
-- Điều hướng người dùng chưa xác thực về trang `/login` kèm thông báo lỗi. (X)
-- Tự động chuyển hướng người dùng từ Header đến `/account/profile` nếu đã đăng nhập, hoặc `/login` nếu chưa. (X)
+## 🛠 Yêu cầu Backend bổ sung/cập nhật API
 
-## Các giai đoạn thực hiện
+### 1. Endpoint: `GET /api/v1/invoices/me`
+**Mô tả:** Lấy danh sách đơn hàng có phân trang của người dùng hiện tại (dựa trên Token).
 
-### Giai đoạn 1: Thành phần Bảo vệ Xác thực (Auth Guard Component) - [HOÀN THÀNH]
-Tạo một component `AuthGuard` có thể tái sử dụng để xử lý logic bảo vệ.
+**Cấu trúc Response mong muốn:**
+```json
+{
+  "timestamp": "2024-04-29T10:00:00Z",
+  "status": 200,
+  "path": "/api/v1/invoices/me",
+  "data": {
+    "content": [
+      {
+        "id": 1,
+        "createdAt": "2024-04-29T10:00:00",
+        "total": 5000000.00,
+        "deliveryStatus": "DELIVERED",
+        "itemPreviews": [
+          "http://res.cloudinary.com/.../img1.jpg",
+          "http://res.cloudinary.com/.../img2.jpg"
+        ],
+        "totalItems": 3
+      }
+    ],
+    "page": 1,
+    "size": 8,
+    "totalElements": 10,
+    "totalPages": 2
+  },
+  "message": "Get my invoices successfully",
+  "error": null
+}
+```
 
-- **Các nhiệm vụ**:
-    - [x] Tạo `src/components/auth/AuthGuard.jsx`.
-    - [x] Sử dụng hàm `getAuthToken()` từ `src/services/authStorage.js`.
-    - [x] Triển khai logic:
-        - Nếu không có token hợp lệ: Chuyển hướng người dùng về trang `/login` kèm `state: { message: 'Vui lòng đăng nhập để tiếp tục.', from: location.pathname }`.
-        - Nếu token hợp lệ: Hiển thị (render) `children` (Outlet hoặc Page).
+### 2. Endpoint: `GET /api/v1/invoices/{id}`
+**Mô tả:** Lấy chi tiết một đơn hàng cụ thể (Yêu cầu bổ sung thêm các trường thông tin).
 
-### Giai đoạn 2: Cập nhật trang Login để hiển thị Toast - [HOÀN THÀNH]
-Đảm bảo trang `LoginPage` có thể bắt thông tin từ `location.state` để hiển thị `ToastNotification`.
+**Cấu trúc Response mong muốn:**
+```json
+{
+  "timestamp": "2024-04-29T10:00:00Z",
+  "status": 200,
+  "path": "/api/v1/invoices/1",
+  "data": {
+    "id": 1,
+    "createdAt": "2024-04-29T10:00:00",
+    "receiverName": "Nguyen Van A",
+    "phoneNumber": "0987654321",
+    "shippingAddress": "123 Ly Tu Trong, Q1, HCM",
+    "deliveryStatus": "DELIVERED",
+    "paymentMethod": "Credit Card ending in 4242",
+    "subtotal": 4800000.00,
+    "shippingFee": 150000.00,
+    "tax": 50000.00,
+    "total": 5000000.00,
+    "invoiceDetails": [
+      {
+        "perfumeName": "Bleu de Chanel",
+        "volumeName": "100.0",
+        "concentration": "EDP",
+        "quantity": 1,
+        "buyPrice": 3000000.00,
+        "image": "http://res.cloudinary.com/.../img1.jpg"
+      }
+    ]
+  },
+  "message": "Invoice retrieved",
+  "error": null
+}
+```
 
-- **Các nhiệm vụ**:
-    - [x] Chỉnh sửa `src/pages/LoginPage.jsx` để sử dụng `useLocation`.
-    - [x] Hiển thị `ToastNotification` nếu `location.state.message` tồn tại.
-    - [x] Xóa state sau khi hiển thị để tránh lặp lại thông báo khi refresh.
+---
 
-### Giai đoạn 3: Bảo vệ Route trong Cấu hình - [HOÀN THÀNH]
-Áp dụng `AuthGuard` cho cả `/account` và `/checkout`.
+## 🚀 Kế hoạch thực hiện Frontend
 
-- **Các nhiệm vụ**:
-    - [x] Cập nhật `src/config/routes.jsx`.
-    - [x] Bao bọc `accountRouteChildren` bằng `AuthGuard`.
-    - [x] Bảo vệ `checkout` route bằng `AuthGuard`.
+- [ ] **Bước 1: Tích hợp Danh sách đơn hàng**
+    - Gọi API `GET /api/v1/invoices/me` trong `AccountOrdersPage`.
+    - Map dữ liệu vào `OrderHistoryList` và `OrderHistoryCard`.
+    - Xử lý phân trang (nếu danh sách dài).
 
-### Giai đoạn 4: Cập nhật Navigation ở Header - [HOÀN THÀNH]
-Thay đổi link biểu tượng "person" để điều hướng thông minh.
+- [ ] **Bước 2: Tích hợp Chi tiết đơn hàng (Modal)**
+    - Cập nhật `OrderDetailsModal` để nhận ID đơn hàng.
+    - Gọi API `GET /api/v1/invoices/{id}` khi mở modal.
+    - Hiển thị đầy đủ thông tin: Địa chỉ, Thanh toán, Danh sách sản phẩm (có ảnh và nồng độ).
 
-- **Các nhiệm vụ**:
-    - [x] Chỉnh sửa `src/components/base/MainHeader.jsx`.
-    - [x] Sử dụng `getAuthToken()` để kiểm tra trạng thái đăng nhập.
-    - [x] Cập nhật link biểu tượng "person" để trỏ đến `/account/profile` hoặc `/login`.
+- [ ] **Bước 3: Trạng thái UI & Validation**
+    - Hiển thị Skeleton/Loading khi đang tải dữ liệu.
+    - Hiển thị UI "Empty" khi người dùng chưa có đơn hàng nào.
+    - Xử lý lỗi (Error boundary) khi API thất bại.
+
+## ✅ Tiêu chí hoàn thành
+- Người dùng xem được danh sách đơn hàng cá nhân với ảnh xem trước.
+- Modal chi tiết hiển thị chính xác và đầy đủ các thông tin từ Backend.
+- Không còn dữ liệu mẫu (mock data) trong các component liên quan.

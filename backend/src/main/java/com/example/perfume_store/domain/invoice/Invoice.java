@@ -1,7 +1,8 @@
-package com.example.perfume_store.modules.invoice.entity;
+package com.example.perfume_store.domain.invoice;
 
 import com.example.perfume_store.domain.address.Address;
 import com.example.perfume_store.domain.user.User;
+import com.example.perfume_store.domain.invoice_details.InvoiceDetails;
 import com.example.perfume_store.modules.invoice.enums.DeliveryStatus;
 import com.example.perfume_store.modules.invoice.enums.PaymentMethod;
 import jakarta.persistence.*;

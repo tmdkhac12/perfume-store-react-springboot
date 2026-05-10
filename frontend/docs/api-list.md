@@ -704,18 +704,20 @@ Quản lý đơn hàng, thanh toán và lịch sử mua hàng.
     "data": {
       "id": 1,
       "createdAt": "2024-04-29T10:00:00",
-      "total": 5000000.00,
       "receiverName": "Nguyen Van A",
       "phoneNumber": "0987654321",
       "shippingAddress": "123 Ly Tu Trong, Q1, HCM",
-      "deliveryStatus": "PENDING",
-      "paymentMethod": "COD",
+      "deliveryStatus": "DELIVERED",
+      "paymentMethod": "Credit Card ending in 4242",
+      "total": 5000000.00,
       "invoiceDetails": [
         {
           "perfumeName": "Bleu de Chanel",
           "volumeName": 100.0,
+          "concentration": "EDP",
           "quantity": 1,
-          "buyPrice": 3000000.00
+          "buyPrice": 3000000.00,
+          "image": "http://res.cloudinary.com/.../img1.jpg"
         }
       ]
     },
@@ -724,7 +726,40 @@ Quản lý đơn hàng, thanh toán và lịch sử mua hàng.
   }
   ```
 
-### 3. Tạo đơn hàng (Checkout)
+### 3. Lấy danh sách đơn hàng của tôi
+- **Endpoint:** `GET /api/v1/users/me/invoices`
+- **Auth:** Bearer Token
+- **Query Parameters:** `page`, `limit`
+- **Response:**
+  ```json
+  {
+    "timestamp": "2024-04-29T10:00:00Z",
+    "status": 200,
+    "path": "/api/v1/users/me/invoices",
+    "data": {
+      "content": [
+        {
+          "id": 1,
+          "createdAt": "2024-04-29T10:00:00",
+          "total": 5000000.00,
+          "deliveryStatus": "DELIVERED",
+          "itemPreviews": [
+            "http://res.cloudinary.com/.../img1.jpg"
+          ],
+          "totalItems": 1
+        }
+      ],
+      "page": 1,
+      "size": 8,
+      "totalElements": 1,
+      "totalPages": 1
+    },
+    "message": "Get my invoices successfully",
+    "error": null
+  }
+  ```
+
+### 4. Tạo đơn hàng (Checkout)
 - **Endpoint:** `POST /api/v1/invoices`
 - **Auth:** Bearer Token
 - **Request Body:**

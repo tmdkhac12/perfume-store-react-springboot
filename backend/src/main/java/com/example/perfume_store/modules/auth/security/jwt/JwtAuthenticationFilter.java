@@ -60,23 +60,23 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
 
             filterChain.doFilter(request, response);
-        } catch (JwtException ex) {
-            log.error(ex.getMessage());
-
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-
-            ResponseEntity<?> responseEntity = ApiResponseFactory.error(
-                    HttpStatus.UNAUTHORIZED,
-                    "Invalid token",
-                    request
-            );
-
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.writeValue(response.getWriter(), responseEntity.getBody());
+        } catch (ExpiredJwtException | MalformedJwtException | UnsupportedJwtException | SignatureException e) {
+            handleException(response, request, "Token invalid or expired");
+        } catch (Exception e) {
+            handleException(response, request, "Authentication failed");
         }
+    }
 
+    private void handleException(HttpServletResponse response, HttpServletRequest request, String message) throws IOException {
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
+
+        ResponseEntity<?> responseEntity = ApiResponseFactory.error(HttpStatus.UNAUTHORIZED, message, request);
+        mapper.writeValue(response.getWriter(), responseEntity.getBody());
     }
 
     private String getJwtToken(HttpServletRequest request) {

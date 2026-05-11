@@ -74,40 +74,10 @@
 6. Nếu phát hiện sai lệch, tiếp tục tinh chỉnh cho đến khi kết quả khớp hoàn toàn với yêu cầu và quy ước dự án.
 7. Khi bàn giao phiên làm việc, ghi rõ đã hoàn thành gì, bước tiếp theo là gì, và các quyết định quan trọng trong file này hoặc trong ghi chú dự án được tham chiếu.
 
-## 6. Bàn Giao Phiên Làm Việc — 2026-05-05 (Tổng Kết Session Hiện Tại)
-
-### Đã Hoàn Thành Trong Session Này
-- Cập nhật kế hoạch `tasks.md` theo hướng tích hợp backend thật, loại bỏ định hướng mock.
-- Hoàn thành Phase 0: nền tảng gọi API thật, chuẩn hóa `ApiResponse`/`PageResponse`.
-- Thiết lập `apiClient` với base URL/version, gắn `Authorization` header tự động.
-- Chuyển lưu token từ localStorage sang cookie.
-- Loại bỏ `mockServer.js` vì không còn sử dụng.
-- Cập nhật mapping UI <-> API cho backend thật trong `docs/mock-api-mapping.md`.
-
-### Trạng Thái Hiện Tại Theo Khu Vực
-- Public routes: UI parity giữ nguyên, chưa gắn API thật.
-- Auth routes: UI parity giữ nguyên, chưa gắn API thật.
-- Account routes: UI parity giữ nguyên, chưa gắn API thật.
-- Admin routes: UI parity giữ nguyên, chưa gắn API thật.
-- Nền tảng API: sẵn sàng gọi backend thật và chuẩn hóa token.
-
-### Kết Quả Kiểm Tra Gần Nhất
-- Chưa chạy lại lint/test trong session này sau các thay đổi nền tảng.
-
-### Quyết Định Quan Trọng Và Lý Do
-- Chuyển chiến lược từ mock sang backend thật.
-  - Lý do: backend đã sẵn sàng và yêu cầu hiện tại là tích hợp endpoint thật.
-- Lưu token bằng cookie thay vì localStorage.
-  - Lý do: phù hợp yêu cầu và thuận tiện khi backend yêu cầu Bearer token.
-- Xóa `mockServer.js`.
-  - Lý do: không còn được sử dụng, tránh nhầm lẫn và giảm nhiễu.
-
-### Bước Tiếp Theo (Session Sau)
-- Phase 1: Gắn `GET /api/v1/brands` và `GET /api/v1/perfumes` vào ShopPage.
-- Phase 2: Gắn `GET /api/v1/perfumes/{id}` vào ProductDetailsPage.
-- Phase 3: Gắn login/register + token check và điều hướng theo role.
-- Xác nhận endpoint danh sách đơn hàng user (nếu có) cho Account Orders.
-
-### Lưu Ý Khi Tiếp Tục
-- Ưu tiên thay đổi tối thiểu, giữ parity UI theo quy tắc trong `AGENTS.md`.
-- Tất cả request/response phải tuân thủ envelope từ `docs/api-list.md`.
+## 6. Bàn Giao Phiên Làm Việc — 2026-05-11 (Tổng Kết Session Hiện Tại)
+- **Đồng bộ hóa phương thức thanh toán**: Chuyển đổi `COD` thành `Cash` và `BANK_TRANSFER` thành `Transfer` xuyên suốt hệ thống (types, components, documentation, plan).
+- **Nâng cấp `AddressModal` (Checkout)**: Thay đổi ô nhập liệu City và Ward thành dropdown chọn từ API, tích hợp cache `localStorage` đồng nhất với trang quản lý địa chỉ người dùng.
+- **Hoàn thiện luồng Checkout**:
+    - Tích hợp xóa giỏ hàng (`localStorage`) sau khi đặt hàng thành công.
+    - Tự động điều hướng người dùng về trang Lịch sử đơn hàng (`/user/orders`) sau khi thông báo thành công (trễ 1.5s).
+    - Sử dụng `useNavigate` và `writeCartItems` service để xử lý logic kết thúc đơn hàng trong `CheckoutPage.jsx`.

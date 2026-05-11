@@ -681,7 +681,7 @@ Quản lý đơn hàng, thanh toán và lịch sử mua hàng.
           "phoneNumber": "0987654321",
           "shippingAddress": "123 Ly Tu Trong, HCM",
           "deliveryStatus": "PENDING",
-          "paymentMethod": "COD"
+          "paymentMethod": "Cash"
         }
       ],
       "page": 1,
@@ -768,7 +768,7 @@ Quản lý đơn hàng, thanh toán và lịch sử mua hàng.
   ```json
   {
     "addressId": 1,
-    "paymentMethod": "COD",
+    "paymentMethod": "Cash",
     "items": [
       {
         "volumePerfumeId": 10,
@@ -791,7 +791,7 @@ Quản lý đơn hàng, thanh toán và lịch sử mua hàng.
       "phoneNumber": "0987654321",
       "shippingAddress": "123 Ly Tu Trong, HCM",
       "deliveryStatus": "PENDING",
-      "paymentMethod": "COD",
+      "paymentMethod": "Cash",
       "invoiceDetails": [
         {
           "perfumeName": "Bleu de Chanel",

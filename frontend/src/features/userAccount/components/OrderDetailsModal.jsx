@@ -136,7 +136,7 @@ function OrderDetailsModal({ isOpen, onClose, orderId }) {
                 </div>
                 <div className="mb-2 flex items-center justify-between">
                   <span className="text-sm text-on-surface-variant">Shipping</span>
-                  <span className="text-sm text-on-surface">$20.00</span>
+                  <span className="text-sm text-on-surface">$0.00</span>
                 </div>
                 <div className="mb-4 flex items-center justify-between">
                   <span className="text-sm text-on-surface-variant">Tax</span>
@@ -145,7 +145,7 @@ function OrderDetailsModal({ isOpen, onClose, orderId }) {
                 <div className="flex items-center justify-between border-t border-surface-variant pt-4">
                   <span className="font-headline text-lg text-on-surface">Total</span>
                   <span className="font-headline text-xl text-on-surface">
-                    ${(order.invoiceDetails.reduce((sum, item) => sum + item.buyPrice * item.quantity, 0) + 20).toFixed(2)}
+                    ${(order.invoiceDetails.reduce((sum, item) => sum + item.buyPrice * item.quantity, 0)).toFixed(2)}
                   </span>
                 </div>
               </div>

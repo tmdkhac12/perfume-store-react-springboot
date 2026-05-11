@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 public class VolumePerfumeResponseDTO {
+    private int id;
     private BigDecimal price;
     private double volume;
 }

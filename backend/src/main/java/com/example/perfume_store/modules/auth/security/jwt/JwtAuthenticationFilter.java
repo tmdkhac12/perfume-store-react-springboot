@@ -40,29 +40,37 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         try {
             String token = getJwtToken(request);
 
-            // If the request has a token
             if (token != null) {
-                Claims claims = jwtService.extractAllClaims(token);
+                try {
+                    Claims claims = jwtService.extractAllClaims(token);
 
-                // If the token is valid and doesn't out of date
-                if (jwtService.isTokenValid(claims)) {
-                    String username = jwtService.getUsername(claims);
+                    if (jwtService.isTokenValid(claims)) {
+                        String username = jwtService.getUsername(claims);
 
-                    UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-                    Authentication authentication = new UsernamePasswordAuthenticationToken(
-                            userDetails,
-                            null,
-                            userDetails.getAuthorities()
-                    );
+                        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                        Authentication authentication = new UsernamePasswordAuthenticationToken(
+                                userDetails,
+                                null,
+                                userDetails.getAuthorities()
+                        );
 
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                        SecurityContextHolder.getContext().setAuthentication(authentication);
+                    }
+                } catch (ExpiredJwtException e) {
+                    log.warn("JWT expired: {}", e.getMessage());
+                    // Instead of blocking the request immediately, store the error message in the request attribute.
+                    // This allows the request to reach permitAll() endpoints.
+                    request.setAttribute("jwt_exception_message", "Token expired");
+                } catch (MalformedJwtException | UnsupportedJwtException | SignatureException e) {
+                    log.warn("JWT invalid: {}", e.getMessage());
+                    request.setAttribute("jwt_exception_message", "Token invalid");
                 }
             }
 
+            // Continue the filter chain without setting the authentication if token is missing or invalid.
             filterChain.doFilter(request, response);
-        } catch (ExpiredJwtException | MalformedJwtException | UnsupportedJwtException | SignatureException e) {
-            handleException(response, request, "Token invalid or expired");
         } catch (Exception e) {
+            log.error("Authentication internal error: ", e);
             handleException(response, request, "Authentication failed");
         }
     }

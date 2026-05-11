@@ -1,15 +1,19 @@
 package com.example.perfume_store.configs.security;
 
+import com.example.perfume_store.common.utils.ApiResponseFactory;
+import com.example.perfume_store.modules.auth.security.jwt.JwtAuthenticationFilter;
+import com.example.perfume_store.modules.auth.security.jwt.JwtService;
+import com.example.perfume_store.modules.auth.security.oauth2.CustomOAuth2Service;
 import com.example.perfume_store.modules.auth.security.oauth2.CustomOAuth2SuccessHandler;
 import com.example.perfume_store.modules.auth.security.user.CustomUserDetailsService;
-import com.example.perfume_store.modules.auth.security.jwt.JwtAuthenticationFilter;
-import com.example.perfume_store.modules.auth.security.oauth2.CustomOAuth2Service;
-import com.example.perfume_store.modules.auth.security.jwt.JwtService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
-import org.jspecify.annotations.NonNull;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -19,11 +23,10 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
 
@@ -96,10 +99,40 @@ public class SecurityConfig {
 
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
 
+                // Exception handling
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint(authenticationEntryPoint())
+                )
+
                 // Disable default login form
                 .httpBasic(AbstractHttpConfigurer::disable);
 
         return http.build();
+    }
+
+    @Bean
+    public AuthenticationEntryPoint authenticationEntryPoint() {
+        return (request, response, authException) -> {
+            // This is triggered only when accessing a protected endpoint without valid authentication.
+            
+            // Check if there was a specific JWT exception (e.g., expired or invalid token)
+            String message = (String) request.getAttribute("jwt_exception_message");
+            
+            if (message == null) {
+                // If no specific JWT error, it means the user simply didn't provide a token.
+                message = "Full authentication is required to access this resource";
+            }
+
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
+
+            ResponseEntity<?> responseEntity = ApiResponseFactory.error(HttpStatus.UNAUTHORIZED, message, request);
+            mapper.writeValue(response.getWriter(), responseEntity.getBody());
+        };
     }
 
     @Bean

@@ -41,42 +41,56 @@ description: "Dùng khi triển khai hoặc refactor file mã nguồn React JS t
 - Ưu tiên các utility mang tính xác định và tái sử dụng được cho logic format/validation.
 - Bảo toàn hành vi responsive tại các breakpoint hiện tại (`sm`, `md`, `lg`) trong quá trình migration.
 
-## RULE: FUNCTION DOCUMENTATION PROTOCOL
+## RULE: FUNCTION & TYPE DOCUMENTATION PROTOCOL
 
-Mọi hàm (function), hằng số xử lý logic (arrow function) hoặc React Component khi tạo mới hoặc cập nhật phải tuân thủ quy định comment JSDoc.
+Mọi hàm (function), hằng số xử lý logic (arrow function), React Component hoặc biến phức tạp khi tạo mới hoặc cập nhật phải tuân thủ quy định comment JSDoc và hệ thống Type trung tâm.
 
-1. **Vị trí**: Comment phải nằm ngay phía trên khai báo hàm.
-2. **Ngôn ngữ**: Sử dụng tiếng Anh cho nội dung comment bên trong code.
-3. **Định dạng**: Khối comment `/** ... */`.
-4. **Cú pháp**:
-   - **Với React Components**: Chỉ cần `@description`.
-     ```javascript
-     /** @description: [Short description of component role] */
-     ```
-   - **Với Logic Functions**: 
-     ```javascript
-     /**
-      * @description: [What it does and why it is needed]
-      * @param {[type]} [name] - Example: [value]
-      * @returns {[type]} [name] - Example: [value]
-      */
-     ```
-     *Lưu ý: Nếu input/output không rõ ràng (ví dụ: event, void), hãy thay thế `@param`/`@returns` bằng `@flow` để làm rõ luồng hoạt động của function*
-     *Lưu ý: Nếu input rõ ràng nhưng output return về `void` (ví dụ: event, void), hãy comment kế bên đoạn `@return` đó rằng sau function này chúng ta sẽ nhận được gì, ví dụ '@returns {void} - formValues with field and value updated'*
+### 1. Quản Lý Types Trung Tâm
+- **Vị trí**: Định nghĩa types tại file `types/index.js` của mỗi feature (ví dụ: `src/features/auth/types/index.js`).
+- **Cú pháp**: Sử dụng `@typedef` và `@property`. Luôn đi kèm ví dụ cụ thể.
+  ```javascript
+  /**
+   * @typedef {Object} UserProfile
+   * @property {number} id - Example: 1
+   * @property {string} name - Example: "Jane Doe"
+   */
+  ```
+
+### 2. Sử Dụng Types Trong Logic & Components
+- **Referencing**: Luôn tham chiếu type từ file trung tâm bằng cú pháp `import`.
+  - `@param {import('./types').TypeName} name`
+  - `@returns {import('../types').TypeName | null} name`
+- **In-line Typing**: Sử dụng `/** @type {Type} */` cho các biến local phức tạp hoặc payload trước khi gửi API.
+- **Advanced Types**:
+  - Sử dụng `keyof import(...).Type` cho các tham số định danh field (ví dụ: trong `handleFieldChange`).
+  - Sử dụng `@template T` cho các utility/response generic.
+
+### 3. Định Dạng Comment (JSDoc)
+- **Vị trí**: Ngay phía trên khai báo.
+- **Ngôn ngữ**: Tiếng Anh.
+- **React Components**: Chỉ cần `@description`.
+  ```javascript
+  /** @description: [Short description of component role] */
+  ```
+- **Logic Functions**:
+  ```javascript
+  /**
+   * @description: [What it does and why]
+   * @param {import('./types').Type} [name] - Example: [value]
+   * @returns {import('./types').Type} [name] - Example: [value]
+   */
+  ```
+  - Nếu input/output không rõ ràng hoặc là event phức tạp: Dùng `@flow: Step 1 -> Step 2`.
+  - Nếu `@returns {void}`: Ghi chú kết quả sau khi thực thi (ví dụ: `- state updated`).
 
 **Ví dụ áp dụng:**
-/** @description: Standalone registration form component. */
-const RegisterForm = () => { ... }
-
 /**
- * @description: Extracts JWT payload to read role metadata.
- * @param {string} token - Example: "header.payload.signature"
- * @returns {import('./types').JwtPayload | null} payload - Example: { role: [...] }
+ * @description: Updates form fields based on user input.
+ * @param {keyof import('../types').LoginRequest} field - Example: "username"
+ * @param {string} value - Example: "janedoe"
+ * @returns {void} - formValues state updated
  */
-const decodeTokenPayload = (token) => { ... }
+const handleFieldChange = (field, value) => { ... }
 
-/**
-  * @description: Submits the registration form to the backend. Routes the user to the login page upon success.
-  * @flow: Step 1 -> Step 2.
-  */
-const handleSubmit = async (event) => { ... }
+/** @description: Product gallery with thumbnail selection logic. */
+const ProductGallery = ({ image, thumbnails }) => { ... }

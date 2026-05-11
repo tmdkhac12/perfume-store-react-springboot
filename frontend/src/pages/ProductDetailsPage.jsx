@@ -1,19 +1,23 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { apiClient } from '../services';
+import { ToastNotification } from '../components/base';
+import { apiClient, readCartItems, writeCartItems } from '../services';
 import { formatCurrency } from '../utils';
 import { buildNoteRows, buildThumbnails, normalizeImages, resolveMinPrice } from '../features/product/utils.js';
 import { ProductGallery, PurchaseControls, ScentNotes, VolumeSelector } from '../features/product/components/index.js';
+
 
 /** @description: Product details page wrapper that delegates rendering to the product feature. */
 function ProductDetailsPage() {
   const { productId } = useParams();
   const [status, setStatus] = useState('idle');
   const [errorMessage, setErrorMessage] = useState('');
+  const [toastMessage, setToastMessage] = useState('');
+  const [toastVariant, setToastVariant] = useState('info');
 
-  /** @type {[import('../types').PerfumeDetails | null, Function]} */
+  /** @type {[import('../features/product/types').PerfumeDetails | null, Function]} */
   const [product, setProduct] = useState(null);
-  /** @type {[import('../types').PerfumeVolume | null, Function]} */
+  /** @type {[import('../features/product/types').PerfumeVolume | null, Function]} */
   const [selectedVolume, setSelectedVolume] = useState(null);
 
   useEffect(() => {
@@ -89,10 +93,76 @@ function ProductDetailsPage() {
 
   /**
    * @description: Updates the selected volume to refresh the displayed price.
-   * @flow: Click volume button -> Update selected volume state.
+   * @param {import('../features/product/types').PerfumeVolume} volumeItem - Example: { volume: 50, price: 2000000 }
+   * @returns {void} - selected volume updated
    */
   const handleVolumeSelect = (volumeItem) => {
     setSelectedVolume(volumeItem);
+  };
+
+  /**
+   * @description: Adds the selected perfume volume to the local cart storage.
+   * @param {number} quantity - Example: 2
+   * @returns {void} - cart updated with the selected item
+   */
+  const handleAddToCart = (quantity) => {
+    if (!product || !selectedVolume) {
+      return;
+    }
+
+    const safeQuantity = Number(quantity) > 0 ? Number(quantity) : 1;
+    /** @type {import('../features/cart/types').CartStorageItem[]} */
+    const items = readCartItems();
+    const volumePerfumeId = selectedVolume?.id ?? selectedVolume?.volumePerfumeId ?? null;
+    const primaryImage = images[0] || '';
+    const unitPrice = selectedVolume?.price ?? minPrice ?? 0;
+
+    /** @type {import('../features/cart/types').CartStorageItem} */
+    const nextItem = {
+      volumePerfumeId,
+      perfumeId: product?.id ?? null,
+      name: product?.name || 'Perfume Item',
+      description: product?.description || '',
+      concentration: product?.concentration || '',
+      volume: selectedVolume?.volume ?? null,
+      price: unitPrice,
+      quantity: safeQuantity,
+      image: primaryImage,
+      dataAlt: primaryImage ? `${product?.name || 'Perfume'} image` : 'Perfume product image'
+    };
+
+    const matchIndex = items.findIndex((item) => {
+      if (volumePerfumeId) {
+        return item?.volumePerfumeId === volumePerfumeId;
+      }
+
+      return item?.perfumeId === nextItem.perfumeId && item?.volume === nextItem.volume;
+    });
+
+    const nextItems = [...items];
+    if (matchIndex >= 0) {
+      const existingItem = nextItems[matchIndex];
+      const existingQuantity = Number(existingItem?.quantity) || 0;
+      nextItems[matchIndex] = {
+        ...existingItem,
+        quantity: existingQuantity + safeQuantity
+      };
+    } else {
+      nextItems.push(nextItem);
+    }
+
+    writeCartItems(nextItems);
+    setToastMessage('Added to cart.');
+    setToastVariant('success');
+  };
+
+  /**
+   * @description: Clears the toast notification after dismissal.
+   * @returns {void} - toast message cleared
+   */
+  const handleToastClose = () => {
+    setToastMessage('');
+    setToastVariant('info');
   };
 
   if (status === 'loading' && !product) {
@@ -134,37 +204,46 @@ function ProductDetailsPage() {
   }
 
   return (
-    <div className="pt-32 pb-24">
-      <div className="max-w-[1600px] mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-24 items-start">
-        <div className="lg:col-span-7 flex flex-col gap-6">
-          <ProductGallery image={images[0]} thumbnails={thumbnails} />
-        </div>
+    <>
+      <div className="pt-32 pb-24">
+        <div className="max-w-[1600px] mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-24 items-start">
+          <div className="lg:col-span-7 flex flex-col gap-6">
+            <ProductGallery image={images[0]} thumbnails={thumbnails} />
+          </div>
 
-        <div className="lg:col-span-5 flex flex-col pt-8 md:pt-16">
-          <p className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant mb-4">{product?.concentration || 'Eau de Parfum'}</p>
-          <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-on-surface mb-2">{product?.brand?.toUpperCase() || 'L\'ESSENCE'}</p>
-          <h1 className="font-headline text-5xl md:text-6xl text-on-background mb-4 tracking-tight">{product?.name || 'Signature Scent'}</h1>
-          <p className="font-body text-xl text-on-surface mb-12">
-            {priceLabel} <span className="text-sm text-on-surface-variant ml-2">USD</span>
-          </p>
-
-          <div className="mb-12">
-            <p className="font-body text-on-surface-variant leading-relaxed text-sm md:text-base">
-              {product?.description || 'No description available for this perfume.'}
+          <div className="lg:col-span-5 flex flex-col pt-8 md:pt-16">
+            <p className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant mb-4">{product?.concentration || 'Eau de Parfum'}</p>
+            <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-on-surface mb-2">{product?.brand?.toUpperCase() || 'L\'ESSENCE'}</p>
+            <h1 className="font-headline text-5xl md:text-6xl text-on-background mb-4 tracking-tight">{product?.name || 'Signature Scent'}</h1>
+            <p className="font-body text-xl text-on-surface mb-12">
+              {priceLabel} <span className="text-sm text-on-surface-variant ml-2">USD</span>
             </p>
+
+            <div className="mb-12">
+              <p className="font-body text-on-surface-variant leading-relaxed text-sm md:text-base">
+                {product?.description || 'No description available for this perfume.'}
+              </p>
+            </div>
+
+            <div className="mb-12">
+              <h3 className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant mb-4">Scent Architecture</h3>
+              <ScentNotes rows={noteRows} />
+            </div>
+
+            <VolumeSelector volumes={product?.volumes} selectedVolume={selectedVolume} onSelectVolume={handleVolumeSelect} />
+
+            <PurchaseControls onAddToCart={handleAddToCart} />
           </div>
-
-          <div className="mb-12">
-            <h3 className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant mb-4">Scent Architecture</h3>
-            <ScentNotes rows={noteRows} />
-          </div>
-
-          <VolumeSelector volumes={product?.volumes} selectedVolume={selectedVolume} onSelectVolume={handleVolumeSelect} />
-
-          <PurchaseControls />
         </div>
       </div>
-    </div>
+      <ToastNotification
+        autoHideDuration={3000}
+        isOpen={Boolean(toastMessage)}
+        message={toastMessage}
+        onClose={handleToastClose}
+        variant={toastVariant}
+      />
+    </>
   );
 }
 

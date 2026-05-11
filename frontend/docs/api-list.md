@@ -547,10 +547,12 @@ Quản lý danh sách nước hoa, tìm kiếm và chi tiết sản phẩm.
       ],
       "volumes": [
         {
+          "id": 1, // Id của VolumePerfume
           "volume": 100.0,
           "price": 3000000.00
         },
         {
+          "id": 3, // Id của VolumePerfume
           "volume": 50.0,
           "price": 2000000.00
         }

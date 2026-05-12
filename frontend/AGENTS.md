@@ -74,6 +74,21 @@
 6. Nếu phát hiện sai lệch, tiếp tục tinh chỉnh cho đến khi kết quả khớp hoàn toàn với yêu cầu và quy ước dự án.
 7. Khi bàn giao phiên làm việc, ghi rõ đã hoàn thành gì, bước tiếp theo là gì, và các quyết định quan trọng trong file này hoặc trong ghi chú dự án được tham chiếu.
 
+
+## Agent skills
+
+### Issue tracker
+
+Issues are tracked in GitHub Issues. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Standard triage label vocabulary. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context layout. See `docs/agents/domain.md`.
+
 ## 6. Bàn Giao Phiên Làm Việc — 2026-05-11 (Tổng Kết Session Hiện Tại)
 - **Đồng bộ hóa phương thức thanh toán**: Chuyển đổi `COD` thành `Cash` và `BANK_TRANSFER` thành `Transfer` xuyên suốt hệ thống (types, components, documentation, plan).
 - **Nâng cấp `AddressModal` (Checkout)**: Thay đổi ô nhập liệu City và Ward thành dropdown chọn từ API, tích hợp cache `localStorage` đồng nhất với trang quản lý địa chỉ người dùng.

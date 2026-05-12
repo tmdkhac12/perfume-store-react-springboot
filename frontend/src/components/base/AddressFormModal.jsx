@@ -1,13 +1,13 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useRef } from 'react';
 import { loadProvinces } from '../../utils';
+import SearchableSelect from './SearchableSelect';
 
 /** @description: Unified address form modal for adding or editing shipping addresses. */
 function AddressFormModal({ isOpen, onClose, initialData = null, onSubmit, isSaving = false }) {
-  if (!isOpen) return null;
-
   const [provinceMap, setProvinceMap] = useState({});
   const [selectedCity, setSelectedCity] = useState(initialData?.cityName || '');
   const [selectedWard, setSelectedWard] = useState(initialData?.wardName || '');
+  const bodyRef = useRef(null);
 
   /**
    * @description: Loads province data from utility and updates state.
@@ -16,6 +16,20 @@ function AddressFormModal({ isOpen, onClose, initialData = null, onSubmit, isSav
   const handleLoadProvinces = async () => {
     const provinces = await loadProvinces();
     setProvinceMap(provinces);
+  };
+
+  /**
+   * @description: Scrolls the modal body to the bottom when a dropdown expands.
+   */
+  const scrollToBottom = () => {
+    if (bodyRef.current) {
+      setTimeout(() => {
+        bodyRef.current.scrollTo({
+          top: bodyRef.current.scrollHeight,
+          behavior: 'auto'
+        });
+      }, 50);
+    }
   };
 
   useEffect(() => {
@@ -47,6 +61,8 @@ function AddressFormModal({ isOpen, onClose, initialData = null, onSubmit, isSav
       setSelectedWard(wardOptions[0]);
     }
   }, [wardOptions, selectedCity, selectedWard]);
+
+  if (!isOpen) return null;
 
   /**
    * @description: Builds standardized form values from form data.
@@ -89,8 +105,10 @@ function AddressFormModal({ isOpen, onClose, initialData = null, onSubmit, isSav
         </div>
 
         {/* Body */}
-        <div className="p-8 overflow-y-auto">
+        <div className="p-8 overflow-y-auto" ref={bodyRef}>
           <form className="space-y-6" id="shared_address_form" onSubmit={handleSubmit}>
+            <input name="cityName" type="hidden" value={selectedCity} />
+            <input name="wardName" type="hidden" value={selectedWard} />
             <div>
               <label className="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3" htmlFor="receiver">Receiver Name</label>
               <input
@@ -118,39 +136,27 @@ function AddressFormModal({ isOpen, onClose, initialData = null, onSubmit, isSav
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3" htmlFor="city">City</label>
-                <select
-                  className="w-full bg-surface-container border border-outline-variant/30 py-4 px-6 rounded-[40px] text-on-surface font-body focus:ring-0 focus:border-accent transition-colors duration-300"
-                  id="city"
-                  name="cityName"
-                  value={selectedCity}
+                <SearchableSelect
                   disabled={isFormDisabled}
+                  name="cityName"
+                  options={cityOptions}
+                  placeholder="Chọn thành phố"
+                  value={selectedCity}
                   onChange={(event) => setSelectedCity(event.target.value)}
-                >
-                  <option value="">Select city</option>
-                  {cityOptions.map((city) => (
-                    <option key={city} value={city}>
-                      {city}
-                    </option>
-                  ))}
-                </select>
+                  onExpand={scrollToBottom}
+                />
               </div>
               <div>
                 <label className="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3" htmlFor="ward">Ward/District</label>
-                <select
-                  className="w-full bg-surface-container border border-outline-variant/30 py-4 px-6 rounded-[40px] text-on-surface font-body focus:ring-0 focus:border-accent transition-colors duration-300"
-                  id="ward"
-                  name="wardName"
-                  value={selectedWard}
+                <SearchableSelect
                   disabled={isFormDisabled || !selectedCity}
+                  name="wardName"
+                  options={wardOptions}
+                  placeholder="Chọn quận/huyện"
+                  value={selectedWard}
                   onChange={(event) => setSelectedWard(event.target.value)}
-                >
-                  <option value="">Select ward</option>
-                  {wardOptions.map((ward) => (
-                    <option key={ward} value={ward}>
-                      {ward}
-                    </option>
-                  ))}
-                </select>
+                  onExpand={scrollToBottom}
+                />
               </div>
             </div>
             <div>

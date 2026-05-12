@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
-import { ToastNotification } from '../components/base';
+import { AddressFormModal, ToastNotification } from '../components/base';
 import { apiClient } from '../services/index.js';
 import { useModal } from '../hooks/index.js';
 import {
   AddressDeleteModal,
-  AddressFormModal,
   SavedAddressGrid,
   SavedAddressHeader
 } from '../features/userAccount/components/index.js';
@@ -30,10 +29,10 @@ function AccountAddressPage() {
   const mapAddressResponse = (address, index) => ({
     id: address?.id ?? index + 1,
     receiver: address?.receiver || '',
-    phone: address?.phoneNumber || '',
-    city: address?.cityName || '',
-    district: address?.wardName || '',
-    street: address?.deliveryAddress || ''
+    phoneNumber: address?.phoneNumber || '',
+    cityName: address?.cityName || '',
+    wardName: address?.wardName || '',
+    deliveryAddress: address?.deliveryAddress || ''
   });
 
   /**
@@ -73,22 +72,14 @@ function AccountAddressPage() {
 
   /**
    * @description: Creates a new address on the backend and refreshes the list.
-   * @param {AddressFormValues} values - Example: { receiver: "Jane", phone: "123" }
+   * @param {AddressFormValues} values - Example: { receiver: "Jane", phoneNumber: "123" }
    * @returns {Promise<void>}
    */
   const handleCreateAddress = async (values) => {
     setSaveStatus('saving');
 
     try {
-      const payload = {
-        receiver: values.receiver.trim(),
-        phoneNumber: values.phone.trim(),
-        cityName: values.city.trim(),
-        wardName: values.district.trim(),
-        deliveryAddress: values.street.trim()
-      };
-
-      const response = await apiClient.post('/users/me/addresses', payload);
+      const response = await apiClient.post('/users/me/addresses', values);
       const isErrorResponse = !response || response.error || response.status >= 400;
 
       if (isErrorResponse) {
@@ -109,7 +100,7 @@ function AccountAddressPage() {
   /**
    * @description: Updates an existing address on the backend and refreshes the list.
    * @param {number} addressId - Example: 3
-   * @param {AddressFormValues} values - Example: { receiver: "Jane", phone: "123" }
+   * @param {AddressFormValues} values - Example: { receiver: "Jane", phoneNumber: "123" }
    * @returns {Promise<void>}
    */
   const handleUpdateAddress = async (addressId, values) => {
@@ -120,15 +111,7 @@ function AccountAddressPage() {
     setSaveStatus('saving');
 
     try {
-      const payload = {
-        receiver: values.receiver.trim(),
-        phoneNumber: values.phone.trim(),
-        cityName: values.city.trim(),
-        wardName: values.district.trim(),
-        deliveryAddress: values.street.trim()
-      };
-
-      const response = await apiClient.put(`/users/me/addresses/${addressId}`, payload);
+      const response = await apiClient.put(`/users/me/addresses/${addressId}`, values);
       const isErrorResponse = !response || response.error || response.status >= 400;
 
       if (isErrorResponse) {

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ToastNotification } from '../components/base';
-import { ShippingSelection, PaymentMethods, OrderSummary, AddressModal } from '../features/checkout/components';
+import { AddressFormModal, ToastNotification } from '../components/base';
+import { ShippingSelection, PaymentMethods, OrderSummary } from '../features/checkout/components';
 import { useModal } from '../hooks';
 import { apiClient, readCartItems, writeCartItems } from '../services';
 import { formatCurrency } from '../utils';
@@ -243,7 +243,7 @@ function CheckoutPage() {
         </div>
       </div>
 
-      <AddressModal
+      <AddressFormModal
         isOpen={addressModal.isOpen}
         isSaving={isSavingAddress}
         onClose={addressModal.close}

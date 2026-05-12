@@ -1,111 +1,44 @@
 import { useEffect, useMemo, useState } from 'react';
-import { apiClient } from '../../../services';
+import { loadProvinces } from '../../utils';
 
-const ADDRESS_PROVINCES_CACHE_KEY = 'addressProvinces';
-
-/**
- * @description: Reads cached province data from localStorage when available.
- * @returns {Record<string, string[]> | null} provinces - Example: { "City": ["Ward"] }
- */
-const readCachedProvinces = () => {
-  if (typeof localStorage === 'undefined') {
-    return null;
-  }
-
-  try {
-    const raw = localStorage.getItem(ADDRESS_PROVINCES_CACHE_KEY);
-    if (!raw) {
-      return null;
-    }
-
-    const parsed = JSON.parse(raw);
-    if (!parsed || typeof parsed !== 'object') {
-      return null;
-    }
-
-    return parsed;
-  } catch (error) {
-    return null;
-  }
-};
-
-/**
- * @description: Stores province data in localStorage for reuse.
- * @param {Record<string, string[]>} provinces - Example: { "City": ["Ward"] }
- * @returns {void}
- */
-const writeCachedProvinces = (provinces) => {
-  if (typeof localStorage === 'undefined') {
-    return;
-  }
-
-  try {
-    localStorage.setItem(ADDRESS_PROVINCES_CACHE_KEY, JSON.stringify(provinces));
-  } catch (error) {
-    return;
-  }
-};
-
-/** @description: Address modal for adding a new checkout shipping address. */
-function AddressModal({ isOpen, onClose, onSubmit, isSaving = false }) {
+/** @description: Unified address form modal for adding or editing shipping addresses. */
+function AddressFormModal({ isOpen, onClose, initialData = null, onSubmit, isSaving = false }) {
   if (!isOpen) return null;
 
   const [provinceMap, setProvinceMap] = useState({});
-  const [selectedCity, setSelectedCity] = useState('');
-  const [selectedWard, setSelectedWard] = useState('');
+  const [selectedCity, setSelectedCity] = useState(initialData?.cityName || '');
+  const [selectedWard, setSelectedWard] = useState(initialData?.wardName || '');
 
   /**
-   * @description: Loads province data from cache or API and stores it for reuse.
-   * @flow: Check localStorage -> Fetch /address/provinces -> Cache response.
+   * @description: Loads province data from utility and updates state.
+   * @flow: Call loadProvinces -> Update provinceMap state.
    */
-  const loadProvinces = async () => {
-    const cached = readCachedProvinces();
-    if (cached) {
-      setProvinceMap(cached);
-      return;
-    }
-
-    try {
-      const response = await apiClient.get('/address/provinces');
-      const isErrorResponse = !response || response.error || response.status >= 400;
-
-      if (isErrorResponse) {
-        throw new Error(response?.message || 'Unable to load provinces.');
-      }
-
-      const provinces = response?.data;
-      if (!provinces || typeof provinces !== 'object') {
-        throw new Error('Invalid provinces response.');
-      }
-
-      setProvinceMap(provinces);
-      writeCachedProvinces(provinces);
-    } catch (error) {
-      setProvinceMap({});
-    }
+  const handleLoadProvinces = async () => {
+    const provinces = await loadProvinces();
+    setProvinceMap(provinces);
   };
 
   useEffect(() => {
-    void loadProvinces();
+    void handleLoadProvinces();
   }, []);
+
+  // Sync state with initialData when modal opens or initialData changes
+  useEffect(() => {
+    if (!isOpen) return;
+    setSelectedCity(initialData?.cityName || '');
+    setSelectedWard(initialData?.wardName || '');
+  }, [initialData, isOpen]);
 
   const cityOptions = useMemo(() => Object.keys(provinceMap), [provinceMap]);
   const wardOptions = useMemo(() => {
-    if (!selectedCity) {
-      return [];
-    }
-
+    if (!selectedCity) return [];
     const wards = provinceMap[selectedCity];
     return Array.isArray(wards) ? wards : [];
   }, [provinceMap, selectedCity]);
 
+  // Update selected ward when city changes or options change
   useEffect(() => {
-    if (!selectedCity) {
-      setSelectedWard('');
-      return;
-    }
-
-    if (!wardOptions.length) {
+    if (!selectedCity || !wardOptions.length) {
       setSelectedWard('');
       return;
     }
@@ -116,9 +49,9 @@ function AddressModal({ isOpen, onClose, onSubmit, isSaving = false }) {
   }, [wardOptions, selectedCity, selectedWard]);
 
   /**
-   * @description: Builds form values from the modal fields.
+   * @description: Builds standardized form values from form data.
    * @param {FormData} formData - Example: new FormData(formElement)
-   * @returns {import('../types').CheckoutAddressFormValues} values - Example: { receiver: "Jane" }
+   * @returns {import('../../features/userAccount/types').AddressFormValues} values - Example: { receiver: "Jane" }
    */
   const buildFormValues = (formData) => ({
     receiver: String(formData.get('receiver') || ''),
@@ -129,15 +62,12 @@ function AddressModal({ isOpen, onClose, onSubmit, isSaving = false }) {
   });
 
   /**
-   * @description: Submits the new address form values to the parent handler.
-   * @flow: Submit form -> Build values -> Trigger onSubmit.
+   * @description: Handles form submission and triggers onSubmit callback.
+   * @param {React.FormEvent<HTMLFormElement>} event - Example: submit event
    */
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    if (!onSubmit) {
-      return;
-    }
+    if (!onSubmit) return;
 
     const formData = new FormData(event.currentTarget);
     const values = buildFormValues(formData);
@@ -145,46 +75,52 @@ function AddressModal({ isOpen, onClose, onSubmit, isSaving = false }) {
   };
 
   const isFormDisabled = !onSubmit || isSaving;
+  const modalTitle = initialData ? 'Edit Address' : 'Add New Address';
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-background/80 backdrop-blur-sm p-4">
       <div className="bg-surface-container-lowest rounded-[40px] w-full max-w-lg shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+        {/* Header */}
         <div className="px-8 py-6 border-b border-outline-variant/30 flex justify-between items-center sticky top-0 bg-surface-container-lowest z-10">
-          <h3 className="font-headline text-2xl text-on-background">Add New Address</h3>
+          <h3 className="font-headline text-2xl text-on-background">{modalTitle}</h3>
           <button className="text-on-surface-variant hover:text-on-background transition-colors" onClick={onClose} type="button">
             <span className="material-symbols-outlined">close</span>
           </button>
         </div>
+
+        {/* Body */}
         <div className="p-8 overflow-y-auto">
-          <form className="space-y-6" id="checkout_address_form" onSubmit={handleSubmit}>
+          <form className="space-y-6" id="shared_address_form" onSubmit={handleSubmit}>
             <div>
-              <label className="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3" htmlFor="new_receiver">Receiver Name</label>
+              <label className="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3" htmlFor="receiver">Receiver Name</label>
               <input
                 className="w-full bg-surface-container border border-outline-variant/30 py-4 px-6 rounded-[40px] text-on-surface font-body focus:ring-0 focus:border-accent transition-colors duration-300"
-                id="new_receiver"
+                id="receiver"
                 name="receiver"
                 placeholder="John Doe"
+                defaultValue={initialData?.receiver || ''}
                 type="text"
                 disabled={isFormDisabled}
               />
             </div>
             <div>
-              <label className="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3" htmlFor="new_phone">Phone Number</label>
+              <label className="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3" htmlFor="phone">Phone Number</label>
               <input
                 className="w-full bg-surface-container border border-outline-variant/30 py-4 px-6 rounded-[40px] text-on-surface font-body focus:ring-0 focus:border-accent transition-colors duration-300"
-                id="new_phone"
+                id="phone"
                 name="phoneNumber"
                 placeholder="+1 (555) 000-0000"
+                defaultValue={initialData?.phoneNumber || ''}
                 type="tel"
                 disabled={isFormDisabled}
               />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3" htmlFor="new_city">City</label>
+                <label className="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3" htmlFor="city">City</label>
                 <select
                   className="w-full bg-surface-container border border-outline-variant/30 py-4 px-6 rounded-[40px] text-on-surface font-body focus:ring-0 focus:border-accent transition-colors duration-300"
-                  id="new_city"
+                  id="city"
                   name="cityName"
                   value={selectedCity}
                   disabled={isFormDisabled}
@@ -199,10 +135,10 @@ function AddressModal({ isOpen, onClose, onSubmit, isSaving = false }) {
                 </select>
               </div>
               <div>
-                <label className="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3" htmlFor="new_ward">Ward/District</label>
+                <label className="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3" htmlFor="ward">Ward/District</label>
                 <select
                   className="w-full bg-surface-container border border-outline-variant/30 py-4 px-6 rounded-[40px] text-on-surface font-body focus:ring-0 focus:border-accent transition-colors duration-300"
-                  id="new_ward"
+                  id="ward"
                   name="wardName"
                   value={selectedWard}
                   disabled={isFormDisabled || !selectedCity}
@@ -218,23 +154,26 @@ function AddressModal({ isOpen, onClose, onSubmit, isSaving = false }) {
               </div>
             </div>
             <div>
-              <label className="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3" htmlFor="new_address">Delivery Address</label>
+              <label className="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3" htmlFor="address">Delivery Address</label>
               <input
                 className="w-full bg-surface-container border border-outline-variant/30 py-4 px-6 rounded-[40px] text-on-surface font-body focus:ring-0 focus:border-accent transition-colors duration-300"
-                id="new_address"
+                id="address"
                 name="deliveryAddress"
                 placeholder="123 Perfume Lane, Apt 4B"
+                defaultValue={initialData?.deliveryAddress || ''}
                 type="text"
                 disabled={isFormDisabled}
               />
             </div>
           </form>
         </div>
+
+        {/* Footer */}
         <div className="px-8 py-6 border-t border-outline-variant/30 bg-surface-container-lowest sticky bottom-0 z-10 flex justify-end gap-4">
           <button className="px-8 py-4 rounded-[40px] font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant hover:bg-surface-container transition-colors" onClick={onClose} type="button">Cancel</button>
           <button
             className="bg-accent text-on-primary px-8 py-4 rounded-[40px] font-label text-sm uppercase tracking-[0.1em] hover:bg-black transition-colors disabled:cursor-not-allowed disabled:opacity-60"
-            form="checkout_address_form"
+            form="shared_address_form"
             type="submit"
             disabled={isFormDisabled}
           >
@@ -246,4 +185,4 @@ function AddressModal({ isOpen, onClose, onSubmit, isSaving = false }) {
   );
 }
 
-export default AddressModal;
+export default AddressFormModal;

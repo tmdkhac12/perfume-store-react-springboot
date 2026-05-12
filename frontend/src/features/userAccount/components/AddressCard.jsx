@@ -8,7 +8,7 @@ function AddressCard({
   onEdit,
   onDelete
 }) {
-  const { receiver, phone, city, district, street } = address;
+  const { receiver, phoneNumber, cityName, wardName, deliveryAddress } = address;
 
   return (
     <div className="group relative overflow-hidden rounded-3xl bg-surface-container-low p-8 transition-colors hover:bg-surface-container-lowest">
@@ -27,9 +27,9 @@ function AddressCard({
       {/* Address Details */}
       <div className="mb-8 space-y-2">
         <p className="font-headline text-xl text-on-background">{receiver}</p>
-        <p className="text-on-surface-variant">{phone}</p>
+        <p className="text-on-surface-variant">{phoneNumber}</p>
         <p className="leading-relaxed text-on-surface">
-          {street}, {district}, {city}
+          {deliveryAddress}, {wardName}, {cityName}
         </p>
       </div>
 

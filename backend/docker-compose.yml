@@ -14,17 +14,30 @@ services:
     volumes:
       - ./database:/docker-entrypoint-initdb.d  # Base on all the files in ./database to create db
 
+  qdrant:
+    image: qdrant/qdrant:latest
+    ports:
+      - "6333:6333" # Port for Dashboard & REST API
+      - "6334:6334" # Port for gRPC
+    volumes:
+      - ./qdrant_storage:/qdrant/storage:z
+
   backend:
     build: .
     ports:
       - "8081:8080"
     depends_on:
       - mysql
+      - qdrant
     environment:
       # --- Database Envs ---
       MYSQL_URL: ${MYSQL_URL}
       MYSQL_USERNAME: ${MYSQL_USERNAME}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+      # --- Qdrant Envs (Cấu hình để Spring kết nối vào service qdrant) ---
+      QDRANT_HOST: qdrant
+      QDRANT_PORT: 6334
 
       # --- SSO/OAuth2 Envs ---
       SSO_CLIENT_ID: ${SSO_CLIENT_ID}

@@ -66,6 +66,9 @@ public class SecurityConfig {
                         // Address
                         .requestMatchers(HttpMethod.GET, "/api/v1/address/**").permitAll()
 
+                        // Assistant
+                        .requestMatchers(HttpMethod.POST, "/api/v1/bot/**").permitAll()
+
                         // Auth
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers("/login/**", "/oauth2/**").permitAll()

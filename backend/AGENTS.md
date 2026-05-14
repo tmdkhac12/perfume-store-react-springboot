@@ -267,3 +267,54 @@ Dưới đây là danh sách tóm tắt các tính năng đã triển khai đư�
     - Cloudinary config/service cho upload/delete image (`CloudinaryConfig`, `CloudinaryService`)
     - JPA Specification cho filter: `PerfumeSpecification`, `InvoiceSpecification`
 ---
+
+## Phiên làm việc: 14-05-2026 (Standardization & Diagnostics)
+
+### Đã hoàn thành:
+- **Chuẩn hóa ngôn ngữ**: Chuyển đổi `defaultSystem` trong `ChatController.java` và nội dung Document trong `VectorStorageService.java` sang tiếng Anh để tối ưu hóa RAG với model embedding `mxbai-embed-large`.
+- **Chẩn đoán RAG**: Sử dụng script Python (`test_search.py`) để xác định ngưỡng tương đồng lý tưởng. Phát hiện câu hỏi tiếng Việt có điểm số thấp (0.6 - 0.68) so với mô tả tiếng Anh.
+- **Cập nhật tài liệu**: Đồng bộ hóa `docs/adr/002-ai-chatbot-integration.md` và các luồng sequence diagram (`docs/flows/`) với công nghệ thực tế (Qdrant, Ollama, Groq).
+- **Phân tích luồng**: Thêm comment giải thích luồng thực thi (Advisors intercept flow) trong `ChatController.java`.
+
+### Kế hoạch tiếp theo:
+- **Triển khai "Translate-then-Retrieve"**: Refactor `ChatController.java` để dịch tin nhắn người dùng từ tiếng Việt sang tiếng Anh trước khi thực hiện bước Retrieve của Spring AI.
+- **Tái đồng bộ Vector**: Gọi `/api/v1/admin/assistant/sync` để cập nhật dữ liệu Qdrant theo định dạng tiếng Anh mới.
+- **Triển khai Guardrails**: Thêm Rate Limiting cho API tư vấn để bảo vệ tài nguyên Groq.
+
+### Ghi chú kỹ thuật:
+- Ngưỡng tương đồng hiện tại: `0.55`.
+- Model Embedding: `mxbai-embed-large` (Ollama).
+- LLM: `llama-3.3-70b-versatile` (Groq).
+
+### Issue tracker
+
+GitHub issues. See docs/agents/issue-tracker.md.
+
+### Triage labels
+
+Standard triage labels. See docs/agents/triage-labels.md.
+
+### Domain docs
+
+Single-context layout. See docs/agents/domain.md.
+
+## Session Summary (2026-05-14)
+
+### Core Achievements
+- **Matt Pocock's Skills Setup**: Configured issue tracker (GitHub), triage labels, and domain documentation structure in `docs/agents/`.
+- **AI Chatbot Implementation (Phases 1-3)**:
+    - **Vector Sync**: Implemented automatic, asynchronous synchronization between MySQL and Pinecone using Spring Events (`PerfumeEvent`, `AssistantEventListener`). Added manual sync endpoint.
+    - **RAG Engine**: Refined `ChatController` with a professional persona and integrated `ChatMemory` for context-aware conversations.
+    - **Standardized API**: Created `ChatRequestDTO`/`ChatResponseDTO` and standardized responses using `ApiResponseFactory`.
+- **Documentation**: 
+    - `docs/adr/002-ai-chatbot-integration.md`: Architectural decision for Groq, Pinecone, and Local Embeddings.
+    - `docs/flows/ai-consultation.md`: Sequence diagram for the RAG chat flow.
+    - `docs/flows/ai-vector-sync.md`: Sequence diagram for data synchronization.
+- **Troubleshooting**: 
+    - Resolved Spring AI 1.0.0-M6 API mismatches (`getText()`, `SearchRequest` builder).
+    - Fixed Enum naming inconsistencies and metadata type mismatches in tests.
+    - Diagnosed and fixed embedding model loading issues by implementing a manual bean override in `AiConfig.java`.
+
+### Pending Tasks
+- Switch embedding/chat configuration to **Ollama** as requested.
+- Implement Phase 3 (Guardrails/Rate limiting) and Phase 4 (Validation).

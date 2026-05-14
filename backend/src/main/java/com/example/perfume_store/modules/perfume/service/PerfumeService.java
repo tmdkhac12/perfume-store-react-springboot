@@ -21,6 +21,7 @@ import com.example.perfume_store.modules.perfume.dto.request.PerfumeCreateReques
 import com.example.perfume_store.modules.perfume.dto.request.PerfumeUpdateRequestDTO;
 import com.example.perfume_store.modules.perfume.dto.response.PerfumeDetailsResponseDTO;
 import com.example.perfume_store.modules.perfume.dto.response.PerfumePublicResponseDTO;
+import com.example.perfume_store.modules.perfume.event.PerfumeEvent;
 import com.example.perfume_store.modules.perfume.entity.SampleImage;
 import com.example.perfume_store.modules.perfume.mapper.PerfumeMapper;
 import com.example.perfume_store.modules.perfume.repository.SampleImageRepository;
@@ -57,6 +58,7 @@ public class PerfumeService {
     private final PerfumeMapper perfumeMapper;
 
     private final CloudinaryService cloudinaryService;
+    private final org.springframework.context.ApplicationEventPublisher eventPublisher;
 
     private Perfume getPerfumeByIdEntity(int id) {
         return perfumeRepository.findById(id)
@@ -174,7 +176,9 @@ public class PerfumeService {
         }
 
         // Return
-        return perfumeMapper.toDetailsResponseDTO(savedPerfume);
+        PerfumeDetailsResponseDTO response = perfumeMapper.toDetailsResponseDTO(savedPerfume);
+        eventPublisher.publishEvent(new PerfumeEvent(this, savedPerfume.getId(), PerfumeEvent.Operation.CREATE));
+        return response;
     }
 
     @Transactional
@@ -249,7 +253,10 @@ public class PerfumeService {
         finalSampleImages.addAll(newlyAddedSampleImages);
         perfume.setSampleImages(finalSampleImages);
 
-        return perfumeMapper.toDetailsResponseDTO(perfumeRepository.save(perfume));
+        Perfume updatedPerfume = perfumeRepository.save(perfume);
+        eventPublisher.publishEvent(new PerfumeEvent(this, updatedPerfume.getId(), PerfumeEvent.Operation.UPDATE));
+
+        return perfumeMapper.toDetailsResponseDTO(updatedPerfume);
     }
 
     @Transactional
@@ -268,6 +275,7 @@ public class PerfumeService {
 
         // Delete perfume in Database
         perfumeRepository.delete(perfume);
+        eventPublisher.publishEvent(new PerfumeEvent(this, id, PerfumeEvent.Operation.DELETE));
     }
 
     private List<SampleImage> handleImageUploads(List<MultipartFile> sampleImages, Perfume perfume) {

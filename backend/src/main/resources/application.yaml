@@ -44,6 +44,31 @@ spring:
       max-file-size: 10MB
       max-request-size: 50MB
 
+  ai:
+    openai:
+      api-key: ${GROQ_API_KEY}
+      base-url: https://api.groq.com/openai
+      chat:
+        options:
+          model: llama-3.3-70b-versatile
+          temperature: 0.7
+        enabled: true
+      embedding:
+        enabled: false # Disable OpenAI embedding because Groq doesn't support it
+    ollama:
+      base-url: http://localhost:11434
+      embedding:
+        options:
+          model: mxbai-embed-large
+        enabled: true
+      chat:
+        enabled: false
+    vectorstore:
+      qdrant:
+        host: ${QDRANT_HOST:localhost}
+        port: ${QDRANT_PORT:6334}
+        collection-name: ${QDRANT_COLLECTION:perfume_collection}
+        use-tls: false
 jwt:
   secret: ${JWT_SECRET}
   expiration: ${JWT_EXPIRATION}

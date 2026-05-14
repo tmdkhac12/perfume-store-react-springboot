@@ -52,18 +52,18 @@ VALUES (1, 'Bergamot', FALSE),
        (15, 'Tuberose', FALSE);
 
 INSERT INTO perfume (id, name, gender, description, concentration, brand_id, hide)
-VALUES (1, 'Coco Mademoiselle', 'Female', 'Vibrant and sophisticated floral-amber.', 'EDP', 1, FALSE),
-       (2, 'Sauvage', 'Male', 'A radical composition for a strong, honest man.', 'EDT', 2, FALSE),
-       (3, 'Guilty Pour Homme', 'Male', 'A woody, aromatic scent for the contemporary explorer.', 'EDP', 3, FALSE),
-       (4, 'Black Orchid', 'Unisex', 'Luxurious and sensual dark accords.', 'Parfum', 4, FALSE),
-       (5, 'Aventus', 'Male', 'A sophisticated blend for the conquering individual.', 'EDP', 5, FALSE),
-       (6, 'Eros', 'Male', 'A fresh, oriental and woody fragrance.', 'EDP', 6, FALSE),
-       (7, 'Libre', 'Female', 'The scent of freedom, a floral lavender.', 'EDP', 7, FALSE),
-       (8, 'Omnia Crystalline', 'Female', 'A delicate aquatic bamboo scent.', 'EDT', 8, FALSE),
-       (9, 'Wood Sage & Sea Salt', 'Unisex', 'A scent of the British coast.', 'EDC', 9, FALSE),
-       (10, 'Explorer', 'Male', 'An irresistible call for adventure.', 'EDP', 10, FALSE),
-       (11, 'No. 5', 'Female', 'The ultimate symbol of luxury and timeless elegance.', 'Parfum', 1, FALSE),
-       (12, 'Hypnotic Poison', 'Female', 'An intoxicating and extravagant oriental.', 'EDT', 2, FALSE);
+VALUES (1, 'Coco Mademoiselle', 'Female', 'A vibrant and sophisticated floral-amber fragrance that embodies the spirit of a young, independent woman. It opens with sparkling orange and bergamot, leading to a heart of pure rose and jasmine, all resting on a refined base of patchouli and vetiver. Perfect for a chic, confident woman on any occasion.', 'EDP', 1, FALSE),
+       (2, 'Sauvage', 'Male', 'A radical and raw composition for a man who is true to himself. This fragrance features a powerful freshness of Calabrian bergamot and the woody trail of ambroxan. It captures the spirit of open spaces and blue skies, making it a bold choice for daytime adventure or evening charisma.', 'EDT', 2, FALSE),
+       (3, 'Guilty Pour Homme', 'Male', 'A woody, aromatic scent designed for the contemporary explorer who defies convention. It blends the unexpected freshness of lavender and lemon with the warm, sensual depth of cedarwood and patchouli. An ideal fragrance for the man who wants to leave a lasting, provocative impression.', 'EDP', 3, FALSE),
+       (4, 'Black Orchid', 'Unisex', 'A luxurious and sensual fragrance of rich, dark accords and an alluring potion of black orchids and spice. It is both modern and timeless, featuring notes of black truffle, ylang-ylang, and dark chocolate. A statement scent for those who appreciate mysterious and intense elegance.', 'Parfum', 4, FALSE),
+       (5, 'Aventus', 'Male', 'A sophisticated blend for the conquering individual, celebrating strength, power, and success. Inspired by the dramatic life of a historic emperor, it features top notes of pineapple and bergamot, a heart of birch and jasmine, and a rich base of oakmoss and vanilla. A legendary choice for professional milestones.', 'EDP', 5, FALSE),
+       (6, 'Eros', 'Male', 'A fresh, oriental, and woody fragrance that interprets masculinity through a luminous aura with an intense, vibrant freshness. It combines mint leaves, Italian lemon zest, and green apple, balanced with tonka bean and cedarwood. Perfect for the passionate, heroic man who is a master of himself.', 'EDP', 6, FALSE),
+       (7, 'Libre', 'Female', 'The scent of freedom, a grand floral fragrance with a unique lavender twist. It represents a woman who lives by her own rules, blending the sensuality of Moroccan orange blossom with the boldness of French lavender. A sophisticated choice for independent spirits and elegant evenings.', 'EDP', 7, FALSE),
+       (8, 'Omnia Crystalline', 'Female', 'A delicate, aquatic bamboo scent inspired by the glowing clarity of crystal. It captures the essence of lotus flowers, white peonies, and balsa wood. This fragrance is airy, radiant, and incredibly fresh, making it perfect for a graceful woman during bright summer days.', 'EDT', 8, FALSE),
+       (9, 'Wood Sage & Sea Salt', 'Unisex', 'A refreshing scent of the British coast, capturing the air of the windswept shore. It blends the earthy notes of sage with the mineral scent of the rugged cliffs and sea salt. Evocative and spirited, it is a versatile fragrance for those who love the natural freshness of the outdoors.', 'EDC', 9, FALSE),
+       (10, 'Explorer', 'Male', 'An irresistible call for adventure, this woody-aromatic-leathery fragrance reveals an unconventional spirit. It features Italian bergamot, Haitian vetiver, and Indonesian patchouli. Designed for the man who wants to explore the world and discover his own limits with confidence.', 'EDP', 10, FALSE),
+       (11, 'No. 5', 'Female', 'The ultimate symbol of luxury and timeless elegance, this iconic floral-aldehyde fragrance is the world''s most famous perfume. It features a complex bouquet of rose, jasmine, and ylang-ylang, layered over a warm base of sandalwood and vanilla. A legendary choice for formal events and high-society gatherings.', 'Parfum', 1, FALSE),
+       (12, 'Hypnotic Poison', 'Female', 'An intoxicating and extravagant oriental fragrance that is both mysterious and magnetic. It features four contrasting facets: intoxicating bitter almond and carvi, opulent Sambac jasmine, mysterious Jacarandra, and sensuous vanilla and musk. A seductive choice for intimate evening wear.', 'EDT', 2, FALSE);
 
 INSERT INTO address (id, user_id, receiver, phone_number, city_name, ward_name, delivery_address, hide)
 VALUES (1, 2, 'Nguyễn Thị Hạnh', '0912345678', 'Hồ Chí Minh', 'Phường Bến Nghé', '125 Hai Bà Trưng', FALSE),

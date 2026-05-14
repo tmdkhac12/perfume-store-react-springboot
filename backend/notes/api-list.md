@@ -1170,4 +1170,50 @@ Quản lý thông tin cá nhân, địa chỉ và quản trị người dùng.
 
 ---
 
+## 🤖 Assistant Module
+
+AI-powered perfume consultation and vector database management.
+
+### 1. Tư vấn nước hoa (AI Consultation)
+- **Endpoint:** `POST /api/v1/bot/consult`
+- **Auth:** None
+- **Request Body:**
+  ```json
+  {
+    "message": "I am looking for a fresh, citrusy perfume for summer.",
+    "sessionId": "optional-session-uuid"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "timestamp": "2026-05-14T12:00:00Z",
+    "status": 200,
+    "path": "/api/v1/bot/consult",
+    "data": {
+      "response": "Based on your preference for a fresh and citrusy scent, I highly recommend 'Wood Sage & Sea Salt' by Jo Malone. It features refreshing top notes of Lemon and Mandarin Orange, perfectly capturing the essence of the British coast...",
+      "sessionId": "test-session-1"
+    },
+    "message": "Consultation successful",
+    "error": null
+  }
+  ```
+
+### 2. Đồng bộ Vector Database (Admin)
+- **Endpoint:** `POST /api/v1/admin/assistant/sync`
+- **Auth:** Bearer Token (Admin)
+- **Response:**
+  ```json
+  {
+    "timestamp": "2026-05-14T12:00:00Z",
+    "status": 200,
+    "path": "/api/v1/admin/assistant/sync",
+    "data": null,
+    "message": "Vector database synchronization started successfully.",
+    "error": null
+  }
+  ```
+
+---
+
 *(Danh sách chi tiết các API sẽ được cập nhật trong các phase tiếp theo)*

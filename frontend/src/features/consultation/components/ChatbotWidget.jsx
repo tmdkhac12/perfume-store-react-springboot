@@ -8,6 +8,7 @@ const ChatbotWidget = () => {
   const [inputValue, setInputValue] = useState('');
   const { messages, isLoading, sendMessage } = useConsultation();
   const messagesEndRef = useRef(null);
+  const textareaRef = useRef(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -22,11 +23,17 @@ const ChatbotWidget = () => {
   const handleToggle = () => setIsOpen(!isOpen);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     if (!inputValue.trim() || isLoading) return;
 
     const message = inputValue;
     setInputValue('');
+    
+    // Reset textarea height using ref
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+    }
+
     await sendMessage(message);
   };
 
@@ -66,19 +73,38 @@ const ChatbotWidget = () => {
           </div>
 
           {/* Input Area */}
-          <form onSubmit={handleSubmit} className="p-4 bg-white border-t border-outline/10 flex items-center gap-2">
-            <input
-              type="text"
+          <form onSubmit={handleSubmit} className="p-4 bg-white border-t border-outline/10 flex items-end gap-2">
+            <textarea
+              ref={textareaRef}
+              rows="1"
               value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
+              onChange={(e) => {
+                setInputValue(e.target.value);
+                e.target.style.height = 'auto';
+                const newHeight = e.target.scrollHeight;
+                e.target.style.height = `${newHeight}px`;
+                
+                // Show scrollbar only if content exceeds max-height (128px)
+                if (newHeight > 128) {
+                  e.target.style.overflowY = 'auto';
+                } else {
+                  e.target.style.overflowY = 'hidden';
+                }
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSubmit();
+                }
+              }}
               placeholder="Ask me anything about perfumes..."
-              className="flex-grow px-4 py-2 bg-background border border-outline/20 rounded-full text-sm font-body focus:outline-none focus:border-primary/50 transition-colors"
+              className="flex-grow px-4 py-2 bg-background border border-outline/20 rounded-2xl text-sm font-body focus:outline-none focus:border-primary/50 transition-colors resize-none max-h-32 overflow-y-hidden custom-scrollbar"
               disabled={isLoading}
             />
             <button
               type="submit"
               disabled={!inputValue.trim() || isLoading}
-              className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${!inputValue.trim() || isLoading
+              className={`w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center transition-all ${!inputValue.trim() || isLoading
                 ? 'bg-outline/20 text-on-surface-variant/40 cursor-not-allowed'
                 : 'bg-primary text-on-primary hover:scale-105 active:scale-95'
                 }`}

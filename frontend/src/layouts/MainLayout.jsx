@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { MainFooter, MainHeader, ScrollToTop } from '../components/base';
+import { ChatbotWidget } from '../features/consultation';
 
 function MainLayout() {
   return (
@@ -11,6 +12,7 @@ function MainLayout() {
         <Outlet />
       </main>
 
+      <ChatbotWidget />
       <MainFooter />
     </div>
   );

@@ -51,11 +51,11 @@ public class VectorStorageService {
                 .collect(Collectors.joining("; "));
 
         String content = String.format(
-                "Product: %s. Brand: %s. For: %s. Concentration: %s. " +
+                "Product ID: %d. Product: %s. Brand: %s. For: %s. Concentration: %s. " +
                         "Scent Description: %s. " +
                         "Detailed Scent Notes: %s. " +
                         "Available Volumes and Prices: %s.",
-                p.getName(), p.getBrand().getName(), p.getGender(),
+                p.getId(), p.getName(), p.getBrand().getName(), p.getGender(),
                 p.getConcentration(), p.getDescription(), notes, volumes
         );
 

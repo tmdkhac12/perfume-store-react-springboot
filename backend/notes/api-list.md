@@ -797,31 +797,70 @@ Quản lý đơn hàng, thanh toán và lịch sử mua hàng.
           "quantity": 1,
           "buyPrice": 3000000.00
         }
-      ]
+      ],
+      "paymentStatus": "Pending",
+      "checkoutUrl": "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html?..."
     },
     "message": "Invoice created",
     "error": null
-  }
-  ```
+    }
+    ```
 
-### 4. Cập nhật trạng thái đơn hàng (Admin)
-- **Endpoint:** `PATCH /api/v1/invoices/{id}/status`
-- **Auth:** Bearer Token (Admin)
-- **Request Body:**
-  ```json
-  {
-    "deliveryStatus": "SHIPPING"
-  }
-  ```
-- **Response:** `200 OK`
+    ### 5. Cập nhật trạng thái đơn hàng (Admin)
+    - **Endpoint:** `PATCH /api/v1/invoices/{id}/status`
+    - **Auth:** Bearer Token (Admin)
+    - **Request Body:**
+    ```json
+    {
+      "deliveryStatus": "SHIPPING"
+    }
+    ```
+    - **Response:** `200 OK`
 
-### 5. Hủy đơn hàng (User)
-- **Endpoint:** `PATCH /api/v1/invoices/{id}/cancel`
-- **Auth:** Bearer Token (Owner)
-- **Response:** `200 OK`
+    ### 6. Hủy đơn hàng (User)
+    - **Endpoint:** `PATCH /api/v1/invoices/{id}/cancel`
+    - **Auth:** Bearer Token (Owner)
+    - **Response:** `200 OK`
 
----
+    ---
 
+    ## 💳 Payment Module
+
+    Tích hợp thanh toán trực tuyến qua VNPay.
+
+    ### 1. Xử lý kết quả thanh toán (Redirect)
+    - **Endpoint:** `GET /api/v1/payment/vnpay-return`
+    - **Auth:** None (Redirect từ VNPay)
+    - **Mô tả:** Nhận kết quả thanh toán từ VNPay sau khi người dùng thực hiện giao dịch. Hệ thống sẽ kiểm tra chữ ký và trả về trạng thái thanh toán.
+    - **Response:**
+    ```json
+    {
+      "timestamp": "2026-05-20T10:00:00Z",
+      "status": 200,
+      "path": "/api/v1/payment/vnpay-return",
+      "data": {
+        "invoiceId": "123",
+        "responseCode": "00",
+        "message": "Payment Successful"
+      },
+      "message": "Payment successful",
+      "error": null
+    }
+    ```
+
+    ### 2. Thông báo giao dịch (IPN)
+    - **Endpoint:** `GET /api/v1/payment/vnpay-ipn`
+    - **Auth:** None (Server-to-Server từ VNPay)
+    - **Mô tả:** VNPay gọi endpoint này để thông báo kết quả giao dịch chính thức. Hệ thống sẽ cập nhật trạng thái đơn hàng (`Paid` hoặc `Failed`) dựa trên mã phản hồi.
+    - **Response:**
+    ```json
+    {
+      "RspCode": "00",
+      "Message": "Confirm Success"
+    }
+    ```
+
+    ---
 ## 📍 Address Module
 
 Cung cấp dữ liệu hành chính (Tỉnh/Thành, Phường/Xã).

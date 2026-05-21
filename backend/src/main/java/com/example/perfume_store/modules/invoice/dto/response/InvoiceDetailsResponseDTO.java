@@ -2,6 +2,7 @@ package com.example.perfume_store.modules.invoice.dto.response;
 
 import com.example.perfume_store.modules.invoice.enums.DeliveryStatus;
 import com.example.perfume_store.modules.invoice.enums.PaymentMethod;
+import com.example.perfume_store.modules.invoice.enums.PaymentStatus;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -24,6 +25,10 @@ public class InvoiceDetailsResponseDTO {
     private DeliveryStatus deliveryStatus;
 
     private PaymentMethod paymentMethod;
+
+    private PaymentStatus paymentStatus;
+
+    private String checkoutUrl;
 
     private List<InvoiceDetailsDTO> invoiceDetails;
 }

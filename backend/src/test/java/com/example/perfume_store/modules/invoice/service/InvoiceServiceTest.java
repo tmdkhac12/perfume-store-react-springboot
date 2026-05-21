@@ -38,6 +38,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -314,7 +315,7 @@ class InvoiceServiceTest {
 
     @Test
     @DisplayName("createInvoice: Should create invoice and details successfully")
-    void createInvoice_Success() {
+    void createInvoice_Success() throws UnsupportedEncodingException {
         // Arrange
         Integer userId = 1;
         InvoiceCreateRequestDTO request = createInvoiceCreateRequestDTO(10, PaymentMethod.Cash, 20, 2);

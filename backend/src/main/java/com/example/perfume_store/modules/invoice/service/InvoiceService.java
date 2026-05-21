@@ -18,7 +18,10 @@ import com.example.perfume_store.modules.invoice.dto.response.InvoicePublicRespo
 import com.example.perfume_store.modules.invoice.entity.InvoiceSpecification;
 import com.example.perfume_store.modules.invoice.enums.DeliveryStatus;
 import com.example.perfume_store.modules.invoice.enums.PaymentMethod;
+import com.example.perfume_store.modules.invoice.enums.PaymentStatus;
 import com.example.perfume_store.modules.invoice.mapper.InvoiceMapper;
+import com.example.perfume_store.modules.payment.service.VNPayService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -28,6 +31,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -44,6 +48,8 @@ public class InvoiceService {
     private final UserRepository userRepository;
 
     private final InvoiceMapper invoiceMapper;
+    private final VNPayService vnPayService;
+    private final HttpServletRequest httpServletRequest;
 
     // Getter for entities
     private Invoice getInvoiceByIdEntity(int id) {
@@ -103,7 +109,7 @@ public class InvoiceService {
     }
 
     @Transactional
-    public InvoiceDetailsResponseDTO createInvoice(InvoiceCreateRequestDTO request, Integer userId) {
+    public InvoiceDetailsResponseDTO createInvoice(InvoiceCreateRequestDTO request, Integer userId) throws UnsupportedEncodingException {
         // Check if an address is valid
         Address address = getAddressByIdEntity(request.getAddressId());
 
@@ -112,6 +118,8 @@ public class InvoiceService {
         invoice.setUser(getUserByIdEntity(userId));
         invoice.setCreatedAt(LocalDateTime.now());
         invoice.setDeliveryStatus(DeliveryStatus.Pending);
+        invoice.setAddress(address);
+        invoice.setPaymentStatus(PaymentStatus.Pending);
         invoice.setPaymentMethod(request.getPaymentMethod());
         invoice.setReceiverName(address.getReceiver());
         invoice.setPhoneNumber(address.getPhoneNumber());
@@ -147,7 +155,15 @@ public class InvoiceService {
         invoiceDetailsRepository.saveAll(detailsList);
 
         savedInvoice.setInvoiceDetails(detailsList);
-        return invoiceMapper.toInvoiceDetailsResponse(savedInvoice);
+        InvoiceDetailsResponseDTO responseDTO = invoiceMapper.toInvoiceDetailsResponse(savedInvoice);
+
+        // Generate checkout URL if payment method is Transfer
+        if (savedInvoice.getPaymentMethod() == PaymentMethod.Transfer) {
+            String checkoutUrl = vnPayService.createPaymentUrl(savedInvoice, httpServletRequest);
+            responseDTO.setCheckoutUrl(checkoutUrl);
+        }
+
+        return responseDTO;
     }
 
     @Transactional

@@ -73,6 +73,9 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers("/login/**", "/oauth2/**").permitAll()
 
+                        // Payment
+                        .requestMatchers("/api/v1/payment/**").permitAll()
+
                         // Brands
                         .requestMatchers(HttpMethod.GET, "/api/v1/brands/**").permitAll()
                         .requestMatchers("/api/v1/brands/**").hasRole(ADMIN)

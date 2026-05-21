@@ -5,6 +5,7 @@ import com.example.perfume_store.domain.user.User;
 import com.example.perfume_store.domain.invoice_details.InvoiceDetails;
 import com.example.perfume_store.modules.invoice.enums.DeliveryStatus;
 import com.example.perfume_store.modules.invoice.enums.PaymentMethod;
+import com.example.perfume_store.modules.invoice.enums.PaymentStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -44,5 +45,10 @@ public class Invoice {
 
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
+
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus paymentStatus;
+
+    private String vnpayTransactionId;
 
 }

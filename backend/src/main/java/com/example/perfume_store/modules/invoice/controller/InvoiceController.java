@@ -17,6 +17,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -77,7 +78,7 @@ public class InvoiceController {
     public ResponseEntity<?> createInvoice(
             @RequestBody InvoiceCreateRequestDTO invoiceCreateRequestDTO,
             HttpServletRequest request
-    ) {
+    ) throws UnsupportedEncodingException {
         int userId = securityContextGetter.getUserId();
 
         var invoiceDetails = invoiceService.createInvoice(invoiceCreateRequestDTO, userId);

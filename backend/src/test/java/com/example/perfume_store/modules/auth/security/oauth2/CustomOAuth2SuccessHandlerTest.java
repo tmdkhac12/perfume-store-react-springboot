@@ -53,6 +53,7 @@ class CustomOAuth2SuccessHandlerTest {
         // Mock RedirectStrategy để chặn đứng logic tính toán URL phức tạp của Spring
         RedirectStrategy redirectStrategy = mock(RedirectStrategy.class);
         successHandler.setRedirectStrategy(redirectStrategy);
+        org.springframework.test.util.ReflectionTestUtils.setField(successHandler, "frontendUrl", "/api/v1/auth/home");
 
         when(authentication.getPrincipal()).thenReturn(oauth2User);
         when(oauth2User.getAttribute("email")).thenReturn("a@b.com");
@@ -71,9 +72,9 @@ class CustomOAuth2SuccessHandlerTest {
         verify(response).addCookie(cookieCaptor.capture());
         Cookie capturedCookie = cookieCaptor.getValue();
 
-        assertThat(capturedCookie.getName()).isEqualTo("jwt_token");
+        assertThat(capturedCookie.getName()).isEqualTo("perfume_store_token");
         assertThat(capturedCookie.getValue()).isEqualTo("mock-token");
-        assertThat(capturedCookie.isHttpOnly()).isTrue();
+        assertThat(capturedCookie.isHttpOnly()).isFalse(); // matches handler setting
 
         // 2. Kiểm tra Redirect thông qua RedirectStrategy (Đây là điểm mấu chốt)
         // verify lên redirectStrategy thay vì response

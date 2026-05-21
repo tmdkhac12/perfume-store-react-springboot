@@ -1,5 +1,6 @@
 package com.example.perfume_store.modules.payment.controller;
 
+import com.example.perfume_store.configs.security.SecurityContextGetter;
 import com.example.perfume_store.common.response.ApiResponse;
 import com.example.perfume_store.common.utils.ApiResponseFactory;
 import com.example.perfume_store.domain.invoice.Invoice;
@@ -9,11 +10,9 @@ import com.example.perfume_store.modules.payment.service.VNPayService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +24,27 @@ public class VNPayController {
 
     private final VNPayService vnPayService;
     private final InvoiceRepository invoiceRepository;
+    private final SecurityContextGetter securityContextGetter;
+
+    @GetMapping("/repay/{invoiceId}")
+    public ResponseEntity<?> repay(@PathVariable int invoiceId, HttpServletRequest request) throws UnsupportedEncodingException {
+        int userId = securityContextGetter.getUserId();
+        Invoice invoice = invoiceRepository.findByIdAndUserId(invoiceId, userId).orElse(null);
+
+        if (invoice == null) {
+            return ApiResponseFactory.error(org.springframework.http.HttpStatus.NOT_FOUND, "Invoice not found", request);
+        }
+
+        if (invoice.getPaymentStatus() == PaymentStatus.Paid) {
+            return ApiResponseFactory.error(org.springframework.http.HttpStatus.BAD_REQUEST, "Invoice already paid", request);
+        }
+
+        String checkoutUrl = vnPayService.createPaymentUrl(invoice, request);
+        Map<String, String> result = new HashMap<>();
+        result.put("checkoutUrl", checkoutUrl);
+
+        return ApiResponseFactory.success(result, "Repay URL generated", org.springframework.http.HttpStatus.OK, request);
+    }
 
     @GetMapping("/vnpay-return")
     public ResponseEntity<?> vnpayReturn(HttpServletRequest request) {
@@ -100,7 +120,7 @@ public class VNPayController {
                             .longValue();
 
                     if (vnpAmount == invoiceAmount) {
-                        if (invoice.getPaymentStatus() == PaymentStatus.Pending) {
+                        if (invoice.getPaymentStatus() != PaymentStatus.Paid) {
                             if ("00".equals(responseCode)) {
                                 invoice.setPaymentStatus(PaymentStatus.Paid);
                             } else {

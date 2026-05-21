@@ -828,7 +828,25 @@ Quản lý đơn hàng, thanh toán và lịch sử mua hàng.
 
     Tích hợp thanh toán trực tuyến qua VNPay.
 
-    ### 1. Xử lý kết quả thanh toán (Redirect)
+    ### 1. Tạo lại link thanh toán (Repay)
+    - **Endpoint:** `GET /api/v1/payment/repay/{invoiceId}`
+    - **Auth:** Bearer Token (Owner)
+    - **Mô tả:** Tạo một URL thanh toán VNPay mới cho hóa đơn hiện có (khi hóa đơn chưa được thanh toán hoặc thanh toán lỗi trước đó).
+    - **Response:**
+    ```json
+    {
+      "timestamp": "2026-05-21T10:00:00Z",
+      "status": 200,
+      "path": "/api/v1/payment/repay/123",
+      "data": {
+        "checkoutUrl": "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html?..."
+      },
+      "message": "Repay URL generated",
+      "error": null
+    }
+    ```
+
+    ### 2. Xử lý kết quả thanh toán (Redirect)
     - **Endpoint:** `GET /api/v1/payment/vnpay-return`
     - **Auth:** None (Redirect từ VNPay)
     - **Mô tả:** Nhận kết quả thanh toán từ VNPay sau khi người dùng thực hiện giao dịch. Hệ thống sẽ kiểm tra chữ ký và trả về trạng thái thanh toán.

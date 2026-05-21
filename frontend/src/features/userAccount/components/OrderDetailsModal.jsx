@@ -4,6 +4,7 @@ import { apiClient } from '../../../services/apiClient.js';
 function OrderDetailsModal({ isOpen, onClose, orderId }) {
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [repayLoading, setRepayLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -28,9 +29,44 @@ function OrderDetailsModal({ isOpen, onClose, orderId }) {
     }
   }, [isOpen, orderId]);
 
+  /**
+   * @description: Handles the repayment process by requesting a new VNPay URL.
+   * @flow: Request repay URL -> Redirect to checkoutUrl.
+   * @returns {Promise<void>} - redirection to VNPay or error handling
+   */
+  const handleRepay = async () => {
+    if (!orderId) return;
+
+    setRepayLoading(true);
+    try {
+      const response = await apiClient.get(`/payment/repay/${orderId}`);
+      const isErrorResponse = !response || response.error || response.status >= 400;
+
+      if (isErrorResponse) {
+        throw new Error(response?.message || 'Failed to generate payment URL.');
+      }
+
+      const checkoutUrl = response?.data?.checkoutUrl;
+      if (checkoutUrl) {
+        window.location.href = checkoutUrl;
+      } else {
+        throw new Error('No payment URL returned from server.');
+      }
+    } catch (err) {
+      alert(err.message || 'An error occurred while initiating payment.');
+    } finally {
+      setRepayLoading(false);
+    }
+  };
+
   if (!isOpen) {
     return null;
   }
+
+  const isEligibleForRepay =
+    order &&
+    order.paymentMethod === 'Transfer' &&
+    (order.paymentStatus === 'Pending' || order.paymentStatus === 'Failed');
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-on-background/40 p-4 backdrop-blur-sm">
@@ -91,6 +127,14 @@ function OrderDetailsModal({ isOpen, onClose, orderId }) {
                     </span>
                     <span className="mt-1 inline-block rounded-full bg-surface-container-high px-2 py-0.5 text-[10px] uppercase tracking-wider text-on-surface">
                       {order.deliveryStatus}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="mb-1 block text-xs text-on-surface-variant">
+                      Payment Status
+                    </span>
+                    <span className="mt-1 inline-block rounded-full bg-surface-container-high px-2 py-0.5 text-[10px] uppercase tracking-wider text-on-surface">
+                      {order.paymentStatus}
                     </span>
                   </div>
                 </div>
@@ -179,14 +223,29 @@ function OrderDetailsModal({ isOpen, onClose, orderId }) {
           </div>
         ) : null}
 
-        <div className="flex justify-end border-t border-surface-variant bg-surface-container-lowest px-8 py-6">
+        <div className="flex justify-end gap-4 border-t border-surface-variant bg-surface-container-lowest px-8 py-6">
           <button
-            className="rounded-full border border-transparent bg-black px-8 py-3 text-sm uppercase tracking-wider text-white transition-all duration-300 hover:border-black hover:bg-white hover:text-black"
+            className="rounded-full border border-surface-variant px-8 py-3 text-sm uppercase tracking-wider text-on-surface transition-all duration-300 hover:bg-surface-container-high"
             onClick={onClose}
             type="button"
           >
-            Close Details
+            Close
           </button>
+          {isEligibleForRepay && (
+            <button
+              className="flex items-center gap-2 rounded-full border border-transparent bg-black px-8 py-3 text-sm uppercase tracking-wider text-white transition-all duration-300 hover:bg-on-surface-variant/80 disabled:opacity-50"
+              disabled={repayLoading}
+              onClick={handleRepay}
+              type="button"
+            >
+              {repayLoading ? (
+                <div className="h-4 w-4 animate-spin rounded-full border-2 border-white/20 border-t-white" />
+              ) : (
+                <span className="material-symbols-outlined text-lg">payments</span>
+              )}
+              {repayLoading ? 'Processing...' : 'Pay Now'}
+            </button>
+          )}
         </div>
       </div>
     </div>

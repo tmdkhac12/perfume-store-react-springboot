@@ -76,7 +76,9 @@ CREATE TABLE `invoice`
     `phone_number`     varchar(20)   NOT NULL,
     `shipping_address` text           NOT NULL,
     `delivery_status`  ENUM ('Pending', 'Confirmed', 'Shipped', 'Cancelled'),
-    `payment_method`   ENUM ('Cash', 'Transfer')
+    `payment_method`   ENUM ('Cash', 'Transfer'),
+    `payment_status`   ENUM ('Pending', 'Paid', 'Failed') DEFAULT 'Pending',
+    `vnpay_transaction_id` varchar(255) DEFAULT NULL
 );
 
 CREATE TABLE `invoice_details`

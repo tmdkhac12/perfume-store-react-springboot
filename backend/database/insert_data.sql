@@ -124,27 +124,27 @@ VALUES
 (81, 11, 12, 'Top'), (82, 1, 12, 'Top'), (83, 2, 12, 'Heart'), (84, 15, 12, 'Heart'), (85, 4, 12, 'Base'), (86, 13, 12, 'Base');
 
 INSERT INTO invoice (id, user_id, address_id, created_at, total, receiver_name, phone_number, shipping_address,
-                     delivery_status, payment_method)
+                     delivery_status, payment_method, payment_status, vnpay_transaction_id)
 VALUES (1, 2, 1, '2025-11-20 10:30:00', 120.00, 'Nguyễn Thị Hạnh', '0912345678',
-        '125 Hai Bà Trưng, Phường Bến Nghé, Hồ Chí Minh', 'Shipped', 'Transfer'),
+        '125 Hai Bà Trưng, Phường Bến Nghé, Hồ Chí Minh', 'Shipped', 'Transfer', 'Paid', NULL),
        (2, 3, 2, '2025-11-25 15:00:00', 185.00, 'Trần Văn Mạnh', '0987654321',
-        '60 Hàng Ngang, Phường Hàng Buồm, Hà Nội', 'Pending', 'Cash'),
+        '60 Hàng Ngang, Phường Hàng Buồm, Hà Nội', 'Pending', 'Cash', 'Pending', NULL),
        (3, 4, 3, '2025-11-28 09:15:00', 420.00, 'Lê Anh Thư', '0955511223',
-        '45 Phan Đăng Lưu, Phường Hòa Cường Bắc, Đà Nẵng', 'Confirmed', 'Transfer'),
+        '45 Phan Đăng Lưu, Phường Hòa Cường Bắc, Đà Nẵng', 'Confirmed', 'Transfer', 'Paid', NULL),
        (4, 5, 4, '2025-11-29 11:00:00', 205.00, 'Phạm Duy Khang', '0966677889',
-        '350/15 Đường 30 Tháng 4, Phường An Lạc, Cần Thơ', 'Confirmed', 'Cash'),
+        '350/15 Đường 30 Tháng 4, Phường An Lạc, Cần Thơ', 'Confirmed', 'Cash', 'Pending', NULL),
        (5, 6, 5, '2025-12-01 14:00:00', 170.00, 'Võ Minh Tâm', '0977733445', '202 Tô Hiệu, Phường Lạch Tray, Hải Phòng',
-        'Pending', 'Transfer'),
+        'Pending', 'Transfer', 'Pending', NULL),
        (6, 7, 6, '2025-12-02 16:00:00', 155.00, 'Đặng Quốc Huy', '0911122334', '12 Hùng Vương, Phường Phú Hội, Huế',
-        'Shipped', 'Cash'),
+        'Shipped', 'Cash', 'Paid', NULL),
        (7, 8, 7, '2025-12-03 08:00:00', 260.00, 'Hoàng Kiều Trinh', '0988899001',
-        '404 Trần Phú, Phường Lộc Thọ, Nha Trang', 'Pending', 'Transfer'),
+        '404 Trần Phú, Phường Lộc Thọ, Nha Trang', 'Pending', 'Transfer', 'Pending', NULL),
        (8, 9, 8, '2025-12-03 09:00:00', 220.00, 'Bùi Tấn Phát', '0955500112', '505 Đồng Khởi, Phường Tân Mai, Biên Hòa',
-        'Confirmed', 'Cash'),
+        'Confirmed', 'Cash', 'Pending', NULL),
        (9, 10, 9, '2025-12-03 10:00:00', 145.00, 'Chung Gia Khiêm', '0922244556',
-        '606 Lê Hồng Phong, Phường Thắng Nhất, Vũng Tàu', 'Pending', 'Transfer'),
+        '606 Lê Hồng Phong, Phường Thắng Nhất, Vũng Tàu', 'Pending', 'Transfer', 'Pending', NULL),
        (10, 2, 1, '2025-12-03 11:00:00', 160.00, 'Nguyễn Thị Hạnh', '0912345678',
-        '125 Hai Bà Trưng, Phường Bến Nghé, Hồ Chí Minh', 'Shipped', 'Cash');
+        '125 Hai Bà Trưng, Phường Bến Nghé, Hồ Chí Minh', 'Shipped', 'Cash', 'Paid', NULL);
 
 INSERT INTO invoice_details (id, volume_perfume_id, invoice_id, quantity, buy_price, perfume_name, volume_name)
 VALUES (1, 1, 1, 1, 120.00, 'Coco Mademoiselle', 50.0),

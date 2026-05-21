@@ -46,6 +46,18 @@ public class VNPayController {
         result.put("responseCode", vnp_ResponseCode);
 
         if (isValidSignature) {
+            // If customer cancelled (ResponseCode 24), delete the invoice to keep history clean
+            if ("24".equals(vnp_ResponseCode)) {
+                try {
+                    int invoiceId = Integer.parseInt(invoiceIdStr);
+                    invoiceRepository.deleteById(invoiceId);
+                } catch (Exception e) {
+                    // Log error or ignore
+                }
+                result.put("message", "Payment Cancelled");
+                return ApiResponseFactory.error(org.springframework.http.HttpStatus.BAD_REQUEST, "Payment cancelled by user", request);
+            }
+
             if ("00".equals(vnp_ResponseCode)) {
                 result.put("message", "Payment Successful");
                 return ApiResponseFactory.success(result, "Payment successful", org.springframework.http.HttpStatus.OK, request);
@@ -65,7 +77,17 @@ public class VNPayController {
         try {
             boolean isValidSignature = vnPayService.verifyCallback(new HashMap<>(params));
             if (isValidSignature) {
+                String responseCode = params.get("vnp_ResponseCode");
                 int invoiceId = Integer.parseInt(params.get("vnp_TxnRef"));
+
+                // If customer cancelled, delete the invoice immediately
+                if ("24".equals(responseCode)) {
+                    invoiceRepository.deleteById(invoiceId);
+                    response.put("RspCode", "00");
+                    response.put("Message", "Confirm Success (Invoice Deleted)");
+                    return response;
+                }
+
                 Invoice invoice = invoiceRepository.findById(invoiceId).orElse(null);
 
                 if (invoice != null) {
@@ -79,7 +101,7 @@ public class VNPayController {
 
                     if (vnpAmount == invoiceAmount) {
                         if (invoice.getPaymentStatus() == PaymentStatus.Pending) {
-                            if ("00".equals(params.get("vnp_ResponseCode"))) {
+                            if ("00".equals(responseCode)) {
                                 invoice.setPaymentStatus(PaymentStatus.Paid);
                             } else {
                                 invoice.setPaymentStatus(PaymentStatus.Failed);

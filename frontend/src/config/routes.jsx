@@ -20,6 +20,7 @@ import CheckoutPage from '../pages/CheckoutPage.jsx';
 import HomePage from '../pages/HomePage.jsx';
 import LoginPage from '../pages/LoginPage.jsx';
 import NotFoundPage from '../pages/NotFoundPage.jsx';
+import PaymentResultPage from '../pages/PaymentResultPage.jsx';
 import ProductDetailsPage from '../pages/ProductDetailsPage.jsx';
 import RegisterPage from '../pages/RegisterPage.jsx';
 import ShopPage from '../pages/ShopPage.jsx';
@@ -109,6 +110,10 @@ const publicRouteChildren = [
         <CheckoutPage />
       </AuthGuard>
     )
+  },
+  {
+    path: 'payment-result',
+    element: <PaymentResultPage />
   }
 ];
 
@@ -142,7 +147,7 @@ export const appRoutes = [
     element: <NotFoundLayout />,
     children: [
       {
-        path: "*",
+        path: '*',
         element: <NotFoundPage />
       }
     ]

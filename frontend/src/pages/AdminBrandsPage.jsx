@@ -8,19 +8,22 @@ const brandRows = [
   {
     id: '001',
     name: 'Tom Ford',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCef0tDOdX9Cwly-Gt3O-Fx2BXXN-RAYQcLgGpOH8IVtgtT6w_5d5qXhViQcribVFwSfuJMISSn_fDqigBUEznx5QhXPebZoiDK1WYelRAh4LGXMdVYNTup9kpG5bevqmXVo1H31TfqGewQMkvZ8TOe6arsOkzSsptyoyTBa_vEdbZ724pcN4wBa331wOYqxkabvRxXWQDRfql7UoPgIpirbr25DM-REuIMxi6xWa7tPsOQSPNHNN6J_MbBQjqamaX05GiXIhgBmw0',
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuCef0tDOdX9Cwly-Gt3O-Fx2BXXN-RAYQcLgGpOH8IVtgtT6w_5d5qXhViQcribVFwSfuJMISSn_fDqigBUEznx5QhXPebZoiDK1WYelRAh4LGXMdVYNTup9kpG5bevqmXVo1H31TfqGewQMkvZ8TOe6arsOkzSsptyoyTBa_vEdbZ724pcN4wBa331wOYqxkabvRxXWQDRfql7UoPgIpirbr25DM-REuIMxi6xWa7tPsOQSPNHNN6J_MbBQjqamaX05GiXIhgBmw0',
     enabled: true
   },
   {
     id: '002',
     name: 'Byredo',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDV52FVbIyVxqykDrpyWmWukxDOtXwQVo-jUW9VAVCV3Ff7yxooaibRmcra1RY4x0Z-3e60yWUYxoY03eEGN10ongBXXt0EpTWWyVa-QpSsv4AqudVT0gUOmBwFWWK4ACEB2Dh5KUId7WLscJ3LJa8fU1qBZqbZLTmK-rJRLHREOBCxvo-VKW1XpO8AOXUNz5RTdoCaWrH1qKlmPq-uvgM17Wg2r1C5EhuapOeVdUmVjdbarsqAVUqwmOKrIQ_-u5FHtOM68kGj4dA',
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuDV52FVbIyVxqykDrpyWmWukxDOtXwQVo-jUW9VAVCV3Ff7yxooaibRmcra1RY4x0Z-3e60yWUYxoY03eEGN10ongBXXt0EpTWWyVa-QpSsv4AqudVT0gUOmBwFWWK4ACEB2Dh5KUId7WLscJ3LJa8fU1qBZqbZLTmK-rJRLHREOBCxvo-VKW1XpO8AOXUNz5RTdoCaWrH1qKlmPq-uvgM17Wg2r1C5EhuapOeVdUmVjdbarsqAVUqwmOKrIQ_-u5FHtOM68kGj4dA',
     enabled: true
   },
   {
     id: '003',
     name: 'Diptyque',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB71_4YLaqiYOhLugdE2b-ZLWZWgvisL49CuVkkkl_KTuEdTkNA8hJvjOAYeQaYevKWeIvWGLKJuPVPV9sXSAbqnug-A7eei_5c3vxxxhh-L0UrWDBy_8_ooLx2HrrdjlEEXrjyhe3rlgz_Y1JqazhJX1-p8fCgQbYTJBHw1tVfZrTvs9vlBmd0IkFy_QEy5sZDWo47yoCjQqsLXBnX3xhdkXUFxQJ42brUeyn1umxruBEyv39sUjH64AeMStYHZgurF0taQvm-3gk',
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuB71_4YLaqiYOhLugdE2b-ZLWZWgvisL49CuVkkkl_KTuEdTkNA8hJvjOAYeQaYevKWeIvWGLKJuPVPV9sXSAbqnug-A7eei_5c3vxxxhh-L0UrWDBy_8_ooLx2HrrdjlEEXrjyhe3rlgz_Y1JqazhJX1-p8fCgQbYTJBHw1tVfZrTvs9vlBmd0IkFy_QEy5sZDWo47yoCjQqsLXBnX3xhdkXUFxQJ42brUeyn1umxruBEyv39sUjH64AeMStYHZgurF0taQvm-3gk',
     enabled: false
   }
 ];
@@ -45,11 +48,18 @@ function AdminBrandsPage() {
 
         <div className="flex flex-col">
           {brandRows.map((row) => (
-            <div key={row.id} className="group grid grid-cols-12 gap-4 items-center px-6 py-5 transition-colors duration-200 hover:bg-surface-container-low">
+            <div
+              key={row.id}
+              className="group grid grid-cols-12 gap-4 items-center px-6 py-5 transition-colors duration-200 hover:bg-surface-container-low"
+            >
               <div className="col-span-1 text-sm text-on-surface-variant">{row.id}</div>
               <div className="col-span-7 flex items-center gap-4">
                 <div className="h-10 w-10 flex-shrink-0 overflow-hidden rounded-md bg-surface-container">
-                  <img alt={row.name} className="h-full w-full object-cover grayscale" src={row.image} />
+                  <img
+                    alt={row.name}
+                    className="h-full w-full object-cover grayscale"
+                    src={row.image}
+                  />
                 </div>
                 <span className="font-headline text-lg text-primary">{row.name}</span>
               </div>

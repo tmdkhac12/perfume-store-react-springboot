@@ -11,7 +11,15 @@ import { useState, useRef, useEffect } from 'react';
  * @param {string} props.name - Name attribute for the selection.
  * @param {Function} props.onExpand - Optional callback triggered when the dropdown expands.
  */
-function SearchableSelect({ options = [], value, onChange, placeholder = 'Select option', disabled = false, name, onExpand }) {
+function SearchableSelect({
+  options = [],
+  value,
+  onChange,
+  placeholder = 'Select option',
+  disabled = false,
+  name,
+  onExpand
+}) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const containerRef = useRef(null);
@@ -60,14 +68,19 @@ function SearchableSelect({ options = [], value, onChange, placeholder = 'Select
       <button
         type="button"
         onClick={toggleDropdown}
-        className={`w-full bg-surface-container border border-outline-variant/30 py-4 px-6 rounded-[40px] text-left flex justify-between items-center transition-all duration-300 ${disabled ? 'opacity-50 cursor-not-allowed' : 'hover:border-accent'
-          } ${isExpanded ? 'border-accent ring-1 ring-accent/20' : ''}`}
+        className={`w-full bg-surface-container border border-outline-variant/30 py-4 px-6 rounded-[40px] text-left flex justify-between items-center transition-all duration-300 ${
+          disabled ? 'opacity-50 cursor-not-allowed' : 'hover:border-accent'
+        } ${isExpanded ? 'border-accent ring-1 ring-accent/20' : ''}`}
         disabled={disabled}
       >
-        <span className={`font-body truncate ${value ? 'text-on-surface' : 'text-on-surface-variant'}`}>
+        <span
+          className={`font-body truncate ${value ? 'text-on-surface' : 'text-on-surface-variant'}`}
+        >
           {value || placeholder}
         </span>
-        <span className={`material-symbols-outlined text-on-surface-variant transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`}>
+        <span
+          className={`material-symbols-outlined text-on-surface-variant transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`}
+        >
           expand_more
         </span>
       </button>
@@ -78,7 +91,9 @@ function SearchableSelect({ options = [], value, onChange, placeholder = 'Select
           {/* Search Input Area */}
           <div className="p-3 border-b border-outline-variant/10 bg-surface-container/30">
             <div className="relative flex items-center">
-              <span className="material-symbols-outlined absolute left-3 text-on-surface-variant text-sm">search</span>
+              <span className="material-symbols-outlined absolute left-3 text-on-surface-variant text-sm">
+                search
+              </span>
               <input
                 type="text"
                 autoFocus
@@ -98,8 +113,9 @@ function SearchableSelect({ options = [], value, onChange, placeholder = 'Select
                 <button
                   key={opt}
                   type="button"
-                  className={`w-full text-left px-6 py-3 font-body text-sm transition-colors hover:bg-surface-container ${value === opt ? 'bg-accent/10 text-accent font-semibold' : 'text-on-surface'
-                    }`}
+                  className={`w-full text-left px-6 py-3 font-body text-sm transition-colors hover:bg-surface-container ${
+                    value === opt ? 'bg-accent/10 text-accent font-semibold' : 'text-on-surface'
+                  }`}
                   onClick={() => handleSelect(opt)}
                 >
                   {opt}
@@ -107,7 +123,9 @@ function SearchableSelect({ options = [], value, onChange, placeholder = 'Select
               ))
             ) : (
               <div className="px-6 py-8 text-center">
-                <span className="material-symbols-outlined text-outline-variant text-3xl mb-2">search_off</span>
+                <span className="material-symbols-outlined text-outline-variant text-3xl mb-2">
+                  search_off
+                </span>
                 <p className="text-on-surface-variant text-xs italic">Không tìm thấy kết quả</p>
               </div>
             )}

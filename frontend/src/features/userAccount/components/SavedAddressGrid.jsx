@@ -9,11 +9,7 @@ import AddressCard from './AddressCard.jsx';
  * @param {Function} props.onEditAddress
  * @param {Function} props.onDeleteAddress
  */
-function SavedAddressGrid({
-  addresses,
-  onEditAddress,
-  onDeleteAddress
-}) {
+function SavedAddressGrid({ addresses, onEditAddress, onDeleteAddress }) {
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
       {addresses.map((address) => (

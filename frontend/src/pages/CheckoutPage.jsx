@@ -52,8 +52,10 @@ function CheckoutPage() {
         return;
       }
 
-      const preferredMatch = preferredId && addressList.find((address) => address.id === preferredId);
-      const currentMatch = selectedAddressId && addressList.find((address) => address.id === selectedAddressId);
+      const preferredMatch =
+        preferredId && addressList.find((address) => address.id === preferredId);
+      const currentMatch =
+        selectedAddressId && addressList.find((address) => address.id === selectedAddressId);
       const nextSelected = preferredMatch?.id ?? currentMatch?.id ?? addressList[0].id;
       setSelectedAddressId(nextSelected);
     } catch (error) {
@@ -163,6 +165,12 @@ function CheckoutPage() {
       setToastMessage(response?.message || 'Order confirmed successfully.');
       setToastVariant('success');
 
+      const checkoutUrl = response?.data?.checkoutUrl;
+      if (paymentMethod === 'Transfer' && checkoutUrl) {
+        window.location.href = checkoutUrl;
+        return;
+      }
+
       // Clear cart storage and navigate to order history
       writeCartItems([]);
       setTimeout(() => {
@@ -187,7 +195,8 @@ function CheckoutPage() {
   const summaryItems = useMemo(() => {
     return cartItems.map((item) => {
       const volumeValue = item?.volume;
-      const volumeLabel = typeof volumeValue === 'number' ? `${volumeValue}ml` : volumeValue || 'Selected volume';
+      const volumeLabel =
+        typeof volumeValue === 'number' ? `${volumeValue}ml` : volumeValue || 'Selected volume';
       const detailLabel = `${item?.concentration || 'Eau de Parfum'} • ${volumeLabel}`;
       const priceValue = Number(item?.price ?? 0) * (Number(item?.quantity) || 0);
 
@@ -212,7 +221,8 @@ function CheckoutPage() {
   const totalValue = invoiceTotal ?? subtotalValue;
   const formattedSubtotal = formatCurrency(subtotalValue);
   const formattedTotal = formatCurrency(totalValue);
-  const isCheckoutDisabled = checkoutStatus === 'loading' || cartItems.length === 0 || !selectedAddressId;
+  const isCheckoutDisabled =
+    checkoutStatus === 'loading' || cartItems.length === 0 || !selectedAddressId;
   const isSavingAddress = addressSaveStatus === 'saving';
 
   return (

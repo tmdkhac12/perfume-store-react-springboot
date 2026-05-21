@@ -22,7 +22,9 @@ function AdminSidebar() {
           />
         </div>
         <div>
-          <h2 className="font-headline text-lg font-bold tracking-widest text-zinc-900">Aura Gallery</h2>
+          <h2 className="font-headline text-lg font-bold tracking-widest text-zinc-900">
+            Aura Gallery
+          </h2>
           <p className="text-xs text-on-surface-variant">Management Suite</p>
         </div>
       </div>
@@ -41,16 +43,25 @@ function AdminSidebar() {
             }
             to={item.to}
           >
-            <span className="material-symbols-outlined mr-3 transition-colors group-hover:text-on-surface">{item.icon}</span>
+            <span className="material-symbols-outlined mr-3 transition-colors group-hover:text-on-surface">
+              {item.icon}
+            </span>
             <span className="text-[11px] font-medium uppercase tracking-[0.1em]">{item.label}</span>
           </NavLink>
         ))}
       </nav>
 
       <div className="mt-auto space-y-2 border-t border-surface-container-high pt-6">
-        <button className="group flex w-full items-center rounded-lg px-4 py-2 text-zinc-500 transition-all duration-200 hover:bg-stone-100 hover:text-zinc-900" type="button">
-          <span className="material-symbols-outlined mr-3 text-[20px] transition-colors group-hover:text-on-surface">logout</span>
-          <Link to='/' className="text-[11px] font-medium uppercase tracking-[0.1em]">Sign Out</Link>
+        <button
+          className="group flex w-full items-center rounded-lg px-4 py-2 text-zinc-500 transition-all duration-200 hover:bg-stone-100 hover:text-zinc-900"
+          type="button"
+        >
+          <span className="material-symbols-outlined mr-3 text-[20px] transition-colors group-hover:text-on-surface">
+            logout
+          </span>
+          <Link to="/" className="text-[11px] font-medium uppercase tracking-[0.1em]">
+            Sign Out
+          </Link>
         </button>
       </div>
     </aside>

@@ -4,7 +4,7 @@ import { useConsultation } from './useConsultation';
 import { postConsultation } from '../api';
 
 vi.mock('../api', () => ({
-  postConsultation: vi.fn(),
+  postConsultation: vi.fn()
 }));
 
 describe('useConsultation hook', () => {

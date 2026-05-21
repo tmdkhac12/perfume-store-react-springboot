@@ -41,10 +41,7 @@ function AccountOrdersPage() {
 
   return (
     <>
-      <AccountPageHeader
-        description="View and manage your past purchases."
-        title="Order History"
-      />
+      <AccountPageHeader description="View and manage your past purchases." title="Order History" />
 
       {loading ? (
         <div className="text-center">Loading orders...</div>
@@ -54,9 +51,9 @@ function AccountOrdersPage() {
         <OrderHistoryList onViewDetails={handleViewDetails} orders={orders} />
       )}
 
-      <OrderDetailsModal 
-        isOpen={orderDetailsModal.isOpen} 
-        onClose={orderDetailsModal.close} 
+      <OrderDetailsModal
+        isOpen={orderDetailsModal.isOpen}
+        onClose={orderDetailsModal.close}
         orderId={selectedOrderId}
       />
     </>

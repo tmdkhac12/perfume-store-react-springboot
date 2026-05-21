@@ -75,7 +75,9 @@ function AccountNav() {
 
   const displayName = profile?.name || (profileStatus === 'loading' ? 'Loading...' : 'Account');
   const displayMeta =
-    profile?.username || profile?.email || (profileStatus === 'loading' ? 'Fetching profile' : 'Member');
+    profile?.username ||
+    profile?.email ||
+    (profileStatus === 'loading' ? 'Fetching profile' : 'Member');
 
   return (
     <aside className="top-28 mr-12 hidden h-[calc(100vh-8rem)] w-72 flex-col gap-2 rounded-r-2xl bg-zinc-100 p-6 md:flex">
@@ -88,7 +90,9 @@ function AccountNav() {
           />
         </div>
         <div>
-          <h2 className="font-headline text-lg font-medium tracking-widest text-zinc-900">{displayName}</h2>
+          <h2 className="font-headline text-lg font-medium tracking-widest text-zinc-900">
+            {displayName}
+          </h2>
           <p className="mt-1 text-xs uppercase tracking-widest text-zinc-600">{displayMeta}</p>
         </div>
       </div>

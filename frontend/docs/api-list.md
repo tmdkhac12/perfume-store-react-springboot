@@ -27,6 +27,7 @@ Tất cả các API đều trả về dữ liệu theo định dạng envelope `
 ```
 
 ### Phân trang (PageResponse)
+
 Đối với các danh sách có phân trang, phần `data` sẽ có cấu trúc:
 
 ```json
@@ -43,17 +44,16 @@ Tất cả các API đều trả về dữ liệu theo định dạng envelope `
 
 ## ❌ Các mã lỗi thường gặp
 
-| Status Code | Ý nghĩa | Mô tả |
-| :--- | :--- | :--- |
-| **200** | OK | Truy vấn thành công. |
-| **201** | Created | Tạo mới dữ liệu thành công. |
-| **400** | Bad Request | Dữ liệu đầu vào không hợp lệ (Validation fails, logic violation). |
-| **401** | Unauthorized | Token không hợp lệ hoặc hết hạn. |
-| **403** | Forbidden | Không có quyền truy cập (Role không khớp). |
-| **404** | Not Found | Không tìm thấy tài nguyên yêu cầu. |
-| **409** | Conflict | Dữ liệu đã tồn tại (Duplicate entry) hoặc vi phạm ràng buộc database. |
-| **500** | Internal Error | Lỗi hệ thống từ phía server. |
-
+| Status Code | Ý nghĩa        | Mô tả                                                                 |
+| :---------- | :------------- | :-------------------------------------------------------------------- |
+| **200**     | OK             | Truy vấn thành công.                                                  |
+| **201**     | Created        | Tạo mới dữ liệu thành công.                                           |
+| **400**     | Bad Request    | Dữ liệu đầu vào không hợp lệ (Validation fails, logic violation).     |
+| **401**     | Unauthorized   | Token không hợp lệ hoặc hết hạn.                                      |
+| **403**     | Forbidden      | Không có quyền truy cập (Role không khớp).                            |
+| **404**     | Not Found      | Không tìm thấy tài nguyên yêu cầu.                                    |
+| **409**     | Conflict       | Dữ liệu đã tồn tại (Duplicate entry) hoặc vi phạm ràng buộc database. |
+| **500**     | Internal Error | Lỗi hệ thống từ phía server.                                          |
 
 ---
 
@@ -69,6 +69,7 @@ Hầu hết các endpoints đều yêu cầu Header:
 Các endpoints liên quan đến xác thực và đăng ký.
 
 ### 1. Đăng nhập
+
 - **Endpoint:** `POST /api/v1/auth/login`
 - **Auth:** None
 - **Request Body:**
@@ -91,6 +92,7 @@ Các endpoints liên quan đến xác thực và đăng ký.
   ```
 
 ### 2. Đăng ký
+
 - **Endpoint:** `POST /api/v1/auth/register`
 - **Auth:** None
 - **Request Body:**
@@ -116,6 +118,7 @@ Các endpoints liên quan đến xác thực và đăng ký.
   ```
 
 ### 3. Kiểm tra Token
+
 - **Endpoint:** `POST /api/v1/auth/token`
 - **Auth:** Bearer Token
 - **Response:**
@@ -131,6 +134,7 @@ Các endpoints liên quan đến xác thực và đăng ký.
   ```
 
 ### 4. Đăng nhập qua Google (OAuth2)
+
 - **Endpoint:** `GET /oauth2/authorization/google`
 - **Auth:** None
 - **Mô tả:** Chuyển hướng người dùng đến trang đăng nhập của Google.
@@ -145,6 +149,7 @@ Các endpoints liên quan đến xác thực và đăng ký.
 Quản lý danh mục thương hiệu nước hoa.
 
 ### 1. Lấy danh sách thương hiệu
+
 - **Endpoint:** `GET /api/v1/brands`
 - **Auth:** None
 - **Response:**
@@ -171,6 +176,7 @@ Quản lý danh mục thương hiệu nước hoa.
   ```
 
 ### 2. Chi tiết thương hiệu
+
 - **Endpoint:** `GET /api/v1/brands/{id}`
 - **Auth:** None
 - **Response:**
@@ -190,6 +196,7 @@ Quản lý danh mục thương hiệu nước hoa.
   ```
 
 ### 3. Tạo thương hiệu (Admin)
+
 - **Endpoint:** `POST /api/v1/brands`
 - **Auth:** Bearer Token (Admin)
 - **Request Body:**
@@ -216,6 +223,7 @@ Quản lý danh mục thương hiệu nước hoa.
   ```
 
 ### 4. Cập nhật thương hiệu (Admin)
+
 - **Endpoint:** `PUT /api/v1/brands/{id}`
 - **Auth:** Bearer Token (Admin)
 - **Request Body:**
@@ -242,6 +250,7 @@ Quản lý danh mục thương hiệu nước hoa.
   ```
 
 ### 5. Xóa thương hiệu (Admin)
+
 - **Endpoint:** `DELETE /api/v1/brands/{id}`
 - **Auth:** Bearer Token (Admin)
 - **Response:**
@@ -263,6 +272,7 @@ Quản lý danh mục thương hiệu nước hoa.
 Quản lý danh mục các tầng hương (Top, Heart, Base notes).
 
 ### 1. Lấy danh sách mùi hương
+
 - **Endpoint:** `GET /api/v1/notes`
 - **Auth:** None
 - **Response:**
@@ -284,6 +294,7 @@ Quản lý danh mục các tầng hương (Top, Heart, Base notes).
   ```
 
 ### 2. Chi tiết mùi hương
+
 - **Endpoint:** `GET /api/v1/notes/{id}`
 - **Auth:** None
 - **Response:**
@@ -303,6 +314,7 @@ Quản lý danh mục các tầng hương (Top, Heart, Base notes).
   ```
 
 ### 3. Tạo mùi hương (Admin)
+
 - **Endpoint:** `POST /api/v1/notes`
 - **Auth:** Bearer Token (Admin)
 - **Request Body:**
@@ -329,6 +341,7 @@ Quản lý danh mục các tầng hương (Top, Heart, Base notes).
   ```
 
 ### 4. Cập nhật mùi hương (Admin)
+
 - **Endpoint:** `PUT /api/v1/notes/{id}`
 - **Auth:** Bearer Token (Admin)
 - **Request Body:**
@@ -355,6 +368,7 @@ Quản lý danh mục các tầng hương (Top, Heart, Base notes).
   ```
 
 ### 5. Xóa mùi hương (Admin)
+
 - **Endpoint:** `DELETE /api/v1/notes/{id}`
 - **Auth:** Bearer Token (Admin)
 - **Response:**
@@ -376,6 +390,7 @@ Quản lý danh mục các tầng hương (Top, Heart, Base notes).
 Quản lý các loại dung tích nước hoa.
 
 ### 1. Lấy danh sách dung tích
+
 - **Endpoint:** `GET /api/v1/volumes`
 - **Auth:** None
 - **Response:**
@@ -397,6 +412,7 @@ Quản lý các loại dung tích nước hoa.
   ```
 
 ### 2. Chi tiết dung tích
+
 - **Endpoint:** `GET /api/v1/volumes/{id}`
 - **Auth:** None
 - **Response:**
@@ -416,6 +432,7 @@ Quản lý các loại dung tích nước hoa.
   ```
 
 ### 3. Tạo dung tích (Admin)
+
 - **Endpoint:** `POST /api/v1/volumes`
 - **Auth:** Bearer Token (Admin)
 - **Request Body:**
@@ -442,6 +459,7 @@ Quản lý các loại dung tích nước hoa.
   ```
 
 ### 4. Cập nhật dung tích (Admin)
+
 - **Endpoint:** `PUT /api/v1/volumes/{id}`
 - **Auth:** Bearer Token (Admin)
 - **Request Body:**
@@ -468,6 +486,7 @@ Quản lý các loại dung tích nước hoa.
   ```
 
 ### 5. Xóa dung tích (Admin)
+
 - **Endpoint:** `DELETE /api/v1/volumes/{id}`
 - **Auth:** Bearer Token (Admin)
 - **Response:**
@@ -489,6 +508,7 @@ Quản lý các loại dung tích nước hoa.
 Quản lý danh sách nước hoa, tìm kiếm và chi tiết sản phẩm.
 
 ### 1. Danh sách nước hoa (Phân trang & Tìm kiếm)
+
 - **Endpoint:** `GET /api/v1/perfumes`
 - **Auth:** None
 - **Query Parameters:**
@@ -512,7 +532,7 @@ Quản lý danh sách nước hoa, tìm kiếm và chi tiết sản phẩm.
           "name": "Bleu de Chanel",
           "brand": "Chanel",
           "sampleImage": "http://res.cloudinary.com/.../image.jpg",
-          "minPrice": 2500000.00
+          "minPrice": 2500000.0
         }
       ],
       "page": 1,
@@ -526,6 +546,7 @@ Quản lý danh sách nước hoa, tìm kiếm và chi tiết sản phẩm.
   ```
 
 ### 2. Chi tiết nước hoa
+
 - **Endpoint:** `GET /api/v1/perfumes/{id}`
 - **Auth:** None
 - **Response:**
@@ -548,11 +569,11 @@ Quản lý danh sách nước hoa, tìm kiếm và chi tiết sản phẩm.
       "volumes": [
         {
           "volume": 100.0,
-          "price": 3000000.00
+          "price": 3000000.0
         },
         {
           "volume": 50.0,
-          "price": 2000000.00
+          "price": 2000000.0
         }
       ],
       "notes": {
@@ -567,6 +588,7 @@ Quản lý danh sách nước hoa, tìm kiếm và chi tiết sản phẩm.
   ```
 
 ### 3. Tạo nước hoa (Admin)
+
 - **Endpoint:** `POST /api/v1/perfumes`
 - **Auth:** Bearer Token (Admin)
 - **Content-Type:** `multipart/form-data`
@@ -595,12 +617,14 @@ Quản lý danh sách nước hoa, tìm kiếm và chi tiết sản phẩm.
       "gender": "Male",
       "concentration": "EDP",
       "brand": "Chanel",
-      "sampleImages": ["http://res.cloudinary.com/perfume-store/image/upload/v1/bleu-de-chanel.jpg"],
-      "volumes": [{ "volume": 100.0, "price": 3000000.00 }],
-      "notes": { 
-        "top": ["Grapefruit", "Lemon", "Mint"], 
-        "heart": ["Ginger", "Jasmine", "Nutmeg"], 
-        "base": ["Sandalwood", "Patchouli", "Cedar"] 
+      "sampleImages": [
+        "http://res.cloudinary.com/perfume-store/image/upload/v1/bleu-de-chanel.jpg"
+      ],
+      "volumes": [{ "volume": 100.0, "price": 3000000.0 }],
+      "notes": {
+        "top": ["Grapefruit", "Lemon", "Mint"],
+        "heart": ["Ginger", "Jasmine", "Nutmeg"],
+        "base": ["Sandalwood", "Patchouli", "Cedar"]
       }
     },
     "message": "Perfume created",
@@ -609,6 +633,7 @@ Quản lý danh sách nước hoa, tìm kiếm và chi tiết sản phẩm.
   ```
 
 ### 4. Cập nhật nước hoa (Admin)
+
 - **Endpoint:** `PUT /api/v1/perfumes/{id}`
 - **Auth:** Bearer Token (Admin)
 - **Content-Type:** `multipart/form-data`
@@ -634,8 +659,8 @@ Quản lý danh sách nước hoa, tìm kiếm và chi tiết sản phẩm.
         "http://res.cloudinary.com/perfume-store/image/upload/v1/bleu-de-chanel-2.jpg"
       ],
       "volumes": [
-        { "volume": 100.0, "price": 3000000.00 },
-        { "volume": 50.0, "price": 2000000.00 }
+        { "volume": 100.0, "price": 3000000.0 },
+        { "volume": 50.0, "price": 2000000.0 }
       ],
       "notes": {
         "top": ["Grapefruit", "Lemon", "Mint"],
@@ -649,6 +674,7 @@ Quản lý danh sách nước hoa, tìm kiếm và chi tiết sản phẩm.
   ```
 
 ### 5. Xóa nước hoa (Admin)
+
 - **Endpoint:** `DELETE /api/v1/perfumes/{id}`
 - **Auth:** Bearer Token (Admin)
 - **Response:** `200 OK`
@@ -660,6 +686,7 @@ Quản lý danh sách nước hoa, tìm kiếm và chi tiết sản phẩm.
 Quản lý đơn hàng, thanh toán và lịch sử mua hàng.
 
 ### 1. Danh sách đơn hàng (Admin)
+
 - **Endpoint:** `GET /api/v1/invoices`
 - **Auth:** Bearer Token (Admin)
 - **Query Parameters:** `page`, `limit`, `searchKey`, `fromDate`, `toDate`, `deliveryStatus`, `paymentMethod`.
@@ -674,7 +701,7 @@ Quản lý đơn hàng, thanh toán và lịch sử mua hàng.
         {
           "id": 1,
           "createdAt": "2024-04-29T10:00:00",
-          "total": 5000000.00,
+          "total": 5000000.0,
           "receiverName": "Nguyen Van A",
           "phoneNumber": "0987654321",
           "shippingAddress": "123 Ly Tu Trong, HCM",
@@ -693,6 +720,7 @@ Quản lý đơn hàng, thanh toán và lịch sử mua hàng.
   ```
 
 ### 2. Chi tiết đơn hàng
+
 - **Endpoint:** `GET /api/v1/invoices/{id}`
 - **Auth:** Bearer Token (Owner hoặc Admin)
 - **Response:**
@@ -709,14 +737,14 @@ Quản lý đơn hàng, thanh toán và lịch sử mua hàng.
       "shippingAddress": "123 Ly Tu Trong, Q1, HCM",
       "deliveryStatus": "DELIVERED",
       "paymentMethod": "Credit Card ending in 4242",
-      "total": 5000000.00,
+      "total": 5000000.0,
       "invoiceDetails": [
         {
           "perfumeName": "Bleu de Chanel",
           "volumeName": 100.0,
           "concentration": "EDP",
           "quantity": 1,
-          "buyPrice": 3000000.00,
+          "buyPrice": 3000000.0,
           "image": "http://res.cloudinary.com/.../img1.jpg"
         }
       ]
@@ -727,6 +755,7 @@ Quản lý đơn hàng, thanh toán và lịch sử mua hàng.
   ```
 
 ### 3. Lấy danh sách đơn hàng của tôi
+
 - **Endpoint:** `GET /api/v1/users/me/invoices`
 - **Auth:** Bearer Token
 - **Query Parameters:** `page`, `limit`
@@ -741,11 +770,9 @@ Quản lý đơn hàng, thanh toán và lịch sử mua hàng.
         {
           "id": 1,
           "createdAt": "2024-04-29T10:00:00",
-          "total": 5000000.00,
+          "total": 5000000.0,
           "deliveryStatus": "DELIVERED",
-          "itemPreviews": [
-            "http://res.cloudinary.com/.../img1.jpg"
-          ],
+          "itemPreviews": ["http://res.cloudinary.com/.../img1.jpg"],
           "totalItems": 1
         }
       ],
@@ -760,6 +787,7 @@ Quản lý đơn hàng, thanh toán và lịch sử mua hàng.
   ```
 
 ### 4. Tạo đơn hàng (Checkout)
+
 - **Endpoint:** `POST /api/v1/invoices`
 - **Auth:** Bearer Token
 - **Request Body:**
@@ -784,7 +812,7 @@ Quản lý đơn hàng, thanh toán và lịch sử mua hàng.
     "data": {
       "id": 1,
       "createdAt": "2024-04-29T10:00:00",
-      "total": 5000000.00,
+      "total": 5000000.0,
       "receiverName": "Nguyen Van A",
       "phoneNumber": "0987654321",
       "shippingAddress": "123 Ly Tu Trong, HCM",
@@ -795,7 +823,7 @@ Quản lý đơn hàng, thanh toán và lịch sử mua hàng.
           "perfumeName": "Bleu de Chanel",
           "volumeName": 100.0,
           "quantity": 1,
-          "buyPrice": 3000000.00
+          "buyPrice": 3000000.0
         }
       ]
     },
@@ -805,6 +833,7 @@ Quản lý đơn hàng, thanh toán và lịch sử mua hàng.
   ```
 
 ### 4. Cập nhật trạng thái đơn hàng (Admin)
+
 - **Endpoint:** `PATCH /api/v1/invoices/{id}/status`
 - **Auth:** Bearer Token (Admin)
 - **Request Body:**
@@ -816,6 +845,7 @@ Quản lý đơn hàng, thanh toán và lịch sử mua hàng.
 - **Response:** `200 OK`
 
 ### 5. Hủy đơn hàng (User)
+
 - **Endpoint:** `PATCH /api/v1/invoices/{id}/cancel`
 - **Auth:** Bearer Token (Owner)
 - **Response:** `200 OK`
@@ -827,6 +857,7 @@ Quản lý đơn hàng, thanh toán và lịch sử mua hàng.
 Cung cấp dữ liệu hành chính (Tỉnh/Thành, Phường/Xã).
 
 ### 1. Danh sách Tỉnh/Thành và Phường/Xã
+
 - **Endpoint:** `GET /api/v1/address/provinces`
 - **Auth:** None
 - **Response:**
@@ -836,19 +867,9 @@ Cung cấp dữ liệu hành chính (Tỉnh/Thành, Phường/Xã).
     "status": 200,
     "path": "/api/v1/address/provinces",
     "data": {
-      "Thành phố Hà Nội": [
-        "Phường Ba Đình",
-        "Phường Ngọc Hà",
-        "Phường Giảng Võ"
-      ],
-      "Tỉnh Cao Bằng": [
-        "Phường Thục Phán",
-        "Phường Nùng Trí Cao"
-      ],
-      "Tỉnh Tuyên Quang": [
-        "Phường Hà Giang 2",
-        "Phường Hà Giang 1"
-      ]
+      "Thành phố Hà Nội": ["Phường Ba Đình", "Phường Ngọc Hà", "Phường Giảng Võ"],
+      "Tỉnh Cao Bằng": ["Phường Thục Phán", "Phường Nùng Trí Cao"],
+      "Tỉnh Tuyên Quang": ["Phường Hà Giang 2", "Phường Hà Giang 1"]
     },
     "message": "Get provinces successfully",
     "error": null
@@ -862,6 +883,7 @@ Cung cấp dữ liệu hành chính (Tỉnh/Thành, Phường/Xã).
 Quản lý thông tin cá nhân, địa chỉ và quản trị người dùng.
 
 ### 1. Thông tin cá nhân
+
 - **Endpoint:** `GET /api/v1/users/me`
 - **Auth:** Bearer Token
 - **Response:**
@@ -882,6 +904,7 @@ Quản lý thông tin cá nhân, địa chỉ và quản trị người dùng.
   ```
 
 ### 2. Cập nhật thông tin cá nhân
+
 - **Endpoint:** `PATCH /api/v1/users/me/profile`
 - **Auth:** Bearer Token
 - **Request Body:**
@@ -909,6 +932,7 @@ Quản lý thông tin cá nhân, địa chỉ và quản trị người dùng.
   ```
 
 ### 3. Cập nhật mật khẩu
+
 - **Endpoint:** `PATCH /api/v1/users/me/password`
 - **Auth:** Bearer Token
 - **Request Body:**
@@ -932,6 +956,7 @@ Quản lý thông tin cá nhân, địa chỉ và quản trị người dùng.
   ```
 
 ### 4. Danh sách địa chỉ nhận hàng
+
 - **Endpoint:** `GET /api/v1/users/me/addresses`
 - **Auth:** Bearer Token
 - **Response:**
@@ -957,6 +982,7 @@ Quản lý thông tin cá nhân, địa chỉ và quản trị người dùng.
   ```
 
 ### 5. Thêm địa chỉ mới
+
 - **Endpoint:** `POST /api/v1/users/me/addresses`
 - **Auth:** Bearer Token
 - **Request Body:**
@@ -990,6 +1016,7 @@ Quản lý thông tin cá nhân, địa chỉ và quản trị người dùng.
   ```
 
 ### 6. Cập nhật địa chỉ
+
 - **Endpoint:** `PUT /api/v1/users/me/addresses/{addressId}`
 - **Auth:** Bearer Token
 - **Request Body:**
@@ -1023,6 +1050,7 @@ Quản lý thông tin cá nhân, địa chỉ và quản trị người dùng.
   ```
 
 ### 7. Xóa địa chỉ (Soft delete)
+
 - **Endpoint:** `PATCH /api/v1/users/me/addresses/{addressId}`
 - **Auth:** Bearer Token
 - **Response:**
@@ -1040,6 +1068,7 @@ Quản lý thông tin cá nhân, địa chỉ và quản trị người dùng.
 ### 8. Quản lý người dùng (Admin)
 
 #### 8.1. Danh sách người dùng
+
 - **Endpoint:** `GET /api/v1/admin/users`
 - **Auth:** Bearer Token (Admin)
 - **Response:**
@@ -1070,6 +1099,7 @@ Quản lý thông tin cá nhân, địa chỉ và quản trị người dùng.
   ```
 
 #### 8.2. Chi tiết người dùng
+
 - **Endpoint:** `GET /api/v1/admin/users/{id}`
 - **Auth:** Bearer Token (Admin)
 - **Response:**
@@ -1092,6 +1122,7 @@ Quản lý thông tin cá nhân, địa chỉ và quản trị người dùng.
   ```
 
 #### 8.3. Tạo user mới (Admin)
+
 - **Endpoint:** `POST /api/v1/admin/users`
 - **Auth:** Bearer Token (Admin)
 - **Request Body:**
@@ -1124,6 +1155,7 @@ Quản lý thông tin cá nhân, địa chỉ và quản trị người dùng.
   ```
 
 #### 8.4. Cập nhật user (Admin)
+
 - **Endpoint:** `PUT /api/v1/admin/users/{id}`
 - **Auth:** Bearer Token (Admin)
 - **Request Body:** `UserAdminUpdateRequestDTO`
@@ -1147,6 +1179,7 @@ Quản lý thông tin cá nhân, địa chỉ và quản trị người dùng.
   ```
 
 #### 8.5. Reset mật khẩu (Admin)
+
 - **Endpoint:** `POST /api/v1/admin/users/{id}/reset-password`
 - **Auth:** Bearer Token (Admin)
 - **Response:**
@@ -1175,6 +1208,7 @@ Quản lý thông tin cá nhân, địa chỉ và quản trị người dùng.
 AI-powered perfume consultation and vector database management.
 
 ### 1. Tư vấn nước hoa (AI Consultation)
+
 - **Endpoint:** `POST /api/v1/bot/consult`
 - **Auth:** None
 - **Request Body:**
@@ -1200,6 +1234,7 @@ AI-powered perfume consultation and vector database management.
   ```
 
 ### 2. Đồng bộ Vector Database (Admin)
+
 - **Endpoint:** `POST /api/v1/admin/assistant/sync`
 - **Auth:** Bearer Token (Admin)
 - **Response:**
@@ -1216,4 +1251,4 @@ AI-powered perfume consultation and vector database management.
 
 ---
 
-*(Danh sách chi tiết các API sẽ được cập nhật trong các phase tiếp theo)*
+_(Danh sách chi tiết các API sẽ được cập nhật trong các phase tiếp theo)_

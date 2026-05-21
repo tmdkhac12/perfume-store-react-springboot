@@ -25,9 +25,10 @@ const normalizeCartItem = (raw, index) => {
   const quantity = Number(raw?.quantity) > 0 ? Number(raw.quantity) : 1;
   const priceValue = Number(raw?.price ?? raw?.unitPrice ?? raw?.minPrice ?? 0);
   const volumeValue = raw?.volume;
-  const volumeLabel = typeof volumeValue === 'number' ? `${volumeValue}ml` : volumeValue || 'Selected volume';
+  const volumeLabel =
+    typeof volumeValue === 'number' ? `${volumeValue}ml` : volumeValue || 'Selected volume';
 
-  console.log(raw)
+  console.log(raw);
 
   return {
     id: raw?.volumePerfumeId ?? raw?.id ?? index + 1,
@@ -159,7 +160,11 @@ function CartPage() {
         </div>
       </section>
       <aside className="w-full md:w-1/3 pt-4 md:pt-0">
-        <CartSummary itemCount={cartItemCount} subtotal={formattedSubtotal} total={formattedSubtotal} />
+        <CartSummary
+          itemCount={cartItemCount}
+          subtotal={formattedSubtotal}
+          total={formattedSubtotal}
+        />
       </aside>
     </div>
   );

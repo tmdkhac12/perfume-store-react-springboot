@@ -6,11 +6,41 @@ import {
 } from '../features/admin/components/index.js';
 
 const invoiceRows = [
-  { id: '#INV-2023-001', customer: 'Eleanor Vance', date: 'Oct 24, 2023', amount: '$285.00', status: 'Paid' },
-  { id: '#INV-2023-002', customer: 'Julian Blackwood', date: 'Oct 22, 2023', amount: '$420.50', status: 'Pending' },
-  { id: '#INV-2023-003', customer: 'Clara Harrington', date: 'Oct 20, 2023', amount: '$150.00', status: 'Paid' },
-  { id: '#INV-2023-004', customer: 'Arthur Pendelton', date: 'Oct 18, 2023', amount: '$890.00', status: 'Pending' },
-  { id: '#INV-2023-005', customer: 'Beatrice Thorne', date: 'Oct 15, 2023', amount: '$315.25', status: 'Paid' }
+  {
+    id: '#INV-2023-001',
+    customer: 'Eleanor Vance',
+    date: 'Oct 24, 2023',
+    amount: '$285.00',
+    status: 'Paid'
+  },
+  {
+    id: '#INV-2023-002',
+    customer: 'Julian Blackwood',
+    date: 'Oct 22, 2023',
+    amount: '$420.50',
+    status: 'Pending'
+  },
+  {
+    id: '#INV-2023-003',
+    customer: 'Clara Harrington',
+    date: 'Oct 20, 2023',
+    amount: '$150.00',
+    status: 'Paid'
+  },
+  {
+    id: '#INV-2023-004',
+    customer: 'Arthur Pendelton',
+    date: 'Oct 18, 2023',
+    amount: '$890.00',
+    status: 'Pending'
+  },
+  {
+    id: '#INV-2023-005',
+    customer: 'Beatrice Thorne',
+    date: 'Oct 15, 2023',
+    amount: '$315.25',
+    status: 'Paid'
+  }
 ];
 
 function AdminInvoicesPage() {
@@ -75,7 +105,9 @@ function AdminInvoicesPage() {
           <div className="flex max-h-[90vh] w-full max-w-4xl flex-col overflow-hidden rounded-3xl bg-surface-container-lowest shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
             <header className="sticky top-0 z-10 flex items-center justify-between border-b border-surface-variant bg-surface-container-lowest px-8 py-6">
               <div>
-                <h3 className="mb-1 font-headline text-2xl text-on-surface">Edit Invoice #INV-2023-001</h3>
+                <h3 className="mb-1 font-headline text-2xl text-on-surface">
+                  Edit Invoice #INV-2023-001
+                </h3>
                 <p className="text-sm text-on-surface-variant">Placed on October 24, 2023</p>
               </div>
               <button
@@ -90,19 +122,37 @@ function AdminInvoicesPage() {
             <div className="grid flex-1 gap-8 overflow-y-auto bg-background p-8 md:grid-cols-2">
               <div className="space-y-6">
                 <div className="rounded-3xl border border-surface-variant/50 bg-surface-container-lowest p-6 shadow-sm">
-                  <h4 className="mb-4 border-b border-surface-variant pb-2 text-sm uppercase tracking-wider text-on-surface">Delivery Details</h4>
+                  <h4 className="mb-4 border-b border-surface-variant pb-2 text-sm uppercase tracking-wider text-on-surface">
+                    Delivery Details
+                  </h4>
                   <div className="space-y-4 text-sm">
                     <label className="block">
-                      <span className="mb-1 block text-xs text-on-surface-variant">Receiver Name</span>
-                      <input className="w-full rounded-xl border border-surface-variant/50 bg-surface-container-low px-3 py-2" defaultValue="Eleanor Vance" />
+                      <span className="mb-1 block text-xs text-on-surface-variant">
+                        Receiver Name
+                      </span>
+                      <input
+                        className="w-full rounded-xl border border-surface-variant/50 bg-surface-container-low px-3 py-2"
+                        defaultValue="Eleanor Vance"
+                      />
                     </label>
                     <label className="block">
-                      <span className="mb-1 block text-xs text-on-surface-variant">Phone Number</span>
-                      <input className="w-full rounded-xl border border-surface-variant/50 bg-surface-container-low px-3 py-2" defaultValue="+1 555-0198" />
+                      <span className="mb-1 block text-xs text-on-surface-variant">
+                        Phone Number
+                      </span>
+                      <input
+                        className="w-full rounded-xl border border-surface-variant/50 bg-surface-container-low px-3 py-2"
+                        defaultValue="+1 555-0198"
+                      />
                     </label>
                     <label className="block">
-                      <span className="mb-1 block text-xs text-on-surface-variant">Shipping Address</span>
-                      <textarea className="w-full rounded-xl border border-surface-variant/50 bg-surface-container-low px-3 py-2" defaultValue="123 Luxury Lane, Beverly Hills, CA 90210" rows={3} />
+                      <span className="mb-1 block text-xs text-on-surface-variant">
+                        Shipping Address
+                      </span>
+                      <textarea
+                        className="w-full rounded-xl border border-surface-variant/50 bg-surface-container-low px-3 py-2"
+                        defaultValue="123 Luxury Lane, Beverly Hills, CA 90210"
+                        rows={3}
+                      />
                     </label>
                   </div>
                 </div>
@@ -110,22 +160,44 @@ function AdminInvoicesPage() {
 
               <div className="space-y-4">
                 <div className="rounded-3xl border border-surface-variant/50 bg-surface-container-lowest p-6 shadow-sm">
-                  <h4 className="mb-4 border-b border-surface-variant pb-2 text-sm uppercase tracking-wider text-on-surface">Payment Details</h4>
+                  <h4 className="mb-4 border-b border-surface-variant pb-2 text-sm uppercase tracking-wider text-on-surface">
+                    Payment Details
+                  </h4>
                   <div className="space-y-3 text-sm">
-                    <p className="flex justify-between"><span>Payment Method</span><span>Credit Card</span></p>
-                    <p className="flex justify-between"><span>Subtotal</span><span>$255.00</span></p>
-                    <p className="flex justify-between"><span>Shipping</span><span>$15.00</span></p>
-                    <p className="flex justify-between border-t border-surface-variant pt-3 font-headline text-lg"><span>Total</span><span>$285.00</span></p>
+                    <p className="flex justify-between">
+                      <span>Payment Method</span>
+                      <span>Credit Card</span>
+                    </p>
+                    <p className="flex justify-between">
+                      <span>Subtotal</span>
+                      <span>$255.00</span>
+                    </p>
+                    <p className="flex justify-between">
+                      <span>Shipping</span>
+                      <span>$15.00</span>
+                    </p>
+                    <p className="flex justify-between border-t border-surface-variant pt-3 font-headline text-lg">
+                      <span>Total</span>
+                      <span>$285.00</span>
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
 
             <div className="flex justify-end gap-3 border-t border-surface-variant bg-surface-container-lowest px-8 py-6">
-              <button className="rounded-full border border-outline-variant/30 px-8 py-3 text-sm uppercase tracking-wider" onClick={invoiceModal.close} type="button">
+              <button
+                className="rounded-full border border-outline-variant/30 px-8 py-3 text-sm uppercase tracking-wider"
+                onClick={invoiceModal.close}
+                type="button"
+              >
                 Cancel
               </button>
-              <button className="rounded-full bg-primary px-8 py-3 text-sm uppercase tracking-wider text-on-primary" onClick={invoiceModal.close} type="button">
+              <button
+                className="rounded-full bg-primary px-8 py-3 text-sm uppercase tracking-wider text-on-primary"
+                onClick={invoiceModal.close}
+                type="button"
+              >
                 Save Changes
               </button>
             </div>

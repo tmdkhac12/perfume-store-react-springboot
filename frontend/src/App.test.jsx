@@ -14,7 +14,9 @@ describe('App router bootstrap', () => {
   it('renders home page route', async () => {
     renderRoute('/');
 
-    expect(await screen.findByRole('heading', { name: 'Find Your Signature Scent' })).toBeInTheDocument();
+    expect(
+      await screen.findByRole('heading', { name: 'Find Your Signature Scent' })
+    ).toBeInTheDocument();
   });
 
   it('renders shop page route', async () => {

@@ -99,7 +99,11 @@ function AddressFormModal({ isOpen, onClose, initialData = null, onSubmit, isSav
         {/* Header */}
         <div className="px-8 py-6 border-b border-outline-variant/30 flex justify-between items-center sticky top-0 bg-surface-container-lowest z-10">
           <h3 className="font-headline text-2xl text-on-background">{modalTitle}</h3>
-          <button className="text-on-surface-variant hover:text-on-background transition-colors" onClick={onClose} type="button">
+          <button
+            className="text-on-surface-variant hover:text-on-background transition-colors"
+            onClick={onClose}
+            type="button"
+          >
             <span className="material-symbols-outlined">close</span>
           </button>
         </div>
@@ -110,7 +114,12 @@ function AddressFormModal({ isOpen, onClose, initialData = null, onSubmit, isSav
             <input name="cityName" type="hidden" value={selectedCity} />
             <input name="wardName" type="hidden" value={selectedWard} />
             <div>
-              <label className="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3" htmlFor="receiver">Receiver Name</label>
+              <label
+                className="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3"
+                htmlFor="receiver"
+              >
+                Receiver Name
+              </label>
               <input
                 className="w-full bg-surface-container border border-outline-variant/30 py-4 px-6 rounded-[40px] text-on-surface font-body focus:ring-0 focus:border-accent transition-colors duration-300"
                 id="receiver"
@@ -122,7 +131,12 @@ function AddressFormModal({ isOpen, onClose, initialData = null, onSubmit, isSav
               />
             </div>
             <div>
-              <label className="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3" htmlFor="phone">Phone Number</label>
+              <label
+                className="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3"
+                htmlFor="phone"
+              >
+                Phone Number
+              </label>
               <input
                 className="w-full bg-surface-container border border-outline-variant/30 py-4 px-6 rounded-[40px] text-on-surface font-body focus:ring-0 focus:border-accent transition-colors duration-300"
                 id="phone"
@@ -135,7 +149,12 @@ function AddressFormModal({ isOpen, onClose, initialData = null, onSubmit, isSav
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3" htmlFor="city">City</label>
+                <label
+                  className="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3"
+                  htmlFor="city"
+                >
+                  City
+                </label>
                 <SearchableSelect
                   disabled={isFormDisabled}
                   name="cityName"
@@ -147,7 +166,12 @@ function AddressFormModal({ isOpen, onClose, initialData = null, onSubmit, isSav
                 />
               </div>
               <div>
-                <label className="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3" htmlFor="ward">Ward/District</label>
+                <label
+                  className="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3"
+                  htmlFor="ward"
+                >
+                  Ward/District
+                </label>
                 <SearchableSelect
                   disabled={isFormDisabled || !selectedCity}
                   name="wardName"
@@ -160,7 +184,12 @@ function AddressFormModal({ isOpen, onClose, initialData = null, onSubmit, isSav
               </div>
             </div>
             <div>
-              <label className="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3" htmlFor="address">Delivery Address</label>
+              <label
+                className="block font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant mb-3"
+                htmlFor="address"
+              >
+                Delivery Address
+              </label>
               <input
                 className="w-full bg-surface-container border border-outline-variant/30 py-4 px-6 rounded-[40px] text-on-surface font-body focus:ring-0 focus:border-accent transition-colors duration-300"
                 id="address"
@@ -176,7 +205,13 @@ function AddressFormModal({ isOpen, onClose, initialData = null, onSubmit, isSav
 
         {/* Footer */}
         <div className="px-8 py-6 border-t border-outline-variant/30 bg-surface-container-lowest sticky bottom-0 z-10 flex justify-end gap-4">
-          <button className="px-8 py-4 rounded-[40px] font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant hover:bg-surface-container transition-colors" onClick={onClose} type="button">Cancel</button>
+          <button
+            className="px-8 py-4 rounded-[40px] font-label text-sm uppercase tracking-[0.1em] text-on-surface-variant hover:bg-surface-container transition-colors"
+            onClick={onClose}
+            type="button"
+          >
+            Cancel
+          </button>
           <button
             className="bg-accent text-on-primary px-8 py-4 rounded-[40px] font-label text-sm uppercase tracking-[0.1em] hover:bg-black transition-colors disabled:cursor-not-allowed disabled:opacity-60"
             form="shared_address_form"

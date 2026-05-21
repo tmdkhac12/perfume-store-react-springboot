@@ -56,7 +56,9 @@ export const buildNoteRows = (notes) => {
  * @returns {number | null} minPrice - Example: 2000000
  */
 export const resolveMinPrice = (volumes = []) => {
-  const prices = Array.isArray(volumes) ? volumes.map((item) => item?.price).filter((price) => typeof price === 'number') : [];
+  const prices = Array.isArray(volumes)
+    ? volumes.map((item) => item?.price).filter((price) => typeof price === 'number')
+    : [];
 
   if (prices.length === 0) {
     return null;

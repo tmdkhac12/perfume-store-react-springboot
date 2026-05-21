@@ -4,8 +4,8 @@ import { apiClient } from '../../../services/apiClient';
 
 vi.mock('../../../services/apiClient', () => ({
   apiClient: {
-    post: vi.fn(),
-  },
+    post: vi.fn()
+  }
 }));
 
 describe('postConsultation API', () => {

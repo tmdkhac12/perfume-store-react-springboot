@@ -22,7 +22,12 @@ function OrderSummary({
           safeItems.map((item) => (
             <div key={`${item.name}-${item.detail}`} className="flex gap-4">
               <div className="w-20 h-24 bg-surface-container-lowest rounded-xl overflow-hidden flex-shrink-0">
-                <img alt={item.name} className="w-full h-full object-cover" data-alt={item.dataAlt} src={item.image} />
+                <img
+                  alt={item.name}
+                  className="w-full h-full object-cover"
+                  data-alt={item.dataAlt}
+                  src={item.image}
+                />
               </div>
               <div className="flex-grow flex flex-col justify-center">
                 <h3 className="font-headline text-lg text-on-background">{item.name}</h3>
@@ -61,7 +66,9 @@ function OrderSummary({
       >
         {isProcessing ? 'Processing...' : 'Confirm Order'}
       </button>
-      <p className="text-center font-body text-xs text-on-surface-variant mt-4">By confirming, you agree to our Terms of Service.</p>
+      <p className="text-center font-body text-xs text-on-surface-variant mt-4">
+        By confirming, you agree to our Terms of Service.
+      </p>
     </div>
   );
 }

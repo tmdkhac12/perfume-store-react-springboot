@@ -3,11 +3,7 @@ import React from 'react';
 /** @typedef {import('../types').AddressItem} AddressItem */
 
 /** @description: Address card for a single saved location. */
-function AddressCard({
-  address,
-  onEdit,
-  onDelete
-}) {
+function AddressCard({ address, onEdit, onDelete }) {
   const { receiver, phoneNumber, cityName, wardName, deliveryAddress } = address;
 
   return (
@@ -15,9 +11,7 @@ function AddressCard({
       {/* Header section with icon and status */}
       <div className="mb-6 flex items-start justify-between">
         <div className="flex items-center gap-2">
-          <span className="material-symbols-outlined text-on-surface-variant">
-            location_on
-          </span>
+          <span className="material-symbols-outlined text-on-surface-variant">location_on</span>
           <h3 className="text-xs uppercase tracking-widest text-on-surface-variant">
             Saved Address
           </h3>

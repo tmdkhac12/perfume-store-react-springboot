@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react';
 
 function AdminLayout() {
   const { pathname } = useLocation();
-  const scrollContainerRef = useRef(null); // Create a reference to the scrool main 
+  const scrollContainerRef = useRef(null); // Create a reference to the scrool main
 
   useEffect(() => {
     if (scrollContainerRef.current) {

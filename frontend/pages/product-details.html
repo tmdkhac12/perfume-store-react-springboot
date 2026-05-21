@@ -1,229 +1,374 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <html class="light" lang="en">
-
-<head>
-  <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Silent Gallery - Product Detail</title>
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com" rel="preconnect" />
-  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;family=Noto+Serif:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet" />
-  <script id="tailwind-config">
-    tailwind.config = {
-      darkMode: "class",
-      theme: {
-        extend: {
-          colors: {
-            "primary-container": "#222222",
-            "outline-variant": "#c4c7c7",
-            "surface-tint": "#5f5e5e",
-            "on-primary-fixed": "#1b1c1c",
-            "secondary-fixed-dim": "#c8c6c6",
-            "secondary-container": "#e4e2e2",
-            "primary-fixed": "#e5e2e1",
-            "on-tertiary-fixed-variant": "#464747",
-            "primary-fixed-dim": "#c8c6c5",
-            "on-primary-container": "#8a8989",
-            "surface-container-low": "#f3f4f5",
-            "on-error": "#ffffff",
-            "inverse-on-surface": "#f0f1f2",
-            "on-background": "#191c1d",
-            "secondary-fixed": "#e4e2e2",
-            "surface-bright": "#f8f9fa",
-            "surface-dim": "#d9dadb",
-            "on-tertiary-fixed": "#1b1c1c",
-            "tertiary-container": "#212222",
-            "tertiary-fixed": "#e3e2e2",
-            "surface-container-lowest": "#ffffff",
-            surface: "#f8f9fa",
-            primary: "#0b0c0c",
-            "on-surface-variant": "#444748",
-            "on-error-container": "#93000a",
-            "inverse-surface": "#2e3132",
-            "on-secondary-fixed-variant": "#464747",
-            "surface-container-highest": "#e1e3e4",
-            "error-container": "#ffdad6",
-            "on-surface": "#191c1d",
-            "on-secondary-fixed": "#1b1c1c",
-            background: "#f8f9fa",
-            outline: "#747878",
-            "surface-variant": "#e1e3e4",
-            "on-secondary": "#ffffff",
-            "surface-container": "#edeeef",
-            "surface-container-high": "#e7e8e9",
-            "inverse-primary": "#c8c6c5",
-            tertiary: "#0a0c0c",
-            "on-primary": "#ffffff",
-            error: "#ba1a1a",
-            "tertiary-fixed-dim": "#c7c6c6",
-            "on-tertiary": "#ffffff",
-            secondary: "#5e5e5e",
-            "on-primary-fixed-variant": "#474746",
-            "on-tertiary-container": "#898989",
-            "on-secondary-container": "#646464"
-          },
-          borderRadius: {
-            DEFAULT: "0.25rem",
-            lg: "0.5rem",
-            xl: "0.75rem",
-            full: "9999px"
-          },
-          spacing: {},
-          fontFamily: {
-            headline: ["Noto Serif"],
-            body: ["Manrope"],
-            label: ["Manrope"],
-            display: "Noto Serif"
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Silent Gallery - Product Detail</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;family=Noto+Serif:ital,wght@0,100..900;1,100..900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'primary-container': '#222222',
+              'outline-variant': '#c4c7c7',
+              'surface-tint': '#5f5e5e',
+              'on-primary-fixed': '#1b1c1c',
+              'secondary-fixed-dim': '#c8c6c6',
+              'secondary-container': '#e4e2e2',
+              'primary-fixed': '#e5e2e1',
+              'on-tertiary-fixed-variant': '#464747',
+              'primary-fixed-dim': '#c8c6c5',
+              'on-primary-container': '#8a8989',
+              'surface-container-low': '#f3f4f5',
+              'on-error': '#ffffff',
+              'inverse-on-surface': '#f0f1f2',
+              'on-background': '#191c1d',
+              'secondary-fixed': '#e4e2e2',
+              'surface-bright': '#f8f9fa',
+              'surface-dim': '#d9dadb',
+              'on-tertiary-fixed': '#1b1c1c',
+              'tertiary-container': '#212222',
+              'tertiary-fixed': '#e3e2e2',
+              'surface-container-lowest': '#ffffff',
+              surface: '#f8f9fa',
+              primary: '#0b0c0c',
+              'on-surface-variant': '#444748',
+              'on-error-container': '#93000a',
+              'inverse-surface': '#2e3132',
+              'on-secondary-fixed-variant': '#464747',
+              'surface-container-highest': '#e1e3e4',
+              'error-container': '#ffdad6',
+              'on-surface': '#191c1d',
+              'on-secondary-fixed': '#1b1c1c',
+              background: '#f8f9fa',
+              outline: '#747878',
+              'surface-variant': '#e1e3e4',
+              'on-secondary': '#ffffff',
+              'surface-container': '#edeeef',
+              'surface-container-high': '#e7e8e9',
+              'inverse-primary': '#c8c6c5',
+              tertiary: '#0a0c0c',
+              'on-primary': '#ffffff',
+              error: '#ba1a1a',
+              'tertiary-fixed-dim': '#c7c6c6',
+              'on-tertiary': '#ffffff',
+              secondary: '#5e5e5e',
+              'on-primary-fixed-variant': '#474746',
+              'on-tertiary-container': '#898989',
+              'on-secondary-container': '#646464'
+            },
+            borderRadius: {
+              DEFAULT: '0.25rem',
+              lg: '0.5rem',
+              xl: '0.75rem',
+              full: '9999px'
+            },
+            spacing: {},
+            fontFamily: {
+              headline: ['Noto Serif'],
+              body: ['Manrope'],
+              label: ['Manrope'],
+              display: 'Noto Serif'
+            }
           }
         }
+      };
+    </script>
+    <style>
+      body {
+        font-family: 'Manrope', sans-serif;
       }
-    };
-  </script>
-  <style>
-    body {
-      font-family: 'Manrope', sans-serif;
-    }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    .font-headline {
-      font-family: 'Noto Serif', serif;
-    }
-  </style>
-</head>
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      .font-headline {
+        font-family: 'Noto Serif', serif;
+      }
+    </style>
+  </head>
 
-<body class="bg-background text-on-background min-h-screen flex flex-col">
-  <!-- TopAppBar -->
-  <nav class="fixed top-0 w-full z-50 rounded-none bg-[#f8f9fa]/80 backdrop-blur-2xl no-border transition-colors duration-500 flex justify-between items-center px-12 py-8 max-w-full">
-    <div class="flex items-center gap-8">
-      <a class="font-serif text-2xl font-light tracking-tighter text-zinc-900" href="../index.html">SILENT GALLERY</a>
-      <div class="hidden md:flex gap-6">
-        <a class="font-sans uppercase tracking-[0.2em] text-[10px] text-zinc-400 hover:text-zinc-900 transition-all" href="../index.html">HOME</a>
-        <a class="font-sans uppercase tracking-[0.2em] text-[10px] text-zinc-900 border-b border-zinc-900 pb-1" href="shop.html">SHOP</a>
-        <a class="font-sans uppercase tracking-[0.2em] text-[10px] text-zinc-400 hover:text-zinc-900 transition-all" href="shop.html">BEST SELLERS</a>
-        <a class="font-sans uppercase tracking-[0.2em] text-[10px] text-zinc-400 hover:text-zinc-900 transition-all" href="../index.html">ABOUT</a>
-      </div>
-    </div>
-    <div class="flex items-center gap-6 text-zinc-900">
-      <a class="hover:bg-zinc-200/50 p-2 opacity-70 transition-opacity duration-300 rounded-full" href="cart.html">
-        <span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
-      </a>
-      <a class="hover:bg-zinc-200/50 p-2 opacity-70 transition-opacity duration-300 rounded-full" href="login.html">
-        <span class="material-symbols-outlined" data-icon="person">person</span>
-      </a>
-    </div>
-  </nav>
-  <!-- Main Content -->
-  <main class="flex-grow pt-32 pb-24">
-    <div class="max-w-[1600px] mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-24 items-start">
-      <!-- Left: Product Image & Thumbnails -->
-      <div class="lg:col-span-7 flex flex-col gap-6">
-        <!-- Main Image -->
-        <div class="relative bg-surface-container-low h-[716px] md:h-[800px] w-full flex items-center justify-center p-8 md:p-16 rounded-[2.5rem] overflow-hidden">
-          <!-- Abstract shadow/glow behind image -->
-          <div class="absolute inset-0 bg-gradient-to-tr from-surface-variant/20 to-transparent pointer-events-none"></div>
-          <img alt="Luxury Perfume Bottle" class="max-w-full max-h-full object-contain mix-blend-multiply relative z-10 drop-shadow-[0_20px_40px_rgba(25,28,29,0.1)]" data-alt="Minimalist crystal perfume bottle with a heavy black architectural cap resting on a stark white plinth against a soft grey background, dramatic lighting casting a sharp shadow." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtZNeA1PJ18HC-yQ4OH10YZtcdy07e3Fl8RYV_Q9z4U1a62m2Y8lgBEyJhg_3WkDiVmRRQ5RtMDoFVst_KCHdEGu47ZpQ35rDpSW39QLbq_LRRT2iAY2gTW_KoI4JhIZ1JVYL4xuz4LLZ1tBVadZBdHcIqe_mxWRzu2LifZDhqR27tJrc07cLKfgZ35a_f5BzB3IXGRPQ8GuTLrfvfYksk22l7hb5QOYbJ57OXHTpWSc9SG4bTl125mf5kRjlQ5vrjO0oCCyK8ij8" />
-        </div>
-        <!-- Thumbnails -->
-        <div class="flex gap-4 justify-center px-2">
-          <button class="w-24 h-24 bg-surface-container-low border-2 border-primary rounded-2xl flex items-center justify-center p-2 transition-all">
-            <img alt="Perfume Bottle Angle 1" class="w-full h-full object-contain mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtZNeA1PJ18HC-yQ4OH10YZtcdy07e3Fl8RYV_Q9z4U1a62m2Y8lgBEyJhg_3WkDiVmRRQ5RtMDoFVst_KCHdEGu47ZpQ35rDpSW39QLbq_LRRT2iAY2gTW_KoI4JhIZ1JVYL4xuz4LLZ1tBVadZBdHcIqe_mxWRzu2LifZDhqR27tJrc07cLKfgZ35a_f5BzB3IXGRPQ8GuTLrfvfYksk22l7hb5QOYbJ57OXHTpWSc9SG4bTl125mf5kRjlQ5vrjO0oCCyK8ij8" />
-          </button>
-          <button class="w-24 h-24 bg-surface-container-low border-2 border-transparent hover:border-outline-variant rounded-2xl flex items-center justify-center p-2 transition-all opacity-70 hover:opacity-100">
-            <img alt="Perfume Bottle Angle 2" class="w-full h-full object-contain mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtZNeA1PJ18HC-yQ4OH10YZtcdy07e3Fl8RYV_Q9z4U1a62m2Y8lgBEyJhg_3WkDiVmRRQ5RtMDoFVst_KCHdEGu47ZpQ35rDpSW39QLbq_LRRT2iAY2gTW_KoI4JhIZ1JVYL4xuz4LLZ1tBVadZBdHcIqe_mxWRzu2LifZDhqR27tJrc07cLKfgZ35a_f5BzB3IXGRPQ8GuTLrfvfYksk22l7hb5QOYbJ57OXHTpWSc9SG4bTl125mf5kRjlQ5vrjO0oCCyK8ij8" />
-          </button>
-          <button class="w-24 h-24 bg-surface-container-low border-2 border-transparent hover:border-outline-variant rounded-2xl flex items-center justify-center p-2 transition-all opacity-70 hover:opacity-100">
-            <img alt="Perfume Bottle Detail" class="w-full h-full object-contain mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtZNeA1PJ18HC-yQ4OH10YZtcdy07e3Fl8RYV_Q9z4U1a62m2Y8lgBEyJhg_3WkDiVmRRQ5RtMDoFVst_KCHdEGu47ZpQ35rDpSW39QLbq_LRRT2iAY2gTW_KoI4JhIZ1JVYL4xuz4LLZ1tBVadZBdHcIqe_mxWRzu2LifZDhqR27tJrc07cLKfgZ35a_f5BzB3IXGRPQ8GuTLrfvfYksk22l7hb5QOYbJ57OXHTpWSc9SG4bTl125mf5kRjlQ5vrjO0oCCyK8ij8" />
-          </button>
+  <body class="bg-background text-on-background min-h-screen flex flex-col">
+    <!-- TopAppBar -->
+    <nav
+      class="fixed top-0 w-full z-50 rounded-none bg-[#f8f9fa]/80 backdrop-blur-2xl no-border transition-colors duration-500 flex justify-between items-center px-12 py-8 max-w-full"
+    >
+      <div class="flex items-center gap-8">
+        <a
+          class="font-serif text-2xl font-light tracking-tighter text-zinc-900"
+          href="../index.html"
+          >SILENT GALLERY</a
+        >
+        <div class="hidden md:flex gap-6">
+          <a
+            class="font-sans uppercase tracking-[0.2em] text-[10px] text-zinc-400 hover:text-zinc-900 transition-all"
+            href="../index.html"
+            >HOME</a
+          >
+          <a
+            class="font-sans uppercase tracking-[0.2em] text-[10px] text-zinc-900 border-b border-zinc-900 pb-1"
+            href="shop.html"
+            >SHOP</a
+          >
+          <a
+            class="font-sans uppercase tracking-[0.2em] text-[10px] text-zinc-400 hover:text-zinc-900 transition-all"
+            href="shop.html"
+            >BEST SELLERS</a
+          >
+          <a
+            class="font-sans uppercase tracking-[0.2em] text-[10px] text-zinc-400 hover:text-zinc-900 transition-all"
+            href="../index.html"
+            >ABOUT</a
+          >
         </div>
       </div>
-      <!-- Right: Product Details -->
-      <div class="lg:col-span-5 flex flex-col pt-8 md:pt-16">
-        <!-- Breadcrumb / Pre-title -->
-        <p class="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant mb-4">Eau de Parfum</p>
-        <!-- Title & Price -->
-        <p class="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-on-surface mb-2">L'ESSENCE</p>
-        <h1 class="font-headline text-5xl md:text-6xl text-on-background mb-4 tracking-tight">Oud Minérale</h1>
-        <p class="font-body text-xl text-on-surface mb-12">$380.00 <span class="text-sm text-on-surface-variant ml-2">USD</span></p>
-        <!-- Description -->
-        <div class="mb-12">
-          <p class="font-body text-on-surface-variant leading-relaxed text-sm md:text-base">
-            A collision of rare woods and ocean spray. Oud Minérale merges the rich, smoky gravitas of aged agarwood with the sharp, saline bite of a restless sea. An exercise in structural tension, suspended in time.
-          </p>
-        </div>
-        <!-- Scent Notes (Signature Chips) -->
-        <div class="mb-12">
-          <h3 class="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant mb-4">Scent Architecture</h3>
-          <div class="space-y-4">
-            <div>
-              <span class="text-xs font-body text-on-surface w-12 inline-block">Top</span>
-              <span class="bg-secondary-container text-on-secondary-container text-[11px] font-label uppercase tracking-widest px-3 py-1.5 ml-2 inline-block rounded-full">Sea Salt</span>
-              <span class="bg-secondary-container text-on-secondary-container text-[11px] font-label uppercase tracking-widest px-3 py-1.5 ml-2 inline-block rounded-full">Pink Pepper</span>
-            </div>
-            <div>
-              <span class="text-xs font-body text-on-surface w-12 inline-block">Heart</span>
-              <span class="bg-secondary-container text-on-secondary-container text-[11px] font-label uppercase tracking-widest px-3 py-1.5 ml-2 inline-block rounded-full">Oud Wood</span>
-              <span class="bg-secondary-container text-on-secondary-container text-[11px] font-label uppercase tracking-widest px-3 py-1.5 ml-2 inline-block rounded-full">Balsam Fir</span>
-            </div>
-            <div>
-              <span class="text-xs font-body text-on-surface w-12 inline-block">Base</span>
-              <span class="bg-secondary-container text-on-secondary-container text-[11px] font-label uppercase tracking-widest px-3 py-1.5 ml-2 inline-block rounded-full">Ambergris</span>
-              <span class="bg-secondary-container text-on-secondary-container text-[11px] font-label uppercase tracking-widest px-3 py-1.5 ml-2 inline-block rounded-full">Vetiver</span>
-            </div>
+      <div class="flex items-center gap-6 text-zinc-900">
+        <a
+          class="hover:bg-zinc-200/50 p-2 opacity-70 transition-opacity duration-300 rounded-full"
+          href="cart.html"
+        >
+          <span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+        </a>
+        <a
+          class="hover:bg-zinc-200/50 p-2 opacity-70 transition-opacity duration-300 rounded-full"
+          href="login.html"
+        >
+          <span class="material-symbols-outlined" data-icon="person">person</span>
+        </a>
+      </div>
+    </nav>
+    <!-- Main Content -->
+    <main class="flex-grow pt-32 pb-24">
+      <div
+        class="max-w-[1600px] mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-24 items-start"
+      >
+        <!-- Left: Product Image & Thumbnails -->
+        <div class="lg:col-span-7 flex flex-col gap-6">
+          <!-- Main Image -->
+          <div
+            class="relative bg-surface-container-low h-[716px] md:h-[800px] w-full flex items-center justify-center p-8 md:p-16 rounded-[2.5rem] overflow-hidden"
+          >
+            <!-- Abstract shadow/glow behind image -->
+            <div
+              class="absolute inset-0 bg-gradient-to-tr from-surface-variant/20 to-transparent pointer-events-none"
+            ></div>
+            <img
+              alt="Luxury Perfume Bottle"
+              class="max-w-full max-h-full object-contain mix-blend-multiply relative z-10 drop-shadow-[0_20px_40px_rgba(25,28,29,0.1)]"
+              data-alt="Minimalist crystal perfume bottle with a heavy black architectural cap resting on a stark white plinth against a soft grey background, dramatic lighting casting a sharp shadow."
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtZNeA1PJ18HC-yQ4OH10YZtcdy07e3Fl8RYV_Q9z4U1a62m2Y8lgBEyJhg_3WkDiVmRRQ5RtMDoFVst_KCHdEGu47ZpQ35rDpSW39QLbq_LRRT2iAY2gTW_KoI4JhIZ1JVYL4xuz4LLZ1tBVadZBdHcIqe_mxWRzu2LifZDhqR27tJrc07cLKfgZ35a_f5BzB3IXGRPQ8GuTLrfvfYksk22l7hb5QOYbJ57OXHTpWSc9SG4bTl125mf5kRjlQ5vrjO0oCCyK8ij8"
+            />
           </div>
-        </div>
-        <!-- Size Selection -->
-        <div class="mb-12">
-          <h3 class="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant mb-4">Volume</h3>
-          <div class="flex gap-4">
-            <button class="flex-1 py-3 border border-primary bg-primary text-on-primary font-label text-xs uppercase tracking-widest transition-colors rounded-full">50 ML</button>
-            <button class="flex-1 py-3 border border-outline-variant text-on-surface-variant font-label text-xs uppercase tracking-widest hover:border-primary hover:text-primary transition-colors rounded-full">100 ML</button>
-            <button class="flex-1 py-3 border border-outline-variant text-on-surface-variant font-label text-xs uppercase tracking-widest hover:border-primary hover:text-primary transition-colors rounded-full">250 ML</button>
-          </div>
-        </div>
-        <!-- Actions -->
-        <div class="flex flex-col gap-4 mt-auto">
-          <div class="flex gap-4">
-            <div class="flex items-center justify-between border border-outline-variant rounded-full px-6 w-36">
-              <button class="text-on-surface hover:text-primary transition-colors flex items-center justify-center">
-                <span class="material-symbols-outlined text-base">remove</span>
-              </button>
-              <span class="font-label text-sm">1</span>
-              <button class="text-on-surface hover:text-primary transition-colors flex items-center justify-center">
-                <span class="material-symbols-outlined text-base">add</span>
-              </button>
-            </div>
-            <button class="flex-1 bg-gradient-to-b from-primary to-primary-container text-on-primary py-5 font-label text-xs uppercase tracking-[0.2em] hover:bg-secondary transition-colors duration-300 rounded-full">
-              Add to Cart
+          <!-- Thumbnails -->
+          <div class="flex gap-4 justify-center px-2">
+            <button
+              class="w-24 h-24 bg-surface-container-low border-2 border-primary rounded-2xl flex items-center justify-center p-2 transition-all"
+            >
+              <img
+                alt="Perfume Bottle Angle 1"
+                class="w-full h-full object-contain mix-blend-multiply"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtZNeA1PJ18HC-yQ4OH10YZtcdy07e3Fl8RYV_Q9z4U1a62m2Y8lgBEyJhg_3WkDiVmRRQ5RtMDoFVst_KCHdEGu47ZpQ35rDpSW39QLbq_LRRT2iAY2gTW_KoI4JhIZ1JVYL4xuz4LLZ1tBVadZBdHcIqe_mxWRzu2LifZDhqR27tJrc07cLKfgZ35a_f5BzB3IXGRPQ8GuTLrfvfYksk22l7hb5QOYbJ57OXHTpWSc9SG4bTl125mf5kRjlQ5vrjO0oCCyK8ij8"
+              />
+            </button>
+            <button
+              class="w-24 h-24 bg-surface-container-low border-2 border-transparent hover:border-outline-variant rounded-2xl flex items-center justify-center p-2 transition-all opacity-70 hover:opacity-100"
+            >
+              <img
+                alt="Perfume Bottle Angle 2"
+                class="w-full h-full object-contain mix-blend-multiply"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtZNeA1PJ18HC-yQ4OH10YZtcdy07e3Fl8RYV_Q9z4U1a62m2Y8lgBEyJhg_3WkDiVmRRQ5RtMDoFVst_KCHdEGu47ZpQ35rDpSW39QLbq_LRRT2iAY2gTW_KoI4JhIZ1JVYL4xuz4LLZ1tBVadZBdHcIqe_mxWRzu2LifZDhqR27tJrc07cLKfgZ35a_f5BzB3IXGRPQ8GuTLrfvfYksk22l7hb5QOYbJ57OXHTpWSc9SG4bTl125mf5kRjlQ5vrjO0oCCyK8ij8"
+              />
+            </button>
+            <button
+              class="w-24 h-24 bg-surface-container-low border-2 border-transparent hover:border-outline-variant rounded-2xl flex items-center justify-center p-2 transition-all opacity-70 hover:opacity-100"
+            >
+              <img
+                alt="Perfume Bottle Detail"
+                class="w-full h-full object-contain mix-blend-multiply"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtZNeA1PJ18HC-yQ4OH10YZtcdy07e3Fl8RYV_Q9z4U1a62m2Y8lgBEyJhg_3WkDiVmRRQ5RtMDoFVst_KCHdEGu47ZpQ35rDpSW39QLbq_LRRT2iAY2gTW_KoI4JhIZ1JVYL4xuz4LLZ1tBVadZBdHcIqe_mxWRzu2LifZDhqR27tJrc07cLKfgZ35a_f5BzB3IXGRPQ8GuTLrfvfYksk22l7hb5QOYbJ57OXHTpWSc9SG4bTl125mf5kRjlQ5vrjO0oCCyK8ij8"
+              />
             </button>
           </div>
-          <a href="shop.html" class="w-full border border-outline-variant/30 text-on-surface py-5 font-label text-xs uppercase tracking-[0.2em] hover:border-primary transition-colors duration-300 rounded-full inline-flex items-center justify-center">
-            Find in Boutique
-          </a>
+        </div>
+        <!-- Right: Product Details -->
+        <div class="lg:col-span-5 flex flex-col pt-8 md:pt-16">
+          <!-- Breadcrumb / Pre-title -->
+          <p class="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant mb-4">
+            Eau de Parfum
+          </p>
+          <!-- Title & Price -->
+          <p
+            class="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-on-surface mb-2"
+          >
+            L'ESSENCE
+          </p>
+          <h1 class="font-headline text-5xl md:text-6xl text-on-background mb-4 tracking-tight">
+            Oud Minérale
+          </h1>
+          <p class="font-body text-xl text-on-surface mb-12">
+            $380.00 <span class="text-sm text-on-surface-variant ml-2">USD</span>
+          </p>
+          <!-- Description -->
+          <div class="mb-12">
+            <p class="font-body text-on-surface-variant leading-relaxed text-sm md:text-base">
+              A collision of rare woods and ocean spray. Oud Minérale merges the rich, smoky
+              gravitas of aged agarwood with the sharp, saline bite of a restless sea. An exercise
+              in structural tension, suspended in time.
+            </p>
+          </div>
+          <!-- Scent Notes (Signature Chips) -->
+          <div class="mb-12">
+            <h3
+              class="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant mb-4"
+            >
+              Scent Architecture
+            </h3>
+            <div class="space-y-4">
+              <div>
+                <span class="text-xs font-body text-on-surface w-12 inline-block">Top</span>
+                <span
+                  class="bg-secondary-container text-on-secondary-container text-[11px] font-label uppercase tracking-widest px-3 py-1.5 ml-2 inline-block rounded-full"
+                  >Sea Salt</span
+                >
+                <span
+                  class="bg-secondary-container text-on-secondary-container text-[11px] font-label uppercase tracking-widest px-3 py-1.5 ml-2 inline-block rounded-full"
+                  >Pink Pepper</span
+                >
+              </div>
+              <div>
+                <span class="text-xs font-body text-on-surface w-12 inline-block">Heart</span>
+                <span
+                  class="bg-secondary-container text-on-secondary-container text-[11px] font-label uppercase tracking-widest px-3 py-1.5 ml-2 inline-block rounded-full"
+                  >Oud Wood</span
+                >
+                <span
+                  class="bg-secondary-container text-on-secondary-container text-[11px] font-label uppercase tracking-widest px-3 py-1.5 ml-2 inline-block rounded-full"
+                  >Balsam Fir</span
+                >
+              </div>
+              <div>
+                <span class="text-xs font-body text-on-surface w-12 inline-block">Base</span>
+                <span
+                  class="bg-secondary-container text-on-secondary-container text-[11px] font-label uppercase tracking-widest px-3 py-1.5 ml-2 inline-block rounded-full"
+                  >Ambergris</span
+                >
+                <span
+                  class="bg-secondary-container text-on-secondary-container text-[11px] font-label uppercase tracking-widest px-3 py-1.5 ml-2 inline-block rounded-full"
+                  >Vetiver</span
+                >
+              </div>
+            </div>
+          </div>
+          <!-- Size Selection -->
+          <div class="mb-12">
+            <h3
+              class="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant mb-4"
+            >
+              Volume
+            </h3>
+            <div class="flex gap-4">
+              <button
+                class="flex-1 py-3 border border-primary bg-primary text-on-primary font-label text-xs uppercase tracking-widest transition-colors rounded-full"
+              >
+                50 ML
+              </button>
+              <button
+                class="flex-1 py-3 border border-outline-variant text-on-surface-variant font-label text-xs uppercase tracking-widest hover:border-primary hover:text-primary transition-colors rounded-full"
+              >
+                100 ML
+              </button>
+              <button
+                class="flex-1 py-3 border border-outline-variant text-on-surface-variant font-label text-xs uppercase tracking-widest hover:border-primary hover:text-primary transition-colors rounded-full"
+              >
+                250 ML
+              </button>
+            </div>
+          </div>
+          <!-- Actions -->
+          <div class="flex flex-col gap-4 mt-auto">
+            <div class="flex gap-4">
+              <div
+                class="flex items-center justify-between border border-outline-variant rounded-full px-6 w-36"
+              >
+                <button
+                  class="text-on-surface hover:text-primary transition-colors flex items-center justify-center"
+                >
+                  <span class="material-symbols-outlined text-base">remove</span>
+                </button>
+                <span class="font-label text-sm">1</span>
+                <button
+                  class="text-on-surface hover:text-primary transition-colors flex items-center justify-center"
+                >
+                  <span class="material-symbols-outlined text-base">add</span>
+                </button>
+              </div>
+              <button
+                class="flex-1 bg-gradient-to-b from-primary to-primary-container text-on-primary py-5 font-label text-xs uppercase tracking-[0.2em] hover:bg-secondary transition-colors duration-300 rounded-full"
+              >
+                Add to Cart
+              </button>
+            </div>
+            <a
+              href="shop.html"
+              class="w-full border border-outline-variant/30 text-on-surface py-5 font-label text-xs uppercase tracking-[0.2em] hover:border-primary transition-colors duration-300 rounded-full inline-flex items-center justify-center"
+            >
+              Find in Boutique
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-  </main>
-  <!-- Footer -->
-  <footer class="w-full rounded-none bg-zinc-100 dark:bg-zinc-950 no-border mt-32">
-    <div class="flex flex-col md:flex-row justify-between items-center px-12 py-20 w-full border-t border-zinc-200/20">
-      <span class="font-serif italic text-lg text-zinc-900 dark:text-zinc-50 mb-8 md:mb-0">SILENT GALLERY</span>
-      <div class="flex flex-wrap justify-center gap-8 md:gap-12 mb-8 md:mb-0">
-        <a class="text-zinc-500 dark:text-zinc-600 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-300 font-sans uppercase text-[9px] tracking-[0.3em] font-medium transition-all ease-in-out rounded-full px-2 py-1" href="../index.html">PRIVACY</a>
-        <a class="text-zinc-500 dark:text-zinc-600 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-300 font-sans uppercase text-[9px] tracking-[0.3em] font-medium transition-all ease-in-out rounded-full px-2 py-1" href="../index.html">SHIPPING</a>
-        <a class="text-zinc-500 dark:text-zinc-600 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-300 font-sans uppercase text-[9px] tracking-[0.3em] font-medium transition-all ease-in-out rounded-full px-2 py-1" href="../index.html">STORES</a>
-        <a class="text-zinc-500 dark:text-zinc-600 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-300 font-sans uppercase text-[9px] tracking-[0.3em] font-medium transition-all ease-in-out rounded-full px-2 py-1" href="../index.html">INSTAGRAM</a>
+    </main>
+    <!-- Footer -->
+    <footer class="w-full rounded-none bg-zinc-100 dark:bg-zinc-950 no-border mt-32">
+      <div
+        class="flex flex-col md:flex-row justify-between items-center px-12 py-20 w-full border-t border-zinc-200/20"
+      >
+        <span class="font-serif italic text-lg text-zinc-900 dark:text-zinc-50 mb-8 md:mb-0"
+          >SILENT GALLERY</span
+        >
+        <div class="flex flex-wrap justify-center gap-8 md:gap-12 mb-8 md:mb-0">
+          <a
+            class="text-zinc-500 dark:text-zinc-600 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-300 font-sans uppercase text-[9px] tracking-[0.3em] font-medium transition-all ease-in-out rounded-full px-2 py-1"
+            href="../index.html"
+            >PRIVACY</a
+          >
+          <a
+            class="text-zinc-500 dark:text-zinc-600 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-300 font-sans uppercase text-[9px] tracking-[0.3em] font-medium transition-all ease-in-out rounded-full px-2 py-1"
+            href="../index.html"
+            >SHIPPING</a
+          >
+          <a
+            class="text-zinc-500 dark:text-zinc-600 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-300 font-sans uppercase text-[9px] tracking-[0.3em] font-medium transition-all ease-in-out rounded-full px-2 py-1"
+            href="../index.html"
+            >STORES</a
+          >
+          <a
+            class="text-zinc-500 dark:text-zinc-600 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-300 font-sans uppercase text-[9px] tracking-[0.3em] font-medium transition-all ease-in-out rounded-full px-2 py-1"
+            href="../index.html"
+            >INSTAGRAM</a
+          >
+        </div>
+        <span
+          class="text-zinc-500 dark:text-zinc-600 font-sans uppercase text-[9px] tracking-[0.3em] font-medium"
+          >© 2024 SILENT GALLERY. ALL RIGHTS RESERVED.</span
+        >
       </div>
-      <span class="text-zinc-500 dark:text-zinc-600 font-sans uppercase text-[9px] tracking-[0.3em] font-medium">© 2024 SILENT GALLERY. ALL RIGHTS RESERVED.</span>
-    </div>
-  </footer>
-</body>
-
+    </footer>
+  </body>
 </html>

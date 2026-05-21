@@ -74,7 +74,7 @@ const buildProductCard = (perfume, index) => {
   };
 };
 
-// JSX Element 
+// JSX Element
 function ShopPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const paramsKey = searchParams.toString();
@@ -115,28 +115,31 @@ function ShopPage() {
     toPrice: queryState.toPrice
   });
 
-  const updateParams = useCallback((updates, options = {}) => {
-    const nextParams = new URLSearchParams(searchParams);
-    const { resetPage = true } = options;
+  const updateParams = useCallback(
+    (updates, options = {}) => {
+      const nextParams = new URLSearchParams(searchParams);
+      const { resetPage = true } = options;
 
-    Object.entries(updates).forEach(([key, value]) => {
-      if (value === undefined || value === null || value === '') {
-        nextParams.delete(key);
-        return;
+      Object.entries(updates).forEach(([key, value]) => {
+        if (value === undefined || value === null || value === '') {
+          nextParams.delete(key);
+          return;
+        }
+
+        nextParams.set(key, String(value));
+      });
+
+      if (resetPage) {
+        nextParams.set('page', '1');
       }
 
-      nextParams.set(key, String(value));
-    });
-
-    if (resetPage) {
-      nextParams.set('page', '1');
-    }
-
-    setSearchParams(nextParams);
-  }, [searchParams, setSearchParams]);
+      setSearchParams(nextParams);
+    },
+    [searchParams, setSearchParams]
+  );
 
   /**
-   * This variable help packaging the needed params, then use to fetch api 
+   * This variable help packaging the needed params, then use to fetch api
    * @input: queryState (object) - Example: { page: 1, limit: 8, brand: "", name: "" }
    * @output: apiQuery (object) - Example: { page: 1, limit: 8 }
    */
@@ -197,9 +200,15 @@ function ShopPage() {
       fromPrice: queryState.fromPrice,
       toPrice: queryState.toPrice
     });
-  }, [queryState.name, queryState.gender, queryState.brand, queryState.fromPrice, queryState.toPrice]);
+  }, [
+    queryState.name,
+    queryState.gender,
+    queryState.brand,
+    queryState.fromPrice,
+    queryState.toPrice
+  ]);
 
-  // Use effect fetch brands 
+  // Use effect fetch brands
   useEffect(() => {
     let isActive = true;
 
@@ -377,7 +386,8 @@ function ShopPage() {
       <div className="px-6 md:px-12 py-12 md:py-20 bg-background">
         <h1 className="font-headline text-4xl md:text-5xl text-primary mb-6">THE COLLECTION</h1>
         <p className="font-body text-on-surface-variant max-w-2xl leading-relaxed">
-          An olfactory exhibition of rare ingredients and meticulous craftsmanship. Explore our curated gallery of signature scents.
+          An olfactory exhibition of rare ingredients and meticulous craftsmanship. Explore our
+          curated gallery of signature scents.
         </p>
       </div>
       <div className="flex flex-col lg:flex-row px-6 md:px-12 pb-32 gap-12 lg:gap-16 items-start">
@@ -398,21 +408,33 @@ function ShopPage() {
         />
         <div className="flex-grow w-full">
           <div className="flex justify-between items-end mb-10 pb-4 border-b border-outline-variant/30">
-            <span className="font-label text-xs text-on-surface-variant uppercase tracking-[0.1em]">{artifactLabel}</span>
+            <span className="font-label text-xs text-on-surface-variant uppercase tracking-[0.1em]">
+              {artifactLabel}
+            </span>
             <div className="flex items-center gap-2 cursor-pointer group">
-              <span className="font-label text-xs text-primary uppercase tracking-[0.1em]">SORT BY: {sortLabel}</span>
-              <span className="material-symbols-outlined text-[16px] text-primary group-hover:translate-y-[2px] transition-transform">keyboard_arrow_down</span>
+              <span className="font-label text-xs text-primary uppercase tracking-[0.1em]">
+                SORT BY: {sortLabel}
+              </span>
+              <span className="material-symbols-outlined text-[16px] text-primary group-hover:translate-y-[2px] transition-transform">
+                keyboard_arrow_down
+              </span>
             </div>
           </div>
 
           {isLoading && perfumes.length === 0 ? (
-            <div className="py-16 text-center font-body text-sm text-on-surface-variant">Loading perfumes...</div>
+            <div className="py-16 text-center font-body text-sm text-on-surface-variant">
+              Loading perfumes...
+            </div>
           ) : null}
           {hasError ? (
-            <div className="py-16 text-center font-body text-sm text-on-surface-variant">{perfumeError || 'Unable to load perfumes.'}</div>
+            <div className="py-16 text-center font-body text-sm text-on-surface-variant">
+              {perfumeError || 'Unable to load perfumes.'}
+            </div>
           ) : null}
           {isEmpty ? (
-            <div className="py-16 text-center font-body text-sm text-on-surface-variant">No perfumes match the current filters.</div>
+            <div className="py-16 text-center font-body text-sm text-on-surface-variant">
+              No perfumes match the current filters.
+            </div>
           ) : null}
           {!isLoading && !hasError && !isEmpty ? (
             <div className="grid grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-16">
@@ -434,7 +456,9 @@ function ShopPage() {
                   Prev
                 </button>
                 <div className="flex items-center gap-3 px-4 py-2 rounded-full border border-outline-variant/30 bg-surface-container-lowest">
-                  <span className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Page</span>
+                  <span className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">
+                    Page
+                  </span>
                   <select
                     aria-label="Select page"
                     className="bg-transparent font-label text-[10px] uppercase tracking-[0.2em] text-primary focus:ring-0 focus:outline-none"
@@ -447,7 +471,9 @@ function ShopPage() {
                       </option>
                     ))}
                   </select>
-                  <span className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">of {totalPages}</span>
+                  <span className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">
+                    of {totalPages}
+                  </span>
                 </div>
                 <button
                   className="font-label text-[10px] uppercase tracking-[0.2em] text-primary border border-outline-variant/30 px-4 py-2 rounded-full hover:border-primary transition-colors disabled:text-outline-variant disabled:border-outline-variant/30 disabled:cursor-not-allowed"
@@ -458,7 +484,9 @@ function ShopPage() {
                   Next
                 </button>
               </div>
-              <p className="font-body text-xs text-on-surface-variant">Select a page to continue browsing.</p>
+              <p className="font-body text-xs text-on-surface-variant">
+                Select a page to continue browsing.
+              </p>
             </div>
           ) : null}
         </div>

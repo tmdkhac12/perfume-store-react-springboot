@@ -5,14 +5,20 @@ function MainFooter() {
     <footer className="w-full bg-surface border-t border-outline-variant/30 py-20 px-8 lg:px-24">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 lg:gap-8 mb-20">
         <div className="col-span-1 lg:col-span-2">
-          <Link className="font-headline text-2xl font-light tracking-tighter text-primary inline-block mb-8" to="/">
+          <Link
+            className="font-headline text-2xl font-light tracking-tighter text-primary inline-block mb-8"
+            to="/"
+          >
             PerfumeStore
           </Link>
           <p className="font-body text-on-surface-variant text-sm max-w-sm mb-8">
-            Discover our curated collection of rare, handcrafted fragrances designed to articulate your unique presence.
+            Discover our curated collection of rare, handcrafted fragrances designed to articulate
+            your unique presence.
           </p>
           <div className="max-w-md relative">
-            <h4 className="font-label text-xs uppercase tracking-[0.1em] text-on-surface mb-4">Subscribe to our newsletter</h4>
+            <h4 className="font-label text-xs uppercase tracking-[0.1em] text-on-surface mb-4">
+              Subscribe to our newsletter
+            </h4>
             <form className="relative group" onSubmit={(event) => event.preventDefault()}>
               <input
                 className="w-full bg-surface-container-low border-none rounded-full py-4 pl-6 pr-32 font-body text-sm text-on-surface placeholder:text-on-surface-variant/50 focus:ring-2 focus:ring-primary/20 transition-shadow outline-none"
@@ -20,24 +26,39 @@ function MainFooter() {
                 required
                 type="email"
               />
-              <button className="absolute right-2 top-2 bottom-2 bg-primary text-on-primary font-label text-xs uppercase tracking-[0.1em] px-6 rounded-full transition-colors duration-300 hover:bg-secondary flex items-center justify-center min-w-[100px]" type="submit">
+              <button
+                className="absolute right-2 top-2 bottom-2 bg-primary text-on-primary font-label text-xs uppercase tracking-[0.1em] px-6 rounded-full transition-colors duration-300 hover:bg-secondary flex items-center justify-center min-w-[100px]"
+                type="submit"
+              >
                 <span className="submit-text">Subscribe</span>
-                <span className="material-symbols-outlined loading-icon hidden animate-spin text-[16px]">progress_activity</span>
-                <span className="material-symbols-outlined success-icon hidden text-[16px]">check</span>
+                <span className="material-symbols-outlined loading-icon hidden animate-spin text-[16px]">
+                  progress_activity
+                </span>
+                <span className="material-symbols-outlined success-icon hidden text-[16px]">
+                  check
+                </span>
               </button>
             </form>
           </div>
         </div>
         <div>
-          <h4 className="font-label text-xs uppercase tracking-[0.2em] text-on-surface mb-6">Contact</h4>
+          <h4 className="font-label text-xs uppercase tracking-[0.2em] text-on-surface mb-6">
+            Contact
+          </h4>
           <ul className="space-y-4">
             <li>
-              <a className="font-body text-sm text-on-surface-variant hover:text-primary transition-colors" href="mailto:hello@perfumestore.com">
+              <a
+                className="font-body text-sm text-on-surface-variant hover:text-primary transition-colors"
+                href="mailto:hello@perfumestore.com"
+              >
                 hello@perfumestore.com
               </a>
             </li>
             <li>
-              <a className="font-body text-sm text-on-surface-variant hover:text-primary transition-colors" href="tel:+1234567890">
+              <a
+                className="font-body text-sm text-on-surface-variant hover:text-primary transition-colors"
+                href="tel:+1234567890"
+              >
                 +1 (234) 567-890
               </a>
             </li>
@@ -49,25 +70,39 @@ function MainFooter() {
           </ul>
         </div>
         <div>
-          <h4 className="font-label text-xs uppercase tracking-[0.2em] text-on-surface mb-6">Explore</h4>
+          <h4 className="font-label text-xs uppercase tracking-[0.2em] text-on-surface mb-6">
+            Explore
+          </h4>
           <ul className="space-y-4">
             <li>
-              <Link className="font-body text-sm text-on-surface-variant hover:text-primary transition-colors" to="/shop">
+              <Link
+                className="font-body text-sm text-on-surface-variant hover:text-primary transition-colors"
+                to="/shop"
+              >
                 About Us
               </Link>
             </li>
             <li>
-              <Link className="font-body text-sm text-on-surface-variant hover:text-primary transition-colors" to="/shop">
+              <Link
+                className="font-body text-sm text-on-surface-variant hover:text-primary transition-colors"
+                to="/shop"
+              >
                 Store Locator
               </Link>
             </li>
             <li>
-              <Link className="font-body text-sm text-on-surface-variant hover:text-primary transition-colors" to="/shop">
+              <Link
+                className="font-body text-sm text-on-surface-variant hover:text-primary transition-colors"
+                to="/shop"
+              >
                 Shipping & Returns
               </Link>
             </li>
             <li>
-              <Link className="font-body text-sm text-on-surface-variant hover:text-primary transition-colors" to="/shop">
+              <Link
+                className="font-body text-sm text-on-surface-variant hover:text-primary transition-colors"
+                to="/shop"
+              >
                 Privacy Policy
               </Link>
             </li>
@@ -87,12 +122,20 @@ function MainFooter() {
         </div>
       </div>
       <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-outline-variant/30">
-        <p className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant mb-4 md:mb-0">© 2024 PerfumeStore. All Rights Reserved.</p>
+        <p className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant mb-4 md:mb-0">
+          © 2024 PerfumeStore. All Rights Reserved.
+        </p>
         <div className="flex gap-6">
-          <Link className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant hover:text-primary transition-colors" to="/shop">
+          <Link
+            className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant hover:text-primary transition-colors"
+            to="/shop"
+          >
             Terms of Service
           </Link>
-          <Link className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant hover:text-primary transition-colors" to="/shop">
+          <Link
+            className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant hover:text-primary transition-colors"
+            to="/shop"
+          >
             Privacy Policy
           </Link>
         </div>

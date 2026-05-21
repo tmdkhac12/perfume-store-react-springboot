@@ -6,9 +6,14 @@ function ProfilePreferencesSection() {
         <div className="flex items-center justify-between">
           <div>
             <h3 className="font-medium text-on-surface">Newsletter</h3>
-            <p className="mt-1 text-xs text-on-surface-variant">Receive updates on new collections.</p>
+            <p className="mt-1 text-xs text-on-surface-variant">
+              Receive updates on new collections.
+            </p>
           </div>
-          <button className="relative flex h-6 w-11 items-center rounded-full bg-primary px-1" type="button">
+          <button
+            className="relative flex h-6 w-11 items-center rounded-full bg-primary px-1"
+            type="button"
+          >
             <div className="absolute right-1 h-4 w-4 rounded-full bg-white" />
           </button>
         </div>
@@ -18,7 +23,10 @@ function ProfilePreferencesSection() {
             <h3 className="font-medium text-on-surface">SMS Alerts</h3>
             <p className="mt-1 text-xs text-on-surface-variant">Delivery notifications via text.</p>
           </div>
-          <button className="relative flex h-6 w-11 items-center rounded-full bg-surface-container-high px-1" type="button">
+          <button
+            className="relative flex h-6 w-11 items-center rounded-full bg-surface-container-high px-1"
+            type="button"
+          >
             <div className="absolute left-1 h-4 w-4 rounded-full bg-outline" />
           </button>
         </div>

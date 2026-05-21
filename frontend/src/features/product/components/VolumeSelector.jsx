@@ -22,7 +22,9 @@ function VolumeSelector({ volumes = [], selectedVolume, onSelectVolume }) {
 
   return (
     <div className="mb-12">
-      <h3 className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant mb-4">Volume</h3>
+      <h3 className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant mb-4">
+        Volume
+      </h3>
       {safeVolumes.length === 0 ? (
         <p className="font-body text-xs text-on-surface-variant">Volume options unavailable.</p>
       ) : (

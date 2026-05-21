@@ -20,7 +20,9 @@ function RegisterPage() {
         <div className="flex flex-col justify-center bg-surface-container-lowest p-8 md:p-16 lg:w-1/2 lg:p-20">
           <div className="mx-auto w-full max-w-md">
             <div className="mb-12 text-center lg:text-left">
-              <h1 className="mb-4 font-headline text-3xl text-on-surface md:text-4xl">Create Account</h1>
+              <h1 className="mb-4 font-headline text-3xl text-on-surface md:text-4xl">
+                Create Account
+              </h1>
               <p className="text-sm tracking-wide text-on-surface-variant">
                 Join The Atelier to access exclusive collections and curated stories.
               </p>
@@ -31,7 +33,10 @@ function RegisterPage() {
             <div className="mt-8 text-center">
               <p className="text-sm text-on-surface-variant">
                 Already have an account?{' '}
-                <Link className="text-primary underline decoration-1 underline-offset-4 transition-colors hover:text-secondary" to="/login">
+                <Link
+                  className="text-primary underline decoration-1 underline-offset-4 transition-colors hover:text-secondary"
+                  to="/login"
+                >
                   Log in
                 </Link>
               </p>

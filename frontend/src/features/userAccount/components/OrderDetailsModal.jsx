@@ -42,7 +42,9 @@ function OrderDetailsModal({ isOpen, onClose, orderId }) {
             order && (
               <div>
                 <h3 className="mb-1 font-headline text-2xl text-on-surface">Order #{order.id}</h3>
-                <p className="text-sm text-on-surface-variant">Placed on {new Date(order.createdAt).toLocaleDateString()}</p>
+                <p className="text-sm text-on-surface-variant">
+                  Placed on {new Date(order.createdAt).toLocaleDateString()}
+                </p>
               </div>
             )
           )}
@@ -68,7 +70,9 @@ function OrderDetailsModal({ isOpen, onClose, orderId }) {
                 </h5>
                 <div className="space-y-4 text-sm">
                   <div>
-                    <span className="mb-1 block text-xs text-on-surface-variant">Receiver Name</span>
+                    <span className="mb-1 block text-xs text-on-surface-variant">
+                      Receiver Name
+                    </span>
                     <span className="font-medium text-on-surface">{order.receiverName}</span>
                   </div>
                   <div>
@@ -76,11 +80,15 @@ function OrderDetailsModal({ isOpen, onClose, orderId }) {
                     <span className="text-on-surface">{order.phoneNumber}</span>
                   </div>
                   <div>
-                    <span className="mb-1 block text-xs text-on-surface-variant">Shipping Address</span>
+                    <span className="mb-1 block text-xs text-on-surface-variant">
+                      Shipping Address
+                    </span>
                     <span className="text-on-surface">{order.shippingAddress}</span>
                   </div>
                   <div>
-                    <span className="mb-1 block text-xs text-on-surface-variant">Delivery Status</span>
+                    <span className="mb-1 block text-xs text-on-surface-variant">
+                      Delivery Status
+                    </span>
                     <span className="mt-1 inline-block rounded-full bg-surface-container-high px-2 py-0.5 text-[10px] uppercase tracking-wider text-on-surface">
                       {order.deliveryStatus}
                     </span>
@@ -94,12 +102,16 @@ function OrderDetailsModal({ isOpen, onClose, orderId }) {
                 </h5>
                 <div className="space-y-4 text-sm">
                   <div>
-                    <span className="mb-1 block text-xs text-on-surface-variant">Payment Method</span>
+                    <span className="mb-1 block text-xs text-on-surface-variant">
+                      Payment Method
+                    </span>
                     <span className="text-on-surface">{order.paymentMethod}</span>
                   </div>
                   <div>
                     <span className="mb-1 block text-xs text-on-surface-variant">Total Amount</span>
-                    <span className="font-headline text-lg text-on-surface">${order.total.toFixed(2)}</span>
+                    <span className="font-headline text-lg text-on-surface">
+                      ${order.total.toFixed(2)}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -114,15 +126,23 @@ function OrderDetailsModal({ isOpen, onClose, orderId }) {
                   className="flex items-center gap-4 rounded-3xl border border-surface-variant/50 bg-surface-container-lowest p-4 shadow-sm"
                 >
                   <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-2xl bg-surface-container-low">
-                    <img alt={item.perfumeName} className="h-full w-full object-cover" src={item.image} />
+                    <img
+                      alt={item.perfumeName}
+                      className="h-full w-full object-cover"
+                      src={item.image}
+                    />
                   </div>
                   <div className="flex-1">
                     <h4 className="font-headline text-base text-on-surface">{item.perfumeName}</h4>
-                    <p className="mt-1 text-xs text-on-surface-variant">{item.volumeName}ml {item.concentration}</p>
+                    <p className="mt-1 text-xs text-on-surface-variant">
+                      {item.volumeName}ml {item.concentration}
+                    </p>
                   </div>
                   <div className="text-right">
                     <p className="mb-1 text-xs text-on-surface-variant">Qty: {item.quantity}</p>
-                    <p className="font-headline text-base text-on-surface">${item.buyPrice.toFixed(2)}</p>
+                    <p className="font-headline text-base text-on-surface">
+                      ${item.buyPrice.toFixed(2)}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -131,7 +151,10 @@ function OrderDetailsModal({ isOpen, onClose, orderId }) {
                 <div className="mb-2 flex items-center justify-between">
                   <span className="text-sm text-on-surface-variant">Subtotal</span>
                   <span className="text-sm text-on-surface">
-                    ${order.invoiceDetails.reduce((sum, item) => sum + item.buyPrice * item.quantity, 0).toFixed(2)}
+                    $
+                    {order.invoiceDetails
+                      .reduce((sum, item) => sum + item.buyPrice * item.quantity, 0)
+                      .toFixed(2)}
                   </span>
                 </div>
                 <div className="mb-2 flex items-center justify-between">
@@ -145,7 +168,10 @@ function OrderDetailsModal({ isOpen, onClose, orderId }) {
                 <div className="flex items-center justify-between border-t border-surface-variant pt-4">
                   <span className="font-headline text-lg text-on-surface">Total</span>
                   <span className="font-headline text-xl text-on-surface">
-                    ${(order.invoiceDetails.reduce((sum, item) => sum + item.buyPrice * item.quantity, 0)).toFixed(2)}
+                    $
+                    {order.invoiceDetails
+                      .reduce((sum, item) => sum + item.buyPrice * item.quantity, 0)
+                      .toFixed(2)}
                   </span>
                 </div>
               </div>

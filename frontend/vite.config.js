@@ -18,8 +18,8 @@ export default defineConfig({
     proxy: {
       '/oauth2': {
         target: 'http://localhost:8080', // Thay bằng URL backend của bạn
-        changeOrigin: true,
-      },
-    },
-  },
+        changeOrigin: true
+      }
+    }
+  }
 });

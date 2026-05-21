@@ -8,5 +8,5 @@
 - Chính sách cập nhật: Khi thay đổi rule AI/agent, hãy cập nhật `.github/copilot-instructions.md` và các file liên quan trong `.github/instructions/`.
 
 - Bộ hướng dẫn React JS cho workspace này:
-	- `.github/instructions/react-core.instructions.md`
-	- `.github/instructions/react-routing-layout.instructions.md`
+  - `.github/instructions/react-core.instructions.md`
+  - `.github/instructions/react-routing-layout.instructions.md`

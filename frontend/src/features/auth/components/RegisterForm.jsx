@@ -20,7 +20,7 @@ function RegisterForm() {
    * @description: Updates form fields based on user input to maintain the current registration state.
    * @param {keyof RegisterRequest | 'fullName'} field - Example: "email"
    * @param {string} value - Example: "jane@gmail.com"
-   * @returns {void} - formValues with field and value updated 
+   * @returns {void} - formValues with field and value updated
    */
   const handleFieldChange = (field, value) => {
     setFormValues((current) => ({ ...current, [field]: value }));
@@ -65,7 +65,10 @@ function RegisterForm() {
   return (
     <form className="space-y-6" onSubmit={handleSubmit}>
       <div className="space-y-2">
-        <label className="block text-xs uppercase tracking-[0.15em] text-on-surface-variant" htmlFor="fullName">
+        <label
+          className="block text-xs uppercase tracking-[0.15em] text-on-surface-variant"
+          htmlFor="fullName"
+        >
           Full Name
         </label>
         <input
@@ -80,7 +83,10 @@ function RegisterForm() {
       </div>
 
       <div className="space-y-2">
-        <label className="block text-xs uppercase tracking-[0.15em] text-on-surface-variant" htmlFor="username">
+        <label
+          className="block text-xs uppercase tracking-[0.15em] text-on-surface-variant"
+          htmlFor="username"
+        >
           Username
         </label>
         <input
@@ -95,7 +101,10 @@ function RegisterForm() {
       </div>
 
       <div className="space-y-2">
-        <label className="block text-xs uppercase tracking-[0.15em] text-on-surface-variant" htmlFor="email">
+        <label
+          className="block text-xs uppercase tracking-[0.15em] text-on-surface-variant"
+          htmlFor="email"
+        >
           Email Address
         </label>
         <input
@@ -110,7 +119,10 @@ function RegisterForm() {
       </div>
 
       <div className="space-y-2">
-        <label className="block text-xs uppercase tracking-[0.15em] text-on-surface-variant" htmlFor="password">
+        <label
+          className="block text-xs uppercase tracking-[0.15em] text-on-surface-variant"
+          htmlFor="password"
+        >
           Password
         </label>
         <input
@@ -125,7 +137,10 @@ function RegisterForm() {
       </div>
 
       <div className="space-y-2">
-        <label className="block text-xs uppercase tracking-[0.15em] text-on-surface-variant" htmlFor="confirmPassword">
+        <label
+          className="block text-xs uppercase tracking-[0.15em] text-on-surface-variant"
+          htmlFor="confirmPassword"
+        >
           Confirm Password
         </label>
         <input
@@ -140,9 +155,7 @@ function RegisterForm() {
       </div>
 
       <div className="space-y-4 pt-4">
-        {errorMessage ? (
-          <p className="text-sm text-secondary">{errorMessage}</p>
-        ) : null}
+        {errorMessage ? <p className="text-sm text-secondary">{errorMessage}</p> : null}
         <button
           className="w-full rounded-full bg-primary py-4 text-xs uppercase tracking-[0.15em] text-on-primary transition-colors duration-300 hover:bg-secondary disabled:cursor-not-allowed disabled:opacity-60"
           type="submit"

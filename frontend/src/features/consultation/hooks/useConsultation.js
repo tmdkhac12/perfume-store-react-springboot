@@ -2,7 +2,8 @@ import { useState, useCallback } from 'react';
 import { postConsultation } from '../api';
 
 const SESSION_KEY = 'consultation_session_id';
-const WELCOME_MESSAGE = "Welcome! I am your AI perfume consultant. How can I help you find your perfect scent today?";
+const WELCOME_MESSAGE =
+  'Welcome! I am your AI perfume consultant. How can I help you find your perfect scent today?';
 
 /**
  * @description: Hook to manage AI perfume consultation state and logic.
@@ -14,8 +15,8 @@ export const useConsultation = () => {
       id: 'welcome',
       text: WELCOME_MESSAGE,
       sender: 'bot',
-      timestamp: new Date().toISOString(),
-    },
+      timestamp: new Date().toISOString()
+    }
   ]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -31,7 +32,7 @@ export const useConsultation = () => {
       id: Date.now().toString(),
       text,
       sender: 'user',
-      timestamp: new Date().toISOString(),
+      timestamp: new Date().toISOString()
     };
 
     setMessages((prev) => [...prev, userMessage]);
@@ -46,7 +47,7 @@ export const useConsultation = () => {
           id: (Date.now() + 1).toString(),
           text: response.data.response,
           sender: 'bot',
-          timestamp: response.timestamp || new Date().toISOString(),
+          timestamp: response.timestamp || new Date().toISOString()
         };
 
         if (response.data.sessionId) {
@@ -62,7 +63,7 @@ export const useConsultation = () => {
         id: (Date.now() + 1).toString(),
         text: "I'm sorry, I'm having trouble connecting right now. Please try again later.",
         sender: 'bot',
-        timestamp: new Date().toISOString(),
+        timestamp: new Date().toISOString()
       };
       setMessages((prev) => [...prev, errorMessage]);
       console.error('Consultation error:', error);
@@ -74,6 +75,6 @@ export const useConsultation = () => {
   return {
     messages,
     isLoading,
-    sendMessage,
+    sendMessage
   };
 };

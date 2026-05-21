@@ -9,15 +9,17 @@ function AuthGuard({ children }) {
   const isValid = isTokenValid(token);
 
   if (!isValid) {
-    const message = token ? 'Your session has expired. Please login again.' : 'Please login to access this page.';
-    
+    const message = token
+      ? 'Your session has expired. Please login again.'
+      : 'Please login to access this page.';
+
     // Redirect to login but save the current location to redirect back after login
     return (
       <Navigate
         to="/login"
-        state={{ 
-          message, 
-          from: location.pathname 
+        state={{
+          message,
+          from: location.pathname
         }}
         replace
       />

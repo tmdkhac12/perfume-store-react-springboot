@@ -28,7 +28,7 @@ const ChatbotWidget = () => {
 
     const message = inputValue;
     setInputValue('');
-    
+
     // Reset textarea height using ref
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto';
@@ -47,8 +47,12 @@ const ChatbotWidget = () => {
             <div className="flex items-center gap-3">
               <span className="material-symbols-outlined text-on-primary">smart_toy</span>
               <div>
-                <h3 className="font-title text-on-primary text-base font-semibold">AI Consultant</h3>
-                <p className="text-on-primary/70 text-[10px] uppercase tracking-wider font-label">Always Online</p>
+                <h3 className="font-title text-on-primary text-base font-semibold">
+                  AI Consultant
+                </h3>
+                <p className="text-on-primary/70 text-[10px] uppercase tracking-wider font-label">
+                  Always Online
+                </p>
               </div>
             </div>
           </div>
@@ -73,7 +77,10 @@ const ChatbotWidget = () => {
           </div>
 
           {/* Input Area */}
-          <form onSubmit={handleSubmit} className="p-4 bg-white border-t border-outline/10 flex items-end gap-2">
+          <form
+            onSubmit={handleSubmit}
+            className="p-4 bg-white border-t border-outline/10 flex items-end gap-2"
+          >
             <textarea
               ref={textareaRef}
               rows="1"
@@ -83,7 +90,7 @@ const ChatbotWidget = () => {
                 e.target.style.height = 'auto';
                 const newHeight = e.target.scrollHeight;
                 e.target.style.height = `${newHeight}px`;
-                
+
                 // Show scrollbar only if content exceeds max-height (128px)
                 if (newHeight > 128) {
                   e.target.style.overflowY = 'auto';
@@ -104,10 +111,11 @@ const ChatbotWidget = () => {
             <button
               type="submit"
               disabled={!inputValue.trim() || isLoading}
-              className={`w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center transition-all ${!inputValue.trim() || isLoading
-                ? 'bg-outline/20 text-on-surface-variant/40 cursor-not-allowed'
-                : 'bg-primary text-on-primary hover:scale-105 active:scale-95'
-                }`}
+              className={`w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center transition-all ${
+                !inputValue.trim() || isLoading
+                  ? 'bg-outline/20 text-on-surface-variant/40 cursor-not-allowed'
+                  : 'bg-primary text-on-primary hover:scale-105 active:scale-95'
+              }`}
               aria-label="Send Message"
             >
               <span className="material-symbols-outlined text-[20px]">send</span>
@@ -119,8 +127,11 @@ const ChatbotWidget = () => {
       {/* FAB Toggle Button */}
       <button
         onClick={handleToggle}
-        className={`w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 transform ${isOpen ? 'bg-error text-white rotate-90 scale-0 opacity-0 hidden' : 'bg-primary text-on-primary hover:scale-110 active:scale-90'
-          }`}
+        className={`w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 transform ${
+          isOpen
+            ? 'bg-error text-white rotate-90 scale-0 opacity-0 hidden'
+            : 'bg-primary text-on-primary hover:scale-110 active:scale-90'
+        }`}
         aria-label="Open AI Consultation"
         style={{ pointerEvents: isOpen ? 'none' : 'auto' }}
       >

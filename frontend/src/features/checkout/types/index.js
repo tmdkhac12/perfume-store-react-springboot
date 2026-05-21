@@ -58,4 +58,4 @@
  * @property {CheckoutInvoiceDetail[]} invoiceDetails - Example: [{ perfumeName: "Bleu de Chanel", volumeName: 100 }]
  */
 
-export { };
+export {};

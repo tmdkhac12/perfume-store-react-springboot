@@ -1,7 +1,7 @@
 /**
  * @description: Decodes a base64url segment to JSON text so JWT payloads can be inspected safely.
  * @input: value (string) - Example: "eyJyb2xlIjpbXX0"
- * @output: decoded (string) - Example: "{\"role\":[]}" 
+ * @output: decoded (string) - Example: "{\"role\":[]}"
  */
 export const decodeBase64Url = (value) => {
   try {

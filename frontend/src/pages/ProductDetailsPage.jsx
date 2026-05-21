@@ -3,9 +3,18 @@ import { Link, useParams } from 'react-router-dom';
 import { ToastNotification } from '../components/base';
 import { apiClient, readCartItems, writeCartItems } from '../services';
 import { formatCurrency } from '../utils';
-import { buildNoteRows, buildThumbnails, normalizeImages, resolveMinPrice } from '../features/product/utils.js';
-import { ProductGallery, PurchaseControls, ScentNotes, VolumeSelector } from '../features/product/components/index.js';
-
+import {
+  buildNoteRows,
+  buildThumbnails,
+  normalizeImages,
+  resolveMinPrice
+} from '../features/product/utils.js';
+import {
+  ProductGallery,
+  PurchaseControls,
+  ScentNotes,
+  VolumeSelector
+} from '../features/product/components/index.js';
 
 /** @description: Product details page wrapper that delegates rendering to the product feature. */
 function ProductDetailsPage() {
@@ -179,9 +188,16 @@ function ProductDetailsPage() {
     return (
       <div className="pt-32 pb-24">
         <div className="max-w-[1600px] mx-auto px-6 md:px-12">
-          <h1 className="font-headline text-4xl md:text-5xl text-on-background mb-4">Perfume not found</h1>
-          <p className="font-body text-on-surface-variant mb-8">The perfume you are looking for is no longer available.</p>
-          <Link className="inline-flex items-center justify-center border border-outline-variant/30 text-on-surface py-4 px-6 font-label text-xs uppercase tracking-[0.2em] hover:border-primary transition-colors rounded-full" to="/shop">
+          <h1 className="font-headline text-4xl md:text-5xl text-on-background mb-4">
+            Perfume not found
+          </h1>
+          <p className="font-body text-on-surface-variant mb-8">
+            The perfume you are looking for is no longer available.
+          </p>
+          <Link
+            className="inline-flex items-center justify-center border border-outline-variant/30 text-on-surface py-4 px-6 font-label text-xs uppercase tracking-[0.2em] hover:border-primary transition-colors rounded-full"
+            to="/shop"
+          >
             Return to Shop
           </Link>
         </div>
@@ -193,9 +209,16 @@ function ProductDetailsPage() {
     return (
       <div className="pt-32 pb-24">
         <div className="max-w-[1600px] mx-auto px-6 md:px-12">
-          <h1 className="font-headline text-4xl md:text-5xl text-on-background mb-4">Unable to load perfume</h1>
-          <p className="font-body text-on-surface-variant mb-8">{errorMessage || 'Please try again later.'}</p>
-          <Link className="inline-flex items-center justify-center border border-outline-variant/30 text-on-surface py-4 px-6 font-label text-xs uppercase tracking-[0.2em] hover:border-primary transition-colors rounded-full" to="/shop">
+          <h1 className="font-headline text-4xl md:text-5xl text-on-background mb-4">
+            Unable to load perfume
+          </h1>
+          <p className="font-body text-on-surface-variant mb-8">
+            {errorMessage || 'Please try again later.'}
+          </p>
+          <Link
+            className="inline-flex items-center justify-center border border-outline-variant/30 text-on-surface py-4 px-6 font-label text-xs uppercase tracking-[0.2em] hover:border-primary transition-colors rounded-full"
+            to="/shop"
+          >
             Return to Shop
           </Link>
         </div>
@@ -212,9 +235,15 @@ function ProductDetailsPage() {
           </div>
 
           <div className="lg:col-span-5 flex flex-col pt-8 md:pt-16">
-            <p className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant mb-4">{product?.concentration || 'Eau de Parfum'}</p>
-            <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-on-surface mb-2">{product?.brand?.toUpperCase() || 'L\'ESSENCE'}</p>
-            <h1 className="font-headline text-5xl md:text-6xl text-on-background mb-4 tracking-tight">{product?.name || 'Signature Scent'}</h1>
+            <p className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant mb-4">
+              {product?.concentration || 'Eau de Parfum'}
+            </p>
+            <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-on-surface mb-2">
+              {product?.brand?.toUpperCase() || "L'ESSENCE"}
+            </p>
+            <h1 className="font-headline text-5xl md:text-6xl text-on-background mb-4 tracking-tight">
+              {product?.name || 'Signature Scent'}
+            </h1>
             <p className="font-body text-xl text-on-surface mb-12">
               {priceLabel} <span className="text-sm text-on-surface-variant ml-2">USD</span>
             </p>
@@ -226,11 +255,17 @@ function ProductDetailsPage() {
             </div>
 
             <div className="mb-12">
-              <h3 className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant mb-4">Scent Architecture</h3>
+              <h3 className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant mb-4">
+                Scent Architecture
+              </h3>
               <ScentNotes rows={noteRows} />
             </div>
 
-            <VolumeSelector volumes={product?.volumes} selectedVolume={selectedVolume} onSelectVolume={handleVolumeSelect} />
+            <VolumeSelector
+              volumes={product?.volumes}
+              selectedVolume={selectedVolume}
+              onSelectVolume={handleVolumeSelect}
+            />
 
             <PurchaseControls onAddToCart={handleAddToCart} />
           </div>

@@ -18,7 +18,9 @@ function CartItem({ item, onDecrease, onIncrease, onRemove }) {
         <div className="flex justify-between items-start w-full">
           <div>
             <h3 className="font-headline text-2xl text-on-background mb-2">{item.name}</h3>
-            <p className="font-body text-sm text-on-surface-variant max-w-sm mb-4">{item.description}</p>
+            <p className="font-body text-sm text-on-surface-variant max-w-sm mb-4">
+              {item.description}
+            </p>
             <span className="inline-block bg-secondary-container text-on-secondary-container font-label uppercase text-[9px] tracking-[0.1em] px-3 py-1 mb-6 rounded-full">
               {volumeLabel}
             </span>
@@ -29,7 +31,9 @@ function CartItem({ item, onDecrease, onIncrease, onRemove }) {
             onClick={onRemove}
             disabled={!onRemove}
           >
-            <span className="material-symbols-outlined text-sm" data-icon="close">close</span>
+            <span className="material-symbols-outlined text-sm" data-icon="close">
+              close
+            </span>
           </button>
         </div>
         <div className="flex justify-between items-end mt-auto pt-4">

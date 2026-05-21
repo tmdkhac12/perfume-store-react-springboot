@@ -33,4 +33,4 @@
  * @property {CartStorageItem[]} items - Example: [{ volumePerfumeId: 10, quantity: 2 }]
  */
 
-export { };
+export {};

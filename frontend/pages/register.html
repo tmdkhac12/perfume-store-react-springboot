@@ -1,249 +1,365 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <html class="light" lang="en">
-
-<head>
-  <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Registration - L'Essence</title>
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@300;400;600&amp;family=Manrope:wght@400;500;600&amp;display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
-  <script id="tailwind-config">
-    tailwind.config = {
-      darkMode: "class",
-      theme: {
-        extend: {
-          "colors": {
-            "outline-variant": "#c4c7c7",
-            "tertiary-fixed": "#e3e2e2",
-            "on-background": "#191c1d",
-            "on-surface": "#191c1d",
-            "on-primary-container": "#8a8989",
-            "on-surface-variant": "#444748",
-            "on-secondary-fixed": "#1b1c1c",
-            "surface-variant": "#e1e3e4",
-            "surface-dim": "#d9dadb",
-            "error-container": "#ffdad6",
-            "surface-container-lowest": "#ffffff",
-            "primary-container": "#222222",
-            "primary": "#0b0c0c",
-            "surface": "#f8f9fa",
-            "error": "#ba1a1a",
-            "surface-container-high": "#e7e8e9",
-            "on-primary": "#ffffff",
-            "surface-container-highest": "#e1e3e4",
-            "on-error": "#ffffff",
-            "on-primary-fixed": "#1b1c1c",
-            "on-secondary-fixed-variant": "#464747",
-            "surface-bright": "#f8f9fa",
-            "on-primary-fixed-variant": "#474746",
-            "inverse-on-surface": "#f0f1f2",
-            "primary-fixed-dim": "#c8c6c5",
-            "on-secondary": "#ffffff",
-            "on-tertiary-fixed-variant": "#464747",
-            "surface-container": "#edeeef",
-            "surface-container-low": "#f3f4f5",
-            "tertiary-fixed-dim": "#c7c6c6",
-            "on-tertiary": "#ffffff",
-            "inverse-primary": "#c8c6c5",
-            "primary-fixed": "#e5e2e1",
-            "secondary": "#5e5e5e",
-            "on-tertiary-fixed": "#1b1c1c",
-            "inverse-surface": "#2e3132",
-            "on-tertiary-container": "#898989",
-            "tertiary": "#0a0c0c",
-            "on-error-container": "#93000a",
-            "background": "#f8f9fa",
-            "surface-tint": "#5f5e5e",
-            "outline": "#747878",
-            "on-secondary-container": "#646464",
-            "secondary-fixed": "#e4e2e2",
-            "secondary-fixed-dim": "#c8c6c6",
-            "secondary-container": "#e4e2e2",
-            "tertiary-container": "#212222"
-          },
-          "borderRadius": {
-            "DEFAULT": "0.25rem",
-            "lg": "0.5rem",
-            "xl": "0.75rem",
-            "full": "9999px"
-          },
-          "spacing": {},
-          "fontFamily": {
-            "headline": [
-              "Noto Serif"
-            ],
-            "body": [
-              "Manrope"
-            ],
-            "label": [
-              "Manrope"
-            ]
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Registration - L'Essence</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@300;400;600&amp;family=Manrope:wght@400;500;600&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'outline-variant': '#c4c7c7',
+              'tertiary-fixed': '#e3e2e2',
+              'on-background': '#191c1d',
+              'on-surface': '#191c1d',
+              'on-primary-container': '#8a8989',
+              'on-surface-variant': '#444748',
+              'on-secondary-fixed': '#1b1c1c',
+              'surface-variant': '#e1e3e4',
+              'surface-dim': '#d9dadb',
+              'error-container': '#ffdad6',
+              'surface-container-lowest': '#ffffff',
+              'primary-container': '#222222',
+              primary: '#0b0c0c',
+              surface: '#f8f9fa',
+              error: '#ba1a1a',
+              'surface-container-high': '#e7e8e9',
+              'on-primary': '#ffffff',
+              'surface-container-highest': '#e1e3e4',
+              'on-error': '#ffffff',
+              'on-primary-fixed': '#1b1c1c',
+              'on-secondary-fixed-variant': '#464747',
+              'surface-bright': '#f8f9fa',
+              'on-primary-fixed-variant': '#474746',
+              'inverse-on-surface': '#f0f1f2',
+              'primary-fixed-dim': '#c8c6c5',
+              'on-secondary': '#ffffff',
+              'on-tertiary-fixed-variant': '#464747',
+              'surface-container': '#edeeef',
+              'surface-container-low': '#f3f4f5',
+              'tertiary-fixed-dim': '#c7c6c6',
+              'on-tertiary': '#ffffff',
+              'inverse-primary': '#c8c6c5',
+              'primary-fixed': '#e5e2e1',
+              secondary: '#5e5e5e',
+              'on-tertiary-fixed': '#1b1c1c',
+              'inverse-surface': '#2e3132',
+              'on-tertiary-container': '#898989',
+              tertiary: '#0a0c0c',
+              'on-error-container': '#93000a',
+              background: '#f8f9fa',
+              'surface-tint': '#5f5e5e',
+              outline: '#747878',
+              'on-secondary-container': '#646464',
+              'secondary-fixed': '#e4e2e2',
+              'secondary-fixed-dim': '#c8c6c6',
+              'secondary-container': '#e4e2e2',
+              'tertiary-container': '#212222'
+            },
+            borderRadius: {
+              DEFAULT: '0.25rem',
+              lg: '0.5rem',
+              xl: '0.75rem',
+              full: '9999px'
+            },
+            spacing: {},
+            fontFamily: {
+              headline: ['Noto Serif'],
+              body: ['Manrope'],
+              label: ['Manrope']
+            }
           }
-        },
-      },
-    }
-  </script>
-  <style>
-    body {
-      font-family: 'Manrope', sans-serif;
-      background-color: theme('colors.background');
-      color: theme('colors.on-background');
-    }
+        }
+      };
+    </script>
+    <style>
+      body {
+        font-family: 'Manrope', sans-serif;
+        background-color: theme('colors.background');
+        color: theme('colors.on-background');
+      }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    .font-headline {
-      font-family: 'Noto Serif', serif;
-    }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      .font-headline {
+        font-family: 'Noto Serif', serif;
+      }
 
-    .glass-nav {
-      backdrop-filter: blur(40px);
-      -webkit-backdrop-filter: blur(40px);
-    }
+      .glass-nav {
+        backdrop-filter: blur(40px);
+        -webkit-backdrop-filter: blur(40px);
+      }
 
-    .input-ghost-border {
-      border: 1px solid rgba(196, 199, 199, 0.3);
-      /* outline-variant at 30% */
-      background-color: transparent;
-      transition: border-color 0.3s ease;
-    }
+      .input-ghost-border {
+        border: 1px solid rgba(196, 199, 199, 0.3);
+        /* outline-variant at 30% */
+        background-color: transparent;
+        transition: border-color 0.3s ease;
+      }
 
-    .input-ghost-border:focus {
-      border-color: theme('colors.primary');
-      outline: none;
-      box-shadow: none;
-    }
+      .input-ghost-border:focus {
+        border-color: theme('colors.primary');
+        outline: none;
+        box-shadow: none;
+      }
 
-    .btn-ghost-border {
-      border: 1px solid rgba(196, 199, 199, 0.15);
-      /* outline-variant at 15% */
-      background-color: transparent;
-      color: theme('colors.on-surface');
-      transition: all 0.3s ease;
-    }
+      .btn-ghost-border {
+        border: 1px solid rgba(196, 199, 199, 0.15);
+        /* outline-variant at 15% */
+        background-color: transparent;
+        color: theme('colors.on-surface');
+        transition: all 0.3s ease;
+      }
 
-    .btn-ghost-border:hover {
-      background-color: theme('colors.surface-container-low');
-    }
-  </style>
-</head>
+      .btn-ghost-border:hover {
+        background-color: theme('colors.surface-container-low');
+      }
+    </style>
+  </head>
 
-<body class="antialiased min-h-screen flex flex-col selection:bg-primary-fixed selection:text-on-primary-fixed">
-  <!-- TopAppBar (Suppressed navigation links for transactional intent as per Semantic Shell Mandate) -->
-  <header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-stone-950/80 backdrop-blur-xl glass-nav no-border bg-surface-container-low flat no-shadow flex justify-between items-center px-8 py-6 max-w-full">
-    <!-- Left: Navigation (Suppressed) -->
-    <div class="flex-1 hidden md:flex items-center gap-8">
-      <!-- Navigation links hidden on Login/Register -->
-    </div>
-    <!-- Center: Brand Logo -->
-    <div class="flex-1 flex justify-center items-center">
-      <a class="font-headline tracking-[0.2em] text-2xl font-light text-stone-900 dark:text-stone-100 uppercase" href="../index.html">
-        AETHER
-      </a>
-    </div>
-    <!-- Right: Actions (Suppressed or minimal for focus) -->
-    <div class="flex-1 flex justify-end items-center gap-6">
-      <a class="text-stone-900 dark:text-stone-100 hover:opacity-70 transition-opacity duration-300" href="login.html">
-        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">close</span>
-      </a>
-    </div>
-  </header>
-  <!-- Main Content -->
-  <main class="flex-grow flex items-center justify-center py-32 px-4 md:px-8">
-    <!-- Registration Card Container -->
-    <div class="w-full max-w-6xl bg-surface-container-lowest rounded-xl flex flex-col lg:flex-row overflow-hidden shadow-sm" style="box-shadow: 0 4px 60px rgba(25, 28, 29, 0.04);">
-      <!-- Left: Image Section -->
-      <div class="lg:w-1/2 relative min-h-[400px] lg:min-h-full">
-        <img alt="Perfume bottle on stone" class="absolute inset-0 w-full h-full object-cover" data-alt="Minimalist composition of a sleek glass perfume bottle on a textured grey stone pedestal, soft natural light, high-end editorial style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNfZzLBCPKFe6znApmx-nb8e8kJ6MriN0sRkoHf-K1YahqMI9wIK11SCm2X5qlnAaoPKjtA7VIX2FtSsBZxnxMeN9n3ITPW7u5YTlbeihNzXJHjSDDq95ceEA5wsPtoxQ-ZfM5p4coPwiCisTEj_HiI06YFBUVYA5VL0_mPTHXTxGJXsj0f0Vll-UcH7RBPL-lcZ1XY89hEGmS0_0dPKkEqB2WNUmE2HmU2GWe1Ym1_mE9B5Uw-h5llMh4KbGIvxEn4o15FdAp_N8" />
-        <!-- Overlay for slight contrast if needed, keeping it minimal -->
-        <div class="absolute inset-0 bg-black/10"></div>
+  <body
+    class="antialiased min-h-screen flex flex-col selection:bg-primary-fixed selection:text-on-primary-fixed"
+  >
+    <!-- TopAppBar (Suppressed navigation links for transactional intent as per Semantic Shell Mandate) -->
+    <header
+      class="fixed top-0 w-full z-50 bg-white/80 dark:bg-stone-950/80 backdrop-blur-xl glass-nav no-border bg-surface-container-low flat no-shadow flex justify-between items-center px-8 py-6 max-w-full"
+    >
+      <!-- Left: Navigation (Suppressed) -->
+      <div class="flex-1 hidden md:flex items-center gap-8">
+        <!-- Navigation links hidden on Login/Register -->
       </div>
-      <!-- Right: Form Section -->
-      <div class="lg:w-1/2 p-8 md:p-16 lg:p-20 flex flex-col justify-center bg-surface-container-lowest">
-        <div class="max-w-md mx-auto w-full">
-          <!-- Header -->
-          <div class="mb-12 text-center lg:text-left">
-            <h1 class="font-headline text-3xl md:text-4xl text-on-surface mb-4">Create Account</h1>
-            <p class="font-body text-on-surface-variant text-sm tracking-wide">Join The Atelier to access exclusive collections and curated stories.</p>
-          </div>
-          <!-- Form -->
-          <form action="#" class="space-y-6" method="POST">
-            <!-- Full Name -->
-            <div class="space-y-2">
-              <label class="block font-label text-xs uppercase tracking-[0.15em] text-on-surface-variant" for="fullName">Full Name</label>
-              <input class="w-full px-4 py-3 rounded-full input-ghost-border text-on-surface font-body text-sm focus:ring-0" id="fullName" name="fullName" placeholder="Jane Doe" required="" type="text" />
-            </div>
-            <!-- Email Address -->
-            <div class="space-y-2">
-              <label class="block font-label text-xs uppercase tracking-[0.15em] text-on-surface-variant" for="email">Email Address</label>
-              <input class="w-full px-4 py-3 rounded-full input-ghost-border text-on-surface font-body text-sm focus:ring-0" id="email" name="email" placeholder="jane@example.com" required="" type="email" />
-            </div>
-            <!-- Password -->
-            <div class="space-y-2">
-              <label class="block font-label text-xs uppercase tracking-[0.15em] text-on-surface-variant" for="password">Password</label>
-              <input class="w-full px-4 py-3 rounded-full input-ghost-border text-on-surface font-body text-sm focus:ring-0" id="password" name="password" placeholder="••••••••" required="" type="password" />
-            </div>
-            <!-- Confirm Password -->
-            <div class="space-y-2">
-              <label class="block font-label text-xs uppercase tracking-[0.15em] text-on-surface-variant" for="confirmPassword">Confirm Password</label>
-              <input class="w-full px-4 py-3 rounded-full input-ghost-border text-on-surface font-body text-sm focus:ring-0" id="confirmPassword" name="confirmPassword" placeholder="••••••••" required="" type="password" />
-            </div>
-            <!-- Actions -->
-            <div class="pt-4 space-y-4">
-              <button class="w-full bg-primary text-on-primary py-4 rounded-full font-label text-xs uppercase tracking-[0.15em] hover:bg-secondary transition-colors duration-300" type="submit">
+      <!-- Center: Brand Logo -->
+      <div class="flex-1 flex justify-center items-center">
+        <a
+          class="font-headline tracking-[0.2em] text-2xl font-light text-stone-900 dark:text-stone-100 uppercase"
+          href="../index.html"
+        >
+          AETHER
+        </a>
+      </div>
+      <!-- Right: Actions (Suppressed or minimal for focus) -->
+      <div class="flex-1 flex justify-end items-center gap-6">
+        <a
+          class="text-stone-900 dark:text-stone-100 hover:opacity-70 transition-opacity duration-300"
+          href="login.html"
+        >
+          <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0"
+            >close</span
+          >
+        </a>
+      </div>
+    </header>
+    <!-- Main Content -->
+    <main class="flex-grow flex items-center justify-center py-32 px-4 md:px-8">
+      <!-- Registration Card Container -->
+      <div
+        class="w-full max-w-6xl bg-surface-container-lowest rounded-xl flex flex-col lg:flex-row overflow-hidden shadow-sm"
+        style="box-shadow: 0 4px 60px rgba(25, 28, 29, 0.04)"
+      >
+        <!-- Left: Image Section -->
+        <div class="lg:w-1/2 relative min-h-[400px] lg:min-h-full">
+          <img
+            alt="Perfume bottle on stone"
+            class="absolute inset-0 w-full h-full object-cover"
+            data-alt="Minimalist composition of a sleek glass perfume bottle on a textured grey stone pedestal, soft natural light, high-end editorial style"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNfZzLBCPKFe6znApmx-nb8e8kJ6MriN0sRkoHf-K1YahqMI9wIK11SCm2X5qlnAaoPKjtA7VIX2FtSsBZxnxMeN9n3ITPW7u5YTlbeihNzXJHjSDDq95ceEA5wsPtoxQ-ZfM5p4coPwiCisTEj_HiI06YFBUVYA5VL0_mPTHXTxGJXsj0f0Vll-UcH7RBPL-lcZ1XY89hEGmS0_0dPKkEqB2WNUmE2HmU2GWe1Ym1_mE9B5Uw-h5llMh4KbGIvxEn4o15FdAp_N8"
+          />
+          <!-- Overlay for slight contrast if needed, keeping it minimal -->
+          <div class="absolute inset-0 bg-black/10"></div>
+        </div>
+        <!-- Right: Form Section -->
+        <div
+          class="lg:w-1/2 p-8 md:p-16 lg:p-20 flex flex-col justify-center bg-surface-container-lowest"
+        >
+          <div class="max-w-md mx-auto w-full">
+            <!-- Header -->
+            <div class="mb-12 text-center lg:text-left">
+              <h1 class="font-headline text-3xl md:text-4xl text-on-surface mb-4">
                 Create Account
-              </button>
-              <div class="relative flex items-center justify-center py-2">
-                <div class="absolute inset-0 flex items-center">
-                  <div class="w-full border-t border-outline-variant/30"></div>
-                </div>
-                <span class="relative bg-surface-container-lowest px-4 text-xs font-label uppercase tracking-[0.1em] text-on-surface-variant">Or</span>
-              </div>
-              <button class="w-full btn-ghost-border py-4 rounded-full font-label text-xs uppercase tracking-[0.15em] flex items-center justify-center gap-3" type="button">
-                <svg class="w-4 h-4" fill="currentColor" viewbox="0 0 24 24">
-                  <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
-                  <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
-                  <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
-                  <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
-                </svg>
-                Sign up with Google
-              </button>
+              </h1>
+              <p class="font-body text-on-surface-variant text-sm tracking-wide">
+                Join The Atelier to access exclusive collections and curated stories.
+              </p>
             </div>
-          </form>
-          <!-- Footer Link -->
-          <div class="mt-8 text-center">
-            <p class="font-body text-sm text-on-surface-variant">
-              Already have an account?
-              <a class="text-primary hover:text-secondary underline decoration-1 underline-offset-4 transition-colors" href="login.html">Log in</a>
-            </p>
+            <!-- Form -->
+            <form action="#" class="space-y-6" method="POST">
+              <!-- Full Name -->
+              <div class="space-y-2">
+                <label
+                  class="block font-label text-xs uppercase tracking-[0.15em] text-on-surface-variant"
+                  for="fullName"
+                  >Full Name</label
+                >
+                <input
+                  class="w-full px-4 py-3 rounded-full input-ghost-border text-on-surface font-body text-sm focus:ring-0"
+                  id="fullName"
+                  name="fullName"
+                  placeholder="Jane Doe"
+                  required=""
+                  type="text"
+                />
+              </div>
+              <!-- Email Address -->
+              <div class="space-y-2">
+                <label
+                  class="block font-label text-xs uppercase tracking-[0.15em] text-on-surface-variant"
+                  for="email"
+                  >Email Address</label
+                >
+                <input
+                  class="w-full px-4 py-3 rounded-full input-ghost-border text-on-surface font-body text-sm focus:ring-0"
+                  id="email"
+                  name="email"
+                  placeholder="jane@example.com"
+                  required=""
+                  type="email"
+                />
+              </div>
+              <!-- Password -->
+              <div class="space-y-2">
+                <label
+                  class="block font-label text-xs uppercase tracking-[0.15em] text-on-surface-variant"
+                  for="password"
+                  >Password</label
+                >
+                <input
+                  class="w-full px-4 py-3 rounded-full input-ghost-border text-on-surface font-body text-sm focus:ring-0"
+                  id="password"
+                  name="password"
+                  placeholder="••••••••"
+                  required=""
+                  type="password"
+                />
+              </div>
+              <!-- Confirm Password -->
+              <div class="space-y-2">
+                <label
+                  class="block font-label text-xs uppercase tracking-[0.15em] text-on-surface-variant"
+                  for="confirmPassword"
+                  >Confirm Password</label
+                >
+                <input
+                  class="w-full px-4 py-3 rounded-full input-ghost-border text-on-surface font-body text-sm focus:ring-0"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  placeholder="••••••••"
+                  required=""
+                  type="password"
+                />
+              </div>
+              <!-- Actions -->
+              <div class="pt-4 space-y-4">
+                <button
+                  class="w-full bg-primary text-on-primary py-4 rounded-full font-label text-xs uppercase tracking-[0.15em] hover:bg-secondary transition-colors duration-300"
+                  type="submit"
+                >
+                  Create Account
+                </button>
+                <div class="relative flex items-center justify-center py-2">
+                  <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-outline-variant/30"></div>
+                  </div>
+                  <span
+                    class="relative bg-surface-container-lowest px-4 text-xs font-label uppercase tracking-[0.1em] text-on-surface-variant"
+                    >Or</span
+                  >
+                </div>
+                <button
+                  class="w-full btn-ghost-border py-4 rounded-full font-label text-xs uppercase tracking-[0.15em] flex items-center justify-center gap-3"
+                  type="button"
+                >
+                  <svg class="w-4 h-4" fill="currentColor" viewbox="0 0 24 24">
+                    <path
+                      d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                      fill="#4285F4"
+                    ></path>
+                    <path
+                      d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                      fill="#34A853"
+                    ></path>
+                    <path
+                      d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                      fill="#FBBC05"
+                    ></path>
+                    <path
+                      d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                      fill="#EA4335"
+                    ></path>
+                  </svg>
+                  Sign up with Google
+                </button>
+              </div>
+            </form>
+            <!-- Footer Link -->
+            <div class="mt-8 text-center">
+              <p class="font-body text-sm text-on-surface-variant">
+                Already have an account?
+                <a
+                  class="text-primary hover:text-secondary underline decoration-1 underline-offset-4 transition-colors"
+                  href="login.html"
+                  >Log in</a
+                >
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </main>
-  <!-- Footer -->
-  <footer class="w-full py-12 mt-auto bg-stone-100 dark:bg-stone-900 tonal-shift from-background-to-surface-variant flat no-shadow flex flex-col md:flex-row justify-between items-center px-12 gap-6">
-    <!-- Copyright -->
-    <div class="font-['Manrope'] text-[10px] uppercase tracking-[0.15em] text-stone-600 dark:text-stone-400">
-      © 2024 AETHER PERFUMERY. ALL RIGHTS RESERVED.
-    </div>
-    <!-- Brand Logo (Hidden per JSON) -->
-    <div class="hidden">AETHER</div>
-    <!-- Links -->
-    <div class="flex flex-wrap justify-center gap-6">
-      <a class="font-['Manrope'] text-[10px] uppercase tracking-[0.15em] text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 transition-colors" href="../index.html">Privacy Policy</a>
-      <a class="font-['Manrope'] text-[10px] uppercase tracking-[0.15em] text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 transition-colors" href="../index.html">Terms of Service</a>
-      <a class="font-['Manrope'] text-[10px] uppercase tracking-[0.15em] text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 transition-colors" href="../index.html">Shipping &amp; Returns</a>
-      <a class="font-['Manrope'] text-[10px] uppercase tracking-[0.15em] text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 transition-colors" href="../index.html">Contact</a>
-    </div>
-  </footer>
-</body>
-
+    </main>
+    <!-- Footer -->
+    <footer
+      class="w-full py-12 mt-auto bg-stone-100 dark:bg-stone-900 tonal-shift from-background-to-surface-variant flat no-shadow flex flex-col md:flex-row justify-between items-center px-12 gap-6"
+    >
+      <!-- Copyright -->
+      <div
+        class="font-['Manrope'] text-[10px] uppercase tracking-[0.15em] text-stone-600 dark:text-stone-400"
+      >
+        © 2024 AETHER PERFUMERY. ALL RIGHTS RESERVED.
+      </div>
+      <!-- Brand Logo (Hidden per JSON) -->
+      <div class="hidden">AETHER</div>
+      <!-- Links -->
+      <div class="flex flex-wrap justify-center gap-6">
+        <a
+          class="font-['Manrope'] text-[10px] uppercase tracking-[0.15em] text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 transition-colors"
+          href="../index.html"
+          >Privacy Policy</a
+        >
+        <a
+          class="font-['Manrope'] text-[10px] uppercase tracking-[0.15em] text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 transition-colors"
+          href="../index.html"
+          >Terms of Service</a
+        >
+        <a
+          class="font-['Manrope'] text-[10px] uppercase tracking-[0.15em] text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 transition-colors"
+          href="../index.html"
+          >Shipping &amp; Returns</a
+        >
+        <a
+          class="font-['Manrope'] text-[10px] uppercase tracking-[0.15em] text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 transition-colors"
+          href="../index.html"
+          >Contact</a
+        >
+      </div>
+    </footer>
+  </body>
 </html>

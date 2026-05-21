@@ -18,5 +18,8 @@ export function formatDate(value, locale = 'en-GB', options) {
     return '';
   }
 
-  return new Intl.DateTimeFormat(locale, options ?? { day: '2-digit', month: 'short', year: 'numeric' }).format(date);
+  return new Intl.DateTimeFormat(
+    locale,
+    options ?? { day: '2-digit', month: 'short', year: 'numeric' }
+  ).format(date);
 }

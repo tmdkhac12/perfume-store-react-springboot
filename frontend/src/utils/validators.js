@@ -21,5 +21,10 @@ export function isEmail(value) {
 export function isStrongPassword(value) {
   const stringValue = String(value ?? '');
 
-  return /[A-Z]/.test(stringValue) && /[a-z]/.test(stringValue) && /\d/.test(stringValue) && stringValue.length >= 8;
+  return (
+    /[A-Z]/.test(stringValue) &&
+    /[a-z]/.test(stringValue) &&
+    /\d/.test(stringValue) &&
+    stringValue.length >= 8
+  );
 }

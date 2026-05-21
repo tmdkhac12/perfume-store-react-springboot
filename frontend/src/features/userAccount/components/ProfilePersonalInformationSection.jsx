@@ -125,14 +125,19 @@ function ProfilePersonalInformationSection() {
     <div className="col-span-1 rounded-xl bg-surface-container-lowest p-8 md:col-span-2">
       <h2 className="mb-6 font-headline text-2xl text-on-surface">Personal Information</h2>
       {statusMessage ? (
-        <p className={`mb-4 text-sm ${status === 'error' ? 'text-secondary' : 'text-on-surface-variant'}`}>
+        <p
+          className={`mb-4 text-sm ${status === 'error' ? 'text-secondary' : 'text-on-surface-variant'}`}
+        >
           {statusMessage}
         </p>
       ) : null}
       <form className="max-w-2xl space-y-6" onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 gap-6">
           <div className="flex flex-col">
-            <label className="mb-2 text-xs uppercase tracking-[0.1em] text-on-surface-variant" htmlFor="fullName">
+            <label
+              className="mb-2 text-xs uppercase tracking-[0.1em] text-on-surface-variant"
+              htmlFor="fullName"
+            >
               Full Name
             </label>
             <input
@@ -149,7 +154,10 @@ function ProfilePersonalInformationSection() {
         </div>
 
         <div className="flex flex-col">
-          <label className="mb-2 text-xs uppercase tracking-[0.1em] text-on-surface-variant" htmlFor="email">
+          <label
+            className="mb-2 text-xs uppercase tracking-[0.1em] text-on-surface-variant"
+            htmlFor="email"
+          >
             Email Address
           </label>
           <input

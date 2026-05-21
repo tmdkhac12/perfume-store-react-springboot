@@ -47,16 +47,19 @@ function SecurityChangePasswordSection() {
 
   return (
     <section className="mb-8 rounded-xl bg-surface-container-lowest p-8 shadow-[0_4px_60px_-15px_rgba(25,28,29,0.04)]">
-      <ToastNotification 
-        message={toast.message} 
-        isOpen={toast.isOpen} 
-        variant={toast.variant} 
-        onClose={closeToast} 
+      <ToastNotification
+        message={toast.message}
+        isOpen={toast.isOpen}
+        variant={toast.variant}
+        onClose={closeToast}
       />
       <h2 className="mb-6 font-headline text-2xl text-on-surface">Change Password</h2>
       <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-2">
-          <label className="text-xs uppercase tracking-[0.1em] text-on-surface-variant" htmlFor="oldPassword">
+          <label
+            className="text-xs uppercase tracking-[0.1em] text-on-surface-variant"
+            htmlFor="oldPassword"
+          >
             Current Password
           </label>
           <input
@@ -72,7 +75,10 @@ function SecurityChangePasswordSection() {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label className="text-xs uppercase tracking-[0.1em] text-on-surface-variant" htmlFor="newPassword">
+          <label
+            className="text-xs uppercase tracking-[0.1em] text-on-surface-variant"
+            htmlFor="newPassword"
+          >
             New Password
           </label>
           <input
@@ -88,7 +94,10 @@ function SecurityChangePasswordSection() {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label className="text-xs uppercase tracking-[0.1em] text-on-surface-variant" htmlFor="confirmPassword">
+          <label
+            className="text-xs uppercase tracking-[0.1em] text-on-surface-variant"
+            htmlFor="confirmPassword"
+          >
             Confirm New Password
           </label>
           <input

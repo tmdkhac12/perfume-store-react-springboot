@@ -5,10 +5,38 @@ import {
 } from '../features/admin/components/index.js';
 
 const userRows = [
-  { id: '001', name: 'Eleanor Vance', username: 'evance', email: 'eleanor@aura.com', active: true, admin: true },
-  { id: '002', name: 'Arthur Pendelton', username: 'apendelton', email: 'arthur@aura.com', active: false, admin: false },
-  { id: '003', name: 'Marguerite Duras', username: 'mduras', email: 'marguerite@aura.com', active: true, admin: false },
-  { id: '004', name: 'Jean-Claude Ellena', username: 'jellena', email: 'jeanclaude@aura.com', active: true, admin: true }
+  {
+    id: '001',
+    name: 'Eleanor Vance',
+    username: 'evance',
+    email: 'eleanor@aura.com',
+    active: true,
+    admin: true
+  },
+  {
+    id: '002',
+    name: 'Arthur Pendelton',
+    username: 'apendelton',
+    email: 'arthur@aura.com',
+    active: false,
+    admin: false
+  },
+  {
+    id: '003',
+    name: 'Marguerite Duras',
+    username: 'mduras',
+    email: 'marguerite@aura.com',
+    active: true,
+    admin: false
+  },
+  {
+    id: '004',
+    name: 'Jean-Claude Ellena',
+    username: 'jellena',
+    email: 'jeanclaude@aura.com',
+    active: true,
+    admin: true
+  }
 ];
 
 function TogglePill({ checked }) {
@@ -55,7 +83,10 @@ function AdminUsersPage() {
 
         <div className="flex flex-col">
           {userRows.map((row) => (
-            <div key={row.id} className="group grid grid-cols-[80px_2fr_1.5fr_2fr_200px_100px] items-center gap-4 border-b border-surface-variant/30 px-6 py-5 last:border-b-0 hover:bg-surface-container-low transition-colors duration-200">
+            <div
+              key={row.id}
+              className="group grid grid-cols-[80px_2fr_1.5fr_2fr_200px_100px] items-center gap-4 border-b border-surface-variant/30 px-6 py-5 last:border-b-0 hover:bg-surface-container-low transition-colors duration-200"
+            >
               <div className="text-sm text-on-surface-variant">{row.id}</div>
               <div className="font-headline text-lg text-on-surface">{row.name}</div>
               <div className="text-sm text-on-surface-variant">{row.username}</div>

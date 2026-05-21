@@ -11,6 +11,7 @@ export const routeMap = [
   { path: '/product-details/:productId', label: 'Product Details', group: routeGroups.public },
   { path: '/cart', label: 'Cart', group: routeGroups.public },
   { path: '/checkout', label: 'Checkout', group: routeGroups.public },
+  { path: '/payment-result', label: 'Payment Result', group: routeGroups.public },
   { path: '/login', label: 'Login', group: routeGroups.auth },
   { path: '/register', label: 'Register', group: routeGroups.auth },
   { path: '/account/profile', label: 'Account Profile', group: routeGroups.account },

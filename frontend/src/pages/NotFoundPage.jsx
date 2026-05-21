@@ -9,11 +9,16 @@ function NotFoundPage() {
       <section className="relative max-w-6xl mx-auto px-6 md:px-12 py-24 md:py-32">
         <div className="flex flex-col gap-12">
           <div className="space-y-4">
-            <span className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Page Not Found</span>
+            <span className="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">
+              Page Not Found
+            </span>
             <h1 className="font-headline text-6xl md:text-7xl italic text-on-background">404</h1>
-            <p className="font-headline text-3xl md:text-4xl text-on-background">The scent you seek is not here.</p>
+            <p className="font-headline text-3xl md:text-4xl text-on-background">
+              The scent you seek is not here.
+            </p>
             <p className="font-body text-base md:text-lg text-on-surface-variant max-w-2xl">
-              The route you visited does not exist or has been moved. You can return to the main gallery or explore our curated collection.
+              The route you visited does not exist or has been moved. You can return to the main
+              gallery or explore our curated collection.
             </p>
           </div>
 
@@ -47,7 +52,10 @@ function NotFoundPage() {
                 description: 'Reach out to the concierge if you need guidance.'
               }
             ].map((item) => (
-              <div key={item.title} className="bg-surface-container-lowest border border-outline-variant/20 rounded-[2rem] p-6">
+              <div
+                key={item.title}
+                className="bg-surface-container-lowest border border-outline-variant/20 rounded-[2rem] p-6"
+              >
                 <h2 className="font-headline text-xl text-on-background mb-2">{item.title}</h2>
                 <p className="font-body text-sm text-on-surface-variant">{item.description}</p>
               </div>

@@ -1,6 +1,6 @@
 import OrderHistoryCard from './OrderHistoryCard.jsx';
 
-/** 
+/**
  * @description: Renders a list of order cards or a message if no orders exist.
  * @param {import('../types').Order[]} orders - List of user orders to display.
  * @param {(id: number) => void} onViewDetails - Callback when user wants to see order details.

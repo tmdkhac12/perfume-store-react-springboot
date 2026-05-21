@@ -164,7 +164,8 @@ function AccountAddressPage() {
     setToastVariant('info');
   };
 
-  const editingAddress = addressModal.payload?.mode === 'edit' ? addressModal.payload.address : null;
+  const editingAddress =
+    addressModal.payload?.mode === 'edit' ? addressModal.payload.address : null;
   const isEditing = Boolean(editingAddress);
   const isSaving = saveStatus === 'saving';
   const deleteAddressId = deleteModal.payload?.address?.id;
@@ -184,7 +185,11 @@ function AccountAddressPage() {
         isOpen={addressModal.isOpen}
         isSaving={isSaving}
         onClose={addressModal.close}
-        onSubmit={isEditing ? (values) => handleUpdateAddress(editingAddress.id, values) : handleCreateAddress}
+        onSubmit={
+          isEditing
+            ? (values) => handleUpdateAddress(editingAddress.id, values)
+            : handleCreateAddress
+        }
       />
 
       <AddressDeleteModal

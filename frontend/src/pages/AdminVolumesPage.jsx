@@ -31,17 +31,33 @@ function AdminVolumesPage() {
 
         <div className="flex flex-col">
           {volumeRows.map((row) => (
-            <div key={row.id} className="group grid grid-cols-12 gap-4 items-center border-b border-surface-variant/30 px-6 py-5 last:border-b-0 hover:bg-surface-container-low transition-colors duration-200">
+            <div
+              key={row.id}
+              className="group grid grid-cols-12 gap-4 items-center border-b border-surface-variant/30 px-6 py-5 last:border-b-0 hover:bg-surface-container-low transition-colors duration-200"
+            >
               <div className="col-span-2 text-sm text-on-surface-variant">{row.id}</div>
               <div className="col-span-5 flex items-center gap-4">
                 <div className="flex h-10 w-10 items-center justify-center rounded bg-surface-container-high">
-                  <span className="material-symbols-outlined text-[20px] text-secondary">{row.icon}</span>
+                  <span className="material-symbols-outlined text-[20px] text-secondary">
+                    {row.icon}
+                  </span>
                 </div>
-                <span className={['font-headline text-lg', row.visible ? 'text-on-surface' : 'text-on-surface/60'].join(' ')}>{row.size}</span>
-                <span className="rounded-full bg-secondary-container px-3 py-1 text-xs text-on-secondary-container">{row.tag}</span>
+                <span
+                  className={[
+                    'font-headline text-lg',
+                    row.visible ? 'text-on-surface' : 'text-on-surface/60'
+                  ].join(' ')}
+                >
+                  {row.size}
+                </span>
+                <span className="rounded-full bg-secondary-container px-3 py-1 text-xs text-on-secondary-container">
+                  {row.tag}
+                </span>
               </div>
               <div className="col-span-3 flex items-center justify-center gap-4">
-                <span className="hidden text-sm md:inline">{row.visible ? 'Visible' : 'Hidden'}</span>
+                <span className="hidden text-sm md:inline">
+                  {row.visible ? 'Visible' : 'Hidden'}
+                </span>
                 <button
                   aria-checked={row.visible}
                   className={[

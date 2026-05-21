@@ -9,8 +9,8 @@ const axiosInstance = axios.create({
   baseURL: `${API_BASE_URL}/api/${API_VERSION}`,
   headers: {
     Accept: 'application/json',
-    'Content-Type': 'application/json',
-  },
+    'Content-Type': 'application/json'
+  }
 });
 
 /** @description: Request interceptor to inject the authentication token. */
@@ -46,7 +46,7 @@ const formatErrorResponse = (error, path) => {
     path: path,
     data: response?.data || null,
     message: response?.data?.message || error.message || 'Request failed',
-    error: error.code || 'UNKNOWN_ERROR',
+    error: error.code || 'UNKNOWN_ERROR'
   };
 };
 
@@ -64,7 +64,7 @@ const request = async (path, options = {}) => {
       method: options.method || 'GET',
       data: options.body,
       params: options.query,
-      ...options,
+      ...options
     });
 
     return response.data;
@@ -78,7 +78,7 @@ const request = async (path, options = {}) => {
       path: normalizedPath,
       data: null,
       message: error.message || 'An unexpected error occurred',
-      error: 'RUNTIME_ERROR',
+      error: 'RUNTIME_ERROR'
     };
   }
 };
@@ -134,7 +134,7 @@ const apiClient = {
    * @param {object} options - Example: { headers: {...} }
    * @returns {Promise<object>} result
    */
-  delete: (path, options) => request(path, { ...options, method: 'DELETE' }),
+  delete: (path, options) => request(path, { ...options, method: 'DELETE' })
 };
 
 export { apiClient };

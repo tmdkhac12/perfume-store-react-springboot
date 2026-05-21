@@ -4,7 +4,7 @@ import ChatbotWidget from './ChatbotWidget';
 import { useConsultation } from '../hooks/useConsultation';
 
 vi.mock('../hooks/useConsultation', () => ({
-  useConsultation: vi.fn(),
+  useConsultation: vi.fn()
 }));
 
 // Mock scrollIntoView as it's not implemented in JSDOM
@@ -15,7 +15,7 @@ describe('ChatbotWidget', () => {
     useConsultation.mockReturnValue({
       messages: [],
       isLoading: false,
-      sendMessage: vi.fn(),
+      sendMessage: vi.fn()
     });
 
     render(<ChatbotWidget />);
@@ -28,7 +28,7 @@ describe('ChatbotWidget', () => {
     useConsultation.mockReturnValue({
       messages: [{ id: '1', text: 'Welcome', sender: 'bot', timestamp: new Date().toISOString() }],
       isLoading: false,
-      sendMessage: vi.fn(),
+      sendMessage: vi.fn()
     });
 
     render(<ChatbotWidget />);
@@ -45,7 +45,7 @@ describe('ChatbotWidget', () => {
     useConsultation.mockReturnValue({
       messages: [],
       isLoading: false,
-      sendMessage,
+      sendMessage
     });
 
     render(<ChatbotWidget />);

@@ -13,9 +13,11 @@ const ChatMessage = ({ message }) => {
     <div className={`flex ${isBot ? 'justify-start' : 'justify-end'} mb-4 animate-fade-in`}>
       <div
         className={`max-w-[85%] px-4 py-3 rounded-2xl text-sm leading-relaxed shadow-sm
-          ${isBot 
-            ? 'bg-surface text-on-surface border border-outline/30 rounded-bl-none' 
-            : 'bg-primary text-on-primary rounded-br-none'}`}
+          ${
+            isBot
+              ? 'bg-surface text-on-surface border border-outline/30 rounded-bl-none'
+              : 'bg-primary text-on-primary rounded-br-none'
+          }`}
       >
         {isBot ? (
           <div className="font-body space-y-2">
@@ -36,7 +38,7 @@ const ChatMessage = ({ message }) => {
                   </Link>
                 ),
                 // Ensure paragraphs have proper spacing
-                p: ({ node, ...props }) => <p className="mb-2 last:mb-0" {...props} />,
+                p: ({ node, ...props }) => <p className="mb-2 last:mb-0" {...props} />
               }}
             >
               {message.text}
@@ -45,8 +47,13 @@ const ChatMessage = ({ message }) => {
         ) : (
           <p className="font-body whitespace-pre-wrap">{message.text}</p>
         )}
-        <div className={`text-[10px] mt-2 opacity-50 ${isBot ? 'text-on-surface-variant' : 'text-on-primary'}`}>
-          {new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+        <div
+          className={`text-[10px] mt-2 opacity-50 ${isBot ? 'text-on-surface-variant' : 'text-on-primary'}`}
+        >
+          {new Date(message.timestamp).toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit'
+          })}
         </div>
       </div>
     </div>

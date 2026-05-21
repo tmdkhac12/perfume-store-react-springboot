@@ -1,241 +1,365 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <html class="light" lang="en">
-
-<head>
-  <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>AURA - Profile Settings</title>
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Noto+Serif:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
-  <script id="tailwind-config">
-    tailwind.config = {
-      darkMode: "class",
-      theme: {
-        extend: {
-          "colors": {
-            "secondary-fixed": "#e4e2e2",
-            "error": "#ba1a1a",
-            "surface-container-highest": "#e1e3e4",
-            "on-secondary": "#ffffff",
-            "on-tertiary-container": "#898989",
-            "on-error-container": "#93000a",
-            "inverse-on-surface": "#f0f1f2",
-            "secondary-container": "#e4e2e2",
-            "on-secondary-fixed-variant": "#464747",
-            "tertiary-fixed": "#e3e2e2",
-            "surface-bright": "#f8f9fa",
-            "on-primary": "#ffffff",
-            "on-error": "#ffffff",
-            "inverse-primary": "#c8c6c5",
-            "on-background": "#191c1d",
-            "error-container": "#ffdad6",
-            "surface-tint": "#5f5e5e",
-            "on-secondary-container": "#646464",
-            "inverse-surface": "#2e3132",
-            "primary-fixed": "#e5e2e1",
-            "surface-variant": "#e1e3e4",
-            "on-tertiary-fixed": "#1b1c1c",
-            "surface": "#f8f9fa",
-            "on-surface": "#191c1d",
-            "outline": "#747878",
-            "on-tertiary": "#ffffff",
-            "on-surface-variant": "#444748",
-            "on-primary-container": "#8a8989",
-            "tertiary-fixed-dim": "#c7c6c6",
-            "on-primary-fixed-variant": "#474746",
-            "on-tertiary-fixed-variant": "#464747",
-            "surface-container-high": "#e7e8e9",
-            "surface-container": "#edeeef",
-            "on-secondary-fixed": "#1b1c1c",
-            "tertiary": "#0a0c0c",
-            "outline-variant": "#c4c7c7",
-            "on-primary-fixed": "#1b1c1c",
-            "tertiary-container": "#212222",
-            "surface-dim": "#d9dadb",
-            "primary-fixed-dim": "#c8c6c5",
-            "secondary": "#5e5e5e",
-            "primary": "#0b0c0c",
-            "surface-container-lowest": "#ffffff",
-            "surface-container-low": "#f3f4f5",
-            "secondary-fixed-dim": "#c8c6c6",
-            "background": "#f8f9fa",
-            "primary-container": "#222222"
-          },
-          "borderRadius": {
-            "DEFAULT": "0.25rem",
-            "lg": "0.5rem",
-            "xl": "0.75rem",
-            "full": "9999px"
-          },
-          "spacing": {},
-          "fontFamily": {
-            "headline": ["Noto Serif"],
-            "body": ["Manrope"],
-            "label": ["Manrope"]
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>AURA - Profile Settings</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Noto+Serif:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'secondary-fixed': '#e4e2e2',
+              error: '#ba1a1a',
+              'surface-container-highest': '#e1e3e4',
+              'on-secondary': '#ffffff',
+              'on-tertiary-container': '#898989',
+              'on-error-container': '#93000a',
+              'inverse-on-surface': '#f0f1f2',
+              'secondary-container': '#e4e2e2',
+              'on-secondary-fixed-variant': '#464747',
+              'tertiary-fixed': '#e3e2e2',
+              'surface-bright': '#f8f9fa',
+              'on-primary': '#ffffff',
+              'on-error': '#ffffff',
+              'inverse-primary': '#c8c6c5',
+              'on-background': '#191c1d',
+              'error-container': '#ffdad6',
+              'surface-tint': '#5f5e5e',
+              'on-secondary-container': '#646464',
+              'inverse-surface': '#2e3132',
+              'primary-fixed': '#e5e2e1',
+              'surface-variant': '#e1e3e4',
+              'on-tertiary-fixed': '#1b1c1c',
+              surface: '#f8f9fa',
+              'on-surface': '#191c1d',
+              outline: '#747878',
+              'on-tertiary': '#ffffff',
+              'on-surface-variant': '#444748',
+              'on-primary-container': '#8a8989',
+              'tertiary-fixed-dim': '#c7c6c6',
+              'on-primary-fixed-variant': '#474746',
+              'on-tertiary-fixed-variant': '#464747',
+              'surface-container-high': '#e7e8e9',
+              'surface-container': '#edeeef',
+              'on-secondary-fixed': '#1b1c1c',
+              tertiary: '#0a0c0c',
+              'outline-variant': '#c4c7c7',
+              'on-primary-fixed': '#1b1c1c',
+              'tertiary-container': '#212222',
+              'surface-dim': '#d9dadb',
+              'primary-fixed-dim': '#c8c6c5',
+              secondary: '#5e5e5e',
+              primary: '#0b0c0c',
+              'surface-container-lowest': '#ffffff',
+              'surface-container-low': '#f3f4f5',
+              'secondary-fixed-dim': '#c8c6c6',
+              background: '#f8f9fa',
+              'primary-container': '#222222'
+            },
+            borderRadius: {
+              DEFAULT: '0.25rem',
+              lg: '0.5rem',
+              xl: '0.75rem',
+              full: '9999px'
+            },
+            spacing: {},
+            fontFamily: {
+              headline: ['Noto Serif'],
+              body: ['Manrope'],
+              label: ['Manrope']
+            }
           }
-        },
-      },
-    }
-  </script>
-  <style>
-    body {
-      font-family: 'Manrope', sans-serif;
-    }
+        }
+      };
+    </script>
+    <style>
+      body {
+        font-family: 'Manrope', sans-serif;
+      }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    .font-serif {
-      font-family: 'Noto Serif', serif;
-    }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      .font-serif {
+        font-family: 'Noto Serif', serif;
+      }
 
-    .material-symbols-outlined {
-      font-variation-settings: 'FILL'0, 'wght'400, 'GRAD'0, 'opsz'24;
-    }
-  </style>
-</head>
+      .material-symbols-outlined {
+        font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24;
+      }
+    </style>
+  </head>
 
-<body class="bg-background text-on-background min-h-screen flex flex-col">
-  <!-- TopAppBar -->
-  <header class="docked full-width top-0 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl bg-zinc-100 dark:bg-zinc-800 shadow-sm shadow-zinc-900/5 z-50">
-    <div class="flex justify-between items-center w-full px-8 py-6 max-w-screen-2xl mx-auto">
-      <!-- Navigation Links -->
-      <nav class="hidden md:flex items-center gap-8">
-        <a class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors font-body text-sm font-medium hover:opacity-70 transition-opacity duration-300" href="shop.html">Shop</a>
-        <a class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors font-body text-sm font-medium hover:opacity-70 transition-opacity duration-300" href="../index.html">Editorial</a>
-        <a class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors font-body text-sm font-medium hover:opacity-70 transition-opacity duration-300" href="../index.html">About</a>
-      </nav>
-      <!-- Brand Logo -->
-      <a class="font-serif text-2xl tracking-[0.2em] uppercase text-zinc-900 dark:text-zinc-100 absolute left-1/2 -translate-x-1/2" href="../index.html">
-        AURA
-      </a>
-      <!-- Trailing Icons -->
-      <div class="flex items-center gap-6">
-        <a aria-label="shopping_bag" href="cart.html" class="text-zinc-900 dark:text-zinc-100 hover:opacity-70 transition-opacity duration-300">
-          <span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+  <body class="bg-background text-on-background min-h-screen flex flex-col">
+    <!-- TopAppBar -->
+    <header
+      class="docked full-width top-0 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl bg-zinc-100 dark:bg-zinc-800 shadow-sm shadow-zinc-900/5 z-50"
+    >
+      <div class="flex justify-between items-center w-full px-8 py-6 max-w-screen-2xl mx-auto">
+        <!-- Navigation Links -->
+        <nav class="hidden md:flex items-center gap-8">
+          <a
+            class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors font-body text-sm font-medium hover:opacity-70 transition-opacity duration-300"
+            href="shop.html"
+            >Shop</a
+          >
+          <a
+            class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors font-body text-sm font-medium hover:opacity-70 transition-opacity duration-300"
+            href="../index.html"
+            >Editorial</a
+          >
+          <a
+            class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors font-body text-sm font-medium hover:opacity-70 transition-opacity duration-300"
+            href="../index.html"
+            >About</a
+          >
+        </nav>
+        <!-- Brand Logo -->
+        <a
+          class="font-serif text-2xl tracking-[0.2em] uppercase text-zinc-900 dark:text-zinc-100 absolute left-1/2 -translate-x-1/2"
+          href="../index.html"
+        >
+          AURA
         </a>
-        <a aria-label="person" href="user-profile.html" class="text-zinc-900 dark:text-white border-b border-zinc-900 dark:border-white pb-1 hover:opacity-70 transition-opacity duration-300 Active: scale-95 transition-transform duration-200">
-          <span class="material-symbols-outlined" data-icon="person">person</span>
-        </a>
+        <!-- Trailing Icons -->
+        <div class="flex items-center gap-6">
+          <a
+            aria-label="shopping_bag"
+            href="cart.html"
+            class="text-zinc-900 dark:text-zinc-100 hover:opacity-70 transition-opacity duration-300"
+          >
+            <span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+          </a>
+          <a
+            aria-label="person"
+            href="user-profile.html"
+            class="text-zinc-900 dark:text-white border-b border-zinc-900 dark:border-white pb-1 hover:opacity-70 transition-opacity duration-300 Active: scale-95 transition-transform duration-200"
+          >
+            <span class="material-symbols-outlined" data-icon="person">person</span>
+          </a>
+        </div>
       </div>
+    </header>
+    <div class="flex flex-1 max-w-screen-2xl mx-auto w-full pt-24 pb-12 px-4 md:px-8">
+      <!-- SideNavBar -->
+      <aside
+        class="hidden md:flex h-[calc(100vh-8rem)] w-72 rounded-r-2xl bg-zinc-50 dark:bg-zinc-950 bg-zinc-100 dark:bg-zinc-900 flat no shadows sticky top-28 mr-12 flex flex-col p-6 gap-2"
+      >
+        <!-- Header/Profile Snippet -->
+        <div class="flex items-center gap-4 mb-8 pb-8 border-b border-outline-variant/15">
+          <div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container-high shrink-0">
+            <img
+              alt="User profile photo"
+              class="w-full h-full object-cover grayscale"
+              data-alt="close up black and white portrait of a woman with elegant minimal makeup"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCt1y3yPWAv_dKx6-eE0w3Z_HwgbzH04HDFCeV59Gu_lPjanu2Qjjwpzs17sjqlbAPlKFcujq4sIP_0ycCMifEgcHjRZaGXOm7Xm710Y9xypHS5vurm-tztCljb8LHniahexMqUjBeD3ZclBR2kCqV5k85-bvZpdtCsRiiSaX_Q8c1HRfvBWoiKj3edye6v-vVAZPmTpyNL5F7NRjnJvzCXcBxrKSn1yPjloTX1AFlUn_XYF6MyjNZaS4WXMUipTDHXDBU52OgRcco"
+            />
+          </div>
+          <div>
+            <h2 class="font-serif text-lg tracking-widest text-zinc-900 font-medium">
+              Julianne V.
+            </h2>
+            <p
+              class="font-sans text-sm uppercase tracking-widest text-zinc-600 dark:text-zinc-400 mt-1 text-xs"
+            >
+              Gold Member
+            </p>
+          </div>
+        </div>
+        <!-- Navigation Links -->
+        <nav class="flex flex-col gap-2">
+          <a
+            class="flex items-center gap-4 bg-zinc-200 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 rounded-lg px-4 py-3 font-semibold font-sans text-sm uppercase tracking-widest text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all Active: translate-x-1 transition-transform"
+            href="user-profile.html"
+          >
+            <span class="material-symbols-outlined" data-icon="person_outline">person_outline</span>
+            Profile Settings
+          </a>
+          <a
+            class="flex items-center gap-4 text-zinc-500 dark:text-zinc-400 px-4 py-3 hover:bg-zinc-100 dark:hover:bg-zinc-900 rounded-lg font-sans text-sm uppercase tracking-widest text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all"
+            href="user-security.html"
+          >
+            <span class="material-symbols-outlined" data-icon="shield">shield</span>
+            Security
+          </a>
+          <a
+            class="flex items-center gap-4 text-zinc-500 dark:text-zinc-400 px-4 py-3 hover:bg-zinc-100 dark:hover:bg-zinc-900 rounded-lg font-sans text-sm uppercase tracking-widest text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all"
+            href="user-address.html"
+          >
+            <span class="material-symbols-outlined" data-icon="location_on">location_on</span>
+            Addresses
+          </a>
+          <a
+            class="flex items-center gap-4 text-zinc-500 dark:text-zinc-400 px-4 py-3 hover:bg-zinc-100 dark:hover:bg-zinc-900 rounded-lg font-sans text-sm uppercase tracking-widest text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all"
+            href="user-orders.html"
+          >
+            <span class="material-symbols-outlined" data-icon="history">history</span>
+            Order History
+          </a>
+        </nav>
+      </aside>
+      <!-- Main Content Area -->
+      <main class="flex-1 max-w-4xl">
+        <div class="mb-12">
+          <h1 class="font-headline text-4xl text-on-background mb-4">Profile Settings</h1>
+          <p class="font-body text-on-surface-variant text-sm">
+            Manage your personal details and account preferences.
+          </p>
+        </div>
+        <!-- Bento Grid Layout -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Profile Information Card -->
+          <div class="col-span-1 md:col-span-2 bg-surface-container-lowest rounded-xl p-8">
+            <h2 class="font-headline text-2xl text-on-surface mb-6">Personal Information</h2>
+            <form class="space-y-6 max-w-2xl">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex flex-col">
+                  <label
+                    class="font-label text-xs uppercase tracking-[0.1em] text-on-surface-variant mb-2"
+                    for="firstName"
+                    >First Name</label
+                  >
+                  <input
+                    class="bg-transparent border-0 border-b border-outline-variant/30 focus:border-primary focus:ring-0 px-0 py-2 font-body text-on-surface transition-colors duration-200"
+                    id="firstName"
+                    type="text"
+                    value="Julianne"
+                  />
+                </div>
+                <div class="flex flex-col">
+                  <label
+                    class="font-label text-xs uppercase tracking-[0.1em] text-on-surface-variant mb-2"
+                    for="lastName"
+                    >Last Name</label
+                  >
+                  <input
+                    class="bg-transparent border-0 border-b border-outline-variant/30 focus:border-primary focus:ring-0 px-0 py-2 font-body text-on-surface transition-colors duration-200"
+                    id="lastName"
+                    type="text"
+                    value="V."
+                  />
+                </div>
+              </div>
+              <div class="flex flex-col">
+                <label
+                  class="font-label text-xs uppercase tracking-[0.1em] text-on-surface-variant mb-2"
+                  for="email"
+                  >Email Address</label
+                >
+                <input
+                  class="bg-transparent border-0 border-b border-outline-variant/30 focus:border-primary focus:ring-0 px-0 py-2 font-body text-on-surface transition-colors duration-200"
+                  id="email"
+                  type="email"
+                  value="julianne.v@example.com"
+                />
+              </div>
+              <div class="pt-4">
+                <button
+                  class="bg-primary text-on-primary font-label text-xs uppercase tracking-[0.1em] py-3 px-8 rounded hover:bg-secondary transition-colors duration-300"
+                  type="button"
+                >
+                  Save Changes
+                </button>
+              </div>
+            </form>
+          </div>
+          <!-- Preferences Card -->
+          <div class="bg-surface-container-lowest rounded-xl p-8">
+            <h2 class="font-headline text-2xl text-on-surface mb-6">Preferences</h2>
+            <div class="space-y-6">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h3 class="font-body font-medium text-on-surface">Newsletter</h3>
+                  <p class="font-body text-xs text-on-surface-variant mt-1">
+                    Receive updates on new collections.
+                  </p>
+                </div>
+                <button
+                  class="w-11 h-6 bg-primary rounded-full relative flex items-center px-1"
+                  type="button"
+                >
+                  <div class="w-4 h-4 bg-white rounded-full absolute right-1"></div>
+                </button>
+              </div>
+              <div class="flex items-center justify-between">
+                <div>
+                  <h3 class="font-body font-medium text-on-surface">SMS Alerts</h3>
+                  <p class="font-body text-xs text-on-surface-variant mt-1">
+                    Delivery notifications via text.
+                  </p>
+                </div>
+                <button
+                  class="w-11 h-6 bg-surface-container-high rounded-full relative flex items-center px-1"
+                  type="button"
+                >
+                  <div class="w-4 h-4 bg-outline rounded-full absolute left-1"></div>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Editorial/Scent Profile Card (Visual Flair) -->
+          <div
+            class="bg-surface-container-lowest rounded-xl overflow-hidden relative min-h-[300px] flex items-end p-8"
+          >
+            <!-- Image Background -->
+            <div class="absolute inset-0 z-0">
+              <img
+                alt="Scent Profile Background"
+                class="w-full h-full object-cover"
+                data-alt="abstract close up of rippling dark water with soft silver highlights"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfGAvq97--dOvamEb2uNwCvvFCIeHIe63ZOTQu8GyCJ1lRCL1eHHb-rTFvwWe_BgOTQnxKLVxqYYupMmFNy8z2AtIJaJsZcXIQjwOxqWU--GVIfO3pni_USEfsv1MSPg9fYpEsPN7n6NjaxqzcDW97rqv0w0vRvZyPkugFCt9fr1_nwujlr1pIFbQdPq3-XXW7FDzJ7u2oh47WlnKsxTl7HVdTmORGhj8ylM6_dIIRzBTbmIWVtT848aXz6ipX8alJ42wOPXiLHQY"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent"></div>
+            </div>
+            <div class="relative z-10 w-full">
+              <h2 class="font-headline text-2xl text-on-primary mb-4">Your Signature Notes</h2>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="bg-secondary-container/90 backdrop-blur text-on-secondary-container font-label text-xs uppercase tracking-widest px-3 py-1.5 rounded-full"
+                  >Oud</span
+                >
+                <span
+                  class="bg-secondary-container/90 backdrop-blur text-on-secondary-container font-label text-xs uppercase tracking-widest px-3 py-1.5 rounded-full"
+                  >Bergamot</span
+                >
+                <span
+                  class="bg-secondary-container/90 backdrop-blur text-on-secondary-container font-label text-xs uppercase tracking-widest px-3 py-1.5 rounded-full"
+                  >Sandalwood</span
+                >
+              </div>
+              <button
+                class="mt-6 text-on-primary font-label text-xs uppercase tracking-widest flex items-center gap-2 hover:opacity-70 transition-opacity"
+                type="button"
+              >
+                Refine Profile <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
-  </header>
-  <div class="flex flex-1 max-w-screen-2xl mx-auto w-full pt-24 pb-12 px-4 md:px-8">
-    <!-- SideNavBar -->
-    <aside class="hidden md:flex h-[calc(100vh-8rem)] w-72 rounded-r-2xl bg-zinc-50 dark:bg-zinc-950 bg-zinc-100 dark:bg-zinc-900 flat no shadows sticky top-28 mr-12 flex flex-col p-6 gap-2">
-      <!-- Header/Profile Snippet -->
-      <div class="flex items-center gap-4 mb-8 pb-8 border-b border-outline-variant/15">
-        <div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container-high shrink-0">
-          <img alt="User profile photo" class="w-full h-full object-cover grayscale" data-alt="close up black and white portrait of a woman with elegant minimal makeup" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCt1y3yPWAv_dKx6-eE0w3Z_HwgbzH04HDFCeV59Gu_lPjanu2Qjjwpzs17sjqlbAPlKFcujq4sIP_0ycCMifEgcHjRZaGXOm7Xm710Y9xypHS5vurm-tztCljb8LHniahexMqUjBeD3ZclBR2kCqV5k85-bvZpdtCsRiiSaX_Q8c1HRfvBWoiKj3edye6v-vVAZPmTpyNL5F7NRjnJvzCXcBxrKSn1yPjloTX1AFlUn_XYF6MyjNZaS4WXMUipTDHXDBU52OgRcco" />
-        </div>
-        <div>
-          <h2 class="font-serif text-lg tracking-widest text-zinc-900 font-medium">Julianne V.</h2>
-          <p class="font-sans text-sm uppercase tracking-widest text-zinc-600 dark:text-zinc-400 mt-1 text-xs">Gold Member</p>
-        </div>
-      </div>
-      <!-- Navigation Links -->
-      <nav class="flex flex-col gap-2">
-        <a class="flex items-center gap-4 bg-zinc-200 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 rounded-lg px-4 py-3 font-semibold font-sans text-sm uppercase tracking-widest text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all Active: translate-x-1 transition-transform" href="user-profile.html">
-          <span class="material-symbols-outlined" data-icon="person_outline">person_outline</span>
-          Profile Settings
-        </a>
-        <a class="flex items-center gap-4 text-zinc-500 dark:text-zinc-400 px-4 py-3 hover:bg-zinc-100 dark:hover:bg-zinc-900 rounded-lg font-sans text-sm uppercase tracking-widest text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all" href="user-security.html">
-          <span class="material-symbols-outlined" data-icon="shield">shield</span>
-          Security
-        </a>
-        <a class="flex items-center gap-4 text-zinc-500 dark:text-zinc-400 px-4 py-3 hover:bg-zinc-100 dark:hover:bg-zinc-900 rounded-lg font-sans text-sm uppercase tracking-widest text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all" href="user-address.html">
-          <span class="material-symbols-outlined" data-icon="location_on">location_on</span>
-          Addresses
-        </a>
-        <a class="flex items-center gap-4 text-zinc-500 dark:text-zinc-400 px-4 py-3 hover:bg-zinc-100 dark:hover:bg-zinc-900 rounded-lg font-sans text-sm uppercase tracking-widest text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all" href="user-orders.html">
-          <span class="material-symbols-outlined" data-icon="history">history</span>
-          Order History
-        </a>
-      </nav>
-    </aside>
-    <!-- Main Content Area -->
-    <main class="flex-1 max-w-4xl">
-      <div class="mb-12">
-        <h1 class="font-headline text-4xl text-on-background mb-4">Profile Settings</h1>
-        <p class="font-body text-on-surface-variant text-sm">Manage your personal details and account preferences.</p>
-      </div>
-      <!-- Bento Grid Layout -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <!-- Profile Information Card -->
-        <div class="col-span-1 md:col-span-2 bg-surface-container-lowest rounded-xl p-8">
-          <h2 class="font-headline text-2xl text-on-surface mb-6">Personal Information</h2>
-          <form class="space-y-6 max-w-2xl">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div class="flex flex-col">
-                <label class="font-label text-xs uppercase tracking-[0.1em] text-on-surface-variant mb-2" for="firstName">First Name</label>
-                <input class="bg-transparent border-0 border-b border-outline-variant/30 focus:border-primary focus:ring-0 px-0 py-2 font-body text-on-surface transition-colors duration-200" id="firstName" type="text" value="Julianne" />
-              </div>
-              <div class="flex flex-col">
-                <label class="font-label text-xs uppercase tracking-[0.1em] text-on-surface-variant mb-2" for="lastName">Last Name</label>
-                <input class="bg-transparent border-0 border-b border-outline-variant/30 focus:border-primary focus:ring-0 px-0 py-2 font-body text-on-surface transition-colors duration-200" id="lastName" type="text" value="V." />
-              </div>
-            </div>
-            <div class="flex flex-col">
-              <label class="font-label text-xs uppercase tracking-[0.1em] text-on-surface-variant mb-2" for="email">Email Address</label>
-              <input class="bg-transparent border-0 border-b border-outline-variant/30 focus:border-primary focus:ring-0 px-0 py-2 font-body text-on-surface transition-colors duration-200" id="email" type="email" value="julianne.v@example.com" />
-            </div>
-            <div class="pt-4">
-              <button class="bg-primary text-on-primary font-label text-xs uppercase tracking-[0.1em] py-3 px-8 rounded hover:bg-secondary transition-colors duration-300" type="button">Save Changes</button>
-            </div>
-          </form>
-        </div>
-        <!-- Preferences Card -->
-        <div class="bg-surface-container-lowest rounded-xl p-8">
-          <h2 class="font-headline text-2xl text-on-surface mb-6">Preferences</h2>
-          <div class="space-y-6">
-            <div class="flex items-center justify-between">
-              <div>
-                <h3 class="font-body font-medium text-on-surface">Newsletter</h3>
-                <p class="font-body text-xs text-on-surface-variant mt-1">Receive updates on new collections.</p>
-              </div>
-              <button class="w-11 h-6 bg-primary rounded-full relative flex items-center px-1" type="button">
-                <div class="w-4 h-4 bg-white rounded-full absolute right-1"></div>
-              </button>
-            </div>
-            <div class="flex items-center justify-between">
-              <div>
-                <h3 class="font-body font-medium text-on-surface">SMS Alerts</h3>
-                <p class="font-body text-xs text-on-surface-variant mt-1">Delivery notifications via text.</p>
-              </div>
-              <button class="w-11 h-6 bg-surface-container-high rounded-full relative flex items-center px-1" type="button">
-                <div class="w-4 h-4 bg-outline rounded-full absolute left-1"></div>
-              </button>
-            </div>
-          </div>
-        </div>
-        <!-- Editorial/Scent Profile Card (Visual Flair) -->
-        <div class="bg-surface-container-lowest rounded-xl overflow-hidden relative min-h-[300px] flex items-end p-8">
-          <!-- Image Background -->
-          <div class="absolute inset-0 z-0">
-            <img alt="Scent Profile Background" class="w-full h-full object-cover" data-alt="abstract close up of rippling dark water with soft silver highlights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfGAvq97--dOvamEb2uNwCvvFCIeHIe63ZOTQu8GyCJ1lRCL1eHHb-rTFvwWe_BgOTQnxKLVxqYYupMmFNy8z2AtIJaJsZcXIQjwOxqWU--GVIfO3pni_USEfsv1MSPg9fYpEsPN7n6NjaxqzcDW97rqv0w0vRvZyPkugFCt9fr1_nwujlr1pIFbQdPq3-XXW7FDzJ7u2oh47WlnKsxTl7HVdTmORGhj8ylM6_dIIRzBTbmIWVtT848aXz6ipX8alJ42wOPXiLHQY" />
-            <div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent"></div>
-          </div>
-          <div class="relative z-10 w-full">
-            <h2 class="font-headline text-2xl text-on-primary mb-4">Your Signature Notes</h2>
-            <div class="flex flex-wrap gap-2">
-              <span class="bg-secondary-container/90 backdrop-blur text-on-secondary-container font-label text-xs uppercase tracking-widest px-3 py-1.5 rounded-full">Oud</span>
-              <span class="bg-secondary-container/90 backdrop-blur text-on-secondary-container font-label text-xs uppercase tracking-widest px-3 py-1.5 rounded-full">Bergamot</span>
-              <span class="bg-secondary-container/90 backdrop-blur text-on-secondary-container font-label text-xs uppercase tracking-widest px-3 py-1.5 rounded-full">Sandalwood</span>
-            </div>
-            <button class="mt-6 text-on-primary font-label text-xs uppercase tracking-widest flex items-center gap-2 hover:opacity-70 transition-opacity" type="button">
-              Refine Profile <span class="material-symbols-outlined text-sm">arrow_forward</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </main>
-  </div>
-</body>
-
+  </body>
 </html>

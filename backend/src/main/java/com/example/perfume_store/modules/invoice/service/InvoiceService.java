@@ -19,11 +19,13 @@ import com.example.perfume_store.modules.invoice.entity.InvoiceSpecification;
 import com.example.perfume_store.modules.invoice.enums.DeliveryStatus;
 import com.example.perfume_store.modules.invoice.enums.PaymentMethod;
 import com.example.perfume_store.modules.invoice.enums.PaymentStatus;
+import com.example.perfume_store.modules.invoice.event.InvoiceCreatedEvent;
 import com.example.perfume_store.modules.invoice.mapper.InvoiceMapper;
 import com.example.perfume_store.modules.payment.service.VNPayService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -50,6 +52,7 @@ public class InvoiceService {
     private final InvoiceMapper invoiceMapper;
     private final VNPayService vnPayService;
     private final HttpServletRequest httpServletRequest;
+    private final ApplicationEventPublisher eventPublisher;
 
     // Getter for entities
     private Invoice getInvoiceByIdEntity(int id) {
@@ -156,6 +159,12 @@ public class InvoiceService {
 
         savedInvoice.setInvoiceDetails(detailsList);
         InvoiceDetailsResponseDTO responseDTO = invoiceMapper.toInvoiceDetailsResponse(savedInvoice);
+
+        // Publish event for email notification ONLY if payment method is Cash (COD)
+        // For Transfer, we will send email after successful payment callback
+        if (savedInvoice.getPaymentMethod() == PaymentMethod.Cash) {
+            eventPublisher.publishEvent(new InvoiceCreatedEvent(this, savedInvoice));
+        }
 
         // Generate checkout URL if payment method is Transfer
         if (savedInvoice.getPaymentMethod() == PaymentMethod.Transfer) {

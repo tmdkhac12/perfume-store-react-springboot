@@ -27,12 +27,16 @@ import com.example.perfume_store.modules.invoice.enums.PaymentMethod;
 import com.example.perfume_store.modules.invoice.mapper.InvoiceMapper;
 import com.example.perfume_store.domain.invoice_details.InvoiceDetailsRepository;
 import com.example.perfume_store.domain.invoice.InvoiceRepository;
+import com.example.perfume_store.modules.invoice.event.InvoiceCreatedEvent;
+import com.example.perfume_store.modules.payment.service.VNPayService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -59,6 +63,12 @@ class InvoiceServiceTest {
     private UserRepository userRepository;
     @Mock
     private InvoiceMapper invoiceMapper;
+    @Mock
+    private VNPayService vnPayService;
+    @Mock
+    private HttpServletRequest httpServletRequest;
+    @Mock
+    private ApplicationEventPublisher eventPublisher;
 
     @InjectMocks
     private InvoiceService invoiceService;
@@ -345,6 +355,7 @@ class InvoiceServiceTest {
             return true;
         }));
         verify(invoiceDetailsRepository).saveAll(anyList());
+        verify(eventPublisher).publishEvent(any(InvoiceCreatedEvent.class));
     }
 
     @Test

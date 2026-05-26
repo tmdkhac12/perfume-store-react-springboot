@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+</head>
+<body style="background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; -webkit-font-smoothing: antialiased;">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f8fafc; padding: 40px 0;">
+        <tr>
+            <td align="center">
+                <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);">
+                    <!-- Header -->
+                    <tr>
+                        <td align="center" style="background-color: #4f46e5; padding: 48px 32px;">
+                            <h1 style="color: #ffffff; font-size: 30px; font-weight: 700; margin: 0; letter-spacing: -0.025em;">Thank you for your purchase!</h1>
+                            <p style="color: #e0e7ff; font-size: 18px; margin: 8px 0 0 0;">Hi <span style="font-weight: 600;" th:text="${invoice.receiverName}"></span>, we've received your order and it's being processed.</p>
+                        </td>
+                    </tr>
+
+                    <!-- Content Body -->
+                    <tr>
+                        <td style="padding: 32px;">
+                            <!-- Info Grid -->
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-bottom: 1px solid #f1f5f9; padding-bottom: 32px;">
+                                <tr>
+                                    <td width="50%" valign="top" style="padding-right: 16px;">
+                                        <h3 style="color: #94a3b8; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 8px 0;">Order Details</h3>
+                                        <p style="font-size: 14px; margin: 0 0 4px 0; color: #1e293b;"><strong>Order ID:</strong> #<span th:text="${invoice.id}"></span></p>
+                                        <p style="font-size: 14px; margin: 0 0 4px 0; color: #1e293b;"><strong>Order Date:</strong> <span th:text="${#temporals.format(invoice.createdAt, 'MMM dd, yyyy HH:mm')}"></span></p>
+                                        <p style="font-size: 14px; margin: 0; color: #1e293b;"><strong>Payment Method:</strong> <span style="text-transform: capitalize;" th:text="${invoice.paymentMethod}"></span></p>
+                                    </td>
+                                    <td width="50%" valign="top">
+                                        <h3 style="color: #94a3b8; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 8px 0;">Shipping Address</h3>
+                                        <p style="font-size: 14px; line-height: 1.5; color: #475569; margin: 0 0 4px 0;" th:text="${invoice.shippingAddress}"></p>
+                                        <p style="font-size: 14px; margin: 0; color: #1e293b;"><strong>Phone:</strong> <span th:text="${invoice.phoneNumber}"></span></p>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Items Table -->
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 32px;">
+                                <thead>
+                                    <tr>
+                                        <th align="left" style="color: #94a3b8; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding-bottom: 16px; border-bottom: 1px solid #f1f5f9;">Product</th>
+                                        <th align="center" style="color: #94a3b8; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding-bottom: 16px; border-bottom: 1px solid #f1f5f9;">Qty</th>
+                                        <th align="right" style="color: #94a3b8; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding-bottom: 16px; border-bottom: 1px solid #f1f5f9;">Price</th>
+                                        <th align="right" style="color: #4f46e5; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding-bottom: 16px; border-bottom: 1px solid #f1f5f9;">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="item : ${invoice.invoiceDetails}">
+                                        <td style="padding: 16px 0; border-bottom: 1px solid #f8fafc;">
+                                            <div style="font-weight: 600; color: #1e293b; font-size: 14px;" th:text="${item.perfumeName}"></div>
+                                            <div style="color: #64748b; font-size: 12px;" th:text="${item.volumeName} + 'ml'"></div>
+                                        </td>
+                                        <td align="center" style="padding: 16px 0; color: #475569; font-size: 14px; border-bottom: 1px solid #f8fafc;" th:text="${item.quantity}"></td>
+                                        <td align="right" style="padding: 16px 0; color: #475569; font-size: 14px; border-bottom: 1px solid #f8fafc;" th:text="'$' + ${#numbers.formatDecimal(item.buyPrice, 1, 'COMMA', 2, 'POINT')}"></td>
+                                        <td align="right" style="padding: 16px 0; font-weight: 700; color: #1e293b; font-size: 14px; border-bottom: 1px solid #f8fafc;" th:text="'$' + ${#numbers.formatDecimal(item.buyPrice * item.quantity, 1, 'COMMA', 2, 'POINT')}"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <!-- Total -->
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 32px; border-top: 2px solid #f1f5f9; padding-top: 32px;">
+                                <tr>
+                                    <td align="right">
+                                        <table border="0" cellpadding="0" cellspacing="0" width="200">
+                                            <tr>
+                                                <td style="color: #64748b; font-weight: 500; font-size: 14px; padding-bottom: 12px;">Subtotal</td>
+                                                <td align="right" style="color: #1e293b; font-weight: 600; font-size: 14px; padding-bottom: 12px;" th:text="'$' + ${#numbers.formatDecimal(invoice.total, 1, 'COMMA', 2, 'POINT')}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="color: #0f172a; font-weight: 700; font-size: 18px;">Total</td>
+                                                <td align="right" style="color: #4f46e5; font-weight: 900; font-size: 18px;" th:text="'$' + ${#numbers.formatDecimal(invoice.total, 1, 'COMMA', 2, 'POINT')}"></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td align="center" style="background-color: #f8fafc; padding: 40px 32px; border-top: 1px solid #e2e8f0;">
+                            <p style="color: #64748b; font-size: 14px; margin: 0 0 24px 0;">If you have any questions, please contact our support team.</p>
+                            <table border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td><a href="#" style="color: #4f46e5; font-weight: 600; font-size: 14px; text-decoration: none;">Support Center</a></td>
+                                    <td style="padding: 0 16px; color: #cbd5e1;">|</td>
+                                    <td><a href="#" style="color: #4f46e5; font-weight: 600; font-size: 14px; text-decoration: none;">Terms of Service</a></td>
+                                </tr>
+                            </table>
+                            <p style="color: #94a3b8; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 32px;">&copy; 2024 Perfume Store. All rights reserved.</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

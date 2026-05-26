@@ -105,7 +105,8 @@ public class VNPayController {
                     return response;
                 }
 
-                Invoice invoice = invoiceRepository.findById(invoiceId).orElse(null);
+                // Fetch with associations to avoid LazyInitializationException in Async thread
+                Invoice invoice = invoiceRepository.findByIdWithUserAndDetails(invoiceId).orElse(null);
 
                 if (invoice != null) {
                     // Check if amount is correct (amount in VNPay is USD * exchangeRate * 100)

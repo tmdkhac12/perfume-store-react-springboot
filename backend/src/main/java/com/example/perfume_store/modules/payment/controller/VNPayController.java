@@ -1,14 +1,15 @@
 package com.example.perfume_store.modules.payment.controller;
 
 import com.example.perfume_store.configs.security.SecurityContextGetter;
-import com.example.perfume_store.common.response.ApiResponse;
 import com.example.perfume_store.common.utils.ApiResponseFactory;
 import com.example.perfume_store.domain.invoice.Invoice;
 import com.example.perfume_store.domain.invoice.InvoiceRepository;
 import com.example.perfume_store.modules.invoice.enums.PaymentStatus;
+import com.example.perfume_store.modules.invoice.event.InvoiceCreatedEvent;
 import com.example.perfume_store.modules.payment.service.VNPayService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +26,7 @@ public class VNPayController {
     private final VNPayService vnPayService;
     private final InvoiceRepository invoiceRepository;
     private final SecurityContextGetter securityContextGetter;
+    private final ApplicationEventPublisher eventPublisher;
 
     @GetMapping("/repay/{invoiceId}")
     public ResponseEntity<?> repay(@PathVariable int invoiceId, HttpServletRequest request) throws UnsupportedEncodingException {
@@ -66,14 +68,8 @@ public class VNPayController {
         result.put("responseCode", vnp_ResponseCode);
 
         if (isValidSignature) {
-            // If customer cancelled (ResponseCode 24), delete the invoice to keep history clean
+            // Browser return only shows status to user. DB updates (including deletion on cancel) are handled by IPN.
             if ("24".equals(vnp_ResponseCode)) {
-                try {
-                    int invoiceId = Integer.parseInt(invoiceIdStr);
-                    invoiceRepository.deleteById(invoiceId);
-                } catch (Exception e) {
-                    // Log error or ignore
-                }
                 result.put("message", "Payment Cancelled");
                 return ApiResponseFactory.error(org.springframework.http.HttpStatus.BAD_REQUEST, "Payment cancelled by user", request);
             }
@@ -100,6 +96,7 @@ public class VNPayController {
                 String responseCode = params.get("vnp_ResponseCode");
                 int invoiceId = Integer.parseInt(params.get("vnp_TxnRef"));
 
+                // IPN is the source of truth for DB mutations
                 // If customer cancelled, delete the invoice immediately
                 if ("24".equals(responseCode)) {
                     invoiceRepository.deleteById(invoiceId);
@@ -123,6 +120,8 @@ public class VNPayController {
                         if (invoice.getPaymentStatus() != PaymentStatus.Paid) {
                             if ("00".equals(responseCode)) {
                                 invoice.setPaymentStatus(PaymentStatus.Paid);
+                                // TRIGGER MAIL HERE ON SUCCESSFUL PAYMENT
+                                eventPublisher.publishEvent(new InvoiceCreatedEvent(this, invoice));
                             } else {
                                 invoice.setPaymentStatus(PaymentStatus.Failed);
                             }
